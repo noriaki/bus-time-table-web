@@ -4,14 +4,15 @@
   "description": "東京都中央区のマンション「ドゥ・トゥール(Deux Tours)」と新橋駅を結ぶシャトルバスの時刻表を手軽にチェックできるアプリです",
   "private": true,
   "engines": {
-    "node": "6.9.4"
+    "node": "7.6.0"
   },
   "main": "pages/index.js",
   "scripts": {
     "test": "jest --notify --watch",
     "dev": "next",
     "build": "next build",
-    "start": "next start"
+    "start": "next start -p $PORT",
+    "heroku-postbuild": "heroku-nextjs-build"
   },
   "repository": "https://github.com/noriaki/bus-time-table",
   "author": {
@@ -21,6 +22,7 @@
   },
   "license": "MIT",
   "dependencies": {
+    "@mars/heroku-nextjs-build": "^2.0.0",
     "material-ui": "^0.17.1",
     "moment": "^2.18.1",
     "next": "^2.0.1",
@@ -43,5 +45,8 @@
     "eslint-plugin-react": "^6.10.3",
     "jest": "^19.0.2",
     "react-addons-test-utils": "^15.4.2"
-  }
+  },
+  "cacheDirectories": [
+    "nextjs/node_modules"
+  ]
 }
