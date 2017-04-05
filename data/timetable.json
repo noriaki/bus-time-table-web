@@ -1,0 +1,109 @@
+{
+  "version": 20160303,
+  "keys": ["homeToStation", "stationToHome"],
+  "activeDays": [1, 2, 3, 4, 5],
+  "homeToStation": [
+    {
+      "hour": 6,
+      "minutes": [0, 30, 50]
+    },
+    {
+      "hour": 7,
+      "minutes": [0, 10, 20, 40, 50]
+    },
+    {
+      "hour": 8,
+      "minutes": [0, 10, 30, 45, 55]
+    },
+    {
+      "hour": 9,
+      "minutes": [5, 40]
+    },
+    {
+      "hour": 18,
+      "minutes": [30, 40, 50]
+    },
+    {
+      "hour": 19,
+      "minutes": [5, 25, 35, 45]
+    },
+    {
+      "hour": 20,
+      "minutes": [0, 15, 30, 35, 50]
+    },
+    {
+      "hour": 21,
+      "minutes": [5, 25, 40, 50]
+    },
+    {
+      "hour": 22,
+      "minutes": [5, 25]
+    },
+    {
+      "hour": 23,
+      "minutes": [10, 20, 50]
+    },
+    {
+      "hour": 24,
+      "minutes": [20, 40]
+    },
+    {
+      "hour": 25,
+      "minutes": [0]
+    }
+  ],
+  "stationToHome": [
+    {
+      "hour": 6,
+      "minutes": [20, 50]
+    },
+    {
+      "hour": 7,
+      "minutes": [10, 20, 30, 40]
+    },
+    {
+      "hour": 8,
+      "minutes": [0, 15, 25, 35, 55]
+    },
+    {
+      "hour": 9,
+      "minutes": [10, 20, 30]
+    },
+    {
+      "hour": 10,
+      "minutes": [5]
+    },
+    {
+      "hour": 18,
+      "minutes": [0, 10, 20, 35, 55]
+    },
+    {
+      "hour": 19,
+      "minutes": [5, 15, 30, 45]
+    },
+    {
+      "hour": 20,
+      "minutes": [0, 5, 20, 35, 55]
+    },
+    {
+      "hour": 21,
+      "minutes": [10, 30, 45]
+    },
+    {
+      "hour": 22,
+      "minutes": [5, 50]
+    },
+    {
+      "hour": 23,
+      "minutes": [0, 30]
+    },
+    {
+      "hour": 24,
+      "minutes": [0, 20, 40]
+    },
+    {
+      "hour": 25,
+      "minutes": [0, 30]
+    }
+  ]
+}
