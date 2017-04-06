@@ -11,8 +11,7 @@
     "test": "jest --notify --watch",
     "dev": "next",
     "build": "next build",
-    "start": "next start -p $PORT",
-    "heroku-postbuild": "heroku-nextjs-build"
+    "start": "next start"
   },
   "repository": "https://github.com/noriaki/bus-time-table",
   "author": {
@@ -22,7 +21,6 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@mars/heroku-nextjs-build": "^2.0.0",
     "babel-preset-es2015": "^6.24.0",
     "babel-preset-stage-0": "^6.22.0",
     "material-ui": "^0.17.1",
@@ -44,9 +42,7 @@
     "eslint-plugin-jsx-a11y": "^4.0.0",
     "eslint-plugin-react": "^6.10.3",
     "jest": "^19.0.2",
+    "now": "^4.10.3",
     "react-addons-test-utils": "^15.4.2"
-  },
-  "cacheDirectories": [
-    "nextjs/node_modules"
-  ]
+  }
 }
