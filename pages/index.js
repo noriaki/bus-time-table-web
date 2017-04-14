@@ -51,7 +51,9 @@ export default () => (
             </section>
           </Tab>
         </Tabs>
-        <UpdateDate date={timeTableData.version} />
+        <footer style={{ position: 'fixed', bottom: 0, width: '100%' }}>
+          <UpdateDate date={timeTableData.version} />
+        </footer>
       </article>
     </div>
   </MuiThemeProvider>
