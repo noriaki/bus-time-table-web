@@ -17,6 +17,7 @@ import timeTableData from '../data/timetable.json';
 import TimeTable from '../components/TimeTable';
 import UpdateDate from '../components/UpdateDate';
 import BoardingTimer from '../components/BoardingTimer';
+import AddToHomescreen from '../components/AddToHomescreen';
 
 // themes
 import themeOptions from '../themes/custom';
@@ -53,6 +54,7 @@ export default () => (
         </Tabs>
         <footer style={{ position: 'fixed', bottom: 0, width: '100%' }}>
           <UpdateDate date={timeTableData.version} />
+          <AddToHomescreen />
         </footer>
       </article>
     </div>
