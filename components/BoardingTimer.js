@@ -31,5 +31,6 @@ export default class BoardingTimer extends Component {
 
 const buildNextState = (timeTableData, currentTime = moment()) => {
   const nextTime = findNextTime(timeTableData, currentTime);
-  return { nextTime, nextRemaining: nextTime.diff(currentTime) };
+  const nextRemaining = nextTime ? nextTime.diff(currentTime) : null;
+  return { nextTime, nextRemaining };
 };

@@ -2,15 +2,22 @@ import React from 'react';
 import moment from 'moment';
 
 const RemainingClock = ({ remaining }) => {
-  const m = moment.utc(remaining);
-  const haveHour = m.valueOf() >= 60 * 60 * 1000;
+  if (remaining != null) {
+    const m = moment.utc(remaining);
+    const haveHour = m.valueOf() >= 60 * 60 * 1000;
+    return (
+      <div style={styles.container}>
+        <span>次のバス発車まで</span>
+        {haveHour ? <Hour m={m} /> : null}
+        {haveHour ? <Suffix str="時間" /> : null}
+        <Minute m={m} /><Suffix str="分" />
+        <Second m={m} /><Suffix str="秒" />
+      </div>
+    );
+  }
   return (
     <div style={styles.container}>
-      <span>次のバス発車まで</span>
-      {haveHour ? <Hour m={m} /> : null}
-      {haveHour ? <Suffix str="時間" /> : null}
-      <Minute m={m} /><Suffix str="分" />
-      <Second m={m} /><Suffix str="秒" />
+      本日のバスは全て終了しました
     </div>
   );
 };

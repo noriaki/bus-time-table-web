@@ -97,5 +97,26 @@ describe('timeTableDataHandler', () => {
       const subject = findNextTime(list, currentTime);
       expect(subject.isSame(expected)).toBe(true);
     });
+
+    it('the last bus is over', () => {
+      const currentTime = moment({ hour: 1, minute: 35 });
+      const subject = findNextTime(list, currentTime);
+      expect(subject).toBeUndefined();
+    });
+
+    describe('Boundary value test', () => {
+      it('timetable should switches at 4 am', () => {
+        const beforeTheBoundaryTime = moment({
+          hour: 3, minute: 59, second: 59,
+        });
+        const onTheBoundaryTime = moment({ hour: 4 });
+        const onTheBoundaryTimeExpected = list[0];
+        const onTheBoundaryTimeSubject = findNextTime(list, onTheBoundaryTime);
+        expect(findNextTime(list, beforeTheBoundaryTime)).toBeUndefined();
+        expect(
+          onTheBoundaryTimeSubject.isSame(onTheBoundaryTimeExpected)
+        ).toBe(true);
+      });
+    });
   });
 });
