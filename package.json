@@ -38,14 +38,12 @@
     "babel-preset-react": "^6.23.0",
     "babel-preset-stage-0": "^6.22.0",
     "enzyme": "^2.8.0",
-    "enzyme-to-json": "^1.5.0",
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^14.1.0",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^4.0.0",
     "eslint-plugin-react": "^6.10.3",
     "jest": "^19.0.2",
-    "now": "^4.10.3",
     "react-addons-test-utils": "^15.4.2"
   }
 }
