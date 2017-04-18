@@ -50,7 +50,9 @@ class AddToHomescreen extends Component {
 }
 
 const detectVisible = ({ standalone }) => {
-  const isTargetBrowser = ['ios'].includes(browser.name);
+  const isTargetBrowser = (
+    browser != null && ['ios'].includes(browser.name)
+  );
   return !standalone && isTargetBrowser;
 };
 
@@ -63,7 +65,7 @@ const styles = {
   },
   popover: {
     width: '90%',
-    height: 350,
+    height: '75%',
     overflowY: 'scroll',
   },
 };
