@@ -1,4 +1,5 @@
 import React from 'react';
+import NoSSR from 'react-no-ssr';
 import Head from 'next/head';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
@@ -24,7 +25,7 @@ import themeOptions from '../themes/custom';
 
 export default () => (
   <MuiThemeProvider muiTheme={getMuiTheme(themeOptions)}>
-    <div>
+    <main>
       <Head>
         <title>
           シャトルバス時刻表・発車タイマー（ドゥ・トゥール/Deux Tours）
@@ -52,12 +53,14 @@ export default () => (
             </section>
           </Tab>
         </Tabs>
-        <footer style={{ position: 'fixed', bottom: 0, width: '100%' }}>
-          <UpdateDate date={timeTableData.version} />
-          <AddToHomescreen />
-        </footer>
       </article>
-    </div>
+      <footer style={{ position: 'fixed', bottom: 0, width: '100%' }}>
+        <UpdateDate date={timeTableData.version} />
+        <NoSSR>
+          <AddToHomescreen />
+        </NoSSR>
+      </footer>
+    </main>
   </MuiThemeProvider>
 );
 
