@@ -25,7 +25,10 @@ const steps = [
 
 const AddToHomescreenDetail = () => (
   <section>
-    <h1 style={styles.sectionHeader}>3 Stepでアプリ化できます</h1>
+    <h1 style={styles.header}>
+      <img src="/static/icons/app-114x114@2x.png" alt="app-icon" style={styles.headerIcon} />
+      <span style={styles.headerText}>3 Stepでアプリ化できます</span>
+    </h1>
     <List>{steps.map(buildListItem)}</List>
   </section>
 
@@ -44,13 +47,25 @@ const buildListItem = ({ icon, text }, i) => (
 );
 
 const styles = {
-  sectionHeader: {
+  header: {
+    display: 'flex',
+    alignItems: 'center',
     borderBottom: '1px solid #aaa',
     fontSize: '1em',
-    paddingBottom: '0.2em',
+    paddingBottom: '0.1em',
     marginBottom: 0,
     marginLeft: '1em',
     marginRight: '1em',
+  },
+  headerIcon: {
+    display: 'inline-flex',
+    height: '1.8em',
+    width: '1.8em',
+    borderRadius: '0.4em',
+    marginRight: '0.4em',
+  },
+  headerText: {
+    display: 'inline-flex',
   },
 };
 
