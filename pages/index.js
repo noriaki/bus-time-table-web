@@ -23,8 +23,8 @@ import AddToHomescreen from '../components/AddToHomescreen';
 // themes
 import themeOptions from '../themes/custom';
 
-export default () => (
-  <MuiThemeProvider muiTheme={getMuiTheme(themeOptions)}>
+const IndexPage = ({ userAgent }) => (
+  <MuiThemeProvider muiTheme={getMuiTheme({ ...themeOptions, userAgent })}>
     <main>
       <Head>
         <title>
@@ -63,6 +63,11 @@ export default () => (
     </main>
   </MuiThemeProvider>
 );
+IndexPage.getInitialProps = async ({ req }) => (
+  { userAgent: req ? req.headers['user-agent'] : navigator.userAgent }
+);
+
+export default IndexPage;
 
 const makeLabel = ({ text, C, ...props }) => (
   <div>
