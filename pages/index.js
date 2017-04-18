@@ -1,4 +1,5 @@
 import React from 'react';
+import NoSSR from 'react-no-ssr';
 import Head from 'next/head';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
@@ -17,13 +18,14 @@ import timeTableData from '../data/timetable.json';
 import TimeTable from '../components/TimeTable';
 import UpdateDate from '../components/UpdateDate';
 import BoardingTimer from '../components/BoardingTimer';
+import AddToHomescreen from '../components/AddToHomescreen';
 
 // themes
 import themeOptions from '../themes/custom';
 
-export default () => (
-  <MuiThemeProvider muiTheme={getMuiTheme(themeOptions)}>
-    <div>
+const IndexPage = ({ userAgent }) => (
+  <MuiThemeProvider muiTheme={getMuiTheme({ ...themeOptions, userAgent })}>
+    <main>
       <Head>
         <title>
           シャトルバス時刻表・発車タイマー（ドゥ・トゥール/Deux Tours）
@@ -51,13 +53,21 @@ export default () => (
             </section>
           </Tab>
         </Tabs>
-        <footer style={{ position: 'fixed', bottom: 0, width: '100%' }}>
-          <UpdateDate date={timeTableData.version} />
-        </footer>
       </article>
-    </div>
+      <footer style={{ position: 'fixed', bottom: 0, width: '100%' }}>
+        <UpdateDate date={timeTableData.version} />
+        <NoSSR>
+          <AddToHomescreen />
+        </NoSSR>
+      </footer>
+    </main>
   </MuiThemeProvider>
 );
+IndexPage.getInitialProps = async ({ req }) => (
+  { userAgent: req ? req.headers['user-agent'] : navigator.userAgent }
+);
+
+export default IndexPage;
 
 const makeLabel = ({ text, C, ...props }) => (
   <div>
@@ -77,14 +87,15 @@ const styles = {
     display: 'inline-flex',
     alignSelf: 'center',
     position: 'relative',
-    height: '2em',
-    width: '2em',
+    height: '1.4em',
+    width: '1.4em',
+    marginRight: '0.3em',
   },
   svg: {
     color: 'inherit',
-    height: '2em',
-    width: '2em',
+    height: '1.4em',
+    width: '1.4em',
     position: 'absolute',
-    bottom: '-0.45em',
+    bottom: '-0.3em',
   },
 };

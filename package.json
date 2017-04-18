@@ -1,6 +1,6 @@
 {
   "name": "bus-time-table-web",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "東京都中央区のマンション「ドゥ・トゥール(Deux Tours)」と新橋駅を結ぶシャトルバスの時刻表を手軽にチェックできるアプリです",
   "private": true,
   "engines": {
@@ -13,7 +13,7 @@
     "build": "next build",
     "start": "next start"
   },
-  "repository": "https://github.com/noriaki/bus-time-table",
+  "repository": "https://github.com/noriaki/bus-time-table-web",
   "author": {
     "name": "Noriaki Uchiyama",
     "email": "uchiyama.noriaki@gmail.com",
@@ -21,29 +21,29 @@
   },
   "license": "MIT",
   "dependencies": {
-    "babel-preset-es2015": "^6.24.0",
-    "babel-preset-stage-0": "^6.22.0",
+    "detect-browser": "^1.7.0",
     "material-ui": "^0.17.1",
     "moment": "^2.18.1",
     "next": "^2.0.1",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
+    "react-no-ssr": "^1.1.0",
     "react-tap-event-plugin": "^2.0.1",
     "react-timer-mixin": "^0.13.3"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.2",
     "babel-jest": "^19.0.0",
+    "babel-preset-es2015": "^6.24.0",
     "babel-preset-react": "^6.23.0",
+    "babel-preset-stage-0": "^6.22.0",
     "enzyme": "^2.8.0",
-    "enzyme-to-json": "^1.5.0",
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^14.1.0",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^4.0.0",
     "eslint-plugin-react": "^6.10.3",
     "jest": "^19.0.2",
-    "now": "^4.10.3",
     "react-addons-test-utils": "^15.4.2"
   }
 }
