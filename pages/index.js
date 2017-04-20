@@ -12,7 +12,10 @@ import MapsTrain from 'material-ui/svg-icons/maps/train';
 import '../libs/TouchEvent';
 
 // data
-import { version as appVersion } from '../package.json';
+import {
+  version as appVersion,
+  description as appDescription,
+} from '../package.json';
 import timeTableData from '../data/timetable.json';
 
 // components
@@ -41,6 +44,7 @@ const IndexPage = ({ userAgent }) => (
         <title>
           シャトルバス時刻表・発車タイマー（ドゥ・トゥール/Deux Tours）
         </title>
+        <meta name="description" content={appDescription} />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-title" content="バス時刻表" />
         <link rel="apple-touch-icon-precomposed" href="/static/icons/app.png" />
