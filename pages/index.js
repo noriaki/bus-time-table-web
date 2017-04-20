@@ -19,9 +19,18 @@ import TimeTable from '../components/TimeTable';
 import UpdateDate from '../components/UpdateDate';
 import BoardingTimer from '../components/BoardingTimer';
 import AddToHomescreen from '../components/AddToHomescreen';
+import GA from '../components/GA';
 
 // themes
 import themeOptions from '../themes/custom';
+
+const tabs = [{
+  title: 'マンション発タブ',
+  page: '/tabs/home-to-station',
+}, {
+  title: '新橋駅発タブ',
+  page: '/tabs/station-to-home',
+}];
 
 const IndexPage = ({ userAgent }) => (
   <MuiThemeProvider muiTheme={getMuiTheme({ ...themeOptions, userAgent })}>
@@ -35,7 +44,7 @@ const IndexPage = ({ userAgent }) => (
         <link rel="apple-touch-icon-precomposed" href="/static/icons/app.png" />
       </Head>
       <article style={styles.container}>
-        <Tabs>
+        <Tabs inkBarStyle={styles.tabInkBar} onChange={handleTabSelected}>
           <Tab label={makeLabel({ text: 'マンション発', C: <ActionHome /> })}>
             <section>
               <BoardingTimer data={timeTableData.homeToStation} />
@@ -60,6 +69,7 @@ const IndexPage = ({ userAgent }) => (
           <AddToHomescreen />
         </NoSSR>
       </footer>
+      <NoSSR><GA id="UA-97608334-1" initialPageView={tabs[0]} /></NoSSR>
     </main>
   </MuiThemeProvider>
 );
@@ -78,10 +88,18 @@ const makeLabel = ({ text, C, ...props }) => (
   </div>
 );
 
+const handleTabSelected = (_, __, { props: { index } }) => (
+  GA.pageview(tabs[index])
+);
+
 const styles = {
   container: {
     maxWidth: 800,
     margin: '0 auto',
+  },
+  tabInkBar: {
+    height: 4,
+    marginTop: -4,
   },
   icon: {
     display: 'inline-flex',
