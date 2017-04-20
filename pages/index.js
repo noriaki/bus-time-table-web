@@ -69,7 +69,7 @@ const IndexPage = ({ userAgent }) => (
           <AddToHomescreen />
         </NoSSR>
       </footer>
-      <NoSSR><GA id="UA-97608334-1" /></NoSSR>
+      <NoSSR><GA id="UA-97608334-1" initialPageView={tabs[0]} /></NoSSR>
     </main>
   </MuiThemeProvider>
 );
