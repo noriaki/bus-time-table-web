@@ -12,7 +12,7 @@ const styles = {
   updateDate: {
     color: grey500,
     margin: 5,
-    display: 'block',
+    display: 'flex-item',
     textAlign: 'right',
   },
 };
