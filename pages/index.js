@@ -35,8 +35,8 @@ const IndexPage = ({ userAgent }) => (
         <link rel="apple-touch-icon-precomposed" href="/static/icons/app.png" />
       </Head>
       <article style={styles.container}>
-        <Tabs>
           <Tab label={makeLabel({ text: 'マンション発', C: <ActionHome /> })}>
+        <Tabs inkBarStyle={styles.tabInkBar}>
             <section>
               <BoardingTimer data={timeTableData.homeToStation} />
             </section>
@@ -82,6 +82,10 @@ const styles = {
   container: {
     maxWidth: 800,
     margin: '0 auto',
+  },
+  tabInkBar: {
+    height: 4,
+    marginTop: -4,
   },
   icon: {
     display: 'inline-flex',
