@@ -44,10 +44,8 @@ const IndexPage = ({ userAgent }) => (
         <link rel="apple-touch-icon-precomposed" href="/static/icons/app.png" />
       </Head>
       <article style={styles.container}>
-        <Tabs inkBarStyle={styles.tabInkBar}>
-          <Tab
-            label={makeLabel({ text: 'マンション発', C: <ActionHome /> })}
-            onActive={handleActive}>
+        <Tabs inkBarStyle={styles.tabInkBar} onChange={handleTabSelected}>
+          <Tab label={makeLabel({ text: 'マンション発', C: <ActionHome /> })}>
             <section>
               <BoardingTimer data={timeTableData.homeToStation} />
             </section>
@@ -55,9 +53,7 @@ const IndexPage = ({ userAgent }) => (
               <TimeTable data={timeTableData.homeToStation} />
             </section>
           </Tab>
-          <Tab
-            label={makeLabel({ text: '新橋駅発', C: <MapsTrain /> })}
-            onActive={handleActive}>
+          <Tab label={makeLabel({ text: '新橋駅発', C: <MapsTrain /> })}>
             <section>
               <BoardingTimer data={timeTableData.stationToHome} />
             </section>
@@ -92,7 +88,9 @@ const makeLabel = ({ text, C, ...props }) => (
   </div>
 );
 
-const handleActive = ({ props: { index } }) => GA.pageview(tabs[index]);
+const handleTabSelected = (_, __, { props: { index } }) => (
+  GA.pageview(tabs[index])
+);
 
 const styles = {
   container: {
