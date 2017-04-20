@@ -24,6 +24,14 @@ import GA from '../components/GA';
 // themes
 import themeOptions from '../themes/custom';
 
+const tabs = [{
+  title: 'マンション発タブ',
+  page: '/tabs/home-to-station',
+}, {
+  title: '新橋駅発タブ',
+  page: '/tabs/station-to-home',
+}];
+
 const IndexPage = ({ userAgent }) => (
   <MuiThemeProvider muiTheme={getMuiTheme({ ...themeOptions, userAgent })}>
     <main>
@@ -36,8 +44,10 @@ const IndexPage = ({ userAgent }) => (
         <link rel="apple-touch-icon-precomposed" href="/static/icons/app.png" />
       </Head>
       <article style={styles.container}>
-          <Tab label={makeLabel({ text: 'マンション発', C: <ActionHome /> })}>
         <Tabs inkBarStyle={styles.tabInkBar}>
+          <Tab
+            label={makeLabel({ text: 'マンション発', C: <ActionHome /> })}
+            onActive={handleActive}>
             <section>
               <BoardingTimer data={timeTableData.homeToStation} />
             </section>
@@ -45,7 +55,9 @@ const IndexPage = ({ userAgent }) => (
               <TimeTable data={timeTableData.homeToStation} />
             </section>
           </Tab>
-          <Tab label={makeLabel({ text: '新橋駅発', C: <MapsTrain /> })}>
+          <Tab
+            label={makeLabel({ text: '新橋駅発', C: <MapsTrain /> })}
+            onActive={handleActive}>
             <section>
               <BoardingTimer data={timeTableData.stationToHome} />
             </section>
@@ -79,6 +91,8 @@ const makeLabel = ({ text, C, ...props }) => (
     {text}
   </div>
 );
+
+const handleActive = ({ props: { index } }) => GA.pageview(tabs[index]);
 
 const styles = {
   container: {
