@@ -29,6 +29,9 @@
       }
     }
   },
+  "globals": {
+    "ga": true
+  },
   "rules": {
     "indent": ["error", 2],
     "comma-dangle": ["error", {
