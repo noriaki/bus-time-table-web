@@ -1,6 +1,6 @@
 {
   "name": "bus-time-table-web",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "東京都中央区のマンション「ドゥ・トゥール(Deux Tours)」と新橋駅を結ぶシャトルバスの時刻表を手軽にチェックできるアプリです",
   "private": true,
   "engines": {

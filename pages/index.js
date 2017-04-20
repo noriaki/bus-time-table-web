@@ -12,13 +12,18 @@ import MapsTrain from 'material-ui/svg-icons/maps/train';
 import '../libs/TouchEvent';
 
 // data
+import {
+  version as appVersion,
+  description as appDescription,
+} from '../package.json';
 import timeTableData from '../data/timetable.json';
 
 // components
-import TimeTable from '../components/TimeTable';
-import UpdateDate from '../components/UpdateDate';
 import BoardingTimer from '../components/BoardingTimer';
 import AddToHomescreen from '../components/AddToHomescreen';
+import TimeTable from '../components/TimeTable';
+import UpdateDate from '../components/UpdateDate';
+import AppVersion from '../components/AppVersion';
 import GA from '../components/GA';
 
 // themes
@@ -39,6 +44,7 @@ const IndexPage = ({ userAgent }) => (
         <title>
           シャトルバス時刻表・発車タイマー（ドゥ・トゥール/Deux Tours）
         </title>
+        <meta name="description" content={appDescription} />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-title" content="バス時刻表" />
         <link rel="apple-touch-icon-precomposed" href="/static/icons/app.png" />
@@ -63,8 +69,11 @@ const IndexPage = ({ userAgent }) => (
           </Tab>
         </Tabs>
       </article>
-      <footer style={{ position: 'fixed', bottom: 0, width: '100%' }}>
-        <UpdateDate date={timeTableData.version} />
+      <footer style={styles.footer}>
+        <div style={styles.footerContainer}>
+          <AppVersion version={appVersion} />
+          <UpdateDate date={timeTableData.version} />
+        </div>
         <NoSSR>
           <AddToHomescreen />
         </NoSSR>
@@ -115,5 +124,14 @@ const styles = {
     width: '1.4em',
     position: 'absolute',
     bottom: '-0.3em',
+  },
+  footer: {
+    position: 'fixed',
+    bottom: 0,
+    width: '100%',
+  },
+  footerContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
   },
 };
