@@ -19,6 +19,7 @@ import TimeTable from '../components/TimeTable';
 import UpdateDate from '../components/UpdateDate';
 import BoardingTimer from '../components/BoardingTimer';
 import AddToHomescreen from '../components/AddToHomescreen';
+import GA from '../components/GA';
 
 // themes
 import themeOptions from '../themes/custom';
@@ -60,6 +61,7 @@ const IndexPage = ({ userAgent }) => (
           <AddToHomescreen />
         </NoSSR>
       </footer>
+      <NoSSR><GA id="UA-97608334-1" /></NoSSR>
     </main>
   </MuiThemeProvider>
 );
