@@ -5,6 +5,7 @@ import Popover from 'material-ui/Popover';
 import ActionGetApp from 'material-ui/svg-icons/action/get-app';
 
 import AddToHomescreenDetail from './AddToHomescreenDetail';
+import GA from './GA';
 
 class AddToHomescreen extends Component {
   state = {
@@ -15,6 +16,10 @@ class AddToHomescreen extends Component {
   handleTouchTap = (e) => {
     // This prevents ghost click.
     e.preventDefault();
+    GA.pageview({
+      title: 'ホーム画面に追加する方法',
+      page: '/popups/add-to-homescreen',
+    });
     this.setState({
       open: true,
       anchorEl: e.currentTarget,
