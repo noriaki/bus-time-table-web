@@ -38,7 +38,7 @@ const tabs = [{
   page: '/tabs/station-to-home',
 }];
 
-const IndexPage = ({ userAgent }) => (
+const IndexPage = ({ userAgent, baseURI }) => (
   <MuiThemeProvider muiTheme={getMuiTheme({ ...themeOptions, userAgent })}>
     <main>
       <Head>
@@ -47,6 +47,8 @@ const IndexPage = ({ userAgent }) => (
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-title" content="バス時刻表" />
         <link rel="apple-touch-icon-precomposed" href="/static/icons/app.png" />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content={`${baseURI}/static/icons/app.png`} />
       </Head>
       <article style={styles.container}>
         <Tabs inkBarStyle={styles.tabInkBar} onChange={handleTabSelected}>
@@ -82,7 +84,10 @@ const IndexPage = ({ userAgent }) => (
   </MuiThemeProvider>
 );
 IndexPage.getInitialProps = async ({ req }) => (
-  { userAgent: req ? req.headers['user-agent'] : navigator.userAgent }
+  {
+    userAgent: req ? req.headers['user-agent'] : navigator.userAgent,
+    baseURI: req ? fqdn(req.headers) : fqdn(document.location),
+  }
 );
 
 export default IndexPage;
@@ -99,6 +104,8 @@ const makeLabel = ({ text, C, ...props }) => (
 const handleTabSelected = (_, __, { props: { index } }) => (
   GA.pageview(tabs[index])
 );
+
+const fqdn = ({ protocol = '', host }) => `${protocol}//${host}`;
 
 const styles = {
   container: {
