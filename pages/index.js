@@ -15,6 +15,7 @@ import '../libs/TouchEvent';
 import {
   version as appVersion,
   description as appDescription,
+  title as appTitle,
 } from '../package.json';
 import timeTableData from '../data/timetable.json';
 
@@ -41,9 +42,7 @@ const IndexPage = ({ userAgent }) => (
   <MuiThemeProvider muiTheme={getMuiTheme({ ...themeOptions, userAgent })}>
     <main>
       <Head>
-        <title>
-          シャトルバス時刻表・発車タイマー（ドゥ・トゥール/Deux Tours）
-        </title>
+        <title>{appTitle}</title>
         <meta name="description" content={appDescription} />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-title" content="バス時刻表" />
