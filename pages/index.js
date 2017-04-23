@@ -3,7 +3,7 @@ import NoSSR from 'react-no-ssr';
 import Head from 'next/head';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import { Tabs, Tab } from 'material-ui/Tabs';
+import { Tabs } from 'material-ui/Tabs';
 import ActionHome from 'material-ui/svg-icons/action/home';
 import MapsTrain from 'material-ui/svg-icons/maps/train';
 
@@ -15,13 +15,13 @@ import '../libs/TouchEvent';
 import {
   version as appVersion,
   description as appDescription,
+  title as appTitle,
 } from '../package.json';
 import timeTableData from '../data/timetable.json';
 
 // components
-import BoardingTimer from '../components/BoardingTimer';
+import TabContent from '../components/TabContent';
 import AddToHomescreen from '../components/AddToHomescreen';
-import TimeTable from '../components/TimeTable';
 import UpdateDate from '../components/UpdateDate';
 import AppVersion from '../components/AppVersion';
 import GA from '../components/GA';
@@ -32,41 +32,34 @@ import themeOptions from '../themes/custom';
 const tabs = [{
   title: 'マンション発タブ',
   page: '/tabs/home-to-station',
+  label: 'マンション発',
+  dest: '新橋駅',
+  C: <ActionHome />,
+  data: timeTableData.homeToStation,
 }, {
   title: '新橋駅発タブ',
   page: '/tabs/station-to-home',
+  label: '新橋駅発',
+  dest: 'マンション',
+  C: <MapsTrain />,
+  data: timeTableData.stationToHome,
 }];
 
-const IndexPage = ({ userAgent }) => (
+const IndexPage = ({ userAgent, baseURI }) => (
   <MuiThemeProvider muiTheme={getMuiTheme({ ...themeOptions, userAgent })}>
     <main>
       <Head>
-        <title>
-          シャトルバス時刻表・発車タイマー（ドゥ・トゥール/Deux Tours）
-        </title>
+        <title>{appTitle}</title>
         <meta name="description" content={appDescription} />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-title" content="バス時刻表" />
         <link rel="apple-touch-icon-precomposed" href="/static/icons/app.png" />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content={`${baseURI}/static/icons/app.png`} />
       </Head>
       <article style={styles.container}>
         <Tabs inkBarStyle={styles.tabInkBar} onChange={handleTabSelected}>
-          <Tab label={makeLabel({ text: 'マンション発', C: <ActionHome /> })}>
-            <section>
-              <BoardingTimer data={timeTableData.homeToStation} />
-            </section>
-            <section>
-              <TimeTable data={timeTableData.homeToStation} />
-            </section>
-          </Tab>
-          <Tab label={makeLabel({ text: '新橋駅発', C: <MapsTrain /> })}>
-            <section>
-              <BoardingTimer data={timeTableData.stationToHome} />
-            </section>
-            <section>
-              <TimeTable data={timeTableData.stationToHome} />
-            </section>
-          </Tab>
+          {tabs.map(TabContent)}
         </Tabs>
       </article>
       <footer style={styles.footer}>
@@ -83,23 +76,19 @@ const IndexPage = ({ userAgent }) => (
   </MuiThemeProvider>
 );
 IndexPage.getInitialProps = async ({ req }) => (
-  { userAgent: req ? req.headers['user-agent'] : navigator.userAgent }
+  {
+    userAgent: req ? req.headers['user-agent'] : navigator.userAgent,
+    baseURI: req ? fqdn(req.headers) : fqdn(document.location),
+  }
 );
 
 export default IndexPage;
 
-const makeLabel = ({ text, C, ...props }) => (
-  <div>
-    <span style={styles.icon}>
-      <C.type {...C.props} style={styles.svg} {...props} />
-    </span>
-    {text}
-  </div>
-);
-
 const handleTabSelected = (_, __, { props: { index } }) => (
   GA.pageview(tabs[index])
 );
+
+const fqdn = ({ protocol = '', host }) => `${protocol}//${host}`;
 
 const styles = {
   container: {
@@ -109,21 +98,6 @@ const styles = {
   tabInkBar: {
     height: 4,
     marginTop: -4,
-  },
-  icon: {
-    display: 'inline-flex',
-    alignSelf: 'center',
-    position: 'relative',
-    height: '1.4em',
-    width: '1.4em',
-    marginRight: '0.3em',
-  },
-  svg: {
-    color: 'inherit',
-    height: '1.4em',
-    width: '1.4em',
-    position: 'absolute',
-    bottom: '-0.3em',
   },
   footer: {
     position: 'fixed',

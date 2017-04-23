@@ -17,6 +17,7 @@ export default class extends Document {
             rel="stylesheet"
             href="//fonts.googleapis.com/earlyaccess/notosansjp.css" />
           <link rel="stylesheet" href="/static/style.css" />
+          <link rel="shortcut icon" href="/static/icons/favicon.ico" />
         </Head>
         <body>
           <Main />

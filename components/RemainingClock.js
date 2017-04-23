@@ -1,23 +1,30 @@
 import React from 'react';
 import moment from 'moment';
 
-const RemainingClock = ({ remaining }) => {
+const RemainingClock = ({ remaining, time, dest }) => {
   if (remaining != null) {
     const m = moment.utc(remaining);
-    const haveHour = m.valueOf() >= 60 * 60 * 1000;
+    const haveHour = m.hour() > 0;
     return (
       <div style={styles.container}>
-        <span>次のバス発車まで</span>
-        {haveHour ? <Hour m={m} /> : null}
-        {haveHour ? <Suffix str="時間" /> : null}
-        <Minute m={m} /><Suffix str="分" />
-        <Second m={m} /><Suffix str="秒" />
+        <div style={styles.boardContainer}>
+          <div style={styles.departure}>
+            {time.format('HH')}:{time.format('mm')}
+            <Suffix str="発" />
+          </div>
+          <div style={styles.destination}>{dest}<Suffix str="行" /></div>
+        </div>
+        <div style={styles.timerContainer}>
+          {haveHour ? [<Hour m={m} />, <Suffix str="時間" />] : null}
+          <Minute m={m} /><Suffix str="分" />
+          <Second m={m} /><Suffix str="秒後" />
+        </div>
       </div>
     );
   }
   return (
     <div style={styles.container}>
-      本日のバスは全て終了しました
+      <p style={styles.notice}>本日の{dest}行きバスは全て終了しました</p>
     </div>
   );
 };
@@ -29,8 +36,25 @@ const Suffix = ({ str }) => <span style={styles.suffix}>{str}</span>;
 
 const styles = {
   container: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
     margin: 10,
-    textAlign: 'center',
+  },
+  boardContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-end',
+    marginRight: 5,
+  },
+  departure: {
+    marginLeft: 5,
+    fontSize: 14,
+    fontWeight: 'bold',
+  },
+  destination: {
+    marginLeft: 5,
+    fontSize: 13,
   },
   timer: {
     fontSize: 25,
@@ -39,6 +63,10 @@ const styles = {
   },
   suffix: {
     fontSize: 10,
+    fontWeight: 'normal',
+  },
+  notice: {
+    fontSize: 13,
   },
 };
 
