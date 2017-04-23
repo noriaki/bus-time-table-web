@@ -4,7 +4,7 @@ import moment from 'moment';
 const RemainingClock = ({ remaining, time, dest }) => {
   if (remaining != null) {
     const m = moment.utc(remaining);
-    const haveHour = m.valueOf() >= 60 * 60 * 1000;
+    const haveHour = m.hour() > 0;
     return (
       <div style={styles.container}>
         <div style={styles.boardContainer}>
@@ -15,8 +15,7 @@ const RemainingClock = ({ remaining, time, dest }) => {
           <div style={styles.destination}>{dest}<Suffix str="行" /></div>
         </div>
         <div style={styles.timerContainer}>
-          {haveHour ? <Hour m={m} /> : null}
-          {haveHour ? <Suffix str="時間" /> : null}
+          {haveHour ? [<Hour m={m} />, <Suffix str="時間" />] : null}
           <Minute m={m} /><Suffix str="分" />
           <Second m={m} /><Suffix str="秒後" />
         </div>
