@@ -24,8 +24,11 @@ export default class BoardingTimer extends Component {
   }
 
   render() {
-    const { nextRemaining } = this.state;
-    return <RemainingClock remaining={nextRemaining} />;
+    const { nextRemaining, nextTime } = this.state;
+    const { dest } = this.props;
+    return (
+      <RemainingClock remaining={nextRemaining} time={nextTime} dest={dest} />
+    );
   }
 }
 

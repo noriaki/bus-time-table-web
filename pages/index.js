@@ -3,7 +3,7 @@ import NoSSR from 'react-no-ssr';
 import Head from 'next/head';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import { Tabs, Tab } from 'material-ui/Tabs';
+import { Tabs } from 'material-ui/Tabs';
 import ActionHome from 'material-ui/svg-icons/action/home';
 import MapsTrain from 'material-ui/svg-icons/maps/train';
 
@@ -20,9 +20,8 @@ import {
 import timeTableData from '../data/timetable.json';
 
 // components
-import BoardingTimer from '../components/BoardingTimer';
+import TabContent from '../components/TabContent';
 import AddToHomescreen from '../components/AddToHomescreen';
-import TimeTable from '../components/TimeTable';
 import UpdateDate from '../components/UpdateDate';
 import AppVersion from '../components/AppVersion';
 import GA from '../components/GA';
@@ -33,9 +32,17 @@ import themeOptions from '../themes/custom';
 const tabs = [{
   title: 'マンション発タブ',
   page: '/tabs/home-to-station',
+  label: 'マンション発',
+  dest: '新橋駅',
+  C: <ActionHome />,
+  data: timeTableData.homeToStation,
 }, {
   title: '新橋駅発タブ',
   page: '/tabs/station-to-home',
+  label: '新橋駅発',
+  dest: 'マンション',
+  C: <MapsTrain />,
+  data: timeTableData.stationToHome,
 }];
 
 const IndexPage = ({ userAgent, baseURI }) => (
@@ -52,22 +59,7 @@ const IndexPage = ({ userAgent, baseURI }) => (
       </Head>
       <article style={styles.container}>
         <Tabs inkBarStyle={styles.tabInkBar} onChange={handleTabSelected}>
-          <Tab label={makeLabel({ text: 'マンション発', C: <ActionHome /> })}>
-            <section>
-              <BoardingTimer data={timeTableData.homeToStation} />
-            </section>
-            <section>
-              <TimeTable data={timeTableData.homeToStation} />
-            </section>
-          </Tab>
-          <Tab label={makeLabel({ text: '新橋駅発', C: <MapsTrain /> })}>
-            <section>
-              <BoardingTimer data={timeTableData.stationToHome} />
-            </section>
-            <section>
-              <TimeTable data={timeTableData.stationToHome} />
-            </section>
-          </Tab>
+          {tabs.map(TabContent)}
         </Tabs>
       </article>
       <footer style={styles.footer}>
@@ -92,15 +84,6 @@ IndexPage.getInitialProps = async ({ req }) => (
 
 export default IndexPage;
 
-const makeLabel = ({ text, C, ...props }) => (
-  <div>
-    <span style={styles.icon}>
-      <C.type {...C.props} style={styles.svg} {...props} />
-    </span>
-    {text}
-  </div>
-);
-
 const handleTabSelected = (_, __, { props: { index } }) => (
   GA.pageview(tabs[index])
 );
@@ -115,21 +98,6 @@ const styles = {
   tabInkBar: {
     height: 4,
     marginTop: -4,
-  },
-  icon: {
-    display: 'inline-flex',
-    alignSelf: 'center',
-    position: 'relative',
-    height: '1.4em',
-    width: '1.4em',
-    marginRight: '0.3em',
-  },
-  svg: {
-    color: 'inherit',
-    height: '1.4em',
-    width: '1.4em',
-    position: 'absolute',
-    bottom: '-0.3em',
   },
   footer: {
     position: 'fixed',
