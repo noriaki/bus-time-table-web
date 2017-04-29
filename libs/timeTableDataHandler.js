@@ -9,7 +9,7 @@ export const momentFromVersion = (version) => {
 
 export const flattenTimeTable = timeTable => (
   timeTable.reduce((ret, { hour, minutes }) => {
-    minutes.forEach((minute) => {
+    (minutes || []).forEach((minute) => {
       const m = moment({ hour: hour % 24, minute });
       ret.push(hour >= 24 ? m.add(1, 'day') : m);
     });
