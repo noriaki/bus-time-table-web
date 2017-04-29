@@ -88,7 +88,7 @@ const handleTabSelected = (_, __, { props: { index } }) => (
   GA.pageview(tabs[index])
 );
 
-const fqdn = ({ protocol = '', host }) => `${protocol}//${host}`;
+const fqdn = ({ protocol = 'https:', host }) => `${protocol}//${host}`;
 
 const styles = {
   container: {
