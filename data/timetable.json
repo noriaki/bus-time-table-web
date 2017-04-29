@@ -1,19 +1,19 @@
 {
-  "version": 20160303,
+  "version": 20170501,
   "keys": ["homeToStation", "stationToHome"],
   "activeDays": [1, 2, 3, 4, 5],
   "homeToStation": [
     {
       "hour": 6,
-      "minutes": [0, 30, 50]
+      "minutes": [0, 30, 45]
     },
     {
       "hour": 7,
-      "minutes": [0, 10, 20, 40, 50]
+      "minutes": [0, 10, 20, 35, 50]
     },
     {
       "hour": 8,
-      "minutes": [0, 10, 30, 45, 55]
+      "minutes": [5, 25, 40, 50]
     },
     {
       "hour": 9,
@@ -55,23 +55,23 @@
   "stationToHome": [
     {
       "hour": 6,
-      "minutes": [20, 50]
+      "minutes": []
     },
     {
       "hour": 7,
-      "minutes": [10, 20, 30, 40]
+      "minutes": []
     },
     {
       "hour": 8,
-      "minutes": [0, 15, 25, 35, 55]
+      "minutes": []
     },
     {
       "hour": 9,
-      "minutes": [10, 20, 30]
+      "minutes": []
     },
     {
       "hour": 10,
-      "minutes": [5]
+      "minutes": []
     },
     {
       "hour": 18,
