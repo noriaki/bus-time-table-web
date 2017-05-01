@@ -1,13 +1,11 @@
 import React from 'react';
 import NoSSR from 'react-no-ssr';
 import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
-import IconButton from 'material-ui/IconButton';
 import Paper from 'material-ui/Paper';
-
-import ShareIcon from 'material-ui/svg-icons/social/share';
 
 import AppInformationMenu from './AppInformationMenu';
 import AddToHomescreen from './AddToHomescreen';
+import ShareMenu from './ShareMenu';
 
 const AppNavigation = ({ info }) => (
   <Paper zDepth={1}>
@@ -17,13 +15,7 @@ const AppNavigation = ({ info }) => (
         <NoSSR>
           <AddToHomescreen />
         </NoSSR>
-        <IconButton
-          touch
-          tooltip="Share"
-          tooltipPosition="top-left"
-          onTouchTap={() => console.log('share')}>
-          <ShareIcon />
-        </IconButton>
+        <ShareMenu />
       </ToolbarGroup>
     </Toolbar>
   </Paper>
