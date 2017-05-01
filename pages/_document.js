@@ -18,6 +18,7 @@ export default class extends Document {
             href="//fonts.googleapis.com/earlyaccess/notosansjp.css" />
           <link rel="stylesheet" href="/static/style.css" />
           <link rel="shortcut icon" href="/static/icons/favicon.ico" />
+          <script src="https://d.line-scdn.net/r/web/social-plugin/js/thirdparty/loader.min.js" async="async" defer="defer" />
         </Head>
         <body>
           <Main />
