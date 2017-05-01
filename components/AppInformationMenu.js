@@ -14,16 +14,16 @@ const AppInformationMenu = ({ timeTableVersion, appVersion }) => (
     anchorOrigin={{ horizontal: 'middle', vertical: 'center' }}
     targetOrigin={{ horizontal: 'left', vertical: 'bottom' }}>
     <Subheader>このアプリについて</Subheader>
-    <SmallMenuIcon
+    <SmallMenuItem
       primaryText="時刻表更新日"
       secondaryText={timeTableVersion} />
-    <SmallMenuIcon
+    <SmallMenuItem
       primaryText="アプリバージョン"
       secondaryText={appVersion} />
     <SmallMenuIcon
       primaryText="アプリ作者"
       secondaryText={<a href="https://twitter.com/noriaki">@noriaki</a>} />
-    <SmallMenuIcon
+    <SmallMenuItem
       primaryText="Icon made by"
       secondaryText={<a href="http://www.freepik.com">Freepik</a>} />
   </IconMenu>
@@ -31,7 +31,7 @@ const AppInformationMenu = ({ timeTableVersion, appVersion }) => (
 
 export default AppInformationMenu;
 
-const SmallMenuIcon = props => (
+const SmallMenuItem = props => (
   <MenuItem style={styles.smallMenuIcon} {...props} />
 );
 
