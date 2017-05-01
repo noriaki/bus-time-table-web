@@ -13,7 +13,7 @@ const AppInformationMenu = ({ timeTableVersion, appVersion }) => (
     iconButtonElement={MenuIcon}
     anchorOrigin={{ horizontal: 'middle', vertical: 'center' }}
     targetOrigin={{ horizontal: 'left', vertical: 'bottom' }}>
-    <Subheader>About</Subheader>
+    <Subheader>このアプリについて</Subheader>
     <SmallMenuIcon
       primaryText="時刻表更新日"
       secondaryText={timeTableVersion} />
