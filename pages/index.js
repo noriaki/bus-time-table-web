@@ -49,6 +49,7 @@ const IndexPage = ({ userAgent, baseURI }) => (
   <MuiThemeProvider muiTheme={getMuiTheme({ ...themeOptions, userAgent })}>
     <main>
       <Head>
+        <meta charSet="utf-8" />
         <title>{appTitle}</title>
         <meta name="description" content={appDescription} />
         <meta name="apple-mobile-web-app-capable" content="yes" />
