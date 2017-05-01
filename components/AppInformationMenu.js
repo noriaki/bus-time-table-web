@@ -20,9 +20,6 @@ const AppInformationMenu = ({ timeTableVersion, appVersion }) => (
     <SmallMenuItem
       primaryText="アプリバージョン"
       secondaryText={appVersion} />
-    <SmallMenuIcon
-      primaryText="アプリ作者"
-      secondaryText={<a href="https://twitter.com/noriaki">@noriaki</a>} />
     <SmallMenuItem
       primaryText="Icon made by"
       secondaryText={<a href="http://www.freepik.com">Freepik</a>} />
