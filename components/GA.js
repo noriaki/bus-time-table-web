@@ -6,6 +6,28 @@ export default class extends Component {
     ga('send', 'pageview');
   }
 
+  static social = ({ network, action, url, callback = () => {} }) => {
+    ga('send', {
+      hitType: 'social',
+      transport: 'beacon',
+      socialNetwork: network,
+      socialAction: action,
+      socialTarget: url,
+      hitCallback: callback,
+    });
+  }
+
+  static event = ({ category, action, label, callback = () => {} }) => {
+    ga('send', {
+      hitType: 'event',
+      transport: 'beacon',
+      eventCategory: category,
+      eventAction: action,
+      eventLabel: label,
+      hitCallback: callback,
+    });
+  }
+
   componentDidMount() {
     /* eslint-disable */
     (function(i,s,o,h,g,r,a,m){

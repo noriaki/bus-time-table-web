@@ -30,7 +30,9 @@
     }
   },
   "globals": {
-    "ga": true
+    "ga": true,
+    "FB": true,
+    "LineIt": true
   },
   "rules": {
     "indent": ["error", 2],

@@ -8,7 +8,7 @@ import ActionHome from 'material-ui/svg-icons/action/home';
 import MapsTrain from 'material-ui/svg-icons/maps/train';
 
 // libs
-// import { flattenTimeTable } from '../libs/timeTableDataHandler';
+import { momentFromVersion } from '../libs/timeTableDataHandler';
 import '../libs/TouchEvent';
 
 // data
@@ -21,13 +21,18 @@ import timeTableData from '../data/timetable.json';
 
 // components
 import TabContent from '../components/TabContent';
-import AddToHomescreen from '../components/AddToHomescreen';
-import UpdateDate from '../components/UpdateDate';
-import AppVersion from '../components/AppVersion';
+import AppNavigation from '../components/AppNavigation';
 import GA from '../components/GA';
 
 // themes
 import themeOptions from '../themes/custom';
+
+const appInformation = {
+  timeTableVersion: (
+    momentFromVersion(timeTableData.version).format('YYYY/MM/DD')
+  ),
+  appVersion,
+};
 
 const tabs = [{
   title: 'マンション発タブ',
@@ -49,6 +54,7 @@ const IndexPage = ({ userAgent, baseURI }) => (
   <MuiThemeProvider muiTheme={getMuiTheme({ ...themeOptions, userAgent })}>
     <main>
       <Head>
+        <meta charSet="utf-8" />
         <title>{appTitle}</title>
         <meta name="description" content={appDescription} />
         <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -63,13 +69,7 @@ const IndexPage = ({ userAgent, baseURI }) => (
         </Tabs>
       </article>
       <footer style={styles.footer}>
-        <div style={styles.footerContainer}>
-          <AppVersion version={appVersion} />
-          <UpdateDate date={timeTableData.version} />
-        </div>
-        <NoSSR>
-          <AddToHomescreen />
-        </NoSSR>
+        <AppNavigation info={appInformation} />
       </footer>
       <NoSSR><GA id="UA-97608334-1" initialPageView={tabs[0]} /></NoSSR>
     </main>
