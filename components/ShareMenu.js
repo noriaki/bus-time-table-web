@@ -8,7 +8,8 @@ import ShareIcon from 'material-ui/svg-icons/social/share';
 
 import LineItButton, {
   handleTouchTap as handleTouchTapLine } from './LineItButton';
-import FacebookSendButton from './FacebookSendButton';
+import FacebookSendButton, {
+  handleTouchTap as handleTouchTapFb } from './FacebookSendButton';
 
 const ShareMenu = () => (
   <IconMenu
@@ -23,6 +24,7 @@ const ShareMenu = () => (
       secondaryText={Iconize(LineItButton, 'line')} />
     <MenuItem
       primaryText="Facebook"
+      onTouchTap={handleTouchTapFb}
       secondaryText={Iconize(FacebookSendButton, 'fb')} />
   </IconMenu>
 );
@@ -44,7 +46,7 @@ const styles = {
   },
   iconInner: {
     position: 'absolute',
-    bottom: -5,
+    bottom: -4,
     height: 20,
     lineHeight: '20px',
   },
