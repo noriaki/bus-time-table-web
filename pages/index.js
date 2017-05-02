@@ -23,6 +23,7 @@ import timeTableData from '../data/timetable.json';
 import TabContent from '../components/TabContent';
 import AppNavigation from '../components/AppNavigation';
 import GA from '../components/GA';
+import FBSDK from '../components/FBSDK';
 
 // themes
 import themeOptions from '../themes/custom';
@@ -72,6 +73,7 @@ const IndexPage = ({ userAgent, baseURI }) => (
         <AppNavigation info={appInformation} />
       </footer>
       <NoSSR><GA id="UA-97608334-1" initialPageView={tabs[0]} /></NoSSR>
+      <NoSSR><FBSDK appId="1418931418128232" /></NoSSR>
     </main>
   </MuiThemeProvider>
 );

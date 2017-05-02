@@ -7,6 +7,7 @@ import Subheader from 'material-ui/Subheader';
 import ShareIcon from 'material-ui/svg-icons/social/share';
 
 import LineItButton from './LineItButton';
+import FacebookSendButton from './FacebookSendButton';
 
 const ShareMenu = () => (
   <IconMenu
@@ -17,7 +18,10 @@ const ShareMenu = () => (
     <Subheader>知人・友人に教える</Subheader>
     <MenuItem
       primaryText="LINE"
-      secondaryText={LineIt} />
+      secondaryText={Iconize(LineItButton, 'line')} />
+    <MenuItem
+      primaryText="Facebook"
+      secondaryText={Iconize(FacebookSendButton, 'fb')} />
   </IconMenu>
 );
 
@@ -35,22 +39,26 @@ const styles = {
     alignSelf: 'center',
     position: 'relative',
     height: 20,
-    width: 84,
   },
   iconInner: {
     position: 'absolute',
     bottom: -5,
     height: 20,
-    width: 84,
     lineHeight: '20px',
+  },
+  line: {
+    width: 84,
+  },
+  fb: {
+    width: 49,
   },
 };
 
-const LineIt = (
+const Iconize = (Component, name) => (
   <div>
-    <span style={styles.icon}>
-      <span style={styles.iconInner}>
-        <NoSSR><LineItButton /></NoSSR>
+    <span style={{ ...styles.icon, ...styles[name] }}>
+      <span style={{ ...styles.iconInner, ...styles[name] }}>
+        <NoSSR><Component /></NoSSR>
       </span>
     </span>
   </div>
