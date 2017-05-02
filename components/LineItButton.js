@@ -1,23 +1,24 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class LineItButton extends Component {
-  componentDidMount() { LineIt.loadButton(); }
-  render() {
-    return (
-      <div
-        className="line-it-button"
-        data-lang="ja"
-        data-type="share-a"
-        data-url="https://deux-tours-bus.com"
-        style={styles.button} />
-    );
-  }
-}
+const LineItButton = () => (
+  <img
+    style={styles.lineButton}
+    src="/static/images/line-share-a.png"
+    alt="LINEで送る" />
+);
+
+export const handleTouchTap = () => {
+  const url = 'https://deux-tours-bus.com';
+  document.location.href = `line://msg/text/${encodeURIComponent(url)}`;
+};
+
+LineItButton.handleTouchTap = handleTouchTap;
 
 export default LineItButton;
 
 const styles = {
-  button: {
-    display: 'none',
+  lineButton: {
+    width: 82,
+    height: 20,
   },
 };
