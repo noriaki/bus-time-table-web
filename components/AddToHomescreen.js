@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import browser from 'detect-browser';
-import RaisedButton from 'material-ui/RaisedButton';
+import FlatButton from 'material-ui/FlatButton';
 import Popover from 'material-ui/Popover';
 import ActionGetApp from 'material-ui/svg-icons/action/get-app';
 
@@ -34,11 +34,13 @@ class AddToHomescreen extends Component {
 
   render() {
     return (
-      <div style={{ ...styles.container, ...(this.state.visible ? { display: 'block' } : { display: 'none' }) }}>
-        <RaisedButton
+      <div style={{ display: this.state.visible ? 'block' : 'none' }}>
+        <FlatButton
           secondary
           icon={<ActionGetApp />}
           label="アプリ"
+          labelStyle={styles.buttonLabel}
+          style={styles.button}
           onTouchTap={this.handleTouchTap} />
         <Popover
           open={this.state.open}
@@ -62,11 +64,12 @@ const detectVisible = ({ standalone }) => {
 };
 
 const styles = {
-  container: {
-    position: 'absolute',
-    bottom: 24,
-    left: '50%',
-    transform: 'translateX(-50%)',
+  button: {
+    margin: 0,
+  },
+  buttonLabel: {
+    fontWeight: 'bold',
+    paddingLeft: 4,
   },
   popover: {
     width: '90%',
