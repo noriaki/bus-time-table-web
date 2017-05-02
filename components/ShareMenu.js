@@ -17,7 +17,7 @@ const ShareMenu = () => (
     <Subheader>知人・友人に教える</Subheader>
     <MenuItem
       primaryText="LINE"
-      secondaryText={<div><span style={styles.icon}><span style={styles.iconInner}><NoSSR><LineItButton /></NoSSR></span></span></div>} />
+      secondaryText={LineIt} />
   </IconMenu>
 );
 
@@ -34,14 +34,24 @@ const styles = {
     display: 'inline-flex',
     alignSelf: 'center',
     position: 'relative',
-    height: 21,
-    width: 21,
+    height: 20,
+    width: 84,
   },
   iconInner: {
     position: 'absolute',
     bottom: -5,
-    height: 21,
-    width: 21,
-    lineHeight: '21px',
+    height: 20,
+    width: 84,
+    lineHeight: '20px',
   },
 };
+
+const LineIt = (
+  <div>
+    <span style={styles.icon}>
+      <span style={styles.iconInner}>
+        <NoSSR><LineItButton /></NoSSR>
+      </span>
+    </span>
+  </div>
+);

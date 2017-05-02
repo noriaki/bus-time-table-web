@@ -7,7 +7,7 @@ class LineItButton extends Component {
       <div
         className="line-it-button"
         data-lang="ja"
-        data-type="share-b"
+        data-type="share-a"
         data-url="https://deux-tours-bus.com"
         style={styles.button} />
     );
