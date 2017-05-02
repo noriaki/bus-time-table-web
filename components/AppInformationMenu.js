@@ -5,12 +5,15 @@ import IconButton from 'material-ui/IconButton';
 import Subheader from 'material-ui/Subheader';
 import InfoOutlineIcon from 'material-ui/svg-icons/action/info-outline';
 
+import GA from './GA';
+
 const AppInformationMenu = ({ timeTableVersion, appVersion }) => (
   <IconMenu
     useLayerForClickAway
     autoWidth={false}
     width={188}
     iconButtonElement={MenuIcon}
+    onTouchTap={handleTouchTap}
     anchorOrigin={{ horizontal: 'middle', vertical: 'center' }}
     targetOrigin={{ horizontal: 'left', vertical: 'bottom' }}>
     <Subheader>このアプリについて</Subheader>
@@ -37,6 +40,11 @@ const MenuIcon = (
     <InfoOutlineIcon />
   </IconButton>
 );
+
+const handleTouchTap = () => GA.pageview({
+  title: 'このアプリについて',
+  page: '/popups/about-this-app',
+});
 
 const styles = {
   smallMenuIcon: {
