@@ -7,9 +7,9 @@ import Subheader from 'material-ui/Subheader';
 import ShareIcon from 'material-ui/svg-icons/social/share';
 
 import LineItButton, {
-  handleTouchTap as handleTouchTapLine } from './LineItButton';
+  launchApp as launchAppLine } from './LineItButton';
 import FacebookSendButton, {
-  handleTouchTap as handleTouchTapFb } from './FacebookSendButton';
+  launchApp as launchAppFb } from './FacebookSendButton';
 
 const ShareMenu = () => (
   <IconMenu
@@ -20,11 +20,11 @@ const ShareMenu = () => (
     <Subheader>知人・友人に教える</Subheader>
     <MenuItem
       primaryText="LINE"
-      onTouchTap={handleTouchTapLine}
+      onTouchTap={launchAppLine}
       secondaryText={Iconize(LineItButton, 'line')} />
     <MenuItem
       primaryText="Facebook"
-      onTouchTap={handleTouchTapFb}
+      onTouchTap={launchAppFb}
       secondaryText={Iconize(FacebookSendButton, 'fb')} />
   </IconMenu>
 );

@@ -16,9 +16,12 @@ const FacebookSendButton = () => (
   </div>
 );
 
-export const handleTouchTap = () => {
+export const launchApp = () => {
   const url = 'https://deux-tours-bus.com';
-  document.location.href = `fb-messenger://share?link=${encodeURIComponent(url)}`;
+  const appId = '1418931418128232';
+  document.location.href = 'fb-messenger://share?' +
+    `link=${encodeURIComponent(url)}&` +
+    `app_id=${encodeURIComponent(appId)}`;
 };
 
 export default FacebookSendButton;

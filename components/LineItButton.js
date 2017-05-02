@@ -7,12 +7,10 @@ const LineItButton = () => (
     alt="LINEで送る" />
 );
 
-export const handleTouchTap = () => {
+export const launchApp = () => {
   const url = 'https://deux-tours-bus.com';
   document.location.href = `line://msg/text/${encodeURIComponent(url)}`;
 };
-
-LineItButton.handleTouchTap = handleTouchTap;
 
 export default LineItButton;
 
