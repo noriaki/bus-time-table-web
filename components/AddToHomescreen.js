@@ -10,7 +10,6 @@ import GA from './GA';
 class AddToHomescreen extends Component {
   state = {
     open: false,
-    visible: detectVisible(navigator),
   }
 
   handleTouchTap = (e) => {
@@ -34,7 +33,7 @@ class AddToHomescreen extends Component {
 
   render() {
     return (
-      <div style={{ display: this.state.visible ? 'block' : 'none' }}>
+      <div style={{ display: detectVisible(navigator) ? 'block' : 'none' }}>
         <FlatButton
           secondary
           icon={<ActionGetApp />}

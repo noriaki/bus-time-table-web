@@ -14,25 +14,23 @@ import FacebookSendButton, {
 import GA from './GA';
 
 const ShareMenu = () => (
-  <NoSSR>
-    <IconMenu
-      useLayerForClickAway
-      style={{ display: detectVisible() ? 'block' : 'none' }}
-      iconButtonElement={MenuIcon}
-      onTouchTap={handleTouchTap}
-      anchorOrigin={{ horizontal: 'middle', vertical: 'center' }}
-      targetOrigin={{ horizontal: 'right', vertical: 'bottom' }}>
-      <Subheader>知人・友人に共有</Subheader>
-      <MenuItem
-        primaryText="LINE"
-        onTouchTap={handleTouchTapSocial('LINE', launchAppLine)}
-        secondaryText={Iconize(LineItButton, 'line')} />
-      <MenuItem
-        primaryText="Facebook"
-        onTouchTap={handleTouchTapSocial('Facebook', launchAppFb)}
-        secondaryText={Iconize(FacebookSendButton, 'fb')} />
-    </IconMenu>
-  </NoSSR>
+  <IconMenu
+    useLayerForClickAway
+    style={{ display: detectVisible(navigator) ? 'block' : 'none' }}
+    iconButtonElement={MenuIcon}
+    onTouchTap={handleTouchTap}
+    anchorOrigin={{ horizontal: 'middle', vertical: 'center' }}
+    targetOrigin={{ horizontal: 'right', vertical: 'bottom' }}>
+    <Subheader>知人・友人に共有</Subheader>
+    <MenuItem
+      primaryText="LINE"
+      onTouchTap={handleTouchTapSocial('LINE', launchAppLine)}
+      secondaryText={Iconize(LineItButton, 'line')} />
+    <MenuItem
+      primaryText="Facebook"
+      onTouchTap={handleTouchTapSocial('Facebook', launchAppFb)}
+      secondaryText={Iconize(FacebookSendButton, 'fb')} />
+  </IconMenu>
 );
 
 export default ShareMenu;
@@ -88,9 +86,9 @@ const Iconize = (Component, name) => (
   </div>
 );
 
-const detectVisible = () => {
+const detectVisible = ({ standalone }) => {
   const isTargetBrowser = (
     browser != null && ['ios'].includes(browser.name)
   );
-  return isTargetBrowser;
+  return standalone != null || isTargetBrowser;
 };

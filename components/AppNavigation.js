@@ -15,7 +15,9 @@ const AppNavigation = ({ info }) => (
         <NoSSR>
           <AddToHomescreen />
         </NoSSR>
-        <ShareMenu />
+        <NoSSR>
+          <ShareMenu />
+        </NoSSR>
       </ToolbarGroup>
     </Toolbar>
   </Paper>
