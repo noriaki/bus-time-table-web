@@ -1,5 +1,6 @@
 import React from 'react';
 import NoSSR from 'react-no-ssr';
+import moment from 'moment';
 import Head from 'next/head';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
@@ -50,7 +51,7 @@ const tabs = [{
   data: timeTableData.stationToHome,
 }];
 
-const IndexPage = ({ userAgent, baseURI }) => (
+const IndexPage = ({ userAgent, baseURI, tabIndex }) => (
   <MuiThemeProvider muiTheme={getMuiTheme({ ...themeOptions, userAgent })}>
     <main>
       <Head>
@@ -64,14 +65,19 @@ const IndexPage = ({ userAgent, baseURI }) => (
         <meta property="og:image" content={`${baseURI}/static/icons/app.png`} />
       </Head>
       <article style={styles.container}>
-        <Tabs inkBarStyle={styles.tabInkBar} onChange={handleTabSelected}>
+        <Tabs
+          initialSelectedIndex={tabIndex}
+          inkBarStyle={styles.tabInkBar}
+          onChange={handleTabSelected}>
           {tabs.map(TabContent)}
         </Tabs>
       </article>
       <footer style={styles.footer}>
         <AppNavigation info={appInformation} />
       </footer>
-      <NoSSR><GA id="UA-97608334-1" initialPageView={tabs[0]} /></NoSSR>
+      <NoSSR>
+        <GA id="UA-97608334-1" initialPageView={tabs[tabIndex]} />
+      </NoSSR>
     </main>
   </MuiThemeProvider>
 );
@@ -79,6 +85,7 @@ IndexPage.getInitialProps = async ({ req }) => (
   {
     userAgent: req ? req.headers['user-agent'] : navigator.userAgent,
     baseURI: req ? fqdn(req.headers) : fqdn(document.location),
+    tabIndex: detectTabIndex(),
   }
 );
 
@@ -89,6 +96,12 @@ const handleTabSelected = (_, __, { props: { index } }) => (
 );
 
 const fqdn = ({ protocol = 'https:', host }) => `${protocol}//${host}`;
+
+const detectTabIndex = (currentTime = moment()) => {
+  const oClock = currentTime.hours();
+  if (oClock >= 4 && oClock < 14) { return 0; }
+  return 1;
+};
 
 const styles = {
   container: {
