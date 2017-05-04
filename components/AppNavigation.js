@@ -7,16 +7,16 @@ import AppInformationMenu from './AppInformationMenu';
 import AddToHomescreen from './AddToHomescreen';
 import ShareMenu from './ShareMenu';
 
-const AppNavigation = ({ info }) => (
+const AppNavigation = ({ info, os }) => (
   <Paper zDepth={1}>
     <Toolbar style={styles.toolbar}>
       <ToolbarGroup style={styles.toolbarGroup}>
         <AppInformationMenu {...info} />
         <NoSSR>
-          <AddToHomescreen />
+          <AddToHomescreen os={os} />
         </NoSSR>
         <NoSSR>
-          <ShareMenu />
+          <ShareMenu os={os} />
         </NoSSR>
       </ToolbarGroup>
     </Toolbar>

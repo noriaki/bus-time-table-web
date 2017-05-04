@@ -1,11 +1,11 @@
 import React from 'react';
-import NoSSR from 'react-no-ssr';
-import browser from 'detect-browser';
+import copy from 'copy-to-clipboard';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 import Subheader from 'material-ui/Subheader';
 import ShareIcon from 'material-ui/svg-icons/social/share';
+import CopyIcon from 'material-ui/svg-icons/content/content-copy';
 
 import LineItButton, {
   launchApp as launchAppLine } from './LineItButton';
@@ -13,10 +13,10 @@ import FacebookSendButton, {
   launchApp as launchAppFb } from './FacebookSendButton';
 import GA from './GA';
 
-const ShareMenu = () => (
+const ShareMenu = ({ os }) => (
   <IconMenu
     useLayerForClickAway
-    style={{ display: detectVisible(navigator) ? 'block' : 'none' }}
+    style={{ display: detectVisible(navigator, os) ? 'block' : 'none' }}
     iconButtonElement={MenuIcon}
     onTouchTap={handleTouchTap}
     anchorOrigin={{ horizontal: 'middle', vertical: 'center' }}
@@ -28,8 +28,13 @@ const ShareMenu = () => (
       secondaryText={Iconize(LineItButton, 'line')} />
     <MenuItem
       primaryText="Facebook"
+      style={{ display: detectVisibleFB(navigator, os) ? 'block' : 'none' }}
       onTouchTap={handleTouchTapSocial('Facebook', launchAppFb)}
       secondaryText={Iconize(FacebookSendButton, 'fb')} />
+    <MenuItem
+      primaryText="URLをコピー"
+      onTouchTap={handleTouchTapCopy}
+      secondaryText={Iconize(CopyIcon, 'copy', { style: styles.copy })} />
   </IconMenu>
 );
 
@@ -55,6 +60,13 @@ const handleTouchTapSocial = (network, callback = () => {}) => () => {
   }))]).then(callback);
 };
 
+const handleTouchTapCopy = () => {
+  const url = 'https://deux-tours-bus.com';
+  new Promise(resolve => GA.event({
+    category: 'Share', action: 'copy', label: 'clipboard', callback: resolve,
+  })).then(() => copy(url));
+};
+
 const styles = {
   icon: {
     display: 'inline-flex',
@@ -74,21 +86,28 @@ const styles = {
   fb: {
     width: 49,
   },
+  copy: {
+    width: 20,
+    height: 20,
+  },
 };
 
-const Iconize = (Component, name) => (
+const Iconize = (Component, name, props = {}) => (
   <div>
     <span style={{ ...styles.icon, ...styles[name] }}>
       <span style={{ ...styles.iconInner, ...styles[name] }}>
-        <NoSSR><Component /></NoSSR>
+        <Component {...props} />
       </span>
     </span>
   </div>
 );
 
-const detectVisible = ({ standalone }) => {
-  const isTargetBrowser = (
-    browser != null && ['ios'].includes(browser.name)
-  );
+const detectVisible = ({ standalone }, os) => {
+  const isTargetBrowser = ['AndroidOS', 'iOS'].includes(os);
+  return standalone != null || isTargetBrowser;
+};
+
+const detectVisibleFB = ({ standalone }, os) => {
+  const isTargetBrowser = ['iOS'].includes(os);
   return standalone != null || isTargetBrowser;
 };
