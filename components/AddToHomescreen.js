@@ -32,8 +32,9 @@ class AddToHomescreen extends Component {
   }
 
   render() {
+    const { os } = this.props;
     return (
-      <div style={{ display: detectVisible(navigator) ? 'block' : 'none' }}>
+      <div style={{ display: detectVisible(navigator, os) ? 'block' : 'none' }}>
         <FlatButton
           secondary
           icon={<ActionGetApp />}
@@ -55,10 +56,8 @@ class AddToHomescreen extends Component {
   }
 }
 
-const detectVisible = ({ standalone }) => {
-  const isTargetBrowser = (
-    browser != null && ['ios'].includes(browser.name)
-  );
+const detectVisible = ({ standalone }, os) => {
+  const isTargetBrowser = ['iOS'].includes(os);
   return !standalone && isTargetBrowser;
 };
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import NoSSR from 'react-no-ssr';
 import moment from 'moment';
+import MobileDetect from 'mobile-detect';
 import Head from 'next/head';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
@@ -51,7 +52,7 @@ const tabs = [{
   data: timeTableData.stationToHome,
 }];
 
-const IndexPage = ({ userAgent, baseURI, tabIndex }) => (
+const IndexPage = ({ userAgent, os, baseURI, tabIndex }) => (
   <MuiThemeProvider muiTheme={getMuiTheme({ ...themeOptions, userAgent })}>
     <main>
       <Head>
@@ -73,7 +74,7 @@ const IndexPage = ({ userAgent, baseURI, tabIndex }) => (
         </Tabs>
       </article>
       <footer style={styles.footer}>
-        <AppNavigation info={appInformation} />
+        <AppNavigation info={appInformation} os={os} />
       </footer>
       <NoSSR>
         <GA id="UA-97608334-1" initialPageView={tabs[tabIndex]} />
@@ -81,13 +82,15 @@ const IndexPage = ({ userAgent, baseURI, tabIndex }) => (
     </main>
   </MuiThemeProvider>
 );
-IndexPage.getInitialProps = async ({ req }) => (
-  {
-    userAgent: req ? req.headers['user-agent'] : navigator.userAgent,
+IndexPage.getInitialProps = async ({ req }) => {
+  const userAgent = req ? req.headers['user-agent'] : navigator.userAgent;
+  return ({
+    userAgent,
+    os: (new MobileDetect(userAgent)).os(),
     baseURI: req ? fqdn(req.headers) : fqdn(document.location),
     tabIndex: detectTabIndex(),
-  }
-);
+  });
+};
 
 export default IndexPage;
 
