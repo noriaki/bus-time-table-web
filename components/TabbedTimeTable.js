@@ -19,6 +19,7 @@ class TabbedTimeTable extends Component {
     return (
       <div>
         <Tabs
+          tabItemContainerStyle={styles.tabItemContainer}
           inkBarStyle={styles.tabInkBar}
           onChange={this.handleChange}
           value={this.state.index}>
@@ -26,6 +27,7 @@ class TabbedTimeTable extends Component {
         </Tabs>
         <SwipeableViews
           resistance
+          style={styles.swipeableViewsContainer}
           index={this.state.index}
           onChangeIndex={this.handleChange}>
           {this.props.tabs.map(TabContent)}
@@ -51,9 +53,21 @@ const makeTabLabel = ({ label, C, ...props }) => (
 );
 
 const styles = {
+  tabItemContainer: {
+    position: 'fixed',
+    top: 0,
+    width: '100%',
+    zIndex: 1,
+  },
   tabInkBar: {
     height: 4,
     marginTop: -4,
+    position: 'fixed',
+    top: 48,
+    zIndex: 1,
+  },
+  swipeableViewsContainer: {
+    marginTop: 48,
   },
   icon: {
     display: 'inline-flex',
