@@ -48,6 +48,7 @@
     "no-confusing-arrow": ["error", { "allowParens": true }],
     "react/jsx-closing-bracket-location": [ "error", "after-props" ],
     "react/jsx-filename-extension": ["error", { "extensions": [".js", ".jsx"] }],
+    "react/prop-types": "warn",
     "import/no-extraneous-dependencies": [ "error", { "dependencies": true } ]
   }
 }

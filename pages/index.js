@@ -5,7 +5,6 @@ import MobileDetect from 'mobile-detect';
 import Head from 'next/head';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import { Tabs } from 'material-ui/Tabs';
 import ActionHome from 'material-ui/svg-icons/action/home';
 import MapsTrain from 'material-ui/svg-icons/maps/train';
 
@@ -22,7 +21,7 @@ import {
 import timeTableData from '../data/timetable.json';
 
 // components
-import TabContent from '../components/TabContent';
+import TabbedTimeTable from '../components/TabbedTimeTable';
 import AppNavigation from '../components/AppNavigation';
 import GA from '../components/GA';
 
@@ -66,12 +65,7 @@ const IndexPage = ({ userAgent, os, baseURI, tabIndex }) => (
         <meta property="og:image" content={`${baseURI}/static/icons/app.png`} />
       </Head>
       <article style={styles.container}>
-        <Tabs
-          initialSelectedIndex={tabIndex}
-          inkBarStyle={styles.tabInkBar}
-          onChange={handleTabSelected}>
-          {tabs.map(TabContent)}
-        </Tabs>
+        <TabbedTimeTable tabs={tabs} index={tabIndex} />
       </article>
       <footer style={styles.footer}>
         <AppNavigation info={appInformation} os={os} />
@@ -94,10 +88,6 @@ IndexPage.getInitialProps = async ({ req }) => {
 
 export default IndexPage;
 
-const handleTabSelected = (_, __, { props: { index } }) => (
-  GA.pageview(tabs[index])
-);
-
 const fqdn = ({ protocol = 'https:', host }) => `${protocol}//${host}`;
 
 const detectTabIndex = (currentTime = moment()) => {
@@ -110,10 +100,6 @@ const styles = {
   container: {
     maxWidth: 800,
     margin: '0 auto',
-  },
-  tabInkBar: {
-    height: 4,
-    marginTop: -4,
   },
   footer: {
     position: 'fixed',

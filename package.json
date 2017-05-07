@@ -1,7 +1,7 @@
 {
   "name": "bus-time-table-web",
   "title": "シャトルバス時刻表・発車タイマー（ドゥ・トゥール/DEUX TOURS）",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "東京都中央区のマンション「ドゥ・トゥール(DEUX TOURS)」と新橋駅を結ぶシャトルバスの時刻表を手軽にチェックできるアプリです",
   "private": true,
   "engines": {
@@ -30,6 +30,7 @@
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-no-ssr": "^1.1.0",
+    "react-swipeable-views": "^0.12.1",
     "react-tap-event-plugin": "^2.0.1",
     "react-timer-mixin": "^0.13.3"
   },

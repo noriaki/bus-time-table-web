@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import browser from 'detect-browser';
 import FlatButton from 'material-ui/FlatButton';
 import Popover from 'material-ui/Popover';
 import ActionGetApp from 'material-ui/svg-icons/action/get-app';
