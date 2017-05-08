@@ -58,6 +58,7 @@ const styles = {
     top: 0,
     width: '100%',
     zIndex: 1,
+    maxWidth: 800,
   },
   tabInkBar: {
     height: 4,
