@@ -63,9 +63,10 @@ const handleTouchTapSocial = (network, callback = () => {}) => () => {
 
 const handleTouchTapCopy = () => {
   const url = 'https://deux-tours-bus.com';
+  const message = 'URLを選択してコピーしてください';
   new Promise(resolve => GA.event({
     category: 'Share', action: 'copy', label: 'clipboard', callback: resolve,
-  })).then(() => copy(url));
+  })).then(() => copy(url, { message }));
 };
 
 const styles = {
