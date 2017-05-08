@@ -33,7 +33,7 @@ const ShareMenu = ({ os }) => (
       secondaryText={Iconize(FacebookSendButton, 'fb')} />
     <MenuItem
       primaryText="URLをコピー"
-      style={{ display: detectVisibleCP(os) ? 'block' : 'none' }}
+      style={{ display: detectVisibleCP(navigator, os) ? 'block' : 'none' }}
       onTouchTap={handleTouchTapCopy}
       secondaryText={Iconize(CopyIcon, 'copy', { style: styles.copy })} />
   </IconMenu>
@@ -113,4 +113,7 @@ const detectVisibleFB = ({ standalone }, os) => {
   return standalone != null || isTargetBrowser;
 };
 
-const detectVisibleCP = os => ['AndroidOS'].includes(os);
+const detectVisibleCP = ({ standalone }, os) => {
+  const isTargetBrowser = ['AndroidOS'].includes(os);
+  return standalone != null || isTargetBrowser;
+};
