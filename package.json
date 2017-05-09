@@ -10,9 +10,9 @@
   "main": "pages/index.js",
   "scripts": {
     "test": "jest --notify --watch",
-    "dev": "next",
+    "dev": "node server.js",
     "build": "next build",
-    "start": "next start"
+    "start": "NODE_ENV=production node server.js"
   },
   "repository": "https://github.com/noriaki/bus-time-table-web",
   "author": {
