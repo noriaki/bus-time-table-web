@@ -1,7 +1,7 @@
 {
   "name": "bus-time-table-web",
   "title": "シャトルバス時刻表・発車タイマー（ドゥ・トゥール/DEUX TOURS）",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "description": "東京都中央区のマンション「ドゥ・トゥール(DEUX TOURS)」と新橋駅を結ぶシャトルバスの時刻表を手軽にチェックできるアプリです",
   "private": true,
   "engines": {
@@ -10,9 +10,9 @@
   "main": "pages/index.js",
   "scripts": {
     "test": "jest --notify --watch",
-    "dev": "next",
+    "dev": "node server.js",
     "build": "next build",
-    "start": "next start"
+    "start": "NODE_ENV=production node server.js"
   },
   "repository": "https://github.com/noriaki/bus-time-table-web",
   "author": {
@@ -26,7 +26,7 @@
     "material-ui": "^0.17.4",
     "mobile-detect": "^1.3.6",
     "moment": "^2.18.1",
-    "next": "^2.0.1",
+    "next": "^2.3.1",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-no-ssr": "^1.1.0",
@@ -38,8 +38,6 @@
     "babel-eslint": "^7.2.2",
     "babel-jest": "^19.0.0",
     "babel-preset-es2015": "^6.24.0",
-    "babel-preset-react": "^6.23.0",
-    "babel-preset-stage-0": "^6.22.0",
     "enzyme": "^2.8.0",
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^14.1.0",

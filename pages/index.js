@@ -24,6 +24,7 @@ import timeTableData from '../data/timetable.json';
 import TabbedTimeTable from '../components/TabbedTimeTable';
 import AppNavigation from '../components/AppNavigation';
 import GA from '../components/GA';
+import SW from '../components/SW';
 
 // themes
 import themeOptions from '../themes/custom';
@@ -58,6 +59,8 @@ const IndexPage = ({ userAgent, os, baseURI, tabIndex }) => (
         <meta charSet="utf-8" />
         <title>{appTitle}</title>
         <meta name="description" content={appDescription} />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <link rel="manifest" href="/static/manifest.json" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-title" content="バス時刻表" />
         <link rel="apple-touch-icon-precomposed" href="/static/icons/app.png" />
@@ -73,6 +76,7 @@ const IndexPage = ({ userAgent, os, baseURI, tabIndex }) => (
       <NoSSR>
         <GA id="UA-97608334-1" initialPageView={tabs[tabIndex]} />
       </NoSSR>
+      <NoSSR><SW /></NoSSR>
     </main>
   </MuiThemeProvider>
 );
