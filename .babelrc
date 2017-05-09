@@ -3,6 +3,9 @@
     "development": {
       "presets": ["next/babel"]
     },
+    "staging": {
+      "presets": ["next/babel"]
+    },
     "production": {
       "presets": ["next/babel"]
     },

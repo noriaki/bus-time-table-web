@@ -3,22 +3,23 @@ const { parse } = require('url');
 const next = require('next');
 const { join } = require('path');
 
-const dev = process.env.NODE_ENV !== 'production';
+let dev = process.env.NODE_ENV !== 'production';
 const stg = process.env.NODE_ENV === 'staging';
-const app = next({ dev });
-const handle = app.getRequestHandler();
 
 let env = 'dev';
 let port = 3000;
 
 if (!dev) {
-  if (stg) {
-    env = 'stg';
-    port = 10001;
-  }
   env = 'prod';
   port = 9001;
+} else if (stg) {
+  env = 'stg';
+  port = 10001;
+  dev = false;
 }
+
+const app = next({ dev });
+const handle = app.getRequestHandler();
 
 app.prepare()
   .then(() => {
