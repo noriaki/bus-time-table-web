@@ -43,10 +43,10 @@ export default class extends Component {
     /* eslint-enable */
     ga('create', this.props.id, this.props.options || 'auto');
     ga('set', 'transport', 'beacon');
-    this.constructor.pageview(this.props.initialPageView);
     if (detectStandalone({ navigator, location })) {
       ga('set', 'dataSource', 'web/standalone');
     }
+    this.constructor.pageview(this.props.initialPageView);
   }
 
   render() { return null; }
