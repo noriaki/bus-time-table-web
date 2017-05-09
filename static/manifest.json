@@ -1,10 +1,13 @@
 {
-  "name": "シャトルバス時刻表（DEUX TOURS）",
+  "lang": "ja-JP",
+  "name": "シャトルバス時刻表 (DEUX TOURS)",
   "short_name": "バス時刻表",
   "start_url": "/",
   "display": "standalone",
+  "orientation": "portrait",
   "background_color": "#54bbcf",
   "theme_color": "#0b1013",
+  "description": "東京都中央区のマンション「ドゥ・トゥール(DEUX TOURS)」と新橋駅を結ぶシャトルバスの時刻表を手軽にチェックできるアプリです",
   "icons": [
     {
       "src": "/static/icons/app-16x16.png",
