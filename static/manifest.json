@@ -2,7 +2,7 @@
   "lang": "ja-JP",
   "name": "DEUX TOURS バス時刻表",
   "short_name": "バス時刻表",
-  "start_url": "/",
+  "start_url": "/?display=standalone",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#54bbcf",
