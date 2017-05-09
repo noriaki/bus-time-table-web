@@ -58,6 +58,8 @@ const IndexPage = ({ userAgent, os, baseURI, tabIndex }) => (
         <meta charSet="utf-8" />
         <title>{appTitle}</title>
         <meta name="description" content={appDescription} />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <link rel="manifest" href="/static/manifest.json" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-title" content="バス時刻表" />
         <link rel="apple-touch-icon-precomposed" href="/static/icons/app.png" />
