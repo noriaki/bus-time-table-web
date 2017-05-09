@@ -24,6 +24,7 @@ import timeTableData from '../data/timetable.json';
 import TabbedTimeTable from '../components/TabbedTimeTable';
 import AppNavigation from '../components/AppNavigation';
 import GA from '../components/GA';
+import SW from '../components/SW';
 
 // themes
 import themeOptions from '../themes/custom';
@@ -75,6 +76,7 @@ const IndexPage = ({ userAgent, os, baseURI, tabIndex }) => (
       <NoSSR>
         <GA id="UA-97608334-1" initialPageView={tabs[tabIndex]} />
       </NoSSR>
+      <NoSSR><SW /></NoSSR>
     </main>
   </MuiThemeProvider>
 );
