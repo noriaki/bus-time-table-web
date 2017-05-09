@@ -1,8 +1,13 @@
 {
-  "presets": ["next/babel", "stage-0"],
   "env": {
+    "development": {
+      "presets": ["next/babel"]
+    },
+    "production": {
+      "presets": ["next/babel"]
+    },
     "test": {
-      "presets": ["es2015", "react", "stage-0"]
+      "presets": ["es2015", "next/babel"]
     }
   }
 }
