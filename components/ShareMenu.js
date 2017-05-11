@@ -6,6 +6,7 @@ import IconButton from 'material-ui/IconButton';
 import Subheader from 'material-ui/Subheader';
 import ShareIcon from 'material-ui/svg-icons/social/share';
 import CopyIcon from 'material-ui/svg-icons/content/content-copy';
+import LinkIcon from 'material-ui/svg-icons/content/link';
 
 import LineItButton, {
   launchApp as launchAppLine } from './LineItButton';
@@ -35,7 +36,7 @@ const ShareMenu = ({ os }) => (
       primaryText="URLをコピー"
       style={{ display: detectVisibleCP(navigator, os) ? 'block' : 'none' }}
       onTouchTap={handleTouchTapCopy}
-      secondaryText={Iconize(CopyIcon, 'copy', { style: styles.copy })} />
+      secondaryText={Iconize(LinkIcon, 'copy', { style: styles.copy })} />
   </IconMenu>
 );
 
