@@ -57,7 +57,6 @@ const styles = {
     position: 'fixed',
     top: 0,
     width: '100%',
-    zIndex: 1,
     maxWidth: 800,
   },
   tabInkBar: {
@@ -65,7 +64,6 @@ const styles = {
     marginTop: -4,
     position: 'fixed',
     top: 48,
-    zIndex: 1,
   },
   swipeableViewsContainer: {
     marginTop: 48,
