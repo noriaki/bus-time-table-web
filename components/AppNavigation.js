@@ -11,7 +11,9 @@ const AppNavigation = ({ info, os }) => (
   <Paper zDepth={1}>
     <Toolbar style={styles.toolbar}>
       <ToolbarGroup style={styles.toolbarGroup}>
-        <AppInformationMenu {...info} />
+        <NoSSR>
+          <AppInformationMenu {...info} />
+        </NoSSR>
         <NoSSR>
           <AddToHomescreen os={os} />
         </NoSSR>

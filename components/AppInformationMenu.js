@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import NoSSR from 'react-no-ssr';
 import Divider from 'material-ui/Divider';
 import Drawer from 'material-ui/Drawer';
 import Dialog from 'material-ui/Dialog';
@@ -13,12 +14,21 @@ import OpenInNewIcon from 'material-ui/svg-icons/action/open-in-new';
 
 import { blueSky } from '../themes/colors';
 
+import db from '../libs/db';
+
 import changelogs from '../data/changelogs.json';
 import ChangeLogInfo from './ChangeLogInfo';
 import GA from './GA';
 
 class AppInformationMenu extends Component {
   state = { menuOpen: false, infoOpen: false, badge: false }
+
+  componentDidMount() {
+    firstOrCreateReadStateOfUser(this.props.appVersion)
+      .then(userState => this.setState({
+        ...this.state, badge: userState.isUnreadNotification,
+      }));
+  }
 
   handleOpenMenu = () => {
     GA.event({
@@ -39,9 +49,14 @@ class AppInformationMenu extends Component {
     });
     this.setState({ ...this.state, infoOpen: true });
   }
-  handleClose = () => this.setState({
-    ...this.state, menuOpen: false, infoOpen: false, badge: false,
-  })
+  handleClose = () => {
+    db.userStates
+      .where('version').equals(this.props.appVersion)
+      .modify({ isUnreadNotification: false })
+      .then(() => this.setState({
+        ...this.state, menuOpen: false, infoOpen: false, badge: false,
+      }));
+  }
 
   render() {
     const { timeTableVersion, appVersion } = this.props;
@@ -123,6 +138,16 @@ const LinkOpenInNew = ({ url, text }) => (
     <span style={styles.icon}><OpenInNewIcon style={styles.svg} /></span>
   </span>
 );
+
+const firstOrCreateReadStateOfUser = async (version) => {
+  let currentState = await db.userStates
+        .where('version').equals(version).first();
+  if (currentState === undefined) {
+    currentState = { version, isUnreadNotification: true };
+    await db.userStates.add(currentState);
+  }
+  return currentState;
+};
 
 const styles = {
   smallMenuIcon: {
