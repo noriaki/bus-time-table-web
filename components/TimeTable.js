@@ -5,27 +5,27 @@ import {
 import ActionInfo from 'material-ui/svg-icons/action/info-outline';
 import NavigationMoreVert from 'material-ui/svg-icons/navigation/more-vert';
 import { white, grey500 } from 'material-ui/styles/colors';
-import { premiumBlack, silver } from '../themes/colors';
+import { blueSky, premiumBlack, silver } from '../themes/colors';
 
-const TimeTable = ({ data }) => (
+const TimeTable = ({ data, targetTime }) => (
   <Table selectable={false} style={styles.timeTable}>
     <TableBody stripedRows displayRowCheckbox={false}>
-      {data.map(RowIterator)}
+      {data.map(RowIterator(targetTime))}
     </TableBody>
   </Table>
 );
 
-const RowIterator = ({ hour, minutes, divider, note }) => {
+const RowIterator = targetTime => ({ hour, minutes, divider, note }) => {
   if (divider != null) { return buildDivider(); }
   if (note != null) { return buildNote(note); }
-  return buildRow({ hour, minutes });
+  return buildRow({ hour, minutes, targetTime });
 };
-const buildRow = ({ hour, minutes }) => (
+const buildRow = ({ hour, minutes, targetTime }) => (
   <TableRow key={hour} style={styles.row}>
     <TableHeaderColumn style={{ ...styles.column, ...styles.hourColumn }}>
       {format(hour)}
     </TableHeaderColumn>
-    {fill(minutes).map(makeMinutesRowIterator(hour))}
+    {fill(minutes).map(makeMinutesRowIterator(hour, targetTime))}
   </TableRow>
 );
 const buildDivider = () => (
@@ -45,11 +45,15 @@ const buildNote = note => (
     </TableRowColumn>
   </TableRow>
 );
-const makeMinutesRowIterator = hour => minute => (
-  <TableRowColumn key={`${hour}-${minute}`} style={styles.column}>
-    {format(minute)}
-  </TableRowColumn>
-);
+const makeMinutesRowIterator = (hour, { hours, minutes }) => (minute) => {
+  const columnStyle = (hour === hours && minute === minutes) ?
+          { ...styles.column, ...styles.targetColumn } : styles.column;
+  return (
+    <TableRowColumn key={`${hour}-${minute}`} style={columnStyle}>
+      {format(minute)}
+    </TableRowColumn>
+  );
+};
 
 const format = num => (num != null ? (`0${num}`).slice(-2) : '');
 const fill = minutes => [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55].map(
@@ -84,6 +88,11 @@ const styles = {
     height: 18,
     paddingLeft: 0,
     paddingRight: 0,
+  },
+  targetColumn: {
+    backgroundColor: blueSky,
+    color: white,
+    fontWeight: 'lighter',
   },
   icon: {
     display: 'inline-flex',

@@ -29,6 +29,7 @@ class TabContent extends Component {
   render() {
     const { nextRemaining, nextTime } = this.state;
     const { data, dest, activeDays } = this.props;
+    const targetTime = (nextTime && nextTime.toObject()) || {};
     return (
       <div key={dest}>
         <section>
@@ -41,14 +42,14 @@ class TabContent extends Component {
           </NoSSR>
         </section>
         <section>
-          <TimeTable data={data} />
+          <TimeTable data={data} targetTime={targetTime} />
         </section>
       </div>
     );
   }
 }
 
-export default TabContent;
+export default props => <TabContent {...props} />;
 
 const Loading = () => (
   <div style={styles.loadingContainer}>
