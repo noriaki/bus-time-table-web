@@ -43,6 +43,7 @@ const tabs = [{
   dest: '新橋駅',
   C: <ActionHome />,
   data: timeTableData.homeToStation,
+  activeDays: timeTableData.activeDays,
 }, {
   title: '新橋駅発タブ',
   page: '/tabs/station-to-home',
@@ -50,6 +51,7 @@ const tabs = [{
   dest: 'マンション',
   C: <MapsTrain />,
   data: timeTableData.stationToHome,
+  activeDays: timeTableData.activeDays,
 }];
 
 const IndexPage = ({ userAgent, os, baseURI, tabIndex }) => (
