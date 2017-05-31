@@ -45,8 +45,8 @@ const buildNote = note => (
     </TableRowColumn>
   </TableRow>
 );
-const makeMinutesRowIterator = hour => (minute, i) => (
-  <TableRowColumn key={`${hour}-${i}`} style={styles.column}>
+const makeMinutesRowIterator = hour => minute => (
+  <TableRowColumn key={`${hour}-${minute}`} style={styles.column}>
     {format(minute)}
   </TableRowColumn>
 );
