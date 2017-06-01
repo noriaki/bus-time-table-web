@@ -31,7 +31,7 @@ class TabContent extends Component {
     const { data, dest, activeDays } = this.props;
     const targetTime = (nextTime && nextTime.toObject()) || {};
     return (
-      <div key={dest}>
+      <div>
         <section>
           <NoSSR onSSR={<Loading />}>
             <RemainingClock
@@ -49,7 +49,7 @@ class TabContent extends Component {
   }
 }
 
-export default props => <TabContent {...props} />;
+export default props => <TabContent key={props.dest} {...props} />;
 
 const Loading = () => (
   <div style={styles.loadingContainer}>
