@@ -46,7 +46,7 @@ const buildNote = note => (
   </TableRow>
 );
 const makeMinutesRowIterator = (hour, { hours, minutes }) => (minute) => {
-  const columnStyle = (hour === hours && minute === minutes) ?
+  const columnStyle = (hour % 24 === hours && minute === minutes) ?
           { ...styles.column, ...styles.targetColumn } : styles.column;
   return (
     <TableRowColumn key={`${hour}-${minute}`} style={columnStyle}>
