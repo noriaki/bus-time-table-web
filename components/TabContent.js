@@ -7,11 +7,11 @@ import { blueSky } from '../themes/colors';
 import BoardingTimer from './BoardingTimer';
 import TimeTable from './TimeTable';
 
-const TabContent = ({ dest, data }) => (
+const TabContent = ({ dest, data, activeDays }) => (
   <div key={dest}>
     <section>
       <NoSSR onSSR={<Loading />}>
-        <BoardingTimer data={data} dest={dest} />
+        <BoardingTimer data={data} dest={dest} activeDays={activeDays} />
       </NoSSR>
     </section>
     <section>

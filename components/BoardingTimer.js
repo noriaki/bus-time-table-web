@@ -25,9 +25,13 @@ export default class BoardingTimer extends Component {
 
   render() {
     const { nextRemaining, nextTime } = this.state;
-    const { dest } = this.props;
+    const { dest, activeDays } = this.props;
     return (
-      <RemainingClock remaining={nextRemaining} time={nextTime} dest={dest} />
+      <RemainingClock
+        activeDays={activeDays.includes(moment().days())}
+        remaining={nextRemaining}
+        time={nextTime}
+        dest={dest} />
     );
   }
 }
