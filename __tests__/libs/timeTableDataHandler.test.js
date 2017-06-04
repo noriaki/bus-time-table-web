@@ -49,63 +49,63 @@ describe('timeTableDataHandler', () => {
       list = flattenTimeTable(raw);
     });
 
-    it('wait beginning bus', () => {
+    it('wait beginning bus (5:50)', () => {
       const currentTime = moment({ hour: 5, minute: 50 });
       const expected = list[0];
       const subject = findNextTime(list, currentTime);
       expect(subject.isSame(expected)).toBe(true);
     });
 
-    it('just wait-time is 0', () => {
+    it('just wait-time is 0 (6:30)', () => {
       const currentTime = moment({ hour: 6, minute: 30 });
       const expected = list[1];
       const subject = findNextTime(list, currentTime);
       expect(subject.isSame(expected)).toBe(true);
     });
 
-    it('between the buses', () => {
+    it('between the buses (8:51)', () => {
       const currentTime = moment({ hour: 8, minute: 51 });
       const expected = list[12];
       const subject = findNextTime(list, currentTime);
       expect(subject.isSame(expected)).toBe(true);
     });
 
-    it('between dates (midnight passes)', () => {
+    it('between dates (midnight passes; 23:58)', () => {
       const currentTime = moment({ hour: 23, minute: 58 });
       const expected = list[18];
       const subject = findNextTime(list, currentTime);
       expect(subject.isSame(expected)).toBe(true);
     });
 
-    it('just midnight', () => {
+    it('just midnight (0:00)', () => {
       const currentTime = moment({ hour: 0, minute: 0 });
       const expected = list[18];
       const subject = findNextTime(list, currentTime);
       expect(subject.isSame(expected)).toBe(true);
     });
 
-    it('past midnight', () => {
+    it('past midnight (0:31)', () => {
       const currentTime = moment({ hour: 0, minute: 31 });
       const expected = list[19];
       const subject = findNextTime(list, currentTime);
       expect(subject.isSame(expected)).toBe(true);
     });
 
-    it('wait last bus', () => {
+    it('wait last bus (0:43)', () => {
       const currentTime = moment({ hour: 0, minute: 43 });
       const expected = list[20];
       const subject = findNextTime(list, currentTime);
       expect(subject.isSame(expected)).toBe(true);
     });
 
-    it('the last bus is over', () => {
+    it('the last bus is over (1:35)', () => {
       const currentTime = moment({ hour: 1, minute: 35 });
       const subject = findNextTime(list, currentTime);
       expect(subject).toBeUndefined();
     });
 
     describe('Boundary value test', () => {
-      it('timetable should switches at 4 am', () => {
+      it('timetable should switches at 4 am (3:59:59 - 4:00:00)', () => {
         const beforeTheBoundaryTime = moment({
           hour: 3, minute: 59, second: 59,
         });
