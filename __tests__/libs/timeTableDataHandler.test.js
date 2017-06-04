@@ -3,6 +3,7 @@ import {
   momentFromVersion,
   flattenTimeTable,
   findNextTime,
+  isInactiveDays,
 } from '../../libs/timeTableDataHandler';
 import timeTableData from '../../data/timetable.json';
 
@@ -117,6 +118,42 @@ describe('timeTableDataHandler', () => {
           onTheBoundaryTimeSubject.isSame(onTheBoundaryTimeExpected)
         ).toBe(true);
       });
+    });
+  });
+
+  describe('.isInactiveDays', () => {
+    const activeDays = [1, 2, 3, 4, 5];
+    let subjectTime;
+    beforeEach(() => { subjectTime = moment([2016]); });
+
+    it('should be true in sunday 13:00', () => {
+      subjectTime.day('sunday').hour(13);
+      expect(isInactiveDays(activeDays, subjectTime)).toBe(true);
+    });
+
+    it('should be true in monday 1:30 (sunday 25:30)', () => {
+      subjectTime.day('monday').hour(1).minute(30);
+      expect(isInactiveDays(activeDays, subjectTime)).toBe(true);
+    });
+
+    it('should be false in monday 6:00', () => {
+      subjectTime.day('monday').hour(6);
+      expect(isInactiveDays(activeDays, subjectTime)).toBe(false);
+    });
+
+    it('should be false in friday 22:00', () => {
+      subjectTime.day('friday').hour(22);
+      expect(isInactiveDays(activeDays, subjectTime)).toBe(false);
+    });
+
+    it('should be false in saturday 0:50 (friday 24:50)', () => {
+      subjectTime.day('saturday').minute(50);
+      expect(isInactiveDays(activeDays, subjectTime)).toBe(false);
+    });
+
+    it('should be true in saturday 11:00', () => {
+      subjectTime.day('saturday').hour(11);
+      expect(isInactiveDays(activeDays, subjectTime)).toBe(true);
     });
   });
 });

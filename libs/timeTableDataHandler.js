@@ -23,8 +23,15 @@ export const findNextTime = (list, now) => {
   return list.find(m => (m.diff(currentTime) >= 0));
 };
 
+export const isInactiveDays = (activeDays, now) => {
+  const currentTime = moment(now || moment());
+  if (currentTime.hours() < 4) { currentTime.subtract(1, 'day'); }
+  return !activeDays.includes(currentTime.day());
+};
+
 export default {
   momentFromVersion,
   flattenTimeTable,
   findNextTime,
+  isInactiveDays,
 };
