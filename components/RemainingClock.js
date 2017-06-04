@@ -1,8 +1,18 @@
 import React from 'react';
 import moment from 'moment';
 
-const RemainingClock = ({ remaining, time, dest, activeDays }) => {
-  if (remaining != null) {
+const RemainingClock = ({ remaining, time, dest, inactive }) => {
+  if (inactive) {
+    return (
+      <div style={styles.container}>
+        <p style={styles.notice}>
+          本日のシャトルバス運行はありません
+          <br />
+          （運行は土日祝祭日を除く平日のみ）
+        </p>
+      </div>
+    );
+  } else if (remaining != null) {
     const m = moment.utc(remaining);
     const haveHour = m.hour() > 0;
     return (
@@ -20,16 +30,6 @@ const RemainingClock = ({ remaining, time, dest, activeDays }) => {
           <Minute m={m} /><Suffix str="分" />
           <Second m={m} /><Suffix str="秒後" />
         </div>
-      </div>
-    );
-  } else if (!activeDays) {
-    return (
-      <div style={styles.container}>
-        <p style={styles.notice}>
-          本日のシャトルバス運行はありません
-          <br />
-          （運行は土日祝祭日を除く平日のみ）
-        </p>
       </div>
     );
   }

@@ -4,7 +4,11 @@ import TimerMixin from 'react-timer-mixin';
 import moment from 'moment';
 import CircularProgress from 'material-ui/CircularProgress';
 
-import { flattenTimeTable, findNextTime } from '../libs/timeTableDataHandler';
+import {
+  flattenTimeTable,
+  findNextTime,
+  isInactiveDays,
+} from '../libs/timeTableDataHandler';
 
 import { blueSky } from '../themes/colors';
 
@@ -29,13 +33,14 @@ class TabContent extends Component {
   render() {
     const { nextRemaining, nextTime } = this.state;
     const { data, dest, activeDays } = this.props;
-    const targetTime = (nextTime && nextTime.toObject()) || {};
+    const isInactive = isInactiveDays(activeDays);
+    const targetTime = (!isInactive && nextTime && nextTime.toObject()) || {};
     return (
       <div>
         <section>
           <NoSSR onSSR={<Loading />}>
             <RemainingClock
-              activeDays={activeDays.includes(moment().days())}
+              inactive={isInactive}
               remaining={nextRemaining}
               time={nextTime}
               dest={dest} />
