@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import NoSSR from 'react-no-ssr';
-import TimerMixin from 'react-timer-mixin';
 import moment from 'moment';
 import CircularProgress from 'material-ui/CircularProgress';
 
@@ -19,11 +18,11 @@ class TabContent extends Component {
   state = buildNextState(flattenTimeTable(this.props.data))
 
   componentDidMount() {
-    this.timer = TimerMixin.setInterval(this.handleTick.bind(this), 1000);
+    this.timer = setInterval(this.handleTick.bind(this), 1000);
   }
 
   componentWillUnmount() {
-    TimerMixin.clearTimeout(this.timer);
+    clearTimeout(this.timer);
   }
 
   handleTick() {
