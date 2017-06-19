@@ -124,36 +124,60 @@ describe('timeTableDataHandler', () => {
   describe('.isInactiveDays', () => {
     const activeDays = [1, 2, 3, 4, 5];
     let subjectTime;
-    beforeEach(() => { subjectTime = moment([2016]); });
+    beforeEach(() => { subjectTime = moment('2017-06-15'); });
 
-    it('should be true in sunday 13:00', () => {
-      subjectTime.day('sunday').hour(13);
-      expect(isInactiveDays(activeDays, subjectTime)).toBe(true);
+    describe('Weekend', () => {
+      it('should be true in sunday 13:00', () => {
+        subjectTime.day('sunday').hour(13);
+        expect(isInactiveDays(activeDays, subjectTime)).toBe(true);
+      });
+
+      it('should be true in monday 1:30 (sunday 25:30)', () => {
+        subjectTime.day('monday').hour(1).minute(30);
+        expect(isInactiveDays(activeDays, subjectTime)).toBe(true);
+      });
+
+      it('should be false in monday 6:00', () => {
+        subjectTime.day('monday').hour(6);
+        expect(isInactiveDays(activeDays, subjectTime)).toBe(false);
+      });
+
+      it('should be false in friday 22:00', () => {
+        subjectTime.day('friday').hour(22);
+        expect(isInactiveDays(activeDays, subjectTime)).toBe(false);
+      });
+
+      it('should be false in saturday 0:50 (friday 24:50)', () => {
+        subjectTime.day('saturday').minute(50);
+        expect(isInactiveDays(activeDays, subjectTime)).toBe(false);
+      });
+
+      it('should be true in saturday 11:00', () => {
+        subjectTime.day('saturday').hour(11);
+        expect(isInactiveDays(activeDays, subjectTime)).toBe(true);
+      });
     });
 
-    it('should be true in monday 1:30 (sunday 25:30)', () => {
-      subjectTime.day('monday').hour(1).minute(30);
-      expect(isInactiveDays(activeDays, subjectTime)).toBe(true);
-    });
+    describe('Public holiday', () => {
+      it('should be true in `元日` 1/1 8:00', () => {
+        subjectTime.set({ month: 0, date: 1, hour: 8 });
+        expect(isInactiveDays(activeDays, subjectTime)).toBe(true);
+      });
 
-    it('should be false in monday 6:00', () => {
-      subjectTime.day('monday').hour(6);
-      expect(isInactiveDays(activeDays, subjectTime)).toBe(false);
-    });
+      it('should be true in `元日 振替休日` 1/2 8:00', () => {
+        subjectTime.set({ month: 0, date: 2, hour: 8 });
+        expect(isInactiveDays(activeDays, subjectTime)).toBe(true);
+      });
 
-    it('should be false in friday 22:00', () => {
-      subjectTime.day('friday').hour(22);
-      expect(isInactiveDays(activeDays, subjectTime)).toBe(false);
-    });
+      it('should be true in `春分の日` 3/21 1:00 (3/20 25:00)', () => {
+        subjectTime.set({ month: 2, date: 21, hour: 1 });
+        expect(isInactiveDays(activeDays, subjectTime)).toBe(true);
+      });
 
-    it('should be false in saturday 0:50 (friday 24:50)', () => {
-      subjectTime.day('saturday').minute(50);
-      expect(isInactiveDays(activeDays, subjectTime)).toBe(false);
-    });
-
-    it('should be true in saturday 11:00', () => {
-      subjectTime.day('saturday').hour(11);
-      expect(isInactiveDays(activeDays, subjectTime)).toBe(true);
+      it('should be false in next day of `春分の日` 3/21 8:00', () => {
+        subjectTime.set({ month: 2, date: 21, hour: 8 });
+        expect(isInactiveDays(activeDays, subjectTime)).toBe(false);
+      });
     });
   });
 });
