@@ -1,11 +1,9 @@
 import React from 'react';
-import copy from 'copy-to-clipboard';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 import Subheader from 'material-ui/Subheader';
 import ShareIcon from 'material-ui/svg-icons/social/share';
-import CopyIcon from 'material-ui/svg-icons/content/content-copy';
 import LinkIcon from 'material-ui/svg-icons/content/link';
 
 import LineItButton, {
@@ -13,6 +11,8 @@ import LineItButton, {
 import FacebookSendButton, {
   launchApp as launchAppFb } from './FacebookSendButton';
 import GA from './GA';
+
+import copyToClipboard from '../libs/copyToClipboard';
 
 const ShareMenu = ({ os }) => (
   <IconMenu
@@ -33,7 +33,7 @@ const ShareMenu = ({ os }) => (
       onTouchTap={handleTouchTapSocial('Facebook', launchAppFb)}
       secondaryText={Iconize(FacebookSendButton, 'fb')} />
     <MenuItem
-      primaryText="URLをコピー"
+      primaryText={<CopyTitle />}
       style={{ display: detectVisibleCP(navigator, os) ? 'block' : 'none' }}
       onTouchTap={handleTouchTapCopy}
       secondaryText={Iconize(LinkIcon, 'copy', { style: styles.copy })} />
@@ -46,6 +46,13 @@ const MenuIcon = (
   <IconButton touch tooltip="Share" tooltipPosition="top-left">
     <ShareIcon />
   </IconButton>
+);
+
+const CopyTitle = () => (
+  <div style={styles.copyTitle}>
+    URLをコピー<br />
+    <span id="appurl" style={styles.copyURL}>https://deux-tours-bus.com</span>
+  </div>
 );
 
 const handleTouchTap = () => GA.pageview({
@@ -64,13 +71,20 @@ const handleTouchTapSocial = (network, callback = () => {}) => () => {
 
 const handleTouchTapCopy = () => {
   const url = 'https://deux-tours-bus.com';
-  const message = 'URLを選択してコピーしてください';
-  new Promise(resolve => GA.event({
-    category: 'Share', action: 'copy', label: 'clipboard', callback: resolve,
-  })).then(() => copy(url, { message }));
+  const ret = copyToClipboard(url);
+  if (ret) {
+    GA.event({ category: 'Share', action: 'copy', label: 'clipboard' });
+  }
 };
 
 const styles = {
+  copyTitle: {
+    paddingTop: 16,
+    lineHeight: '16px',
+  },
+  copyURL: {
+    fontSize: 11,
+  },
   icon: {
     display: 'inline-flex',
     alignSelf: 'center',
@@ -115,7 +129,7 @@ const detectVisibleFB = ({ standalone }, os) => {
   return standalone != null || isTargetBrowser;
 };
 
-const detectVisibleCP = ({ standalone }, os) => {
-  const isTargetBrowser = ['AndroidOS'].includes(os);
-  return standalone != null || isTargetBrowser;
+const detectVisibleCP = (_, os) => {
+  const isTargetBrowser = ['AndroidOS', 'iOS'].includes(os);
+  return isTargetBrowser;
 };
