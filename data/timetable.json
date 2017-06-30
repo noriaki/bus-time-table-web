@@ -1,5 +1,5 @@
 {
-  "version": 20170501,
+  "version": 20170701,
   "keys": ["homeToStation", "stationToHome"],
   "activeDays": [1, 2, 3, 4, 5],
   "homeToStation": [
