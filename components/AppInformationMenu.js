@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import NoSSR from 'react-no-ssr';
 import Divider from 'material-ui/Divider';
 import Drawer from 'material-ui/Drawer';
 import Dialog from 'material-ui/Dialog';

@@ -58,12 +58,14 @@ const styles = {
     top: 0,
     width: '100%',
     maxWidth: 800,
+    zIndex: 100,
   },
   tabInkBar: {
     height: 4,
     marginTop: -4,
     position: 'fixed',
     top: 48,
+    zIndex: 100,
   },
   swipeableViewsContainer: {
     marginTop: 48,

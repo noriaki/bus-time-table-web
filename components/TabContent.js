@@ -13,6 +13,7 @@ import { blueSky } from '../themes/colors';
 
 import RemainingClock from './RemainingClock';
 import TimeTable from './TimeTable';
+import RouteMap from './RouteMap';
 
 class TabContent extends Component {
   state = buildNextState(flattenTimeTable(this.props.data))
@@ -31,7 +32,7 @@ class TabContent extends Component {
 
   render() {
     const { nextRemaining, nextTime } = this.state;
-    const { data, dest, activeDays } = this.props;
+    const { id, data, dest, activeDays } = this.props;
     const isInactive = isInactiveDays(activeDays);
     const targetTime = (!isInactive && nextTime && nextTime.toObject()) || {};
     return (
@@ -47,6 +48,9 @@ class TabContent extends Component {
         </section>
         <section>
           <TimeTable data={data} targetTime={targetTime} />
+        </section>
+        <section>
+          <RouteMap id={id} dest={dest} />
         </section>
       </div>
     );
