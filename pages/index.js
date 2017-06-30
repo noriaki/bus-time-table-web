@@ -37,6 +37,7 @@ const appInformation = {
 };
 
 const tabs = [{
+  id: 'ToStation',
   title: 'マンション発タブ',
   page: '/tabs/home-to-station',
   label: 'マンション発',
@@ -45,6 +46,7 @@ const tabs = [{
   data: timeTableData.homeToStation,
   activeDays: timeTableData.activeDays,
 }, {
+  id: 'ToHome',
   title: '新橋駅発タブ',
   page: '/tabs/station-to-home',
   label: '新橋駅発',
