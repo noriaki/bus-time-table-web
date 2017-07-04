@@ -2024,6 +2024,10 @@ form-data@~2.1.1:
     combined-stream "^1.0.5"
     mime-types "^2.1.12"
 
+free-style@^2.3.1:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/free-style/-/free-style-2.3.1.tgz#ae256f7e78926bf034d2a51f4ba45715b4e6a709"
+
 fresh@0.5.0:
   version "0.5.0"
   resolved "https://registry.yarnpkg.com/fresh/-/fresh-0.5.0.tgz#f474ca5e6a9246d6fd8e0953cfa9b9c805afa78e"
@@ -3759,6 +3763,13 @@ react-event-listener@^0.4.5:
     fbjs "^0.8.4"
     prop-types "^15.5.4"
     warning "^3.0.0"
+
+react-free-style@^4.3.2:
+  version "4.3.2"
+  resolved "https://registry.yarnpkg.com/react-free-style/-/react-free-style-4.3.2.tgz#88d3844966991ce3551c80755005740128a9ad1f"
+  dependencies:
+    free-style "^2.3.1"
+    prop-types "^15.5.10"
 
 react-hot-loader@3.0.0-beta.7:
   version "3.0.0-beta.7"
