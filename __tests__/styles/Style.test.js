@@ -6,6 +6,8 @@ import AddToHomescreenStyles from '../../styles/AddToHomescreen-Style';
 import AddToHomescreenDetailStyles from '../../styles/AddToHomescreenDetail-Style';
 import AppInformationMenuStyles from '../../styles/AppInformationMenu-Style';
 import AppNavigationStyles from '../../styles/AppNavigation-Style';
+import ChangeLogInfoStyles from '../../styles/ChangeLogInfo-Style';
+import ChangeLogInfoContentStyles from '../../styles/ChangeLogInfoContent-Style';
 import HorizontallyIconsStyles from '../../styles/HorizontallyIcons-Style';
 
 const componentStyles = {
@@ -14,6 +16,8 @@ const componentStyles = {
   AddToHomescreenDetailStyles,
   AppInformationMenuStyles,
   AppNavigationStyles,
+  ChangeLogInfoStyles,
+  ChangeLogInfoContentStyles,
   HorizontallyIconsStyles,
 };
 
