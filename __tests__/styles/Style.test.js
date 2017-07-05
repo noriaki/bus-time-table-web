@@ -11,6 +11,7 @@ import FacebookSendButtonStyles from '../../styles/FacebookSendButton-Style';
 import LineItButtonStyles from '../../styles/LineItButton-Style';
 import RemainingClockStyles from '../../styles/RemainingClock-Style';
 import RouteMapStyles from '../../styles/RouteMap-Style';
+import ShareMenuStyles from '../../styles/ShareMenu-Style';
 import HorizontallyIconsStyles from '../../styles/HorizontallyIcons-Style';
 
 const componentStyles = {
@@ -24,6 +25,7 @@ const componentStyles = {
   LineItButtonStyles,
   RemainingClockStyles,
   RouteMapStyles,
+  ShareMenuStyles,
   HorizontallyIconsStyles,
 };
 
