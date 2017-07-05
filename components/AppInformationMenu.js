@@ -141,7 +141,9 @@ const NotificationIcon = props => (
 const LinkOpenInNew = ({ url, text }) => (
   <span>
     <a href={url} target="_blank" rel="noopener noreferrer">{text}</a>
-    <span style={icon}><OpenInNewIcon style={svg} /></span>
+    <span style={{ ...icon, marginLeft: '0.3em' }}>
+      <OpenInNewIcon style={svg} />
+    </span>
   </span>
 );
 

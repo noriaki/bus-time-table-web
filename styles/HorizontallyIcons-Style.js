@@ -4,7 +4,6 @@ export const icon = {
   position: 'relative',
   height: '1.4em',
   width: '1.4em',
-  marginLeft: '0.3em',
 };
 export const svg = {
   color: 'inherit',
