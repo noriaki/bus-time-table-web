@@ -4,11 +4,13 @@ import cssPropTypes from 'react-style-proptype/src/css-properties';
 import RemainingClockStyles from '../../styles/RemainingClock-Style';
 import AddToHomescreenStyles from '../../styles/AddToHomescreen-Style';
 import AddToHomescreenDetailStyles from '../../styles/AddToHomescreenDetail-Style';
+import HorizontallyIconsStyles from '../../styles/HorizontallyIcons-Style';
 
 const componentStyles = {
   RemainingClockStyles,
   AddToHomescreenStyles,
   AddToHomescreenDetailStyles,
+  HorizontallyIconsStyles,
 };
 
 Object.keys(componentStyles).forEach((componentStyle) => {
