@@ -3,10 +3,12 @@ import cssPropTypes from 'react-style-proptype/src/css-properties';
 // styles
 import RemainingClockStyles from '../../styles/RemainingClock-Style';
 import AddToHomescreenStyles from '../../styles/AddToHomescreen-Style';
+import AddToHomescreenDetailStyles from '../../styles/AddToHomescreenDetail-Style';
 
 const componentStyles = {
   RemainingClockStyles,
   AddToHomescreenStyles,
+  AddToHomescreenDetailStyles,
 };
 
 Object.keys(componentStyles).forEach((componentStyle) => {
