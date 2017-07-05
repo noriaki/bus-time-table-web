@@ -9,6 +9,7 @@ import AppNavigationStyles from '../../styles/AppNavigation-Style';
 import ChangeLogInfoStyles from '../../styles/ChangeLogInfo-Style';
 import ChangeLogInfoContentStyles from '../../styles/ChangeLogInfoContent-Style';
 import FacebookSendButtonStyles from '../../styles/FacebookSendButton-Style';
+import LineItButtonStyles from '../../styles/LineItButton-Style';
 import HorizontallyIconsStyles from '../../styles/HorizontallyIcons-Style';
 
 const componentStyles = {
@@ -20,6 +21,7 @@ const componentStyles = {
   ChangeLogInfoStyles,
   ChangeLogInfoContentStyles,
   FacebookSendButtonStyles,
+  LineItButtonStyles,
   HorizontallyIconsStyles,
 };
 
