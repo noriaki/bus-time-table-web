@@ -5,6 +5,7 @@ import RemainingClockStyles from '../../styles/RemainingClock-Style';
 import AddToHomescreenStyles from '../../styles/AddToHomescreen-Style';
 import AddToHomescreenDetailStyles from '../../styles/AddToHomescreenDetail-Style';
 import AppInformationMenuStyles from '../../styles/AppInformationMenu-Style';
+import AppNavigationStyles from '../../styles/AppNavigation-Style';
 import HorizontallyIconsStyles from '../../styles/HorizontallyIcons-Style';
 
 const componentStyles = {
@@ -12,6 +13,7 @@ const componentStyles = {
   AddToHomescreenStyles,
   AddToHomescreenDetailStyles,
   AppInformationMenuStyles,
+  AppNavigationStyles,
   HorizontallyIconsStyles,
 };
 
