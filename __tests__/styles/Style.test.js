@@ -1,7 +1,6 @@
 import cssPropTypes from 'react-style-proptype/src/css-properties';
 
 // styles
-import RemainingClockStyles from '../../styles/RemainingClock-Style';
 import AddToHomescreenStyles from '../../styles/AddToHomescreen-Style';
 import AddToHomescreenDetailStyles from '../../styles/AddToHomescreenDetail-Style';
 import AppInformationMenuStyles from '../../styles/AppInformationMenu-Style';
@@ -10,10 +9,11 @@ import ChangeLogInfoStyles from '../../styles/ChangeLogInfo-Style';
 import ChangeLogInfoContentStyles from '../../styles/ChangeLogInfoContent-Style';
 import FacebookSendButtonStyles from '../../styles/FacebookSendButton-Style';
 import LineItButtonStyles from '../../styles/LineItButton-Style';
+import RemainingClockStyles from '../../styles/RemainingClock-Style';
+import RouteMapStyles from '../../styles/RouteMap-Style';
 import HorizontallyIconsStyles from '../../styles/HorizontallyIcons-Style';
 
 const componentStyles = {
-  RemainingClockStyles,
   AddToHomescreenStyles,
   AddToHomescreenDetailStyles,
   AppInformationMenuStyles,
@@ -22,6 +22,8 @@ const componentStyles = {
   ChangeLogInfoContentStyles,
   FacebookSendButtonStyles,
   LineItButtonStyles,
+  RemainingClockStyles,
+  RouteMapStyles,
   HorizontallyIconsStyles,
 };
 
