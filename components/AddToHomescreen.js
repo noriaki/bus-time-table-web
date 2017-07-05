@@ -6,6 +6,9 @@ import ActionGetApp from 'material-ui/svg-icons/action/get-app';
 import AddToHomescreenDetail from './AddToHomescreenDetail';
 import GA from './GA';
 
+// styles
+import styles from '../styles/AddToHomescreen-Style';
+
 class AddToHomescreen extends Component {
   state = {
     open: false,
@@ -58,21 +61,6 @@ class AddToHomescreen extends Component {
 const detectVisible = ({ standalone }, os) => {
   const isTargetBrowser = ['iOS'].includes(os);
   return !standalone && isTargetBrowser;
-};
-
-const styles = {
-  button: {
-    margin: 0,
-  },
-  buttonLabel: {
-    fontWeight: 'bold',
-    paddingLeft: 4,
-  },
-  popover: {
-    width: '90%',
-    height: '75%',
-    overflowY: 'scroll',
-  },
 };
 
 export default AddToHomescreen;
