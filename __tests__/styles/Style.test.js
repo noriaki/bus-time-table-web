@@ -8,11 +8,12 @@ import AppNavigationStyles from '../../styles/AppNavigation-Style';
 import ChangeLogInfoStyles from '../../styles/ChangeLogInfo-Style';
 import ChangeLogInfoContentStyles from '../../styles/ChangeLogInfoContent-Style';
 import FacebookSendButtonStyles from '../../styles/FacebookSendButton-Style';
+import HorizontallyIconsStyles from '../../styles/HorizontallyIcons-Style';
 import LineItButtonStyles from '../../styles/LineItButton-Style';
+import LoadingBoxStyles from '../../styles/LoadingBox-Style';
 import RemainingClockStyles from '../../styles/RemainingClock-Style';
 import RouteMapStyles from '../../styles/RouteMap-Style';
 import ShareMenuStyles from '../../styles/ShareMenu-Style';
-import HorizontallyIconsStyles from '../../styles/HorizontallyIcons-Style';
 
 const componentStyles = {
   AddToHomescreenStyles,
@@ -22,11 +23,12 @@ const componentStyles = {
   ChangeLogInfoStyles,
   ChangeLogInfoContentStyles,
   FacebookSendButtonStyles,
+  HorizontallyIconsStyles,
   LineItButtonStyles,
+  LoadingBoxStyles,
   RemainingClockStyles,
   RouteMapStyles,
   ShareMenuStyles,
-  HorizontallyIconsStyles,
 };
 
 Object.keys(componentStyles).forEach((componentStyle) => {
