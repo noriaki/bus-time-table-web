@@ -6,6 +6,9 @@ import ActionGetApp from 'material-ui/svg-icons/action/get-app';
 import AddToHomescreenDetail from './AddToHomescreenDetail';
 import GA from './GA';
 
+// styles
+import { button, buttonLabel, popover } from '../styles/AddToHomescreen-Style';
+
 class AddToHomescreen extends Component {
   state = {
     open: false,
@@ -38,8 +41,8 @@ class AddToHomescreen extends Component {
           secondary
           icon={<ActionGetApp />}
           label="アプリ"
-          labelStyle={styles.buttonLabel}
-          style={styles.button}
+          labelStyle={buttonLabel}
+          style={button}
           onTouchTap={this.handleTouchTap} />
         <Popover
           open={this.state.open}
@@ -47,7 +50,7 @@ class AddToHomescreen extends Component {
           anchorOrigin={{ horizontal: 'middle', vertical: 'bottom' }}
           targetOrigin={{ horizontal: 'middle', vertical: 'bottom' }}
           onRequestClose={this.handleRequestClose}
-          style={styles.popover}>
+          style={popover}>
           <AddToHomescreenDetail />
         </Popover>
       </div>
@@ -58,21 +61,6 @@ class AddToHomescreen extends Component {
 const detectVisible = ({ standalone }, os) => {
   const isTargetBrowser = ['iOS'].includes(os);
   return !standalone && isTargetBrowser;
-};
-
-const styles = {
-  button: {
-    margin: 0,
-  },
-  buttonLabel: {
-    fontWeight: 'bold',
-    paddingLeft: 4,
-  },
-  popover: {
-    width: '90%',
-    height: '75%',
-    overflowY: 'scroll',
-  },
 };
 
 export default AddToHomescreen;
