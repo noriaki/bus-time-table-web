@@ -14,6 +14,7 @@ import LoadingBoxStyles from '../../styles/LoadingBox-Style';
 import RemainingClockStyles from '../../styles/RemainingClock-Style';
 import RouteMapStyles from '../../styles/RouteMap-Style';
 import ShareMenuStyles from '../../styles/ShareMenu-Style';
+import TabStyles from '../../styles/Tab-Style';
 
 const componentStyles = {
   AddToHomescreenStyles,
@@ -29,6 +30,7 @@ const componentStyles = {
   RemainingClockStyles,
   RouteMapStyles,
   ShareMenuStyles,
+  TabStyles,
 };
 
 Object.keys(componentStyles).forEach((componentStyle) => {
