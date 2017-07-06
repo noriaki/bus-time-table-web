@@ -7,7 +7,7 @@ import AddToHomescreenDetail from './AddToHomescreenDetail';
 import GA from './GA';
 
 // styles
-import styles from '../styles/AddToHomescreen-Style';
+import { button, buttonLabel, popover } from '../styles/AddToHomescreen-Style';
 
 class AddToHomescreen extends Component {
   state = {
@@ -41,8 +41,8 @@ class AddToHomescreen extends Component {
           secondary
           icon={<ActionGetApp />}
           label="アプリ"
-          labelStyle={styles.buttonLabel}
-          style={styles.button}
+          labelStyle={buttonLabel}
+          style={button}
           onTouchTap={this.handleTouchTap} />
         <Popover
           open={this.state.open}
@@ -50,7 +50,7 @@ class AddToHomescreen extends Component {
           anchorOrigin={{ horizontal: 'middle', vertical: 'bottom' }}
           targetOrigin={{ horizontal: 'middle', vertical: 'bottom' }}
           onRequestClose={this.handleRequestClose}
-          style={styles.popover}>
+          style={popover}>
           <AddToHomescreenDetail />
         </Popover>
       </div>
