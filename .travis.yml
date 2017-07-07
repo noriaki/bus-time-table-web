@@ -3,10 +3,6 @@ node_js:
   - 7
   - 6
 cache: yarn
-branches:
-  only:
-    - master
-    - develop
 notifications:
   webhooks:
     urls:
