@@ -3,3 +3,16 @@ node_js:
   - 7
   - 6
 cache: yarn
+branches:
+  only:
+    - master
+    - develop
+notifications:
+  webhooks:
+    urls:
+      - https://webhook.deux-tours-bus.com/
+    on_success: always
+    on_failure: never
+    on_start: never
+    on_cancel: never
+    on_error: never
