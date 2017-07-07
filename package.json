@@ -9,7 +9,8 @@
   },
   "main": "pages/index.js",
   "scripts": {
-    "test": "jest --notify --watch",
+    "test": "jest",
+    "test:watch": "jest --notify --watch",
     "dev": "node server.js",
     "build": "next build",
     "start": "NODE_ENV=production node server.js"
