@@ -6,7 +6,7 @@ cache: yarn
 notifications:
   webhooks:
     urls:
-      - https://webhook.deux-tours-bus.com/
+      - https://webhook.deux-tours-bus.com/travis/
     on_success: always
     on_failure: never
     on_start: never
