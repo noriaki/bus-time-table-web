@@ -13,7 +13,8 @@
     "test:watch": "jest --notify --watch",
     "dev": "node server.js",
     "build": "next build",
-    "start": "NODE_ENV=production node server.js"
+    "start": "NODE_ENV=production node server.js",
+    "start:staging": "NODE_ENV=staging node server.js"
   },
   "repository": "https://github.com/noriaki/bus-time-table-web",
   "author": {
@@ -45,6 +46,8 @@
     "eslint-plugin-jsx-a11y": "^4.0.0",
     "eslint-plugin-react": "^6.10.3",
     "jest": "^19.0.2",
+    "meow": "^3.7.0",
+    "pm2": "^2.5.0",
     "react-style-proptype": "^3.0.0",
     "xml2js": "^0.4.17"
   }
