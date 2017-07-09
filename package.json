@@ -13,7 +13,8 @@
     "test:watch": "jest --notify --watch",
     "dev": "node server.js",
     "build": "next build",
-    "start": "NODE_ENV=production node server.js"
+    "start": "NODE_ENV=production node server.js",
+    "start:staging": "NODE_ENV=staging node server.js"
   },
   "repository": "https://github.com/noriaki/bus-time-table-web",
   "author": {
