@@ -11,7 +11,7 @@ const cli = meow({
 });
 
 const isStg = process.env.NODE_ENV === 'staging';
-const processName = `com.deux-tours-bux${isStg ? '.stg' : ''}`;
+const processName = `com.deux-tours-bus${isStg ? '.stg' : ''}`;
 const targetBranch = cli.input[0];
 
 if(targetBranch == null) {
@@ -24,10 +24,10 @@ const localBranch = `${isStg ? 'stg/' : ''}${targetBranch}`;
 
 if (!cli.flags.local) {
   if (cli.flags.fetch) {
-    execSync('git fetch --quiet');
+    execSync('git fetch -q');
   }
   // execSync(`git merge -X theirs "${targetBranch}" --no-edit`);
-  execSync('git checkout --quiet -- .');
-  execSync(`git checkout --quiet "origin/${targetBranch}" -B ${localBranch}`);
+  execSync('git checkout -qf -- .');
+  execSync(`git checkout -qf "origin/${targetBranch}" -B "${localBranch}"`);
 }
 execSync(`yarn && yarn build && yarn pm2 restart ${processName}`);
