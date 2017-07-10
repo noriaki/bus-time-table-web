@@ -11,7 +11,7 @@ const cli = meow({
 });
 
 const isStg = process.env.NODE_ENV === 'staging';
-const processName = `com.deux-tours-bux${isStg ? '.stg' : ''}`;
+const processName = `com.deux-tours-bus${isStg ? '.stg' : ''}`;
 const targetBranch = cli.input[0];
 
 if(targetBranch == null) {
