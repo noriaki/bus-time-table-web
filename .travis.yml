@@ -1,0 +1,17 @@
+language: node_js
+node_js:
+  - 7
+  - 6
+branches:
+  except:
+    - /^v\d+\.\d+\.\d+$/
+cache: yarn
+notifications:
+  webhooks:
+    urls:
+      - https://webhook.deux-tours-bus.com/travis/
+    on_success: always
+    on_failure: never
+    on_start: never
+    on_cancel: never
+    on_error: never

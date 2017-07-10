@@ -1,4 +1,5 @@
 import React from 'react';
+import { styled } from 'react-free-style';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
@@ -13,6 +14,8 @@ import FacebookSendButton, {
 import GA from './GA';
 
 import copyToClipboard from '../libs/copyToClipboard';
+
+import ShareMenuStyles, { icon, iconInner, copy } from '../styles/ShareMenu-Style';
 
 const ShareMenu = ({ os }) => (
   <IconMenu
@@ -36,7 +39,7 @@ const ShareMenu = ({ os }) => (
       primaryText={<CopyTitle />}
       style={{ display: detectVisibleCP(navigator, os) ? 'block' : 'none' }}
       onTouchTap={handleTouchTapCopy}
-      secondaryText={Iconize(LinkIcon, 'copy', { style: styles.copy })} />
+      secondaryText={Iconize(LinkIcon, 'copy', { style: copy })} />
   </IconMenu>
 );
 
@@ -48,12 +51,14 @@ const MenuIcon = (
   </IconButton>
 );
 
-const CopyTitle = () => (
-  <div style={styles.copyTitle}>
+const CopyTitle = styled(ShareMenuStyles)(({ styles }) => (
+  <div className={styles.copyTitle}>
     URLをコピー<br />
-    <span id="appurl" style={styles.copyURL}>https://deux-tours-bus.com</span>
+    <span id="appurl" className={styles.copyURL}>
+      https://deux-tours-bus.com
+    </span>
   </div>
-);
+));
 
 const handleTouchTap = () => GA.pageview({
   title: '知人・友人に共有',
@@ -77,42 +82,10 @@ const handleTouchTapCopy = () => {
   }
 };
 
-const styles = {
-  copyTitle: {
-    paddingTop: 16,
-    lineHeight: '16px',
-  },
-  copyURL: {
-    fontSize: 11,
-  },
-  icon: {
-    display: 'inline-flex',
-    alignSelf: 'center',
-    position: 'relative',
-    height: 20,
-  },
-  iconInner: {
-    position: 'absolute',
-    bottom: -4,
-    height: 20,
-    lineHeight: '20px',
-  },
-  line: {
-    width: 82,
-  },
-  fb: {
-    width: 49,
-  },
-  copy: {
-    width: 20,
-    height: 20,
-  },
-};
-
 const Iconize = (Component, name, props = {}) => (
   <div>
-    <span style={{ ...styles.icon, ...styles[name] }}>
-      <span style={{ ...styles.iconInner, ...styles[name] }}>
+    <span style={{ ...icon, ...ShareMenuStyles[name] }}>
+      <span style={{ ...iconInner, ...ShareMenuStyles[name] }}>
         <Component {...props} />
       </span>
     </span>

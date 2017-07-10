@@ -5,6 +5,9 @@ import SwipeableViews from 'react-swipeable-views';
 import TabContent from './TabContent';
 import GA from './GA';
 
+import { icon, svg } from '../styles/HorizontallyIcons-Style';
+import { itemContainer, inkBar, swipeableViewsContainer } from '../styles/Tab-Style';
+
 class TabbedTimeTable extends Component {
   state = { index: this.props.index }
 
@@ -19,15 +22,15 @@ class TabbedTimeTable extends Component {
     return (
       <div>
         <Tabs
-          tabItemContainerStyle={styles.tabItemContainer}
-          inkBarStyle={styles.tabInkBar}
+          tabItemContainerStyle={itemContainer}
+          inkBarStyle={inkBar}
           onChange={this.handleChange}
           value={this.state.index}>
           {this.props.tabs.map(TabLabel)}
         </Tabs>
         <SwipeableViews
           resistance
-          style={styles.swipeableViewsContainer}
+          style={swipeableViewsContainer}
           index={this.state.index}
           onChangeIndex={this.handleChange}>
           {this.props.tabs.map(TabContent)}
@@ -45,44 +48,9 @@ export default TabbedTimeTable;
 
 const makeTabLabel = ({ label, C, ...props }) => (
   <div>
-    <span style={styles.icon}>
-      <C.type {...C.props} style={styles.svg} {...props} />
+    <span style={icon}>
+      <C.type {...C.props} style={svg} {...props} />
     </span>
     {label}
   </div>
 );
-
-const styles = {
-  tabItemContainer: {
-    position: 'fixed',
-    top: 0,
-    width: '100%',
-    maxWidth: 800,
-    zIndex: 100,
-  },
-  tabInkBar: {
-    height: 4,
-    marginTop: -4,
-    position: 'fixed',
-    top: 48,
-    zIndex: 100,
-  },
-  swipeableViewsContainer: {
-    marginTop: 48,
-  },
-  icon: {
-    display: 'inline-flex',
-    alignSelf: 'center',
-    position: 'relative',
-    height: '1.4em',
-    width: '1.4em',
-    marginRight: '0.3em',
-  },
-  svg: {
-    color: 'inherit',
-    height: '1.4em',
-    width: '1.4em',
-    position: 'absolute',
-    bottom: '-0.3em',
-  },
-};

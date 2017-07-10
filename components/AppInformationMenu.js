@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+
+// material-ui components
 import Divider from 'material-ui/Divider';
 import Drawer from 'material-ui/Drawer';
 import Dialog from 'material-ui/Dialog';
@@ -7,12 +9,17 @@ import FlatButton from 'material-ui/FlatButton';
 import IconButton from 'material-ui/IconButton';
 import Subheader from 'material-ui/Subheader';
 
+// material-ui icons
 import SvgIcon from 'material-ui/SvgIcon';
 import OrgNavigationMenuIcon from 'material-ui/svg-icons/navigation/menu';
 import OpenInNewIcon from 'material-ui/svg-icons/action/open-in-new';
 
+// styles
 import { blueSky } from '../themes/colors';
+import { icon, svg } from '../styles/HorizontallyIcons-Style';
+import { infoDialog } from '../styles/AppInformationMenu-Style';
 
+// IndexedDB
 import db from '../libs/db';
 
 import changelogs from '../data/changelogs.json';
@@ -100,7 +107,7 @@ class AppInformationMenu extends Component {
           <Dialog
             title="お知らせ"
             autoScrollBodyContent
-            contentStyle={styles.infoDialog}
+            contentStyle={infoDialog}
             actions={[<FlatButton label="閉じる" secondary onTouchTap={this.handleClose} />]}
             open={infoOpen}
             onRequestClose={this.handleClose}>
@@ -132,9 +139,11 @@ const NotificationIcon = props => (
 );
 
 const LinkOpenInNew = ({ url, text }) => (
-  <span style={styles.linkOpenInNewContainer}>
+  <span>
     <a href={url} target="_blank" rel="noopener noreferrer">{text}</a>
-    <span style={styles.icon}><OpenInNewIcon style={styles.svg} /></span>
+    <span style={{ ...icon, marginLeft: '0.3em' }}>
+      <OpenInNewIcon style={svg} />
+    </span>
   </span>
 );
 
@@ -146,29 +155,4 @@ const firstOrCreateReadStateOfUser = async (version) => {
     await db.userStates.add(currentState);
   }
   return currentState;
-};
-
-const styles = {
-  smallMenuIcon: {
-    fontSize: 12,
-  },
-  infoDialog: {
-    width: '96%',
-    maxWidth: 'none',
-  },
-  icon: {
-    display: 'inline-flex',
-    alignSelf: 'center',
-    position: 'relative',
-    height: '1.4em',
-    width: '1.4em',
-    marginLeft: '0.3em',
-  },
-  svg: {
-    color: 'inherit',
-    height: '1.4em',
-    width: '1.4em',
-    position: 'absolute',
-    bottom: '-0.3em',
-  },
 };

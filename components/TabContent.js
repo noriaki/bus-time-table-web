@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { styled } from 'react-free-style';
 import NoSSR from 'react-no-ssr';
 import moment from 'moment';
 import CircularProgress from 'material-ui/CircularProgress';
@@ -10,6 +11,7 @@ import {
 } from '../libs/timeTableDataHandler';
 
 import { blueSky } from '../themes/colors';
+import LoadingBoxStyles from '../styles/LoadingBox-Style';
 
 import RemainingClock from './RemainingClock';
 import TimeTable from './TimeTable';
@@ -59,23 +61,14 @@ class TabContent extends Component {
 
 export default props => <TabContent key={props.dest} {...props} />;
 
-const Loading = () => (
-  <div style={styles.loadingContainer}>
+const Loading = styled(LoadingBoxStyles)(({ styles }) => (
+  <div className={styles.loadingContainer}>
     <CircularProgress size={30} color={blueSky} />
   </div>
-);
+));
 
 const buildNextState = (timeTableData, currentTime = moment()) => {
   const nextTime = findNextTime(timeTableData, currentTime);
   const nextRemaining = nextTime ? nextTime.diff(currentTime) : null;
   return { nextTime, nextRemaining };
-};
-
-const styles = {
-  loadingContainer: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    margin: 10,
-  },
 };

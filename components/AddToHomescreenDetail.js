@@ -1,4 +1,5 @@
 import React from 'react';
+import { styled } from 'react-free-style';
 import { List, ListItem } from 'material-ui/List';
 import ImageLooksOne from 'material-ui/svg-icons/image/looks-one';
 import ImageLooksTwo from 'material-ui/svg-icons/image/looks-two';
@@ -6,6 +7,7 @@ import ImageLooks3 from 'material-ui/svg-icons/image/looks-3';
 import ImageLooks4 from 'material-ui/svg-icons/image/looks-4';
 
 import { blueSky } from '../themes/colors';
+import AddToHomescreenDetailStyles from '../styles/AddToHomescreenDetail-Style';
 
 const steps = [
   {
@@ -23,11 +25,11 @@ const steps = [
   },
 ];
 
-const AddToHomescreenDetail = () => (
+const AddToHomescreenDetail = ({ styles }) => (
   <section>
-    <h1 style={styles.header}>
-      <img src="/static/icons/app-114x114@2x.png" alt="app-icon" style={styles.headerIcon} />
-      <span style={styles.headerText}>3 Stepでアプリ化できます</span>
+    <h1 className={styles.header}>
+      <img src="/static/icons/app-114x114@2x.png" alt="app-icon" className={styles.headerIcon} />
+      <span className={styles.headerText}>3 Stepでアプリ化できます</span>
     </h1>
     <List>{steps.map(buildListItem)}</List>
   </section>
@@ -46,27 +48,4 @@ const buildListItem = ({ icon, text }, i) => (
   </ListItem>
 );
 
-const styles = {
-  header: {
-    display: 'flex',
-    alignItems: 'center',
-    borderBottom: '1px solid #aaa',
-    fontSize: '1em',
-    paddingBottom: '0.1em',
-    marginBottom: 0,
-    marginLeft: '1em',
-    marginRight: '1em',
-  },
-  headerIcon: {
-    display: 'inline-flex',
-    height: '1.8em',
-    width: '1.8em',
-    borderRadius: '0.4em',
-    marginRight: '0.4em',
-  },
-  headerText: {
-    display: 'inline-flex',
-  },
-};
-
-export default AddToHomescreenDetail;
+export default styled(AddToHomescreenDetailStyles)(AddToHomescreenDetail);

@@ -6,14 +6,26 @@ import ActionInfo from 'material-ui/svg-icons/action/info-outline';
 import NavigationMoreVert from 'material-ui/svg-icons/navigation/more-vert';
 import { white, grey500 } from 'material-ui/styles/colors';
 import { blueSky, premiumBlack, silver } from '../themes/colors';
+import { icon, svg } from '../styles/HorizontallyIcons-Style';
+import {
+  timeTable,
+  row,
+  dividerColumn,
+  baseColumn,
+  noteColumn,
+  hourColumn,
+  targetColumn,
+} from '../styles/TimeTable-Style';
 
 const TimeTable = ({ data, targetTime }) => (
-  <Table selectable={false} style={styles.timeTable}>
+  <Table selectable={false} style={timeTable}>
     <TableBody stripedRows displayRowCheckbox={false}>
       {data.map(RowIterator(targetTime))}
     </TableBody>
   </Table>
 );
+
+export default TimeTable;
 
 const RowIterator = targetTime => ({ hour, minutes, divider, note }) => {
   if (divider != null) { return buildDivider(); }
@@ -21,8 +33,8 @@ const RowIterator = targetTime => ({ hour, minutes, divider, note }) => {
   return buildRow({ hour, minutes, targetTime });
 };
 const buildRow = ({ hour, minutes, targetTime }) => (
-  <TableRow key={hour} style={styles.row}>
-    <TableHeaderColumn style={{ ...styles.column, ...styles.hourColumn }}>
+  <TableRow key={hour} style={row}>
+    <TableHeaderColumn style={{ ...baseColumn, ...hourColumn }}>
       {format(hour)}
     </TableHeaderColumn>
     {fill(minutes).map(makeMinutesRowIterator(hour, targetTime))}
@@ -30,16 +42,16 @@ const buildRow = ({ hour, minutes, targetTime }) => (
 );
 const buildDivider = () => (
   <TableRow key="divider">
-    <TableRowColumn colSpan="13" style={styles.dividerColumn}>
+    <TableRowColumn colSpan="13" style={dividerColumn}>
       <NavigationMoreVert color={silver} />
     </TableRowColumn>
   </TableRow>
 );
 const buildNote = note => (
-  <TableRow displayBorder={false} key={`note-${note}`} style={styles.row}>
-    <TableRowColumn colSpan="13" style={styles.noteColumn}>
-      <span style={styles.icon}>
-        <ActionInfo color={styles.noteColumn.color} style={styles.svg} />
+  <TableRow displayBorder={false} key={`note-${note}`} style={row}>
+    <TableRowColumn colSpan="13" style={noteColumn}>
+      <span style={{ ...icon, marginRight: '0.3em' }}>
+        <ActionInfo color={noteColumn.color} style={svg} />
       </span>
       {note}
     </TableRowColumn>
@@ -47,7 +59,7 @@ const buildNote = note => (
 );
 const makeMinutesRowIterator = (hour, { hours, minutes }) => (minute) => {
   const columnStyle = (hour % 24 === hours && minute === minutes) ?
-          { ...styles.column, ...styles.targetColumn } : styles.column;
+          { ...baseColumn, ...targetColumn } : baseColumn;
   return (
     <TableRowColumn key={`${hour}-${minute}`} style={columnStyle}>
       {format(minute)}
@@ -59,56 +71,3 @@ const format = num => (num != null ? (`0${num}`).slice(-2) : '');
 const fill = minutes => [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55].map(
   num => (minutes.includes(num) ? num : null)
 );
-
-const styles = {
-  timeTable: {
-    borderTop: `2px solid ${premiumBlack}`,
-    borderBottom: `2px solid ${premiumBlack}`,
-  },
-  row: {
-    height: 24,
-  },
-  dividerColumn: {
-    backgroundColor: white,
-    textAlign: 'center',
-  },
-  noteColumn: {
-    backgroundColor: white,
-    height: 13,
-    paddingLeft: '0.5em',
-    fontSize: 11,
-    color: grey500,
-  },
-  hourColumn: {
-    color: silver,
-    backgroundColor: premiumBlack,
-  },
-  column: {
-    textAlign: 'center',
-    height: 18,
-    paddingLeft: 0,
-    paddingRight: 0,
-  },
-  targetColumn: {
-    backgroundColor: blueSky,
-    color: white,
-    fontWeight: 'lighter',
-  },
-  icon: {
-    display: 'inline-flex',
-    alignSelf: 'center',
-    position: 'relative',
-    height: '1.4em',
-    width: '1.4em',
-    marginRight: '0.3em',
-  },
-  svg: {
-    color: 'inherit',
-    height: '1.4em',
-    width: '1.4em',
-    position: 'absolute',
-    bottom: '-0.3em',
-  },
-};
-
-export default TimeTable;

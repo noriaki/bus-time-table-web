@@ -7,10 +7,12 @@ import AppInformationMenu from './AppInformationMenu';
 import AddToHomescreen from './AddToHomescreen';
 import ShareMenu from './ShareMenu';
 
+import { toolbar, toolbarGroup } from '../styles/AppNavigation-Style';
+
 const AppNavigation = ({ info, os }) => (
   <Paper zDepth={1}>
-    <Toolbar style={styles.toolbar}>
-      <ToolbarGroup style={styles.toolbarGroup}>
+    <Toolbar style={toolbar}>
+      <ToolbarGroup style={toolbarGroup}>
         <NoSSR>
           <AppInformationMenu {...info} />
         </NoSSR>
@@ -26,14 +28,3 @@ const AppNavigation = ({ info, os }) => (
 );
 
 export default AppNavigation;
-
-const styles = {
-  toolbar: {
-    padding: 0,
-  },
-  toolbarGroup: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    width: '100%',
-  },
-};
