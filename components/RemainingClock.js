@@ -34,7 +34,7 @@ const RemainingClock = ({ time, dest, inactive, ended, styles }, { remaining }) 
     <div className={styles.container}>
       <div className={styles.boardContainer}>
         <div className={styles.departure}>
-          {time.format('HH')}:{time.format('mm')}{suffix('発')}
+          {time.format('HH:mm')}{suffix('発')}
         </div>
         <div className={styles.destination}>
           {dest}{suffix('行')}
