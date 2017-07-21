@@ -35,11 +35,11 @@ const componentStyles = {
   TimeTableStyles,
 };
 
-Object.keys(componentStyles).forEach((componentStyle) => {
-  describe(`"${componentStyle}" should has valid css properties`, () => {
-    const styles = componentStyles[componentStyle];
-    Object.keys(styles).forEach((className) => {
-      it(className, () => {
+describe('Component Styles should has valid css properties', () => {
+  Object.keys(componentStyles).forEach((componentStyle) => {
+    it(componentStyle, () => {
+      const styles = componentStyles[componentStyle];
+      Object.keys(styles).forEach((className) => {
         Object.keys(styles[className]).forEach((propertyName) => {
           expect(cssPropTypes).toContain(propertyName);
         });
