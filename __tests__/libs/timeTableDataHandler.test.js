@@ -45,62 +45,74 @@ describe('timeTableDataHandler', () => {
       { hour: 24, minutes: [20, 40] },
       { hour: 25, minutes: [0] },
     ];
-    let list;
-    beforeEach(() => {
-      list = flattenTimeTable(raw);
-    });
+    const durationLimit = moment.duration(10, 'hours').asMilliseconds();
 
     it('wait beginning bus (5:50)', () => {
       const currentTime = moment({ hour: 5, minute: 50 });
+      const list = flattenTimeTable(raw, currentTime);
       const expected = list[0];
       const subject = findNextTime(list, currentTime);
       expect(subject.isSame(expected)).toBe(true);
+      expect(subject.diff(currentTime)).toBeLessThanOrEqual(durationLimit);
     });
 
     it('just wait-time is 0 (6:30)', () => {
       const currentTime = moment({ hour: 6, minute: 30 });
+      const list = flattenTimeTable(raw, currentTime);
       const expected = list[1];
       const subject = findNextTime(list, currentTime);
       expect(subject.isSame(expected)).toBe(true);
+      expect(subject.diff(currentTime)).toBeLessThanOrEqual(durationLimit);
     });
 
     it('between the buses (8:51)', () => {
       const currentTime = moment({ hour: 8, minute: 51 });
+      const list = flattenTimeTable(raw, currentTime);
       const expected = list[12];
       const subject = findNextTime(list, currentTime);
       expect(subject.isSame(expected)).toBe(true);
+      expect(subject.diff(currentTime)).toBeLessThanOrEqual(durationLimit);
     });
 
     it('between dates (midnight passes; 23:58)', () => {
       const currentTime = moment({ hour: 23, minute: 58 });
+      const list = flattenTimeTable(raw, currentTime);
       const expected = list[18];
       const subject = findNextTime(list, currentTime);
       expect(subject.isSame(expected)).toBe(true);
+      expect(subject.diff(currentTime)).toBeLessThanOrEqual(durationLimit);
     });
 
     it('just midnight (0:00)', () => {
       const currentTime = moment({ hour: 0, minute: 0 });
+      const list = flattenTimeTable(raw, currentTime);
       const expected = list[18];
       const subject = findNextTime(list, currentTime);
       expect(subject.isSame(expected)).toBe(true);
+      expect(subject.diff(currentTime)).toBeLessThanOrEqual(durationLimit);
     });
 
     it('past midnight (0:31)', () => {
       const currentTime = moment({ hour: 0, minute: 31 });
+      const list = flattenTimeTable(raw, currentTime);
       const expected = list[19];
       const subject = findNextTime(list, currentTime);
       expect(subject.isSame(expected)).toBe(true);
+      expect(subject.diff(currentTime)).toBeLessThanOrEqual(durationLimit);
     });
 
     it('wait last bus (0:43)', () => {
       const currentTime = moment({ hour: 0, minute: 43 });
+      const list = flattenTimeTable(raw, currentTime);
       const expected = list[20];
       const subject = findNextTime(list, currentTime);
       expect(subject.isSame(expected)).toBe(true);
+      expect(subject.diff(currentTime)).toBeLessThanOrEqual(durationLimit);
     });
 
     it('the last bus is over (1:35)', () => {
       const currentTime = moment({ hour: 1, minute: 35 });
+      const list = flattenTimeTable(raw, currentTime);
       const subject = findNextTime(list, currentTime);
       expect(subject).toBeUndefined();
     });
@@ -110,10 +122,17 @@ describe('timeTableDataHandler', () => {
         const beforeTheBoundaryTime = moment({
           hour: 3, minute: 59, second: 59,
         });
+        const listBeforeTheBoundaryTime =
+                flattenTimeTable(raw, beforeTheBoundaryTime);
+        const beforeTheBoundaryTimeSubject =
+                findNextTime(listBeforeTheBoundaryTime, beforeTheBoundaryTime);
+        expect(beforeTheBoundaryTimeSubject).toBeUndefined();
+
         const onTheBoundaryTime = moment({ hour: 4 });
-        const onTheBoundaryTimeExpected = list[0];
-        const onTheBoundaryTimeSubject = findNextTime(list, onTheBoundaryTime);
-        expect(findNextTime(list, beforeTheBoundaryTime)).toBeUndefined();
+        const listOnTheBoundary = flattenTimeTable(raw, onTheBoundaryTime);
+        const onTheBoundaryTimeExpected = listOnTheBoundary[0];
+        const onTheBoundaryTimeSubject =
+                findNextTime(listOnTheBoundary, onTheBoundaryTime);
         expect(
           onTheBoundaryTimeSubject.isSame(onTheBoundaryTimeExpected)
         ).toBe(true);
