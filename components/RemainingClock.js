@@ -1,12 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import moment from 'moment';
 import { styled } from 'react-free-style';
 
 // styles
 import RemainingClockStyles from '../styles/RemainingClock-Style';
 
-const RemainingClock = ({ time, dest, inactive, ended, styles }, { remaining }) => {
+const RemainingClock = ({ dest, ended, inactive, remaining, time, styles }) => {
   if (inactive) {
     return (
       <div className={styles.container}>
@@ -48,9 +47,6 @@ const RemainingClock = ({ time, dest, inactive, ended, styles }, { remaining }) 
       </div>
     </div>
   );
-};
-RemainingClock.contextTypes = {
-  remaining: PropTypes.number,
 };
 
 export default styled(RemainingClockStyles)(RemainingClock);
