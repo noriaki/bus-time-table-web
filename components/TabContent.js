@@ -18,7 +18,11 @@ import TimeTable from './TimeTable';
 import RouteMap from './RouteMap';
 
 class TabContent extends Component {
-  state = buildNextState(flattenTimeTable(this.props.data))
+  constructor(props, ...args) {
+    super(props, ...args);
+    this.timeTableData = flattenTimeTable(props.data);
+    this.state = buildNextState(this.timeTableData);
+  }
 
   componentDidMount() {
     this.timer = setInterval(this.handleTick.bind(this), 1000);
@@ -29,7 +33,7 @@ class TabContent extends Component {
   }
 
   handleTick() {
-    this.setState(buildNextState(flattenTimeTable(this.props.data)));
+    this.setState(buildNextState(this.timeTableData));
   }
 
   render() {
