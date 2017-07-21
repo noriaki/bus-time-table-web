@@ -9,19 +9,22 @@ export const momentFromVersion = (version) => {
   return moment({ year, month, day });
 };
 
-export const flattenTimeTable = timeTable => (
-  timeTable.reduce((ret, { hour, minutes }) => {
+export const flattenTimeTable = (timeTable, now) => {
+  const currentTime = now || moment();
+  return timeTable.reduce((ret, { hour, minutes }) => {
     (minutes || []).forEach((minute) => {
-      const m = moment({ hour: hour % 24, minute });
-      ret.push(hour >= 24 ? m.add(1, 'day') : m);
+      const schedule = moment(currentTime)
+              .subtract(4, 'hours')
+              .set({ hour: hour - 4, minute, second: 0, millisecond: 0 })
+              .add(4, 'hours');
+      ret.push(schedule);
     });
     return ret;
-  }, [])
-);
+  }, []);
+};
 
 export const findNextTime = (list, now) => {
   const currentTime = moment(now || moment());
-  if (currentTime.hours() < 4) { currentTime.add(1, 'day'); }
   return list.find(m => (m.diff(currentTime) >= 0));
 };
 
