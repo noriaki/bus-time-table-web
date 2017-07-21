@@ -3,6 +3,7 @@ import { styled } from 'react-free-style';
 import NoSSR from 'react-no-ssr';
 import moment from 'moment';
 import CircularProgress from 'material-ui/CircularProgress';
+import Timer from 'react-timer-component';
 
 import {
   flattenTimeTable,
@@ -24,32 +25,23 @@ class TabContent extends Component {
     this.state = buildNextState(this.timeTableData);
   }
 
-  componentDidMount() {
-    this.timer = setInterval(this.handleTick.bind(this), 1000);
-  }
-
-  componentWillUnmount() {
-    clearTimeout(this.timer);
-  }
-
-  handleTick() {
-    this.setState(buildNextState(this.timeTableData));
-  }
-
   render() {
     const { nextRemaining, nextTime } = this.state;
     const { id, data, dest, activeDays } = this.props;
     const isInactive = isInactiveDays(activeDays);
+    const isEnded = nextRemaining == null;
     const targetTime = (!isInactive && nextTime && nextTime.toObject()) || {};
     return (
       <div>
         <section>
           <NoSSR onSSR={<Loading />}>
-            <RemainingClock
-              inactive={isInactive}
-              remaining={nextRemaining}
-              time={nextTime}
-              dest={dest} />
+            <Timer remaining={nextRemaining || 0}>
+              <RemainingClock
+                inactive={isInactive}
+                ended={isEnded}
+                time={nextTime}
+                dest={dest} />
+            </Timer>
           </NoSSR>
         </section>
         <section>
