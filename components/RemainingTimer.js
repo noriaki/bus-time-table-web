@@ -3,7 +3,6 @@ import moment from 'moment';
 import { styled } from 'react-free-style';
 import NoSSR from 'react-no-ssr';
 import CircularProgress from 'material-ui/CircularProgress';
-import Timer from 'react-timer-component';
 
 import {
   flattenTimeTable,
