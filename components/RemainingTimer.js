@@ -19,7 +19,7 @@ import TimeTable from './TimeTable';
 class RemainingTimer extends Component {
   constructor(props, ...args) {
     super(props, ...args);
-    this.timeTableData = flattenTimeTable(props.data);
+    this.timeTableData = props.data;
     this.activeDays = props.activeDays;
     this.state = this.buildNextState();
   }
@@ -36,7 +36,9 @@ class RemainingTimer extends Component {
   }
 
   buildNextState(currentTime) {
-    const nextTime = findNextTime(this.timeTableData, currentTime);
+    const nextTime = findNextTime(
+      flattenTimeTable(this.timeTableData), currentTime
+    );
     const isInactive = isInactiveDays(this.activeDays, currentTime);
     const isEnded = nextTime == null;
     return { nextTime, isInactive, isEnded };
