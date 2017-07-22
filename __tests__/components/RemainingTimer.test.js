@@ -40,101 +40,161 @@ describe('<RemainingTimer />', () => {
     }
   });
 
-  it('should over from in operation to after the last bus', () => {
-    startTime.day('saturday').minutes(59).seconds(59);
-    clock = sinon.useFakeTimers(startTime.valueOf());
-    wrapper = shallow(<RemainingTimer {...props} />, shallowOpts);
+  describe('passing props of boundary value to <RemainingClock />', () => {
+    it('should over from in operation to after the last bus', () => {
+      startTime.day('saturday').minutes(59).seconds(59);
+      clock = sinon.useFakeTimers(startTime.valueOf());
+      wrapper = shallow(<RemainingTimer {...props} />, shallowOpts);
 
-    timerState = wrapper.state();
-    clockProps = wrapper.find('Styled<RemainingClock>').props();
-    tableProps = wrapper.find('TimeTable').props();
-    expect(clockProps.inactive).toBe(false);
-    expect(clockProps.ended).toBe(false);
-    expect(
-      moment(tableProps.targetTime).isSame(timerState.nextTime)
-    ).toBe(true);
+      timerState = wrapper.state();
+      clockProps = wrapper.find('Styled<RemainingClock>').props();
+      expect(clockProps.inactive).toBe(false);
+      expect(clockProps.ended).toBe(false);
+      expect(timerState.nextTime).not.toBeUndefined();
 
-    clock.tick(moment.duration(2, 'seconds').asMilliseconds());
+      clock.tick(moment.duration(2, 'seconds').asMilliseconds());
 
-    timerState = wrapper.state();
-    clockProps = wrapper.find('Styled<RemainingClock>').props();
-    tableProps = wrapper.find('TimeTable').props();
-    expect(clockProps.inactive).toBe(false);
-    expect(clockProps.ended).toBe(true);
-    expect(tableProps.targetTime).toBeUndefined();
-    expect(timerState.nextTime).toBeUndefined();
+      timerState = wrapper.state();
+      clockProps = wrapper.find('Styled<RemainingClock>').props();
+      expect(clockProps.inactive).toBe(false);
+      expect(clockProps.ended).toBe(true);
+      expect(timerState.nextTime).toBeUndefined();
+    });
+
+    it('should has ended unchanged from after the last bus to in holiday', () => {
+      startTime.day('saturday').hours(3).minutes(59).seconds(59);
+      clock = sinon.useFakeTimers(startTime.valueOf());
+      wrapper = shallow(<RemainingTimer {...props} />, shallowOpts);
+
+      timerState = wrapper.state();
+      clockProps = wrapper.find('Styled<RemainingClock>').props();
+      expect(clockProps.inactive).toBe(false);
+      expect(clockProps.ended).toBe(true);
+      expect(timerState.nextTime).toBeUndefined();
+
+      clock.tick(moment.duration(2, 'seconds').asMilliseconds());
+
+      timerState = wrapper.state();
+      clockProps = wrapper.find('Styled<RemainingClock>').props();
+      expect(clockProps.inactive).toBe(true);
+      expect(clockProps.ended).toBe(false);
+      expect(timerState.nextTime).not.toBeUndefined();
+    });
+
+    it('should has ended unchanged in holiday', () => {
+      startTime.day('sunday').minutes(59).seconds(59);
+      clock = sinon.useFakeTimers(startTime.valueOf());
+      wrapper = shallow(<RemainingTimer {...props} />, shallowOpts);
+
+      timerState = wrapper.state();
+      clockProps = wrapper.find('Styled<RemainingClock>').props();
+      expect(clockProps.inactive).toBe(true);
+      expect(clockProps.ended).toBe(false);
+      expect(timerState.nextTime).not.toBeUndefined();
+
+      clock.tick(moment.duration(2, 'seconds').asMilliseconds());
+
+      timerState = wrapper.state();
+      clockProps = wrapper.find('Styled<RemainingClock>').props();
+      expect(clockProps.inactive).toBe(true);
+      expect(clockProps.ended).toBe(true);
+      expect(timerState.nextTime).toBeUndefined();
+    });
+
+    it('should work start from in holiday to in operation', () => {
+      startTime.day('monday').hours(3).minutes(59).seconds(59);
+      clock = sinon.useFakeTimers(startTime.valueOf());
+      wrapper = shallow(<RemainingTimer {...props} />, shallowOpts);
+
+      timerState = wrapper.state();
+      clockProps = wrapper.find('Styled<RemainingClock>').props();
+      expect(clockProps.inactive).toBe(true);
+      expect(clockProps.ended).toBe(true);
+      expect(timerState.nextTime).toBeUndefined();
+
+      clock.tick(moment.duration(2, 'seconds').asMilliseconds());
+
+      timerState = wrapper.state();
+      clockProps = wrapper.find('Styled<RemainingClock>').props();
+      expect(clockProps.inactive).toBe(false);
+      expect(clockProps.ended).toBe(false);
+      expect(timerState.nextTime).not.toBeUndefined();
+    });
   });
 
-  it('should has ended unchanged from after the last bus to in holiday', () => {
-    startTime.day('saturday').hours(3).minutes(59).seconds(59);
-    clock = sinon.useFakeTimers(startTime.valueOf());
-    wrapper = shallow(<RemainingTimer {...props} />, shallowOpts);
+  describe('passing props of boundary value to <TimeTable />', () => {
+    it('should over from in operation to after the last bus', () => {
+      startTime.day('saturday').minutes(59).seconds(59);
+      clock = sinon.useFakeTimers(startTime.valueOf());
+      wrapper = shallow(<RemainingTimer {...props} />, shallowOpts);
 
-    timerState = wrapper.state();
-    clockProps = wrapper.find('Styled<RemainingClock>').props();
-    tableProps = wrapper.find('TimeTable').props();
-    expect(clockProps.inactive).toBe(false);
-    expect(clockProps.ended).toBe(true);
-    expect(tableProps.targetTime).toBeUndefined();
-    expect(timerState.nextTime).toBeUndefined();
+      timerState = wrapper.state();
+      tableProps = wrapper.find('TimeTable').props();
+      expect(
+        moment(tableProps.targetTime).isSame(timerState.nextTime)
+      ).toBe(true);
 
-    clock.tick(moment.duration(2, 'seconds').asMilliseconds());
+      clock.tick(moment.duration(2, 'seconds').asMilliseconds());
 
-    timerState = wrapper.state();
-    clockProps = wrapper.find('Styled<RemainingClock>').props();
-    tableProps = wrapper.find('TimeTable').props();
-    expect(clockProps.inactive).toBe(true);
-    expect(clockProps.ended).toBe(false);
-    expect(tableProps.targetTime).toBeUndefined();
-    expect(timerState.nextTime).not.toBeUndefined();
-  });
+      timerState = wrapper.state();
+      tableProps = wrapper.find('TimeTable').props();
+      expect(tableProps.targetTime).toBeUndefined();
+      expect(timerState.nextTime).toBeUndefined();
+    });
 
-  it('should has ended unchanged in holiday', () => {
-    startTime.day('sunday').minutes(59).seconds(59);
-    clock = sinon.useFakeTimers(startTime.valueOf());
-    wrapper = shallow(<RemainingTimer {...props} />, shallowOpts);
+    it('should has ended unchanged from after the last bus to in holiday', () => {
+      startTime.day('saturday').hours(3).minutes(59).seconds(59);
+      clock = sinon.useFakeTimers(startTime.valueOf());
+      wrapper = shallow(<RemainingTimer {...props} />, shallowOpts);
 
-    timerState = wrapper.state();
-    clockProps = wrapper.find('Styled<RemainingClock>').props();
-    tableProps = wrapper.find('TimeTable').props();
-    expect(clockProps.inactive).toBe(true);
-    expect(clockProps.ended).toBe(false);
-    expect(tableProps.targetTime).toBeUndefined();
-    expect(timerState.nextTime).not.toBeUndefined();
+      timerState = wrapper.state();
+      tableProps = wrapper.find('TimeTable').props();
+      expect(tableProps.targetTime).toBeUndefined();
+      expect(timerState.nextTime).toBeUndefined();
 
-    clock.tick(moment.duration(2, 'seconds').asMilliseconds());
+      clock.tick(moment.duration(2, 'seconds').asMilliseconds());
 
-    timerState = wrapper.state();
-    clockProps = wrapper.find('Styled<RemainingClock>').props();
-    tableProps = wrapper.find('TimeTable').props();
-    expect(clockProps.inactive).toBe(true);
-    expect(clockProps.ended).toBe(true);
-    expect(tableProps.targetTime).toBeUndefined();
-    expect(timerState.nextTime).toBeUndefined();
-  });
+      timerState = wrapper.state();
+      tableProps = wrapper.find('TimeTable').props();
+      expect(tableProps.targetTime).toBeUndefined();
+      expect(timerState.nextTime).not.toBeUndefined();
+    });
 
-  it('should work start from in holiday to in operation', () => {
-    startTime.day('monday').hours(3).minutes(59).seconds(59);
-    clock = sinon.useFakeTimers(startTime.valueOf());
-    wrapper = shallow(<RemainingTimer {...props} />, shallowOpts);
+    it('should has ended unchanged in holiday', () => {
+      startTime.day('sunday').minutes(59).seconds(59);
+      clock = sinon.useFakeTimers(startTime.valueOf());
+      wrapper = shallow(<RemainingTimer {...props} />, shallowOpts);
 
-    timerState = wrapper.state();
-    clockProps = wrapper.find('Styled<RemainingClock>').props();
-    tableProps = wrapper.find('TimeTable').props();
-    expect(clockProps.inactive).toBe(true);
-    expect(clockProps.ended).toBe(true);
-    expect(tableProps.targetTime).toBeUndefined();
-    expect(timerState.nextTime).toBeUndefined();
+      timerState = wrapper.state();
+      tableProps = wrapper.find('TimeTable').props();
+      expect(tableProps.targetTime).toBeUndefined();
+      expect(timerState.nextTime).not.toBeUndefined();
 
-    clock.tick(moment.duration(2, 'seconds').asMilliseconds());
+      clock.tick(moment.duration(2, 'seconds').asMilliseconds());
 
-    timerState = wrapper.state();
-    clockProps = wrapper.find('Styled<RemainingClock>').props();
-    tableProps = wrapper.find('TimeTable').props();
-    expect(clockProps.inactive).toBe(false);
-    expect(clockProps.ended).toBe(false);
-    expect(
-      moment(tableProps.targetTime).isSame(timerState.nextTime)
-    ).toBe(true);
+      timerState = wrapper.state();
+      tableProps = wrapper.find('TimeTable').props();
+      expect(tableProps.targetTime).toBeUndefined();
+      expect(timerState.nextTime).toBeUndefined();
+    });
+
+    it('should work start from in holiday to in operation', () => {
+      startTime.day('monday').hours(3).minutes(59).seconds(59);
+      clock = sinon.useFakeTimers(startTime.valueOf());
+      wrapper = shallow(<RemainingTimer {...props} />, shallowOpts);
+
+      timerState = wrapper.state();
+      tableProps = wrapper.find('TimeTable').props();
+      expect(tableProps.targetTime).toBeUndefined();
+      expect(timerState.nextTime).toBeUndefined();
+
+      clock.tick(moment.duration(2, 'seconds').asMilliseconds());
+
+      timerState = wrapper.state();
+      tableProps = wrapper.find('TimeTable').props();
+      expect(
+        moment(tableProps.targetTime).isSame(timerState.nextTime)
+      ).toBe(true);
+    });
   });
 });
