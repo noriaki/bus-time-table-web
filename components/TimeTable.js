@@ -4,8 +4,7 @@ import {
 } from 'material-ui/Table';
 import ActionInfo from 'material-ui/svg-icons/action/info-outline';
 import NavigationMoreVert from 'material-ui/svg-icons/navigation/more-vert';
-import { white, grey500 } from 'material-ui/styles/colors';
-import { blueSky, premiumBlack, silver } from '../themes/colors';
+import { silver } from '../themes/colors';
 import { icon, svg } from '../styles/HorizontallyIcons-Style';
 import {
   timeTable,
@@ -17,7 +16,7 @@ import {
   targetColumn,
 } from '../styles/TimeTable-Style';
 
-const TimeTable = ({ data, targetTime }) => (
+const TimeTable = ({ data, targetTime = {} }) => (
   <Table selectable={false} style={timeTable}>
     <TableBody stripedRows displayRowCheckbox={false}>
       {data.map(RowIterator(targetTime))}
