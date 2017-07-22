@@ -5,7 +5,7 @@ import { styled } from 'react-free-style';
 // styles
 import RemainingClockStyles from '../styles/RemainingClock-Style';
 
-export const RemainingClock = (
+export const RemainingClockComponent = (
   { dest, ended, inactive, remaining, time, styles }
 ) => {
   if (inactive) {
@@ -51,4 +51,4 @@ export const RemainingClock = (
   );
 };
 
-export default styled(RemainingClockStyles)(RemainingClock);
+export default styled(RemainingClockStyles)(RemainingClockComponent);

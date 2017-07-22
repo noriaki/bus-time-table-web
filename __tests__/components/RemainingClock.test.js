@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import moment from 'moment';
 
-import { RemainingClock } from '../../components/RemainingClock';
+import { RemainingClockComponent } from '../../components/RemainingClock';
 
 describe('<RemainingClock />', () => {
   const props = {
@@ -16,7 +16,10 @@ describe('<RemainingClock />', () => {
     const isEnded = false;
     const isInactive = false;
     const wrapper = shallow(
-      <RemainingClock {...props} ended={isEnded} inactive={isInactive} />
+      <RemainingClockComponent
+        {...props}
+        ended={isEnded}
+        inactive={isInactive} />
     );
     expect(wrapper.text()).toMatch(/00:00発/);
     expect(wrapper.text()).toMatch(/test行/);
@@ -29,7 +32,7 @@ describe('<RemainingClock />', () => {
     const isInactive = false;
     const remaining = ((60 * 60) + 1) * 1000; // after 01:00:01
     const wrapper = shallow(
-      <RemainingClock
+      <RemainingClockComponent
         {...props}
         remaining={remaining}
         ended={isEnded}
@@ -44,7 +47,10 @@ describe('<RemainingClock />', () => {
     const isEnded = true;
     const isInactive = false;
     const wrapper = shallow(
-      <RemainingClock {...props} ended={isEnded} inactive={isInactive} />
+      <RemainingClockComponent
+        {...props}
+        ended={isEnded}
+        inactive={isInactive} />
     );
     expect(wrapper.text()).toMatch(/test行/);
     expect(wrapper.text()).toMatch(/全て終了しました/);
@@ -54,7 +60,10 @@ describe('<RemainingClock />', () => {
     const isEnded = false;
     const isInactive = true;
     const wrapper = shallow(
-      <RemainingClock {...props} ended={isEnded} inactive={isInactive} />
+      <RemainingClockComponent
+        {...props}
+        ended={isEnded}
+        inactive={isInactive} />
     );
     expect(wrapper.text()).toMatch(/運行はありません/);
   });
