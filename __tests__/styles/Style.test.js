@@ -11,6 +11,7 @@ import FacebookSendButtonStyles from '../../styles/FacebookSendButton-Style';
 import HorizontallyIconsStyles from '../../styles/HorizontallyIcons-Style';
 import LineItButtonStyles from '../../styles/LineItButton-Style';
 import LoadingBoxStyles from '../../styles/LoadingBox-Style';
+import NextPrevBusButtonStyles from '../../styles/NextPrevBusButton-Style';
 import RemainingClockStyles from '../../styles/RemainingClock-Style';
 import RouteMapStyles from '../../styles/RouteMap-Style';
 import ShareMenuStyles from '../../styles/ShareMenu-Style';
@@ -28,6 +29,7 @@ const componentStyles = {
   HorizontallyIconsStyles,
   LineItButtonStyles,
   LoadingBoxStyles,
+  NextPrevBusButtonStyles,
   RemainingClockStyles,
   RouteMapStyles,
   ShareMenuStyles,
