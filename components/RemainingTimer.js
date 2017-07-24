@@ -6,26 +6,29 @@ import CircularProgress from 'material-ui/CircularProgress';
 
 import {
   flattenTimeTable,
-  findNextTime,
+  sliceNextTimeList,
   isInactiveDays,
 } from '../libs/timeTableDataHandler';
+import isDoubleTouchTap from '../libs/isDoubleTouchTap';
 
 import { blueSky } from '../themes/colors';
 import LoadingBoxStyles from '../styles/LoadingBox-Style';
 
 import RemainingClock from './RemainingClock';
 import TimeTable from './TimeTable';
+import NextPrevBusButton from './NextPrevBusButton';
 
 class RemainingTimer extends Component {
   constructor(props, ...args) {
     super(props, ...args);
     this.timeTableData = props.data;
     this.activeDays = props.activeDays;
-    this.state = this.buildNextState();
+    this.nextTimeList = [];
+    this.state = { ...this.buildState(), index: 0 };
   }
 
   componentDidMount() {
-    this.timer = setInterval(this.handleTick.bind(this), 1000);
+    this.timer = setInterval(this.handleTick, 1000);
   }
 
   componentWillUnmount() {
@@ -35,35 +38,74 @@ class RemainingTimer extends Component {
     }
   }
 
-  buildNextState(currentTime) {
-    const nextTime = findNextTime(
-      flattenTimeTable(this.timeTableData), currentTime
-    );
+  buildState(currentTime) {
+    const prevState = this.state || {};
+    const timeTable = flattenTimeTable(this.timeTableData);
+    this.nextTimeList = sliceNextTimeList(timeTable, currentTime);
+    const nextTime = this.nextTimeList[0];
     const isInactive = isInactiveDays(this.activeDays, currentTime);
     const isEnded = nextTime == null;
-    return { nextTime, isInactive, isEnded };
+    const index = prevState.index || 0;
+    const nextState = { nextTime, isInactive, isEnded, index };
+    if (prevState.nextTime &&
+        nextTime &&
+        nextState.index &&
+        !prevState.nextTime.isSame(nextTime)) {
+      nextState.index -= 1;
+    }
+    nextState.isNeedLeft = nextState.index > 0;
+    nextState.isNeedRight = nextState.index < this.nextTimeList.length - 1;
+    return nextState;
   }
 
-  handleTick() {
-    this.setState(this.buildNextState());
+  handleTick = () => this.setState(this.buildState())
+
+  handlePrev = (event) => {
+    if (isDoubleTouchTap(event)) {
+      this.setState({ index: 0 });
+    } else {
+      this.setState({ index: this.state.index - 1 });
+    }
+  }
+  handleNext = (event) => {
+    if (isDoubleTouchTap(event)) {
+      this.setState({ index: this.nextTimeList.length - 1 });
+    } else {
+      this.setState({ index: this.state.index + 1 });
+    }
   }
 
   render() {
-    const { nextTime, isInactive, isEnded } = this.state;
+    const {
+      index, isInactive, isEnded, isNeedLeft, isNeedRight,
+    } = this.state;
     const { data, dest } = this.props;
-    const nextRemaining = Math.abs(moment().diff(nextTime));
+    const currentTargetTime = this.nextTimeList[index];
+    const nextRemaining = Math.abs(moment().diff(currentTargetTime));
     let targetTime;
-    if (!isInactive && !isEnded) { targetTime = nextTime.toObject(); }
+    const isActive = !isInactive && !isEnded;
+    if (isActive) { targetTime = currentTargetTime.toObject(); }
     return (
       <div>
         <section>
           <NoSSR onSSR={<Loading />}>
-            <RemainingClock
-              dest={dest}
-              ended={isEnded}
-              inactive={isInactive}
-              remaining={nextRemaining}
-              time={nextTime} />
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <NextPrevBusButton
+                left={isNeedLeft}
+                active={isActive}
+                onTouchTap={this.handlePrev} />
+              <RemainingClock
+                dest={dest}
+                ended={isEnded}
+                inactive={isInactive}
+                last={!isNeedRight}
+                remaining={nextRemaining}
+                time={currentTargetTime} />
+              <NextPrevBusButton
+                right={isNeedRight}
+                active={isActive}
+                onTouchTap={this.handleNext} />
+            </div>
           </NoSSR>
         </section>
         <section>
