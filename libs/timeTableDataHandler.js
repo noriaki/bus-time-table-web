@@ -23,9 +23,19 @@ export const flattenTimeTable = (timeTable, now) => {
   }, []);
 };
 
-export const findNextTime = (list, now) => {
+export const findNextTime = (list, now) => (
+  list[findNextTimeIndex(list, now)]
+);
+
+export const findNextTimeIndex = (list, now) => {
   const currentTime = moment(now || moment());
-  return list.find(m => (m.diff(currentTime) >= 0));
+  return list.findIndex(m => (m.diff(currentTime) >= 0));
+};
+
+export const sliceNextTimeList = (list, now) => {
+  const index = findNextTimeIndex(list, now);
+  if (index !== -1) { return list.slice(index); }
+  return undefined;
 };
 
 export const isInactiveDays = (activeDays, now) => {
