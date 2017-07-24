@@ -2,14 +2,7 @@ export const button = {
   height: null,
   lineHeight: null,
   minWidth: null,
-};
-export const buttonLeft = {
-  ...button,
-  paddingRight: 16,
-};
-export const buttonRight = {
-  ...button,
-  paddingLeft: 16,
+  padding: '0 4px',
 };
 
 export const container = {
@@ -26,8 +19,6 @@ export const navigation = {
 
 export default {
   button,
-  buttonLeft,
-  buttonRight,
   container,
   navigation,
 };

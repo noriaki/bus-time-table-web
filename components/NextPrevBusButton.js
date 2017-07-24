@@ -5,21 +5,18 @@ import RightIcon from 'material-ui/svg-icons/navigation/chevron-right';
 import LeftIcon from 'material-ui/svg-icons/navigation/chevron-left';
 
 import NextPrevBusButtonStyles, {
-  buttonLeft, buttonRight,
+  button as buttonStyle,
 } from '../styles/NextPrevBusButton-Style';
 
 export const NextPrevBusButtonComponent = (
   { styles, active, left, right, ...props }
 ) => {
-  let buttonStyle = {};
   let naviText;
   let iconComponent;
   if (isActiveLeft({ active, left, right })) {
-    buttonStyle = buttonLeft;
     naviText = '前発';
     iconComponent = <LeftIcon {...props} />;
   } else if (isActiveRight({ active, left, right })) {
-    buttonStyle = buttonRight;
     naviText = '次発';
     iconComponent = <RightIcon {...props} />;
   }
