@@ -35,7 +35,7 @@ export const findNextTimeIndex = (list, now) => {
 export const sliceNextTimeList = (list, now) => {
   const index = findNextTimeIndex(list, now);
   if (index !== -1) { return list.slice(index); }
-  return undefined;
+  return [];
 };
 
 export const isInactiveDays = (activeDays, now) => {

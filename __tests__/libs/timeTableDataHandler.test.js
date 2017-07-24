@@ -200,8 +200,9 @@ describe('timeTableDataHandler', () => {
     it('the last bus is over (1:35)', () => {
       const currentTime = moment({ hour: 1, minute: 35 });
       const list = flattenTimeTable(raw, currentTime);
+      const expected = [];
       const subject = sliceNextTimeList(list, currentTime);
-      expect(subject).toBeUndefined();
+      expect(subject).toEqual(expected);
     });
   });
 
