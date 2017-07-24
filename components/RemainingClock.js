@@ -6,7 +6,7 @@ import { styled } from 'react-free-style';
 import RemainingClockStyles from '../styles/RemainingClock-Style';
 
 export const RemainingClockComponent = (
-  { dest, ended, inactive, remaining, time, styles }
+  { dest, ended, inactive, last, remaining, time, styles }
 ) => {
   if (inactive) {
     return (
@@ -31,10 +31,12 @@ export const RemainingClockComponent = (
   const minute = <span className={styles.timer}>{m.format('mm')}</span>;
   const second = <span className={styles.timer}>{m.format('ss')}</span>;
   const suffix = s => <span className={styles.suffix}>{s}</span>;
+  const lastNotice = last ? <span className={styles.last}>最終</span> : null;
   return (
     <div className={styles.container}>
       <div className={styles.boardContainer}>
         <div className={styles.departure}>
+          {lastNotice}
           {moment(time).format('HH:mm')}{suffix('発')}
         </div>
         <div className={styles.destination}>

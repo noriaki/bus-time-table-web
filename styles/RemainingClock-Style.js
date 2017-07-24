@@ -1,3 +1,5 @@
+import { red500 } from 'material-ui/styles/colors';
+
 export const container = {
   display: 'flex',
   justifyContent: 'center',
@@ -15,6 +17,12 @@ export const departure = {
   marginLeft: 5,
   fontSize: 14,
   fontWeight: 'bold',
+};
+export const last = {
+  color: red500,
+  fontWeight: 'normal',
+  fontSize: 12,
+  marginRight: '0.5em',
 };
 export const destination = {
   marginLeft: 5,
@@ -38,6 +46,7 @@ export default {
   container,
   boardContainer,
   departure,
+  last,
   destination,
   timer,
   suffix,
