@@ -2,7 +2,8 @@ export const container = {
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  margin: 10,
+  marginTop: 10,
+  marginBottom: 10,
 };
 export const boardContainer = {
   display: 'flex',
