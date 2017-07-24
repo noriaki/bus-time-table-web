@@ -21,7 +21,11 @@ export const RemainingClockComponent = (
   } else if (ended) {
     return (
       <div className={styles.container}>
-        <p className={styles.notice}>本日の{dest}行きバスは全て終了しました</p>
+        <p className={styles.notice}>
+          本日の{dest}行きバスは
+          <br />
+          全て終了しました
+        </p>
       </div>
     );
   }

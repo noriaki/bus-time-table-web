@@ -40,6 +40,7 @@ export const suffix = {
 export const notice = {
   fontSize: 13,
   textAlign: 'center',
+  margin: 1,
 };
 
 export default {
