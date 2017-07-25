@@ -9,7 +9,7 @@ import NextPrevBusButtonStyles, {
 } from '../styles/NextPrevBusButton-Style';
 
 export const NextPrevBusButtonComponent = (
-  { styles, active, left, right, ...props }
+  { styles, active, left, right, onTouchTap, ...props }
 ) => {
   let naviText;
   let iconComponent;
@@ -21,7 +21,7 @@ export const NextPrevBusButtonComponent = (
     iconComponent = <RightIcon {...props} />;
   }
   return (
-    <FlatButton style={buttonStyle}>
+    <FlatButton style={buttonStyle} onTouchTap={onTouchTap}>
       <div className={styles.container}>
         <span className={styles.navigation}>
           {naviText}
