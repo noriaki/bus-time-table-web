@@ -14,29 +14,30 @@ import {
   noteColumn,
   hourColumn,
   targetColumn,
+  nextTargetColumn,
 } from '../styles/TimeTable-Style';
 
-const TimeTable = ({ data, targetTime = {} }) => (
+const TimeTable = ({ data, targetTime = {}, nextTime = {} }) => (
   <Table selectable={false} style={timeTable}>
     <TableBody stripedRows displayRowCheckbox={false}>
-      {data.map(RowIterator(targetTime))}
+      {data.map(RowIterator({ targetTime, nextTime }))}
     </TableBody>
   </Table>
 );
 
 export default TimeTable;
 
-const RowIterator = targetTime => ({ hour, minutes, divider, note }) => {
+const RowIterator = time => ({ hour, minutes, divider, note }) => {
   if (divider != null) { return buildDivider(); }
   if (note != null) { return buildNote(note); }
-  return buildRow({ hour, minutes, targetTime });
+  return buildRow({ hour, minutes, ...time });
 };
-const buildRow = ({ hour, minutes, targetTime }) => (
+const buildRow = ({ hour, minutes, ...time }) => (
   <TableRow key={hour} style={row}>
     <TableHeaderColumn style={{ ...baseColumn, ...hourColumn }}>
       {format(hour)}
     </TableHeaderColumn>
-    {fill(minutes).map(makeMinutesRowIterator(hour, targetTime))}
+    {fill(minutes).map(makeMinutesRowIterator(hour, time))}
   </TableRow>
 );
 const buildDivider = () => (
@@ -56,9 +57,14 @@ const buildNote = note => (
     </TableRowColumn>
   </TableRow>
 );
-const makeMinutesRowIterator = (hour, { hours, minutes }) => (minute) => {
-  const columnStyle = (hour % 24 === hours && minute === minutes) ?
-          { ...baseColumn, ...targetColumn } : baseColumn;
+const makeMinutesRowIterator = (hour, { nextTime, targetTime }) => (minute) => {
+  const h = hour % 24;
+  let columnStyle = baseColumn;
+  if (h === targetTime.hours && minute === targetTime.minutes) {
+    columnStyle = targetColumn;
+  } else if (h === nextTime.hours && minute === nextTime.minutes) {
+    columnStyle = nextTargetColumn;
+  }
   return (
     <TableRowColumn key={`${hour}-${minute}`} style={columnStyle}>
       {format(minute)}

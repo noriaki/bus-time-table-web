@@ -90,15 +90,19 @@ class RemainingTimer extends Component {
   }
 
   render() {
-    const { index, isInactive, isEnded } = this.state;
+    const { index, isInactive, isEnded, nextTime } = this.state;
     const { data, dest, front } = this.props;
     const currentTargetTime = this.nextTimeList[index];
     const nextRemaining = Math.abs(moment().diff(currentTargetTime));
     let targetTime;
+    let nextTargetTime;
     const isActive = !isInactive && !isEnded;
     const isNeedLeft = index > 0;
     const isNeedRight = index < this.nextTimeList.length - 1;
-    if (isActive) { targetTime = currentTargetTime.toObject(); }
+    if (isActive) {
+      targetTime = currentTargetTime.toObject();
+      nextTargetTime = nextTime.toObject();
+    }
     this.toggleTimer(front);
     return (
       <div>
@@ -124,7 +128,10 @@ class RemainingTimer extends Component {
           </NoSSR>
         </section>
         <section>
-          <TimeTable data={data} targetTime={targetTime} />
+          <TimeTable
+            data={data}
+            targetTime={targetTime}
+            nextTime={nextTargetTime} />
         </section>
       </div>
     );
