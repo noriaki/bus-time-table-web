@@ -63,6 +63,7 @@ class RemainingTimer extends Component {
 
   handlePrev = (event) => {
     if (isDoubleTouchTap(event)) {
+      event.preventDefault();
       this.setState({ index: 0 });
     } else {
       this.setState({ index: this.state.index - 1 });
@@ -70,6 +71,7 @@ class RemainingTimer extends Component {
   }
   handleNext = (event) => {
     if (isDoubleTouchTap(event)) {
+      event.preventDefault();
       this.setState({ index: this.nextTimeList.length - 1 });
     } else {
       this.setState({ index: this.state.index + 1 });
