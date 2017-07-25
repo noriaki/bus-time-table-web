@@ -11,29 +11,34 @@ import { itemContainer, inkBar, swipeableViewsContainer } from '../styles/Tab-St
 class TabbedTimeTable extends Component {
   state = { index: this.props.index }
 
-  handleChange = (value) => {
+  handleChange = (nextIndex) => {
     this.setState({
-      index: value,
+      index: nextIndex,
     });
-    GA.pageview(this.props.tabs[value]);
+    GA.pageview(this.props.tabs[nextIndex]);
   }
 
   render() {
+    const { index } = this.state;
+    const { tabs } = this.props;
+    const inactiveIndex = Math.abs(index - 1);
+    tabs[index].front = true;
+    tabs[inactiveIndex].front = false;
     return (
       <div>
         <Tabs
           tabItemContainerStyle={itemContainer}
           inkBarStyle={inkBar}
           onChange={this.handleChange}
-          value={this.state.index}>
-          {this.props.tabs.map(TabLabel)}
+          value={index}>
+          {tabs.map(TabLabel)}
         </Tabs>
         <SwipeableViews
           resistance
           style={swipeableViewsContainer}
-          index={this.state.index}
+          index={index}
           onChangeIndex={this.handleChange}>
-          {this.props.tabs.map(TabContent)}
+          {tabs.map(TabContent)}
         </SwipeableViews>
       </div>
     );

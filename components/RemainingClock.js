@@ -5,7 +5,9 @@ import { styled } from 'react-free-style';
 // styles
 import RemainingClockStyles from '../styles/RemainingClock-Style';
 
-const RemainingClock = ({ remaining, time, dest, inactive, styles }) => {
+export const RemainingClockComponent = (
+  { dest, ended, inactive, last, remaining, time, styles }
+) => {
   if (inactive) {
     return (
       <div className={styles.container}>
@@ -16,36 +18,43 @@ const RemainingClock = ({ remaining, time, dest, inactive, styles }) => {
         </p>
       </div>
     );
-  } else if (remaining != null) {
-    const m = moment.utc(remaining);
-    const haveHour = m.hour() > 0;
-    const hour = <span className={styles.timer}>{m.format('HH')}</span>;
-    const minute = <span className={styles.timer}>{m.format('mm')}</span>;
-    const second = <span className={styles.timer}>{m.format('ss')}</span>;
+  } else if (ended) {
     return (
       <div className={styles.container}>
-        <div className={styles.boardContainer}>
-          <div className={styles.departure}>
-            {time.format('HH')}:{time.format('mm')}
-            <span className={styles.suffix}>発</span>
-          </div>
-          <div className={styles.destination}>
-            {dest}<span className={styles.suffix}>行</span></div>
-        </div>
-        <div className={styles.timerContainer}>
-          {haveHour ? hour : null}
-          {haveHour ? <span className={styles.suffix}>時間</span> : null}
-          {minute}<span className={styles.suffix}>分</span>
-          {second}<span className={styles.suffix}>秒後</span>
-        </div>
+        <p className={styles.notice}>
+          本日の{dest}行きバスは
+          <br />
+          全て終了しました
+        </p>
       </div>
     );
   }
+  const m = moment.utc(remaining);
+  const haveHour = m.hour() > 0;
+  const hour = <span className={styles.timer}>{m.format('HH')}</span>;
+  const minute = <span className={styles.timer}>{m.format('mm')}</span>;
+  const second = <span className={styles.timer}>{m.format('ss')}</span>;
+  const suffix = s => <span className={styles.suffix}>{s}</span>;
+  const lastNotice = last ? <span className={styles.last}>最終</span> : null;
   return (
     <div className={styles.container}>
-      <p className={styles.notice}>本日の{dest}行きバスは全て終了しました</p>
+      <div className={styles.boardContainer}>
+        <div className={styles.departure}>
+          {lastNotice}
+          {moment(time).format('HH:mm')}{suffix('発')}
+        </div>
+        <div className={styles.destination}>
+          {dest}{suffix('行')}
+        </div>
+      </div>
+      <div className={styles.timerContainer}>
+        {haveHour ? hour : null}
+        {haveHour ? suffix('時間') : null}
+        {minute}{suffix('分')}
+        {second}{suffix('秒後')}
+      </div>
     </div>
   );
 };
 
-export default styled(RemainingClockStyles)(RemainingClock);
+export default styled(RemainingClockStyles)(RemainingClockComponent);

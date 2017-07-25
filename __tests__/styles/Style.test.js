@@ -11,6 +11,7 @@ import FacebookSendButtonStyles from '../../styles/FacebookSendButton-Style';
 import HorizontallyIconsStyles from '../../styles/HorizontallyIcons-Style';
 import LineItButtonStyles from '../../styles/LineItButton-Style';
 import LoadingBoxStyles from '../../styles/LoadingBox-Style';
+import NextPrevBusButtonStyles from '../../styles/NextPrevBusButton-Style';
 import RemainingClockStyles from '../../styles/RemainingClock-Style';
 import RouteMapStyles from '../../styles/RouteMap-Style';
 import ShareMenuStyles from '../../styles/ShareMenu-Style';
@@ -28,6 +29,7 @@ const componentStyles = {
   HorizontallyIconsStyles,
   LineItButtonStyles,
   LoadingBoxStyles,
+  NextPrevBusButtonStyles,
   RemainingClockStyles,
   RouteMapStyles,
   ShareMenuStyles,
@@ -35,11 +37,11 @@ const componentStyles = {
   TimeTableStyles,
 };
 
-Object.keys(componentStyles).forEach((componentStyle) => {
-  describe(`"${componentStyle}" should has valid css properties`, () => {
-    const styles = componentStyles[componentStyle];
-    Object.keys(styles).forEach((className) => {
-      it(className, () => {
+describe('Component Styles should has valid css properties', () => {
+  Object.keys(componentStyles).forEach((componentStyle) => {
+    it(componentStyle, () => {
+      const styles = componentStyles[componentStyle];
+      Object.keys(styles).forEach((className) => {
         Object.keys(styles[className]).forEach((propertyName) => {
           expect(cssPropTypes).toContain(propertyName);
         });
