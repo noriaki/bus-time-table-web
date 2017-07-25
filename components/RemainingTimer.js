@@ -17,6 +17,7 @@ import LoadingBoxStyles from '../styles/LoadingBox-Style';
 import RemainingClock from './RemainingClock';
 import TimeTable from './TimeTable';
 import NextPrevBusButton from './NextPrevBusButton';
+import GA from './GA';
 
 class RemainingTimer extends Component {
   constructor(props, ...args) {
@@ -64,16 +65,20 @@ class RemainingTimer extends Component {
   handlePrev = (event) => {
     if (isDoubleTouchTap(event)) {
       event.preventDefault();
+      GA.event({ category: 'Timer', action: 'click', label: 'First' });
       this.setState({ index: 0 });
     } else {
+      GA.event({ category: 'Timer', action: 'click', label: 'Prev' });
       this.setState({ index: this.state.index - 1 });
     }
   }
   handleNext = (event) => {
     if (isDoubleTouchTap(event)) {
       event.preventDefault();
+      GA.event({ category: 'Timer', action: 'click', label: 'Last' });
       this.setState({ index: this.nextTimeList.length - 1 });
     } else {
+      GA.event({ category: 'Timer', action: 'click', label: 'Next' });
       this.setState({ index: this.state.index + 1 });
     }
   }
