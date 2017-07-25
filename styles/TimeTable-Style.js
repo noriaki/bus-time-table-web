@@ -1,4 +1,5 @@
 import { white, grey500 } from 'material-ui/styles/colors';
+import { lighten } from 'material-ui/utils/colorManipulator';
 import { blueSky, premiumBlack, silver } from '../themes/colors';
 
 export const timeTable = {
@@ -30,9 +31,14 @@ export const hourColumn = {
   backgroundColor: premiumBlack,
 };
 export const targetColumn = {
+  ...baseColumn,
   backgroundColor: blueSky,
   color: white,
   fontWeight: 'lighter',
+};
+export const nextTargetColumn = {
+  ...baseColumn,
+  backgroundColor: lighten(blueSky, 0.65),
 };
 
 export default {
@@ -43,4 +49,5 @@ export default {
   noteColumn,
   hourColumn,
   targetColumn,
+  nextTargetColumn,
 };
