@@ -13,15 +13,18 @@ export const NextPrevBusButtonComponent = (
 ) => {
   let naviText;
   let iconComponent;
+  let disabled = true;
   if (isActiveLeft({ active, left, right })) {
     naviText = '前発';
     iconComponent = <LeftIcon {...props} />;
+    disabled = false;
   } else if (isActiveRight({ active, left, right })) {
     naviText = '次発';
     iconComponent = <RightIcon {...props} />;
+    disabled = false;
   }
   return (
-    <FlatButton style={buttonStyle} onTouchTap={onTouchTap}>
+    <FlatButton style={buttonStyle} disabled={disabled} onTouchTap={onTouchTap}>
       <div className={styles.container}>
         <span className={styles.navigation}>
           {naviText}
