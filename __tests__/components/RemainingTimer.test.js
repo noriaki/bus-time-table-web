@@ -19,6 +19,7 @@ describe('<RemainingTimer />', () => {
     activeDays,
     data,
     dest: 'test',
+    front: true,
   };
 
   let clock;
@@ -47,7 +48,7 @@ describe('<RemainingTimer />', () => {
       wrapper = shallow(<RemainingTimer {...props} />, shallowOpts);
 
       timerState = wrapper.state();
-      clockProps = wrapper.find('Styled<RemainingClock>').props();
+      clockProps = wrapper.find('Styled<RemainingClockComponent>').props();
       expect(clockProps.inactive).toBe(false);
       expect(clockProps.ended).toBe(false);
       expect(timerState.nextTime).not.toBeUndefined();
@@ -55,7 +56,7 @@ describe('<RemainingTimer />', () => {
       clock.tick(moment.duration(2, 'seconds').asMilliseconds());
 
       timerState = wrapper.state();
-      clockProps = wrapper.find('Styled<RemainingClock>').props();
+      clockProps = wrapper.find('Styled<RemainingClockComponent>').props();
       expect(clockProps.inactive).toBe(false);
       expect(clockProps.ended).toBe(true);
       expect(timerState.nextTime).toBeUndefined();
@@ -67,7 +68,7 @@ describe('<RemainingTimer />', () => {
       wrapper = shallow(<RemainingTimer {...props} />, shallowOpts);
 
       timerState = wrapper.state();
-      clockProps = wrapper.find('Styled<RemainingClock>').props();
+      clockProps = wrapper.find('Styled<RemainingClockComponent>').props();
       expect(clockProps.inactive).toBe(false);
       expect(clockProps.ended).toBe(true);
       expect(timerState.nextTime).toBeUndefined();
@@ -75,7 +76,7 @@ describe('<RemainingTimer />', () => {
       clock.tick(moment.duration(2, 'seconds').asMilliseconds());
 
       timerState = wrapper.state();
-      clockProps = wrapper.find('Styled<RemainingClock>').props();
+      clockProps = wrapper.find('Styled<RemainingClockComponent>').props();
       expect(clockProps.inactive).toBe(true);
       expect(clockProps.ended).toBe(false);
       expect(timerState.nextTime).not.toBeUndefined();
@@ -87,7 +88,7 @@ describe('<RemainingTimer />', () => {
       wrapper = shallow(<RemainingTimer {...props} />, shallowOpts);
 
       timerState = wrapper.state();
-      clockProps = wrapper.find('Styled<RemainingClock>').props();
+      clockProps = wrapper.find('Styled<RemainingClockComponent>').props();
       expect(clockProps.inactive).toBe(true);
       expect(clockProps.ended).toBe(false);
       expect(timerState.nextTime).not.toBeUndefined();
@@ -95,7 +96,7 @@ describe('<RemainingTimer />', () => {
       clock.tick(moment.duration(2, 'seconds').asMilliseconds());
 
       timerState = wrapper.state();
-      clockProps = wrapper.find('Styled<RemainingClock>').props();
+      clockProps = wrapper.find('Styled<RemainingClockComponent>').props();
       expect(clockProps.inactive).toBe(true);
       expect(clockProps.ended).toBe(true);
       expect(timerState.nextTime).toBeUndefined();
@@ -107,7 +108,7 @@ describe('<RemainingTimer />', () => {
       wrapper = shallow(<RemainingTimer {...props} />, shallowOpts);
 
       timerState = wrapper.state();
-      clockProps = wrapper.find('Styled<RemainingClock>').props();
+      clockProps = wrapper.find('Styled<RemainingClockComponent>').props();
       expect(clockProps.inactive).toBe(true);
       expect(clockProps.ended).toBe(true);
       expect(timerState.nextTime).toBeUndefined();
@@ -115,7 +116,7 @@ describe('<RemainingTimer />', () => {
       clock.tick(moment.duration(2, 'seconds').asMilliseconds());
 
       timerState = wrapper.state();
-      clockProps = wrapper.find('Styled<RemainingClock>').props();
+      clockProps = wrapper.find('Styled<RemainingClockComponent>').props();
       expect(clockProps.inactive).toBe(false);
       expect(clockProps.ended).toBe(false);
       expect(timerState.nextTime).not.toBeUndefined();

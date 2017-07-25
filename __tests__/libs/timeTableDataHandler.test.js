@@ -3,6 +3,7 @@ import {
   momentFromVersion,
   flattenTimeTable,
   findNextTime,
+  sliceNextTimeList,
   isInactiveDays,
 } from '../../libs/timeTableDataHandler';
 import timeTableData from '../../data/timetable.json';
@@ -137,6 +138,71 @@ describe('timeTableDataHandler', () => {
           onTheBoundaryTimeSubject.isSame(onTheBoundaryTimeExpected)
         ).toBe(true);
       });
+    });
+  });
+
+  describe('.sliceNextTimeList', () => {
+    const raw = [
+      { hour: 6, minutes: [0, 30, 50] },
+      { hour: 23, minutes: [10, 20, 50] },
+      { hour: 24, minutes: [20, 40] },
+      { hour: 25, minutes: [0] },
+    ];
+
+    it('wait beginning bus (5:50)', () => {
+      const currentTime = moment({ hour: 5, minute: 50 });
+      const list = flattenTimeTable(raw, currentTime);
+      const expected = list.slice(0);
+      const subject = sliceNextTimeList(list, currentTime);
+      expect(subject).toEqual(expected);
+    });
+
+    it('just wait-time is 0 (6:30)', () => {
+      const currentTime = moment({ hour: 6, minute: 30 });
+      const list = flattenTimeTable(raw, currentTime);
+      const expected = list.slice(1);
+      const subject = sliceNextTimeList(list, currentTime);
+      expect(subject).toEqual(expected);
+    });
+
+    it('between dates (midnight passes; 23:58)', () => {
+      const currentTime = moment({ hour: 23, minute: 58 });
+      const list = flattenTimeTable(raw, currentTime);
+      const expected = list.slice(6);
+      const subject = sliceNextTimeList(list, currentTime);
+      expect(subject).toEqual(expected);
+    });
+
+    it('just midnight (0:00)', () => {
+      const currentTime = moment({ hour: 0, minute: 0 });
+      const list = flattenTimeTable(raw, currentTime);
+      const expected = list.slice(6);
+      const subject = sliceNextTimeList(list, currentTime);
+      expect(subject).toEqual(expected);
+    });
+
+    it('past midnight (0:31)', () => {
+      const currentTime = moment({ hour: 0, minute: 31 });
+      const list = flattenTimeTable(raw, currentTime);
+      const expected = list.slice(7);
+      const subject = sliceNextTimeList(list, currentTime);
+      expect(subject).toEqual(expected);
+    });
+
+    it('wait last bus (0:43)', () => {
+      const currentTime = moment({ hour: 0, minute: 43 });
+      const list = flattenTimeTable(raw, currentTime);
+      const expected = list.slice(8);
+      const subject = sliceNextTimeList(list, currentTime);
+      expect(subject).toEqual(expected);
+    });
+
+    it('the last bus is over (1:35)', () => {
+      const currentTime = moment({ hour: 1, minute: 35 });
+      const list = flattenTimeTable(raw, currentTime);
+      const expected = [];
+      const subject = sliceNextTimeList(list, currentTime);
+      expect(subject).toEqual(expected);
     });
   });
 
