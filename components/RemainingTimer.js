@@ -24,11 +24,12 @@ class RemainingTimer extends Component {
     this.timeTableData = props.data;
     this.activeDays = props.activeDays;
     this.nextTimeList = [];
-    this.state = { ...this.buildState(), index: 0 };
+    this.timer = null;
+    this.state = this.buildState();
   }
 
   componentDidMount() {
-    this.timer = setInterval(this.handleTick, 1000);
+    this.toggleTimer(true);
   }
 
   componentWillUnmount() {
@@ -53,12 +54,12 @@ class RemainingTimer extends Component {
         !prevState.nextTime.isSame(nextTime)) {
       nextState.index -= 1;
     }
-    nextState.isNeedLeft = nextState.index > 0;
-    nextState.isNeedRight = nextState.index < this.nextTimeList.length - 1;
     return nextState;
   }
 
-  handleTick = () => this.setState(this.buildState())
+  handleTick = () => {
+    this.setState(this.buildState());
+  }
 
   handlePrev = (event) => {
     if (isDoubleTouchTap(event)) {
@@ -75,16 +76,28 @@ class RemainingTimer extends Component {
     }
   }
 
+  toggleTimer = (isFrontmost) => {
+    if (isFrontmost && this.timer == null) {
+      if (global && global.window !== undefined) {
+        this.timer = window.setInterval(this.handleTick, 1000);
+      }
+    } else if (!isFrontmost && this.timer != null) {
+      clearInterval(this.timer);
+      this.timer = null;
+    }
+  }
+
   render() {
-    const {
-      index, isInactive, isEnded, isNeedLeft, isNeedRight,
-    } = this.state;
-    const { data, dest } = this.props;
+    const { index, isInactive, isEnded } = this.state;
+    const { data, dest, front } = this.props;
     const currentTargetTime = this.nextTimeList[index];
     const nextRemaining = Math.abs(moment().diff(currentTargetTime));
     let targetTime;
     const isActive = !isInactive && !isEnded;
+    const isNeedLeft = index > 0;
+    const isNeedRight = index < this.nextTimeList.length - 1;
     if (isActive) { targetTime = currentTargetTime.toObject(); }
+    this.toggleTimer(front);
     return (
       <div>
         <section>

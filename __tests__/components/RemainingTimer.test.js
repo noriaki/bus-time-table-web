@@ -19,6 +19,7 @@ describe('<RemainingTimer />', () => {
     activeDays,
     data,
     dest: 'test',
+    front: true,
   };
 
   let clock;
