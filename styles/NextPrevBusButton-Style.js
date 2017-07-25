@@ -13,7 +13,7 @@ export const container = {
   width: '100%',
 };
 export const navigation = {
-  fontSize: 6,
+  fontSize: 10,
   width: '3em',
 };
 
