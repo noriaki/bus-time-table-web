@@ -30,6 +30,7 @@
     }
   },
   "globals": {
+    "BRANCH": true,
     "ga": true,
     "FB": true,
     "LineIt": true
