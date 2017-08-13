@@ -30,6 +30,8 @@
     }
   },
   "globals": {
+    "BRANCH": true,
+    "COMMIT": true,
     "ga": true,
     "FB": true,
     "LineIt": true

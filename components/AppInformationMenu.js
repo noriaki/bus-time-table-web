@@ -17,7 +17,7 @@ import OpenInNewIcon from 'material-ui/svg-icons/action/open-in-new';
 // styles
 import { blueSky } from '../themes/colors';
 import { icon, svg } from '../styles/HorizontallyIcons-Style';
-import { infoDialog } from '../styles/AppInformationMenu-Style';
+import { infoDialog, branch } from '../styles/AppInformationMenu-Style';
 
 // IndexedDB
 import db from '../libs/db';
@@ -67,6 +67,9 @@ class AppInformationMenu extends Component {
   render() {
     const { timeTableVersion, appVersion } = this.props;
     const { menuOpen, infoOpen, badge } = this.state;
+    const branchName = BRANCH !== '' ? (
+      <p style={branch}>{BRANCH}<br />#{COMMIT.slice(0, 7)}</p>
+    ) : null;
     return (
       <div>
         <IconButton
@@ -104,6 +107,7 @@ class AppInformationMenu extends Component {
             primaryText="Icon made by"
             secondaryText={LinkOpenInNew({ url: 'http://www.freepik.com', text: 'Freepik' })} />
           <Divider />
+          {branchName}
           <Dialog
             title="お知らせ"
             autoScrollBodyContent
