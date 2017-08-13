@@ -12,9 +12,17 @@ module.exports = {
       /* eslint-enable no-param-reassign */
     }
 
-    const branch = notProd ? new GitRevisionPlugin().branch() : '';
+    let [branch, commit] = ['', ''];
+    if (notProd) {
+      const git = new GitRevisionPlugin();
+      branch = git.branch();
+      commit = git.commithash();
+    }
     config.plugins.push(
-      new DefinePlugin({ BRANCH: JSON.stringify(branch) })
+      new DefinePlugin({
+        BRANCH: JSON.stringify(branch),
+        COMMIT: JSON.stringify(commit),
+      })
     );
 
     return config;

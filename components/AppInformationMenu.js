@@ -67,7 +67,9 @@ class AppInformationMenu extends Component {
   render() {
     const { timeTableVersion, appVersion } = this.props;
     const { menuOpen, infoOpen, badge } = this.state;
-    const branchName = BRANCH !== '' ? <p style={branch}>{BRANCH}</p> : null;
+    const branchName = BRANCH !== '' ? (
+      <p style={branch}>{BRANCH}<br />#{COMMIT.slice(0, 7)}</p>
+    ) : null;
     return (
       <div>
         <IconButton
