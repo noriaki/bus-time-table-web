@@ -21,7 +21,7 @@ import {
 import timeTableData from '../data/timetable.json';
 
 // components
-import TabbedTimeTable from '../components/TabbedTimeTable';
+import TemporaryTimeTable from '../components/TemporaryTimeTable';
 import AppNavigation from '../components/AppNavigation';
 import GA from '../components/GA';
 import SW from '../components/SW';
@@ -72,7 +72,7 @@ const IndexPage = ({ userAgent, os, baseURI, tabIndex }) => (
         <meta property="og:image" content={`${baseURI}/static/icons/app.png`} />
       </Head>
       <article style={styles.container}>
-        <TabbedTimeTable tabs={tabs} index={tabIndex} />
+        <TemporaryTimeTable />
       </article>
       <footer style={styles.footer}>
         <AppNavigation info={appInformation} os={os} />
