@@ -48,6 +48,7 @@
     "no-debugger": "warn",
     "no-use-before-define": "off",
     "no-confusing-arrow": ["error", { "allowParens": true }],
+    "function-paren-newline": "off",
     "react/jsx-closing-bracket-location": [ "error", "after-props" ],
     "react/jsx-filename-extension": ["error", { "extensions": [".js", ".jsx"] }],
     "react/prop-types": "warn",
