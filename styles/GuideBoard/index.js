@@ -12,6 +12,8 @@ export const guide = {
   justifyContent: 'center',
   alignItems: 'center',
   textAlign: 'center',
+  paddingTop: '.5em',
+  paddingBottom: '.5em',
 };
 
 export const prev = {

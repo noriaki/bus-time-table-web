@@ -1,7 +1,6 @@
 /* vertically extends index styles */
 export const containerV = {
   gridTemplateColumns: '1fr 1fr',
-  gridTemplateRows: '70px 30px',
 };
 
 export const guideV = {
