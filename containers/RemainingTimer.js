@@ -1,4 +1,5 @@
 import React, { PureComponent, Children } from 'react';
+import PropTypes from 'prop-types';
 
 import {
   flattenTimeTable,
@@ -54,4 +55,16 @@ class RemainingTimer extends PureComponent {
     );
   }
 }
+RemainingTimer.propTypes = {
+  children: PropTypes.element.isRequired,
+  timetable: PropTypes.arrayOf(
+    PropTypes.shape({
+      hour: PropTypes.number,
+      minutes: PropTypes.arrayOf(PropTypes.number),
+    })
+  ).isRequired,
+  timer: PropTypes.shape({
+    timestamp: PropTypes.number.isRequired,
+  }).isRequired,
+};
 export default RemainingTimer;
