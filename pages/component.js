@@ -1,58 +1,53 @@
 import React from 'react';
 import compose from 'recompose/compose';
 import { withStyles } from 'material-ui/styles';
+import timer from 'react-timer-hoc';
+
 import withMaterialUI from '../containers/withMaterialUI';
+import RemainingTimer from '../containers/RemainingTimer';
+
+import timeTableHome from '../data/home-timetable.json';
+import timeTableHigashiGinza from '../data/st-higashiginza-timetable.json';
+import timeTableShimbashi from '../data/st-shimbashi-timetable.json';
 
 import GuideBoard from '../components/GuideBoard';
 import TimersBoardStyle from '../styles/TimersBoard-Style';
 
-const ComponentPage = ({ classes, ...props }) => {
-  const currentTime = Date.now();
-  const remaining = Math.floor(Math.random() * 1000 * 60 * 60 * 2);
-  return (
-    <main className={classes.main}>
-      <h1>component</h1>
-      <div className={classes.container}>
-        <div className={classes.crossBar}>
-          <GuideBoard
-            departure="マンション"
-            nextTime={currentTime + remaining}
-            remaining={remaining}
-            onPrev={false}
-            onNext={() => console.log('next')} />
-        </div>
-        <div className={classes.rightAside}>
-          <GuideBoard
-            vertically
-            departure="東銀座駅"
-            nextTime={currentTime + remaining}
-            remaining={remaining}
-            onPrev={() => console.log('prev 東銀座')}
-            onNext={() => console.log('next 東銀座')} />
-        </div>
-        <div className={classes.crossBar}>
-          <GuideBoard
-            departure="新橋駅"
-            nextTime={currentTime + remaining}
-            remaining={remaining}
-            onPrev={() => console.log('prev 新橋')}
-            onNext={() => console.log('next 新橋')} />
-        </div>
-        <div className={classes.leftAsideSeparator}>
-          <div className={classes.upArrow} />
-          <div className={classes.upArrow} />
-          <div className={classes.upArrow} />
-        </div>
-        <div className={classes.rightTopSeparator}>
-          <div className={classes.downArrow} />
-        </div>
-        <div className={classes.rightBottomSeparator}>
-          <div className={classes.downArrow} />
-        </div>
+const CurrentTimer = timer(1000)(RemainingTimer);
+
+const ComponentPage = ({ classes }) => (
+  <main className={classes.main}>
+    <h1>component</h1>
+    <div className={classes.container}>
+      <div className={classes.crossBar}>
+        <CurrentTimer timetable={timeTableHome.timetable}>
+          <GuideBoard departure={timeTableHome.name} />
+        </CurrentTimer>
       </div>
-    </main>
-  );
-};
+      <div className={classes.rightAside}>
+        <CurrentTimer timetable={timeTableHigashiGinza.timetable}>
+          <GuideBoard vertically departure={timeTableHigashiGinza.name} />
+        </CurrentTimer>
+      </div>
+      <div className={classes.crossBar}>
+        <CurrentTimer timetable={timeTableShimbashi.timetable}>
+          <GuideBoard departure={timeTableShimbashi.name} />
+        </CurrentTimer>
+      </div>
+      <div className={classes.leftAsideSeparator}>
+        <div className={classes.upArrow} />
+        <div className={classes.upArrow} />
+        <div className={classes.upArrow} />
+      </div>
+      <div className={classes.rightTopSeparator}>
+        <div className={classes.downArrow} />
+      </div>
+      <div className={classes.rightBottomSeparator}>
+        <div className={classes.downArrow} />
+      </div>
+    </div>
+  </main>
+);
 
 const enhance = compose(withMaterialUI, withStyles(TimersBoardStyle));
 
