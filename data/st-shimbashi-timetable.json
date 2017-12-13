@@ -1,0 +1,97 @@
+{
+  "version": 20171101,
+  "name": "新橋駅",
+  "activeDays": [1, 2, 3, 4, 5],
+  "timetable": [
+    {
+      "hour": 6,
+      "minutes": [20, 50],
+      "estimated": true
+    },
+    {
+      "hour": 7,
+      "minutes": [5, 26, 36, 46],
+      "estimated": true
+    },
+    {
+      "hour": 8,
+      "minutes": [5, 25, 40],
+      "estimated": true
+    },
+    {
+      "hour": 9,
+      "minutes": [0, 15, 25, 45],
+      "estimated": true
+    },
+    {
+      "hour": 10,
+      "minutes": [15],
+      "estimated": true
+    },
+    {
+      "hour": 11,
+      "minutes": [20],
+      "estimated": false
+    },
+    {
+      "hour": 12,
+      "minutes": [20],
+      "estimated": false
+    },
+    {
+      "hour": 13,
+      "minutes": [20],
+      "estimated": false
+    },
+    {
+      "hour": 14,
+      "minutes": [20],
+      "estimated": false
+    },
+    {
+      "hour": 15,
+      "minutes": [20],
+      "estimated": false
+    },
+    {
+      "hour": 16,
+      "minutes": [20],
+      "estimated": false
+    },
+    {
+      "hour": 17,
+      "minutes": [20],
+      "estimated": false
+    },
+    {
+      "hour": 18,
+      "minutes": [0, 15, 40, 55],
+      "estimated": false
+    },
+    {
+      "hour": 19,
+      "minutes": [20, 35, 50],
+      "estimated": false
+    },
+    {
+      "hour": 20,
+      "minutes": [0, 15, 30, 55],
+      "estimated": false
+    },
+    {
+      "hour": 21,
+      "minutes": [10, 50],
+      "estimated": false
+    },
+    {
+      "hour": 22,
+      "minutes": [5, 30, 55],
+      "estimated": false
+    },
+    {
+      "hour": 23,
+      "minutes": [30],
+      "estimated": false
+    }
+  ]
+}
