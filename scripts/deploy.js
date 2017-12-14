@@ -14,7 +14,7 @@ const isStg = process.env.NODE_ENV === 'staging';
 const processName = `com.deux-tours-bus${isStg ? '.stg' : ''}`;
 const targetBranch = cli.input[0];
 
-if(targetBranch == null) {
+if (targetBranch == null) {
   console.error('Error <branch>: Need target branch name');
   cli.showHelp();
 }
@@ -28,6 +28,12 @@ if (!cli.flags.local) {
   }
   // execSync(`git merge -X theirs "${targetBranch}" --no-edit`);
   execSync('git checkout -qf -- .');
-  execSync(`git checkout -qf "origin/${targetBranch}" -B "${localBranch}"`);
+  execSync(`git checkout -qf "${originBranch}" -B "${localBranch}"`);
 }
-execSync(`yarn && yarn build && yarn pm2 restart ${processName}`);
+const commands = [
+  'yarn',
+  'yarn build',
+  `./node_modules/.bin/pm2 delete "${processName}"`,
+  `./node_modules/.bin/pm2 start npm --name="${processName}" -- run start:staging`,
+];
+execSync(commands.join(' && '));
