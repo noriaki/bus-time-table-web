@@ -38,6 +38,7 @@
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-jss": "^8.1.0",
+    "react-no-ssr": "^1.1.0",
     "react-timer-hoc": "^2.3.0",
     "recompose": "^0.26.0"
   },
