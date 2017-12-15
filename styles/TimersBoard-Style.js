@@ -15,11 +15,6 @@ export const triangle = ({
   ].join(', ');
 };
 
-export const main = {
-  padding: 8,
-  backgroundColor: '#e0e0e0',
-};
-
 export const container = {
   display: 'grid',
   // gridGap: '4px',
@@ -78,7 +73,6 @@ export const downArrow = {
 };
 
 export default {
-  main,
   container,
   crossBar,
   rightAside,
