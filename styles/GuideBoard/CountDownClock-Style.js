@@ -4,6 +4,7 @@ export const container = {
 
 export const time = {
   fontSize: 30,
+  fontWeight: 'bold',
 };
 
 export const suffix = {
