@@ -1,13 +1,9 @@
-export const toolbar = {
-  padding: 0,
-};
-export const toolbarGroup = {
-  display: 'flex',
-  justifyContent: 'space-between',
+export const container = {
+  position: 'fixed',
+  bottom: 0,
   width: '100%',
 };
 
 export default {
-  toolbar,
-  toolbarGroup,
+  container,
 };
