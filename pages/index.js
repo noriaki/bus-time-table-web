@@ -20,10 +20,14 @@ import timeTableShimbashi from '../data/st-shimbashi-timetable.json';
 
 // components
 import TimersBoard from '../components/TimersBoard';
+import AppTitleBar from '../components/AppTitleBar';
+import AppNavigation from '../components/AppNavigation';
 import withMaterialUI from '../containers/withMaterialUI';
-import IndexPageStyle from '../styles/IndexPage-Style';
 import GA from '../components/GA';
 import SW from '../components/SW';
+
+// styles
+import IndexPageStyle from '../styles/IndexPage-Style';
 
 const appInformation = {
   timeTableVersions: {
@@ -42,7 +46,7 @@ const IndexPage = ({
   baseURI,
   classes,
 }) => (
-  <main className={classes.main}>
+  <div className={classes.pageContainer}>
     <Head>
       <meta charSet="utf-8" />
       <title>{appTitle}</title>
@@ -55,13 +59,16 @@ const IndexPage = ({
       <meta property="og:type" content="website" />
       <meta property="og:image" content={`${baseURI}/static/icons/app.png`} />
     </Head>
-    <h1>発車タイマー</h1>
-    <TimersBoard />
+    <AppTitleBar title="発車タイマー" />
+    <main className={classes.main}>
+      <TimersBoard />
+    </main>
+    <AppNavigation />
     <NoSSR>
       <GA id="UA-97608334-1" initialPageView={{ page: '/' }} />
     </NoSSR>
     <NoSSR><SW /></NoSSR>
-  </main>
+  </div>
 );
 IndexPage.getInitialProps = async ({ req }) => {
   const userAgent = req ? req.headers['user-agent'] : navigator.userAgent;
