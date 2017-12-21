@@ -47,4 +47,6 @@ const commands = [
   `./node_modules/.bin/pm2 delete "${processName}"`,
   `./node_modules/.bin/pm2 start npm --name="${processName}" -- run start:staging`,
 ];
+console.log('...updating packages and building');
 execSync(commands.join(' && '));
+console.log('> deployment complete');
