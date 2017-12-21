@@ -5,9 +5,17 @@ const cli = meow({
   description: false,
   help: `Usage:
   $ node scripts/deploy.js [--local(-l) | --no-fetch] <branch>`,
-}, {
-  alias: { l: 'local' },
-  default: { fetch: true },
+  flags: {
+    local: {
+      type: 'boolean',
+      alias: 'l',
+      default: false,
+    },
+    fetch: {
+      type: 'boolean',
+      default: true,
+    },
+  },
 });
 
 const isStg = process.env.NODE_ENV === 'staging';
@@ -24,10 +32,13 @@ const localBranch = `${isStg ? 'stg/' : ''}${targetBranch}`;
 
 if (!cli.flags.local) {
   if (cli.flags.fetch) {
+    console.log('...fetching objects from repository');
     execSync('git fetch -q');
   }
   // execSync(`git merge -X theirs "${targetBranch}" --no-edit`);
+  console.log('...cleaning local worktree');
   execSync('git checkout -qf -- .');
+  console.log(`...checking out "${originBranch}" to "${localBranch}"`);
   execSync(`git checkout -qf "${originBranch}" -B "${localBranch}"`);
 }
 const commands = [
