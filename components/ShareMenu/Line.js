@@ -9,13 +9,19 @@ export const launchApp = () => {
   document.location.href = `line://msg/text/${encodeURIComponent(url)}`;
 };
 
-const Line = () => (
-  <ListItem button onClick={GA.share('LINE', launchApp)}>
-    <ListItemIcon>
-      <LineIcon />
-    </ListItemIcon>
-    <ListItemText primary="LINEで送る" />
-  </ListItem>
-);
+const Line = ({ onFinish }) => {
+  const callback = () => {
+    launchApp();
+    setTimeout(onFinish, 300);
+  };
+  return (
+    <ListItem button onClick={GA.share('LINE', callback)}>
+      <ListItemIcon>
+        <LineIcon />
+      </ListItemIcon>
+      <ListItemText primary="LINEで送る" />
+    </ListItem>
+  );
+};
 
 export default Line;

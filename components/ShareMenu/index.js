@@ -59,9 +59,9 @@ class ShareMenu extends Component {
           onClose={this.handleClose}
           ModalProps={ModalProps}>
           <List subheader={<ShareListSubheader />}>
-            {viewables.line ? <Line /> : null}
-            {viewables.fb ? <FacebookMessenger /> : null}
-            {viewables.copy ? <URLCopy /> : null}
+            {viewables.line ? <Line onFinish={this.handleClose} /> : null}
+            {viewables.fb ? <FacebookMessenger onFinish={this.handleClose} /> : null}
+            {viewables.copy ? <URLCopy onFinish={this.handleClose} /> : null}
           </List>
         </Drawer>
       </div>

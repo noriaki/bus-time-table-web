@@ -12,13 +12,19 @@ export const launchApp = () => {
     `app_id=${encodeURIComponent(appId)}`;
 };
 
-const FacebookMessenger = () => (
-  <ListItem button onClick={GA.share('Facebook', launchApp)}>
-    <ListItemIcon>
-      <FacebookMessengerIcon />
-    </ListItemIcon>
-    <ListItemText primary="Facebookメッセンジャーで送る" />
-  </ListItem>
-);
+const FacebookMessenger = ({ onFinish }) => {
+  const callback = () => {
+    launchApp();
+    setTimeout(onFinish, 300);
+  };
+  return (
+    <ListItem button onClick={GA.share('Facebook', callback)}>
+      <ListItemIcon>
+        <FacebookMessengerIcon />
+      </ListItemIcon>
+      <ListItemText primary="Facebookメッセンジャーで送る" />
+    </ListItem>
+  );
+}
 
 export default FacebookMessenger;
