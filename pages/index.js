@@ -22,6 +22,7 @@ import timeTableShimbashi from '../data/st-shimbashi-timetable.json';
 import TimersBoard from '../components/TimersBoard';
 import AppTitleBar from '../components/AppTitleBar';
 import AppNavigation from '../components/AppNavigation';
+import AppInformation from '../components/AppInformation';
 import withMaterialUI from '../containers/withMaterialUI';
 import GA from '../components/GA';
 import SW from '../components/SW';
@@ -62,6 +63,7 @@ const IndexPage = ({
     <AppTitleBar title="発車タイマー" />
     <main className={classes.main}>
       <TimersBoard />
+      <AppInformation />
     </main>
     <AppNavigation />
     <NoSSR>
