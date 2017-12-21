@@ -7,6 +7,7 @@ import classnames from 'classnames';
 import DepartureInfo from './DepartureInfo';
 import CountDownClock from './CountDownClock';
 import NaviButton from './NaviButton';
+import GA from '../GA';
 
 import GuideBoardStyle from '../../styles/GuideBoard';
 import GuideBoardHorizontallyStyle from '../../styles/GuideBoard/horizontally';
@@ -24,6 +25,18 @@ const GuideBoard = ({
   const noop = () => {};
   const disablePrev = onPrev === false;
   const disableNext = onNext === false;
+  const onClickPrev = !disablePrev ? () => GA.event({
+    category: 'Timer',
+    action: 'Prev',
+    label: departure,
+    callback: onPrev,
+  }) : noop;
+  const onClickNext = !disableNext ? () => GA.event({
+    category: 'Timer',
+    action: 'Next',
+    label: departure,
+    callback: onNext,
+  }) : noop;
   const classSuffix = vertically ? 'V' : 'H';
   const articleClasses = classnames(
     classes.container,
@@ -50,13 +63,13 @@ const GuideBoard = ({
       <nav className={prevClasses}>
         <NaviButton
           to={`Lx${classSuffix}`}
-          onClick={onPrev || noop}
+          onClick={onClickPrev}
           disable={disablePrev} />
       </nav>
       <nav className={nextClasses}>
         <NaviButton
           to={`Rx${classSuffix}`}
-          onClick={onNext || noop}
+          onClick={onClickNext}
           disable={disableNext} />
       </nav>
     </article>
