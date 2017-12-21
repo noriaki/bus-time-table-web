@@ -1,12 +1,30 @@
 import { Component } from 'react';
 
 export default class extends Component {
-  static pageview = ({ page, title = document.title }) => {
-    ga('set', { page, title });
+  static get = key => ga.getAll()[0].get(key)
+  static gets(...keys) {
+    return keys.reduce((ret, key) => {
+      // eslint-disable-next-line no-param-reassign
+      ret[key] = this.get(key);
+      return ret;
+    }, {});
+  }
+
+  static set = (...props) => {
+    ga('set', ...props);
+  }
+
+  static pageview({ page, title = document.title }) {
+    this.set({ page, title });
     ga('send', 'pageview');
   }
 
-  static social = ({ network, action, url, callback = () => {} }) => {
+  static social = ({
+    network,
+    action,
+    url,
+    callback = () => {},
+  }) => {
     ga('send', {
       hitType: 'social',
       transport: 'beacon',
@@ -17,7 +35,12 @@ export default class extends Component {
     });
   }
 
-  static event = ({ category, action, label, callback = () => {} }) => {
+  static event = ({
+    category,
+    action,
+    label,
+    callback = () => {},
+  }) => {
     ga('send', {
       hitType: 'event',
       transport: 'beacon',
@@ -26,6 +49,17 @@ export default class extends Component {
       eventLabel: label,
       hitCallback: callback,
     });
+  }
+
+  static share(network, callback = () => {}) {
+    return () => {
+      const url = 'https://deux-tours-bus.com';
+      Promise.all([new Promise(resolve => this.social({
+        network, action: 'send', url, callback: resolve,
+      })), new Promise(resolve => this.event({
+        category: 'Share', action: 'send', label: network, callback: resolve,
+      }))]).then(callback);
+    };
   }
 
   componentDidMount() {
@@ -43,7 +77,7 @@ export default class extends Component {
     /* eslint-enable */
     ga('create', this.props.id, this.props.options || 'auto');
     ga('set', 'transport', 'beacon');
-    if (detectStandalone({ navigator, location })) {
+    if (detectStandalone({ navigator, location: document.location })) {
       ga('set', 'dataSource', 'web/standalone');
     }
     this.constructor.pageview(this.props.initialPageView);
