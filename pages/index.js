@@ -1,8 +1,5 @@
 import React from 'react';
-import NoSSR from 'react-no-ssr';
 import MobileDetect from 'mobile-detect';
-import compose from 'recompose/compose';
-import { withStyles } from 'material-ui/styles';
 
 // libs
 import { momentFromVersion } from '../libs/timeTableDataHandler';
@@ -18,17 +15,10 @@ import timeTableHigashiGinza from '../data/st-higashiginza-timetable.json';
 import timeTableShimbashi from '../data/st-shimbashi-timetable.json';
 
 // components
-import DocumentHeader from '../components/DocumentHeader';
+import MainLayout from '../layouts/MainLayout';
 import TimersBoard from '../components/TimersBoard';
-import AppTitleBar from '../components/AppTitleBar';
-import AppNavigation from '../components/AppNavigation';
 import AppInformation from '../components/AppInformation';
 import withMaterialUI from '../containers/withMaterialUI';
-import GA from '../components/GA';
-import SW from '../components/SW';
-
-// styles
-import IndexPageStyle from '../styles/IndexPage-Style';
 
 const appInformation = {
   timeTableVersions: {
@@ -41,41 +31,18 @@ const appInformation = {
   appDescription,
 };
 
-const IndexPage = ({
-  userAgent,
-  os,
-  baseURI,
-  classes,
-}) => (
-  <div className={classes.pageContainer}>
-    <DocumentHeader
-      title={appTitle}
-      description={appDescription}
-      baseURI={baseURI} />
-    <AppTitleBar title="発車タイマー" />
-    <main className={classes.main}>
-      <TimersBoard />
-      <AppInformation />
-    </main>
-    <AppNavigation />
-    <NoSSR>
-      <GA id="UA-97608334-1" initialPageView={{ page: '/' }} />
-    </NoSSR>
-    <NoSSR><SW /></NoSSR>
-  </div>
+const IndexPage = () => (
+  <MainLayout>
+    <TimersBoard />
+    <AppInformation />
+  </MainLayout>
 );
-IndexPage.getInitialProps = async ({ req, pathname }) => {
+IndexPage.getInitialProps = async ({ req }) => {
   const userAgent = req ? req.headers['user-agent'] : navigator.userAgent;
   return ({
     userAgent,
     os: (new MobileDetect(userAgent)).os(),
-    baseURI: req ? fqdn(req.headers) : fqdn(document.location),
-    pathname,
   });
 };
 
-const enhance = compose(withMaterialUI, withStyles(IndexPageStyle));
-
-export default enhance(IndexPage);
-
-const fqdn = ({ protocol = 'https:', host }) => `${protocol}//${host}`;
+export default withMaterialUI(IndexPage);

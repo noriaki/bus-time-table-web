@@ -10,14 +10,36 @@ import InfoIcon from 'material-ui-icons/InfoOutline';
 
 import AppNavigationStyles from '../styles/AppNavigation-Style';
 
-const AppNavigation = ({ classes }) => (
+const icons = {
+  '/': TimerIcon,
+  '/timetable': TimeTableIcon,
+  '/info': InfoIcon,
+};
+
+const AppNavigation = ({
+  pathsAndLabels,
+  currentPathname,
+  onNavigationChange,
+  classes,
+}) => (
   <div className={classes.container}>
-    <BottomNavigation value={0} showLabels>
-      <BottomNavigationButton label="タイマー" icon={<TimerIcon />} />
-      <BottomNavigationButton label="時刻表" icon={<TimeTableIcon />} />
-      {/* <BottomNavigationButton label="アプリ" icon={<GetAppIcon />} /> */}
-      <BottomNavigationButton label="お知らせ" icon={<InfoIcon />} />
+    <BottomNavigation
+      value={currentPathname}
+      showLabels
+      onChange={onNavigationChange}>
+      { pathsAndLabels.map(buildBottomNavigationButton) }
     </BottomNavigation>
   </div>
 );
 export default withStyles(AppNavigationStyles)(AppNavigation);
+
+const buildBottomNavigationButton = ({ path, label }) => {
+  const Icon = icons[path];
+  return (
+    <BottomNavigationButton
+      key={path}
+      label={label}
+      value={path}
+      icon={<Icon />} />
+  );
+};
