@@ -2,11 +2,11 @@ import React from 'react';
 import Typography from 'material-ui/Typography';
 
 const AppInformation = () => (
-  global.BRANCH != null && global.BRANCH !== '' ? (
+  process.env.GIT_BRANCH != null && process.env.GIT_BRANCH !== '' ? (
     <Typography type="body1" align="right">
-      {BRANCH}
+      {process.env.GIT_BRANCH}
       <br />
-      #{COMMIT.slice(0, 7)}
+      #{process.env.GIT_COMMIT.slice(0, 7)}
     </Typography>
   ) : null
 );
