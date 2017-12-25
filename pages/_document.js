@@ -5,9 +5,18 @@ import getContext from '../styles/getContext';
 
 class DocumentContainer extends Document {
   render() {
+    const { baseURI } = this.props;
     return (
       <html lang="ja">
         <Head>
+          <meta charSet="utf-8" />
+          <meta name="mobile-web-app-capable" content="yes" />
+          <link rel="manifest" href="/static/manifest.json" />
+          <meta name="apple-mobile-web-app-capable" content="yes" />
+          <meta name="apple-mobile-web-app-title" content="バス時刻表" />
+          <link rel="apple-touch-icon-precomposed" href="/static/icons/app.png" />
+          <meta property="og:type" content="website" />
+          <meta property="og:image" content={`${baseURI}/static/icons/app.png`} />
           <meta
             name="viewport"
             content="width=device-width, initial-scale=1, user-scalable=no" />
@@ -29,7 +38,7 @@ class DocumentContainer extends Document {
     );
   }
 }
-DocumentContainer.getInitialProps = ({ renderPage }) => {
+DocumentContainer.getInitialProps = ({ renderPage, req }) => {
   // Resolution order
   //
   // On the server:
@@ -55,8 +64,10 @@ DocumentContainer.getInitialProps = ({ renderPage }) => {
     </JssProvider>
   ));
 
+  const baseURI = req ? fqdn(req.headers) : fqdn(document.location);
   return {
     ...page,
+    baseURI,
     stylesContext: context,
     styles: (
       <style
@@ -68,3 +79,5 @@ DocumentContainer.getInitialProps = ({ renderPage }) => {
 };
 
 export default DocumentContainer;
+
+const fqdn = ({ protocol = 'https:', host }) => `${protocol}//${host}`;
