@@ -17,7 +17,6 @@ import timeTableShimbashi from '../data/st-shimbashi-timetable.json';
 // components
 import MainLayout from '../layouts/MainLayout';
 import TemporaryTimeTable from '../components/TemporaryTimeTable';
-import AppInformation from '../components/AppInformation';
 import withMaterialUI from '../containers/withMaterialUI';
 
 const appInformation = {
@@ -34,7 +33,6 @@ const appInformation = {
 const TimetablePage = () => (
   <MainLayout>
     <TemporaryTimeTable />
-    <AppInformation />
   </MainLayout>
 );
 TimetablePage.getInitialProps = async ({ req }) => {
