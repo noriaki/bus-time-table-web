@@ -41,6 +41,7 @@
     "react-dom": "^16.2.0",
     "react-jss": "^8.1.0",
     "react-no-ssr": "^1.1.0",
+    "react-scroll": "^1.7.4",
     "react-timer-hoc": "^2.3.0",
     "recompose": "^0.26.0"
   },

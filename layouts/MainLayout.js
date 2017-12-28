@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import NoSSR from 'react-no-ssr';
 import compose from 'recompose/compose';
+import { animateScroll } from 'react-scroll';
 import { withStyles } from 'material-ui/styles';
 import { withRouter } from 'next/router';
 
@@ -47,6 +48,8 @@ class MainLayout extends PureComponent {
       event.preventDefault();
       if (value !== router.pathname) {
         router.push(value);
+      } else {
+        animateScroll.scrollToTop({ duration: 400 });
       }
     };
 
