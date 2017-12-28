@@ -26,6 +26,7 @@
   "dependencies": {
     "classnames": "^2.2.5",
     "dexie": "^2.0.1",
+    "iframe-resizer": "^3.5.15",
     "jss": "^9.3.3",
     "jss-preset-default": "^4.0.1",
     "lodash.defaultsdeep": "^4.6.0",

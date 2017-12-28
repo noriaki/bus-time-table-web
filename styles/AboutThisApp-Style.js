@@ -1,3 +1,5 @@
+import { headline } from './InfoBase-Style';
+
 export const rootCardContent = {
   display: 'grid',
   gridGap: '4px',
@@ -9,7 +11,6 @@ const centerGrid = { gridColumn: '2 / 3' };
 const rightGrid = { gridColumn: '3 / 4' };
 
 const leftColspanGrid = { gridColumn: '1 / 3' };
-const rightColspanGrid = { gridColumn: '2 / 4' };
 
 export const appVersionTerm = {
   ...leftColspanGrid,
@@ -60,8 +61,13 @@ export const authorTerm = {
   ...leftColspanGrid,
 };
 
-export default {
+export const devGitBranchCommit = {
+  gridColumn: '1 / 4',
+};
+
+export default theme => ({
   rootCardContent,
+  headline: headline(theme),
   appVersionTerm,
   timetableUpdateTerm,
   timetableUpdateHomeTerm,
@@ -71,4 +77,5 @@ export default {
   timetableUpdateShimbashiTerm,
   timetableUpdateShimbashiVersion,
   authorTerm,
-};
+  devGitBranchCommit,
+});

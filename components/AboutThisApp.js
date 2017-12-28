@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react';
-import Card, { CardHeader, CardContent, CardActions } from 'material-ui/Card';
-import Avatar from 'material-ui/Avatar';
+import Card, { CardContent } from 'material-ui/Card';
 import Typography from 'material-ui/Typography';
 import { withStyles } from 'material-ui/styles';
 
@@ -13,33 +12,39 @@ import timetableHome from '../data/home-timetable.json';
 import timetableHigashiGinza from '../data/st-higashiginza-timetable.json';
 import timetableShimbashi from '../data/st-shimbashi-timetable.json';
 
+// components
+import DevGitBranchCommit from './DevGitBranchCommit';
+
 // style
 import AboutThisAppStyles from '../styles/AboutThisApp-Style';
 
 const AboutThisApp = ({ classes }) => (
-  <Card>
-    <CardHeader
-      avatar={<Avatar aria-label="About this app">A</Avatar>}
-      title="このアプリについて" />
-    <CardContent className={classes.rootCardContent}>
-      <Typography className={classes.appVersionTerm}>
-        アプリバージョン
-      </Typography>
-      <Typography align="right">v{appVersion}</Typography>
-      <Typography className={classes.timetableUpdateTerm}>
-        時刻表更新日
-      </Typography>
-      { timetables.map(buildUpdatesAndVersion(classes)) }
-      <Typography className={classes.authorTerm}>作者 (c) 2017</Typography>
-      <Typography align="right">
-        @noriaki
-      </Typography>
-      <Typography className={classes.authorTerm}>アイコン画像</Typography>
-      <Typography align="right">
-        Freepik
-      </Typography>
-    </CardContent>
-  </Card>
+  <section>
+    <Typography type="headline" className={classes.headline}>
+      このアプリについて
+    </Typography>
+    <Card>
+      <CardContent className={classes.rootCardContent}>
+        <Typography className={classes.appVersionTerm}>
+          アプリバージョン
+        </Typography>
+        <Typography align="right">v{appVersion}</Typography>
+        <Typography className={classes.timetableUpdateTerm}>
+          時刻表更新日
+        </Typography>
+        { timetables.map(buildUpdatesAndVersion(classes)) }
+        <Typography className={classes.authorTerm}>作者 (c) 2017</Typography>
+        <Typography align="right">
+          @noriaki
+        </Typography>
+        <Typography className={classes.authorTerm}>アイコン画像</Typography>
+        <Typography align="right">
+          Freepik
+        </Typography>
+        <DevGitBranchCommit className={classes.devGitBranchCommit} />
+      </CardContent>
+    </Card>
+  </section>
 );
 export default withStyles(AboutThisAppStyles)(AboutThisApp);
 
