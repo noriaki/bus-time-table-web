@@ -42,9 +42,14 @@ class RemainingTimer extends PureComponent {
   render() {
     const { children } = this.props;
     const { timetable, index } = this.state;
-    const nextTime = timetable[index];
-    const remaining = nextTime.diff(Date.now());
     const ChildComponent = Children.only(children);
+    const nextTime = timetable[index];
+    if (nextTime === undefined) { // after the last bus has gone
+      return (
+        <ChildComponent.type {...ChildComponent.props} afterTheLastBus />
+      );
+    }
+    const remaining = nextTime.diff(Date.now());
     return (
       <ChildComponent.type
         {...ChildComponent.props}

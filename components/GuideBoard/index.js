@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import defaultsDeep from 'lodash.defaultsdeep';
 import { withStyles } from 'material-ui/styles';
 import classnames from 'classnames';
 
+// components
+import ClosingTimeBoard from './ClosingTimeBoard';
 import DepartureInfo from './DepartureInfo';
 import CountDownClock from './CountDownClock';
 import NaviButton from './NaviButton';
 import GA from '../GA';
 
+// styles
 import GuideBoardStyle from '../../styles/GuideBoard';
 import GuideBoardHorizontallyStyle from '../../styles/GuideBoard/horizontally';
 import GuideBoardVerticallyStyle from '../../styles/GuideBoard/vertically';
@@ -20,6 +23,7 @@ const GuideBoard = ({
   onPrev,
   onNext,
   vertically,
+  afterTheLastBus,
   classes,
 }) => {
   const noop = () => {};
@@ -54,11 +58,21 @@ const GuideBoard = ({
     classes.next,
     classes[`next${classSuffix}`]
   );
+  let boardContentComponents;
+  if (afterTheLastBus) {
+    boardContentComponents = <ClosingTimeBoard departure={departure} />;
+  } else {
+    boardContentComponents = (
+      <Fragment>
+        <DepartureInfo departure={departure} nextTime={nextTime} />
+        <CountDownClock remaining={remaining} />
+      </Fragment>
+    );
+  }
   return (
     <article className={articleClasses}>
       <section className={sectionClasses}>
-        <DepartureInfo departure={departure} nextTime={nextTime} />
-        <CountDownClock remaining={remaining} />
+        { boardContentComponents }
       </section>
       <nav className={prevClasses}>
         <NaviButton
@@ -77,15 +91,21 @@ const GuideBoard = ({
 };
 GuideBoard.propTypes = {
   departure: PropTypes.string.isRequired,
-  nextTime: PropTypes.number.isRequired,
-  remaining: PropTypes.number.isRequired,
-  onPrev: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]).isRequired,
-  onNext: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]).isRequired,
+  nextTime: PropTypes.number,
+  remaining: PropTypes.number,
+  onPrev: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
+  onNext: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
   vertically: PropTypes.bool,
+  afterTheLastBus: PropTypes.bool,
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
 };
 GuideBoard.defaultProps = {
+  nextTime: undefined,
+  remaining: undefined,
+  onPrev: false,
+  onNext: false,
   vertically: false,
+  afterTheLastBus: false,
 };
 
 const mergedStyles = defaultsDeep(
