@@ -21,8 +21,10 @@ const TableOfContents = ({ labels, children, classes }) => {
   const elements = Children.toArray(children).filter(
     element => isValidElement(element)
   );
+  console.log('toc:', labels);
   const wrapedElements = elements.map((component) => {
     const name = getOriginalDisplayName(component);
+    console.log(name, typeof name);
     return (
       <Element
         key={`scrollTarget-${name}`}
