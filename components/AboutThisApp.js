@@ -46,6 +46,7 @@ const AboutThisApp = ({ classes }) => (
     </Card>
   </section>
 );
+AboutThisApp.displayName = 'AboutThisApp';
 export default withStyles(AboutThisAppStyles)(AboutThisApp);
 
 const timetables = [{

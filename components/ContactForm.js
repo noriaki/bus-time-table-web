@@ -7,6 +7,8 @@ import { withStyles } from 'material-ui/styles';
 import ContactFormStyles from '../styles/ContactForm-Style';
 
 class ContactForm extends PureComponent {
+  static displayName = 'ContactForm'
+
   componentDidMount() {
     const { form } = this;
     const container = form.parentNode;
@@ -41,5 +43,5 @@ class ContactForm extends PureComponent {
       </section>
     );
   }
-};
+}
 export default withStyles(ContactFormStyles)(ContactForm);

@@ -18,6 +18,7 @@ const ChangeLogs = ({ classes }) => (
     { logs.map(buildChangeLog(classes)) }
   </section>
 );
+ChangeLogs.displayName = 'ChangeLogs';
 export default withStyles(ChangeLogsStyles)(ChangeLogs);
 
 const replaceVersionString = version => version.replace(/^v/, 'バージョン');

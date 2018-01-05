@@ -13,16 +13,16 @@ import ContactForm from '../components/ContactForm';
 import withMaterialUI from '../containers/withMaterialUI';
 
 const labels = {
-  [getOriginalDisplayName(AboutThisApp)]: 'このアプリについて',
   [getOriginalDisplayName(ChangeLogs)]: 'アプリ更新履歴',
+  [getOriginalDisplayName(AboutThisApp)]: 'このアプリについて',
   [getOriginalDisplayName(ContactForm)]: '要望・不具合の問い合わせ',
 };
 
 const InfoPage = () => (
   <MainLayout>
     <TableOfContents labels={labels}>
-      <AboutThisApp />
       <ChangeLogs />
+      <AboutThisApp />
       <ContactForm />
     </TableOfContents>
   </MainLayout>
