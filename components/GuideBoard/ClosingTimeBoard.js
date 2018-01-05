@@ -14,7 +14,7 @@ const ClosingTimeBoard = ({ departure, classes }) => (
     </Typography>
     <Typography>本日のバスは終了しました</Typography>
     <Typography type="caption">
-      明日以降のバス：下部「時刻表」
+      明日以降は下部「時刻表」参照
     </Typography>
   </Fragment>
 );
