@@ -7,7 +7,7 @@ import { withStyles } from 'material-ui/styles';
 import ContactFormStyles from '../styles/ContactForm-Style';
 
 class ContactForm extends PureComponent {
-  static displayName = 'ContactForm'
+  static componentName = 'ContactForm'
 
   componentDidMount() {
     const { form } = this;
