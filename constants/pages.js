@@ -1,4 +1,4 @@
-import { title, description } from '../package.json';
+const { title, description } = require('../package.json');
 
 const pages = {
   '/': {
@@ -21,6 +21,5 @@ const pages = {
   },
 };
 
-export const paths = Object.keys(pages);
-
-export default pages;
+pages.paths = Object.keys(pages);
+module.exports = pages;
