@@ -11,6 +11,8 @@ import timeTableShimbashi from '../data/st-shimbashi-timetable.json';
 // components
 import RemainingTimer from '../containers/RemainingTimer';
 import GuideBoard from '../components/GuideBoard';
+
+// styles
 import TimersBoardStyle from '../styles/TimersBoard-Style';
 
 const TimersBoard = ({ delay, classes }) => {
