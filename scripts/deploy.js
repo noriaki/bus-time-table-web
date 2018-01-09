@@ -5,16 +5,24 @@ const cli = meow({
   description: false,
   help: `Usage:
   $ node scripts/deploy.js [--local(-l) | --no-fetch] <branch>`,
-}, {
-  alias: { l: 'local' },
-  default: { fetch: true },
+  flags: {
+    local: {
+      type: 'boolean',
+      alias: 'l',
+      default: false,
+    },
+    fetch: {
+      type: 'boolean',
+      default: true,
+    },
+  },
 });
 
 const isStg = process.env.NODE_ENV === 'staging';
 const processName = `com.deux-tours-bus${isStg ? '.stg' : ''}`;
 const targetBranch = cli.input[0];
 
-if(targetBranch == null) {
+if (targetBranch == null) {
   console.error('Error <branch>: Need target branch name');
   cli.showHelp();
 }
@@ -24,10 +32,21 @@ const localBranch = `${isStg ? 'stg/' : ''}${targetBranch}`;
 
 if (!cli.flags.local) {
   if (cli.flags.fetch) {
+    console.log('...fetching objects from repository');
     execSync('git fetch -q');
   }
   // execSync(`git merge -X theirs "${targetBranch}" --no-edit`);
+  console.log('...cleaning local worktree');
   execSync('git checkout -qf -- .');
-  execSync(`git checkout -qf "origin/${targetBranch}" -B "${localBranch}"`);
+  console.log(`...checking out "${originBranch}" to "${localBranch}"`);
+  execSync(`git checkout -qf "${originBranch}" -B "${localBranch}"`);
 }
-execSync(`yarn && yarn build && yarn pm2 restart ${processName}`);
+const commands = [
+  'yarn',
+  'yarn build',
+  `./node_modules/.bin/pm2 delete "${processName}"`,
+  `./node_modules/.bin/pm2 start npm --name="${processName}" -- run start:staging`,
+];
+console.log('...updating packages and building');
+execSync(commands.join(' && '));
+console.log('> deployment complete');

@@ -1,30 +1,45 @@
 import React from 'react';
-import NoSSR from 'react-no-ssr';
-import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
-import Paper from 'material-ui/Paper';
+import PropTypes from 'prop-types';
+import { withStyles } from 'material-ui/styles';
+import BottomNavigation, {
+  BottomNavigationButton,
+} from 'material-ui/BottomNavigation';
+import TimerIcon from 'material-ui-icons/Schedule';
+import TimeTableIcon from 'material-ui-icons/ViewList';
+import InfoIcon from 'material-ui-icons/InfoOutline';
 
-import AppInformationMenu from './AppInformationMenu';
-import AddToHomescreen from './AddToHomescreen';
-import ShareMenu from './ShareMenu';
+import AppNavigationStyles from '../styles/AppNavigation-Style';
 
-import { toolbar, toolbarGroup } from '../styles/AppNavigation-Style';
+const icons = {
+  '/': TimerIcon,
+  '/timetable': TimeTableIcon,
+  '/info': InfoIcon,
+};
 
-const AppNavigation = ({ info, os }) => (
-  <Paper zDepth={1}>
-    <Toolbar style={toolbar}>
-      <ToolbarGroup style={toolbarGroup}>
-        <NoSSR>
-          <AppInformationMenu {...info} />
-        </NoSSR>
-        <NoSSR>
-          <AddToHomescreen os={os} />
-        </NoSSR>
-        <NoSSR>
-          <ShareMenu os={os} />
-        </NoSSR>
-      </ToolbarGroup>
-    </Toolbar>
-  </Paper>
+const AppNavigation = ({
+  pathsAndLabels,
+  currentPathname,
+  onNavigationChange,
+  classes,
+}) => (
+  <div className={classes.container}>
+    <BottomNavigation
+      value={currentPathname}
+      showLabels
+      onChange={onNavigationChange}>
+      { pathsAndLabels.map(buildBottomNavigationButton) }
+    </BottomNavigation>
+  </div>
 );
+export default withStyles(AppNavigationStyles)(AppNavigation);
 
-export default AppNavigation;
+const buildBottomNavigationButton = ({ path, label }) => {
+  const Icon = icons[path];
+  return (
+    <BottomNavigationButton
+      key={path}
+      label={label}
+      value={path}
+      icon={<Icon />} />
+  );
+};

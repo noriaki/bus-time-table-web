@@ -2,7 +2,9 @@ const fs = require('fs');
 const path = require('path');
 const Xml2JsBuilder = require('xml2js').Builder;
 const moment = require('moment');
-const execSync = require('child_process').execSync;
+const { execSync } = require('child_process');
+
+const { paths } = require('../constants/pages');
 
 // -- bump version
 const args = process.argv.slice(2);
@@ -14,9 +16,14 @@ if (args.length === 1 && (/^(patch|minor|major)$/).test(args[0])) {
 }
 
 // -- update sitemap.xml
-const loc = 'https://deux-tours-bus.com/';
+const baseUrl = 'https://deux-tours-bus.com';
 const lastmod = moment().format();
-const url = { loc, lastmod, changefreq: 'weekly', priority: '1.0' };
+const url = paths.map(pathname => ({
+  loc: `${baseUrl}${pathname}`,
+  lastmod,
+  changefreq: 'weekly',
+  priority: pathname === '/' ? '1.0' : '0.5',
+}));
 
 const xmlBuilder = new Xml2JsBuilder({ rootName: 'urlset' });
 let xml = xmlBuilder.buildObject({ url });
