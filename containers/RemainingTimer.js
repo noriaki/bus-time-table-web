@@ -9,18 +9,22 @@ import {
 class RemainingTimer extends PureComponent {
   constructor(props, ...args) {
     super(props, ...args);
-    const { timetable, timer } = props;
-    this.timetable = flattenTimeTable(timetable);
+    const { timetable } = props;
+    const { timestamp } = props.timer;
+    this.timetable = timetable;
     this.state = {
-      timetable: sliceNextTimeList(this.timetable, timer.timestamp),
+      timetable: sliceNextTimeList(flattenTimeTable(timetable), timestamp),
       index: 0,
     };
   }
 
   componentWillReceiveProps({ timer }) {
-    const { timetable, index } = this.state;
-    const nextTimetable = sliceNextTimeList(timetable, timer.timestamp);
-    if (timetable.length !== nextTimetable.length) {
+    const { index } = this.state;
+    const currentTimetable = this.state.timetable;
+    const nextTimetable = sliceNextTimeList(
+      flattenTimeTable(this.timetable), timer.timestamp
+    );
+    if (currentTimetable.length !== nextTimetable.length) {
       const nextIndex = index > 0 ? index - 1 : 0;
       this.setState({
         timetable: nextTimetable,
