@@ -8,6 +8,8 @@ describe('GuideBoard/DepartureInfo component', () => {
 
   beforeEach(() => { mount = createMount(); });
 
+  afterEach(() => { mount.cleanUp(); });
+
   it('should includes `departure name` and formatted `departure time`', () => {
     const departure = '新橋駅';
     const nextTime = 1000 * 60 * ((60 * 3) + 15);

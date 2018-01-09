@@ -8,6 +8,8 @@ describe('GuideBoard/CountDownClock component', () => {
 
   beforeEach(() => { mount = createMount(); });
 
+  afterEach(() => { mount.cleanUp(); });
+
   it('should includes `hours` in timer more than 1 hour remaining', () => {
     const remaining = 1000 * ((60 * ((60 * 3) + 15)) + 30);
     const wrapper = mount(
