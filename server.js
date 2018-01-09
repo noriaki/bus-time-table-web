@@ -16,6 +16,7 @@ if (!dev) {
   env = 'stg';
   port = 10001;
   dev = false;
+  process.env.NODE_ENV = 'production'; // for JSS#createClassName
 }
 
 const app = next({ dev });

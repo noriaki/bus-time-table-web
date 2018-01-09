@@ -1,16 +1,8 @@
 import React from 'react';
-import NoSSR from 'react-no-ssr';
-import moment from 'moment';
 import MobileDetect from 'mobile-detect';
-import Head from 'next/head';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import ActionHome from 'material-ui/svg-icons/action/home';
-import MapsTrain from 'material-ui/svg-icons/maps/train';
 
 // libs
 import { momentFromVersion } from '../libs/timeTableDataHandler';
-import '../libs/TouchEvent';
 
 // data
 import {
@@ -18,105 +10,37 @@ import {
   description as appDescription,
   title as appTitle,
 } from '../package.json';
-import timeTableData from '../data/timetable.json';
+import timeTableHome from '../data/home-timetable.json';
+import timeTableHigashiGinza from '../data/st-higashiginza-timetable.json';
+import timeTableShimbashi from '../data/st-shimbashi-timetable.json';
 
 // components
-import TemporaryTimeTable from '../components/TemporaryTimeTable';
-import AppNavigation from '../components/AppNavigation';
-import GA from '../components/GA';
-import SW from '../components/SW';
-
-// themes
-import themeOptions from '../themes/custom';
+import MainLayout from '../layouts/MainLayout';
+import TimersBoard from '../components/TimersBoard';
+import withMaterialUI from '../containers/withMaterialUI';
 
 const appInformation = {
-  timeTableVersion: (
-    momentFromVersion(timeTableData.version).format('YYYY/MM/DD')
-  ),
+  timeTableVersions: {
+    home: momentFromVersion(timeTableHome.version).format('YYYY/MM/DD'),
+    higashiGinza: momentFromVersion(timeTableHigashiGinza.version).format('YYYY/MM/DD'),
+    shimbashi: momentFromVersion(timeTableShimbashi.version).format('YYYY/MM/DD'),
+  },
   appVersion,
+  appTitle,
+  appDescription,
 };
 
-const tabs = [{
-  id: 'ToStation',
-  title: 'マンション発タブ',
-  page: '/tabs/home-to-station',
-  label: 'マンション発',
-  dest: '新橋駅',
-  C: <ActionHome />,
-  data: timeTableData.homeToStation,
-  activeDays: timeTableData.activeDays,
-}, {
-  id: 'ToHome',
-  title: '新橋駅発タブ',
-  page: '/tabs/station-to-home',
-  label: '新橋駅発',
-  dest: 'マンション',
-  C: <MapsTrain />,
-  data: timeTableData.stationToHome,
-  activeDays: timeTableData.activeDays,
-}];
-
-const IndexPage = ({ userAgent, os, baseURI, tabIndex }) => (
-  <MuiThemeProvider muiTheme={getMuiTheme({ ...themeOptions, userAgent })}>
-    <main>
-      <Head>
-        <meta charSet="utf-8" />
-        <title>{appTitle}</title>
-        <meta name="description" content={appDescription} />
-        <meta name="mobile-web-app-capable" content="yes" />
-        <link rel="manifest" href="/static/manifest.json" />
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-title" content="バス時刻表" />
-        <link rel="apple-touch-icon-precomposed" href="/static/icons/app.png" />
-        <meta property="og:type" content="website" />
-        <meta property="og:image" content={`${baseURI}/static/icons/app.png`} />
-      </Head>
-      <article style={styles.container}>
-        <TemporaryTimeTable />
-      </article>
-      <footer style={styles.footer}>
-        <AppNavigation info={appInformation} os={os} />
-      </footer>
-      <NoSSR>
-        <GA id="UA-97608334-1" initialPageView={tabs[tabIndex]} />
-      </NoSSR>
-      <NoSSR><SW /></NoSSR>
-    </main>
-  </MuiThemeProvider>
+const IndexPage = () => (
+  <MainLayout>
+    <TimersBoard />
+  </MainLayout>
 );
 IndexPage.getInitialProps = async ({ req }) => {
   const userAgent = req ? req.headers['user-agent'] : navigator.userAgent;
   return ({
     userAgent,
     os: (new MobileDetect(userAgent)).os(),
-    baseURI: req ? fqdn(req.headers) : fqdn(document.location),
-    tabIndex: detectTabIndex(),
   });
 };
 
-export default IndexPage;
-
-const fqdn = ({ protocol = 'https:', host }) => `${protocol}//${host}`;
-
-const detectTabIndex = (currentTime = moment()) => {
-  const oClock = currentTime.hours();
-  if (oClock >= 4 && oClock < 14) { return 0; }
-  return 1;
-};
-
-const styles = {
-  container: {
-    maxWidth: 800,
-    margin: '0 auto',
-  },
-  footer: {
-    position: 'fixed',
-    bottom: 0,
-    width: '100%',
-    zIndex: 101,
-  },
-  footerContainer: {
-    display: 'flex',
-    justifyContent: 'space-between',
-  },
-};
+export default withMaterialUI(IndexPage);

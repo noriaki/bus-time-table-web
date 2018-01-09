@@ -60,3 +60,6 @@ typings/
 # Next.js
 .next/
 out/
+
+# temporary old files
+*/.old/

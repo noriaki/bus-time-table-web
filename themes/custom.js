@@ -1,13 +1,16 @@
-// import * as muiColors from 'material-ui/styles/colors';
-// import * as myColors from './colors';
-//
-// const colors = { ...muiColors, ...myColors };
-import { premiumBlack, blueSky } from './colors';
+import { premiumBlackPalette, shinbashiBluePalette } from './colors';
 
 export default {
   fontFamily: "Roboto, 'Noto Sans Japanese', 'sans-serif'",
   palette: {
-    primary1Color: premiumBlack,
-    accent1Color: blueSky,
+    primary: premiumBlackPalette,
+    secondary: shinbashiBluePalette,
+  },
+  overrides: {
+    MuiButton: {
+      flatAccent: {
+        color: shinbashiBluePalette['500'],
+      },
+    },
   },
 };

@@ -6,7 +6,10 @@ import {
   sliceNextTimeList,
   isInactiveDays,
 } from '../../libs/timeTableDataHandler';
-import timeTableData from '../../data/timetable.json';
+
+import timeTableHome from '../../data/home-timetable.json';
+import timeTableHigashiGinza from '../../data/st-higashiginza-timetable.json';
+import timeTableShimbashi from '../../data/st-shimbashi-timetable.json';
 
 describe('timeTableDataHandler', () => {
   describe('.momentFromVersion', () => {
@@ -18,21 +21,29 @@ describe('timeTableDataHandler', () => {
   });
 
   describe('.flattenTimeTable', () => {
-    let subject;
-    beforeEach(() => {
-      subject = flattenTimeTable(timeTableData.homeToStation);
-    });
+    [
+      timeTableHome,
+      timeTableHigashiGinza,
+      timeTableShimbashi,
+    ].forEach(({ name, timetable }) => {
+      describe(`time-table of the '${name}' bus-stop`, () => {
+        let subject;
+        beforeEach(() => {
+          subject = flattenTimeTable(timetable);
+        });
 
-    it('should sorted by moment asc', () => {
-      expect(
-        [...subject]
-          .sort((a, b) => a.diff(b))
-          .every((m, i) => m.isSame(subject[i]))
-      ).toBe(true);
-    });
+        it('should sorted by moment asc', () => {
+          expect(
+            [...subject]
+              .sort((a, b) => a.diff(b))
+              .every((m, i) => m.isSame(subject[i]))
+          ).toBe(true);
+        });
 
-    it('should every return items are moment object', () => {
-      expect(subject.every(m => moment.isMoment(m))).toBe(true);
+        it('should every return items are moment object', () => {
+          expect(subject.every(m => moment.isMoment(m))).toBe(true);
+        });
+      });
     });
   });
 

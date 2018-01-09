@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 const { DefinePlugin } = require('webpack');
 const GitRevisionPlugin = require('git-revision-webpack-plugin');
 
@@ -20,8 +21,8 @@ module.exports = {
     }
     config.plugins.push(
       new DefinePlugin({
-        BRANCH: JSON.stringify(branch),
-        COMMIT: JSON.stringify(commit),
+        'process.env.GIT_BRANCH': JSON.stringify(branch),
+        'process.env.GIT_COMMIT': JSON.stringify(commit),
       })
     );
 

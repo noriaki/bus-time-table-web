@@ -2,8 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://deux-tours-bus.com/</loc>
-    <lastmod>2017-11-01T04:19:33+09:00</lastmod>
+    <lastmod>2018-01-09T19:05:52+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://deux-tours-bus.com/timetable</loc>
+    <lastmod>2018-01-09T19:05:52+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://deux-tours-bus.com/info</loc>
+    <lastmod>2018-01-09T19:05:52+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
   </url>
 </urlset>
