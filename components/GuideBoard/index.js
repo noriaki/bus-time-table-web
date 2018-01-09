@@ -6,6 +6,7 @@ import classnames from 'classnames';
 
 // components
 import ClosingTimeBoard from './ClosingTimeBoard';
+import InactiveDaysBoard from './InactiveDaysBoard';
 import DepartureInfo from './DepartureInfo';
 import CountDownClock from './CountDownClock';
 import NaviButton from './NaviButton';
@@ -23,6 +24,7 @@ const GuideBoard = ({
   onPrev,
   onNext,
   vertically,
+  inactiveDay,
   afterTheLastBus,
   classes,
 }) => {
@@ -59,7 +61,9 @@ const GuideBoard = ({
     classes[`next${classSuffix}`]
   );
   let boardContentComponents;
-  if (afterTheLastBus) {
+  if (inactiveDay) {
+    boardContentComponents = <InactiveDaysBoard departure={departure} />;
+  } else if (afterTheLastBus) {
     boardContentComponents = <ClosingTimeBoard departure={departure} />;
   } else {
     boardContentComponents = (
@@ -96,6 +100,7 @@ GuideBoard.propTypes = {
   onPrev: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
   onNext: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
   vertically: PropTypes.bool,
+  inactiveDay: PropTypes.bool,
   afterTheLastBus: PropTypes.bool,
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
 };
@@ -105,6 +110,7 @@ GuideBoard.defaultProps = {
   onPrev: false,
   onNext: false,
   vertically: false,
+  inactiveDay: false,
   afterTheLastBus: false,
 };
 
