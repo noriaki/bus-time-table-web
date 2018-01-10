@@ -43,3 +43,16 @@ const buildBottomNavigationButton = ({ path, label }) => {
       icon={<Icon />} />
   );
 };
+buildBottomNavigationButton.propTypes = {
+  path: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+};
+
+AppNavigation.propTypes = {
+  pathsAndLabels: PropTypes.arrayOf(
+    PropTypes.shape(buildBottomNavigationButton.propTypes)
+  ).isRequired,
+  currentPathname: PropTypes.string.isRequired,
+  onNavigationChange: PropTypes.func.isRequired,
+  classes: PropTypes.objectOf(PropTypes.string).isRequired,
+};
