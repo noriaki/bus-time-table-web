@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import NoSSR from 'react-no-ssr';
 import compose from 'recompose/compose';
-import { animateScroll } from 'react-scroll';
 import { withStyles } from 'material-ui/styles';
 import { withRouter } from 'next/router';
 
@@ -19,6 +19,15 @@ import MainLayoutStyle from '../styles/MainLayout-Style';
 import pages, { paths } from '../constants/pages';
 
 class MainLayout extends PureComponent {
+  static propTypes = {
+    router: PropTypes.shape({
+      prefetch: PropTypes.func,
+      pathname: PropTypes.string,
+    }).isRequired,
+    children: PropTypes.node.isRequired,
+    classes: PropTypes.objectOf(PropTypes.string).isRequired,
+  }
+
   componentDidMount() {
     const { router } = this.props;
     const otherPaths = paths.filter(path => path !== router.pathname);
@@ -44,14 +53,6 @@ class MainLayout extends PureComponent {
     const pathsAndLabels = paths.map(path => ({
       path, label: pages[path].label,
     }));
-    const handleNavigationChange = (event, value) => {
-      event.preventDefault();
-      if (value !== router.pathname) {
-        router.push(value);
-      } else {
-        animateScroll.scrollToTop({ duration: 400 });
-      }
-    };
 
     return (
       <div className={classes.pageContainer}>
@@ -62,10 +63,7 @@ class MainLayout extends PureComponent {
         <main className={classes.main}>
           { children }
         </main>
-        <AppNavigation
-          pathsAndLabels={pathsAndLabels}
-          currentPathname={router.pathname}
-          onNavigationChange={handleNavigationChange} />
+        <AppNavigation pathsAndLabels={pathsAndLabels} />
         <NoSSR>
           <GA id="UA-97608334-1" initialPageView={this.analyticsValue()} />
         </NoSSR>
