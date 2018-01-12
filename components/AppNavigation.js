@@ -1,45 +1,107 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import compose from 'recompose/compose';
+import { animateScroll } from 'react-scroll';
 import { withStyles } from 'material-ui/styles';
+import { withRouter } from 'next/router';
 import BottomNavigation, {
   BottomNavigationButton,
 } from 'material-ui/BottomNavigation';
 import TimerIcon from 'material-ui-icons/Schedule';
 import TimeTableIcon from 'material-ui-icons/ViewList';
-import InfoIcon from 'material-ui-icons/InfoOutline';
 
+// libs
+import { firstOrCreateReadStateOfUser, updateReadState } from '../libs/db';
+
+// data
+import { version } from '../package.json';
+
+// components
+import NotifiableInfoIcon from './NotifiableInfoIcon';
+
+// style
 import AppNavigationStyles from '../styles/AppNavigation-Style';
 
-const icons = {
-  '/': TimerIcon,
-  '/timetable': TimeTableIcon,
-  '/info': InfoIcon,
-};
+class AppNavigation extends PureComponent {
+  static propTypes = {
+    pathsAndLabels: PropTypes.arrayOf(
+      PropTypes.shape({
+        path: PropTypes.string.isRequired,
+        label: PropTypes.string.isRequired,
+      })
+    ).isRequired,
+    router: PropTypes.shape({
+      push: PropTypes.func,
+      pathname: PropTypes.string,
+    }).isRequired,
+    classes: PropTypes.objectOf(PropTypes.string).isRequired,
+  }
+  static icons = {
+    '/': TimerIcon,
+    '/timetable': TimeTableIcon,
+    '/info': NotifiableInfoIcon,
+  }
+  state = { badge: false }
 
-const AppNavigation = ({
-  pathsAndLabels,
-  currentPathname,
-  onNavigationChange,
-  classes,
-}) => (
-  <div className={classes.container}>
-    <BottomNavigation
-      value={currentPathname}
-      showLabels
-      onChange={onNavigationChange}>
-      { pathsAndLabels.map(buildBottomNavigationButton) }
-    </BottomNavigation>
-  </div>
-);
-export default withStyles(AppNavigationStyles)(AppNavigation);
+  componentDidMount() {
+    const { router } = this.props;
+    firstOrCreateReadStateOfUser(version)
+      .then(({ isUnreadNotification }) => {
+        if (router.pathname === '/info' && isUnreadNotification) {
+          updateReadState(version).then(() => {
+            this.setState({ badge: false });
+          });
+        } else {
+          this.setState({ badge: isUnreadNotification });
+        }
+      });
+  }
 
-const buildBottomNavigationButton = ({ path, label }) => {
-  const Icon = icons[path];
-  return (
+  buildBottomNavigationButton = ({ path, label }) => (
     <BottomNavigationButton
       key={path}
       label={label}
       value={path}
-      icon={<Icon />} />
-  );
-};
+      icon={this.renderIcon(path)} />
+  )
+
+  handleNavigationChange = (event, targetPath) => {
+    event.preventDefault();
+    const { router } = this.props;
+    if (targetPath !== router.pathname) {
+      router.push(targetPath);
+      animateScroll.scrollToTop({ duration: 0 });
+    } else {
+      animateScroll.scrollToTop({ duration: 400 });
+    }
+  }
+
+  renderIcon = (path) => {
+    const Icon = this.constructor.icons[path];
+    if (path === '/info') {
+      const { badge } = this.state;
+      return <Icon badge={badge} />;
+    }
+    return <Icon />;
+  }
+
+  render() {
+    const {
+      pathsAndLabels,
+      router,
+      classes,
+    } = this.props;
+    return (
+      <div className={classes.container}>
+        <BottomNavigation
+          value={router.pathname}
+          showLabels
+          onChange={this.handleNavigationChange}>
+          { pathsAndLabels.map(this.buildBottomNavigationButton) }
+        </BottomNavigation>
+      </div>
+    );
+  }
+}
+const enhance = compose(withRouter, withStyles(AppNavigationStyles));
+export default enhance(AppNavigation);

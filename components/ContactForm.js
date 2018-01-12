@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import Card, { CardContent } from 'material-ui/Card';
 import Typography from 'material-ui/Typography';
 import { withStyles } from 'material-ui/styles';
@@ -8,6 +9,9 @@ import ContactFormStyles from '../styles/ContactForm-Style';
 
 class ContactForm extends PureComponent {
   static componentName = 'ContactForm'
+  static propTypes = {
+    classes: PropTypes.objectOf(PropTypes.string).isRequired,
+  }
 
   componentDidMount() {
     const { form } = this;
