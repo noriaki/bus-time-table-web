@@ -1,78 +1,84 @@
-import React from 'react';
-import {
-  Table, TableBody, TableHeaderColumn, TableRow, TableRowColumn,
+import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
+import classnames from 'classnames';
+import moment from 'moment';
+import { withStyles } from 'material-ui/styles';
+import Card, { CardContent } from 'material-ui/Card';
+import Typography from 'material-ui/Typography';
+import Table, {
+  TableBody,
+  TableCell,
+  TableRow,
 } from 'material-ui/Table';
-import ActionInfo from 'material-ui/svg-icons/action/info-outline';
-import NavigationMoreVert from 'material-ui/svg-icons/navigation/more-vert';
-import { silver } from '../themes/colors';
-import { icon, svg } from '../styles/HorizontallyIcons-Style';
-import {
-  timeTable,
-  row,
-  dividerColumn,
-  baseColumn,
-  noteColumn,
-  hourColumn,
-  targetColumn,
-  nextTargetColumn,
-} from '../styles/TimeTable-Style';
 
-const TimeTable = ({ data, targetTime = {}, nextTime = {} }) => (
-  <Table selectable={false} style={timeTable}>
-    <TableBody stripedRows displayRowCheckbox={false}>
-      {data.map(RowIterator({ targetTime, nextTime }))}
-    </TableBody>
-  </Table>
-);
+// style
+import TimeTableStyles from '../styles/TimeTable-Style';
 
-export default TimeTable;
-
-const RowIterator = time => ({ hour, minutes, divider, note }) => {
-  if (divider != null) { return buildDivider(); }
-  if (note != null) { return buildNote(note); }
-  return buildRow({ hour, minutes, ...time });
-};
-const buildRow = ({ hour, minutes, ...time }) => (
-  <TableRow key={hour} style={row}>
-    <TableHeaderColumn style={{ ...baseColumn, ...hourColumn }}>
-      {format(hour)}
-    </TableHeaderColumn>
-    {fill(minutes).map(makeMinutesRowIterator(hour, time))}
-  </TableRow>
-);
-const buildDivider = () => (
-  <TableRow key="divider">
-    <TableRowColumn colSpan="13" style={dividerColumn}>
-      <NavigationMoreVert color={silver} />
-    </TableRowColumn>
-  </TableRow>
-);
-const buildNote = note => (
-  <TableRow displayBorder={false} key={`note-${note}`} style={row}>
-    <TableRowColumn colSpan="13" style={noteColumn}>
-      <span style={{ ...icon, marginRight: '0.3em' }}>
-        <ActionInfo color={noteColumn.color} style={svg} />
-      </span>
-      {note}
-    </TableRowColumn>
-  </TableRow>
-);
-const makeMinutesRowIterator = (hour, { nextTime, targetTime }) => (minute) => {
-  const h = hour % 24;
-  let columnStyle = baseColumn;
-  if (h === targetTime.hours && minute === targetTime.minutes) {
-    columnStyle = targetColumn;
-  } else if (h === nextTime.hours && minute === nextTime.minutes) {
-    columnStyle = nextTargetColumn;
+class TimeTable extends PureComponent {
+  static propTypes = {
+    data: PropTypes.shape({
+      version: PropTypes.number,
+      name: PropTypes.string,
+      timetable: PropTypes.arrayOf(
+        PropTypes.shape({
+          hour: PropTypes.number,
+          minutes: PropTypes.arrayOf(PropTypes.number),
+          estimated: PropTypes.bool,
+        })
+      ),
+    }).isRequired,
+    classes: PropTypes.objectOf(PropTypes.string).isRequired,
   }
+
+  render() {
+    const { classes, data } = this.props;
+    return (
+      <section>
+        <Typography type="headline" className={classes.headline}>
+          { data.name }
+          <Typography component="span" className={classes.headlineSuffix}>
+            発
+          </Typography>
+        </Typography>
+        <Card>
+          <CardContent className={classes.cardContentRoot}>
+            <Table className={classes.timetableRoot}>
+              <TableBody>
+                { data.timetable.map(buildTimeTableRow(classes)) }
+              </TableBody>
+            </Table>
+          </CardContent>
+        </Card>
+      </section>
+    );
+  }
+}
+export default withStyles(TimeTableStyles)(TimeTable);
+
+const buildTimeTableRow = classes => ({ hour, minutes, estimated }, index) => {
+  const minutesColumnClassName = classnames(
+    classes.timetableMinutesContainer,
+    estimated ? classes.timetableMinutesContainerEstimated : undefined
+  );
   return (
-    <TableRowColumn key={`${hour}-${minute}`} style={columnStyle}>
-      {format(minute)}
-    </TableRowColumn>
+    <TableRow key={`${index}-${hour}`} className={classes.timetableRow}>
+      <TableCell padding="dense" className={classes.timetableHourColumn}>
+        { moment({ hour }).format('HH') }
+      </TableCell>
+      <TableCell padding="dense" className={minutesColumnClassName}>
+        { minutes.map(buildTimeTableMinutes({ hour, classes })) }
+      </TableCell>
+    </TableRow>
   );
 };
 
-const format = num => (num != null ? (`0${num}`).slice(-2) : '');
-const fill = minutes => [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55].map(
-  num => (minutes.includes(num) ? num : null)
-);
+const buildTimeTableMinutes = ({ hour, classes }) => (minute) => {
+  const time = moment({ hour, minute });
+  const pos = Math.floor(minute / 5);
+  const className = classnames(classes.timetableMinuteColumn, classes[pos]);
+  return (
+    <span key={time.format('HH:mm')} className={className}>
+      { time.format('mm') }
+    </span>
+  );
+};

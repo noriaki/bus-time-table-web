@@ -70,6 +70,7 @@ class AppNavigation extends PureComponent {
     const { router } = this.props;
     if (targetPath !== router.pathname) {
       router.push(targetPath);
+      animateScroll.scrollToTop({ duration: 0 });
     } else {
       animateScroll.scrollToTop({ duration: 400 });
     }

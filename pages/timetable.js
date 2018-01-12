@@ -2,37 +2,37 @@ import React from 'react';
 import MobileDetect from 'mobile-detect';
 
 // libs
-import { momentFromVersion } from '../libs/timeTableDataHandler';
+import getOriginalDisplayName from '../libs/getOriginalDisplayName';
+import setComponentName from '../libs/setComponentName';
 
 // data
-import {
-  version as appVersion,
-  description as appDescription,
-  title as appTitle,
-} from '../package.json';
 import timeTableHome from '../data/home-timetable.json';
-import timeTableHigashiGinza from '../data/st-higashiginza-timetable.json';
+import timeTableHGinza from '../data/st-higashiginza-timetable.json';
 import timeTableShimbashi from '../data/st-shimbashi-timetable.json';
 
 // components
 import MainLayout from '../layouts/MainLayout';
-import TemporaryTimeTable from '../components/TemporaryTimeTable';
+import TableOfContents from '../components/TableOfContents';
+import TimeTable from '../components/TimeTable';
 import withMaterialUI from '../containers/withMaterialUI';
 
-const appInformation = {
-  timeTableVersions: {
-    home: momentFromVersion(timeTableHome.version).format('YYYY/MM/DD'),
-    higashiGinza: momentFromVersion(timeTableHigashiGinza.version).format('YYYY/MM/DD'),
-    shimbashi: momentFromVersion(timeTableShimbashi.version).format('YYYY/MM/DD'),
-  },
-  appVersion,
-  appTitle,
-  appDescription,
+const HomeTimeTable = setComponentName('Home')(TimeTable);
+const HGinzaTimeTable = setComponentName('HGinza')(TimeTable);
+const ShimbashiTimeTable = setComponentName('Shimbashi')(TimeTable);
+
+const labels = {
+  [getOriginalDisplayName(HomeTimeTable)]: 'マンション',
+  [getOriginalDisplayName(HGinzaTimeTable)]: '東銀座駅',
+  [getOriginalDisplayName(ShimbashiTimeTable)]: '新橋駅',
 };
 
 const TimetablePage = () => (
   <MainLayout>
-    <TemporaryTimeTable />
+    <TableOfContents labels={labels}>
+      <HomeTimeTable data={timeTableHome} />
+      <HGinzaTimeTable data={timeTableHGinza} />
+      <ShimbashiTimeTable data={timeTableShimbashi} />
+    </TableOfContents>
   </MainLayout>
 );
 TimetablePage.getInitialProps = async ({ req }) => {
