@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
 import Card, { CardContent } from 'material-ui/Card';
 import Typography from 'material-ui/Typography';
 import { withStyles } from 'material-ui/styles';
@@ -46,6 +47,9 @@ const AboutThisApp = ({ classes }) => (
     </Card>
   </section>
 );
+AboutThisApp.propTypes = {
+  classes: PropTypes.objectOf(PropTypes.string).isRequired,
+};
 AboutThisApp.componentName = 'AboutThisApp';
 export default withStyles(AboutThisAppStyles)(AboutThisApp);
 

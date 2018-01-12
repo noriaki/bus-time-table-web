@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Card, { CardHeader, CardContent } from 'material-ui/Card';
 import Badge from 'material-ui/Badge';
 import Typography from 'material-ui/Typography';
@@ -18,6 +19,9 @@ const ChangeLogs = ({ classes }) => (
     { logs.map(buildChangeLog(classes)) }
   </section>
 );
+ChangeLogs.propTypes = {
+  classes: PropTypes.objectOf(PropTypes.string).isRequired,
+};
 ChangeLogs.componentName = 'ChangeLogs';
 export default withStyles(ChangeLogsStyles)(ChangeLogs);
 
