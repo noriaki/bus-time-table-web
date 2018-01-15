@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { compose } from 'recompose';
-import { withStyles, withTheme } from 'material-ui/styles';
+import { withStyles } from 'material-ui/styles';
 import SvgIcon from 'material-ui/SvgIcon';
 import InfoIcon from 'material-ui-icons/InfoOutline';
 
@@ -24,9 +24,6 @@ const NotifiableInfoIcon = ({ badge, classes, theme }) => {
 NotifiableInfoIcon.propTypes = { badge: PropTypes.bool };
 NotifiableInfoIcon.defaultProps = { badge: false };
 
-const enhance = compose(
-  withTheme(),
-  withStyles(NotifiableInfoIconStyles)
-);
+const enhance = withStyles(NotifiableInfoIconStyles, { withTheme: true });
 
 export default enhance(NotifiableInfoIcon);
