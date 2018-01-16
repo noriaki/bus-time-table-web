@@ -1,9 +1,12 @@
 import React from 'react';
-import MobileDetect from 'mobile-detect';
+import PropTypes from 'prop-types';
 
 // libs
 import getOriginalDisplayName from '../libs/getOriginalDisplayName';
 import setComponentName from '../libs/setComponentName';
+import getMobileEnv, {
+  propTypes as mobilePropTypes,
+} from '../libs/getMobileEnv';
 
 // data
 import timeTableHome from '../data/home-timetable.json';
@@ -26,8 +29,8 @@ const labels = {
   [getOriginalDisplayName(ShimbashiTimeTable)]: '新橋駅',
 };
 
-const TimetablePage = () => (
-  <MainLayout>
+const TimetablePage = ({ mobile }) => (
+  <MainLayout mobile={mobile}>
     <TableOfContents labels={labels}>
       <HomeTimeTable data={timeTableHome} />
       <HGinzaTimeTable data={timeTableHGinza} />
@@ -35,12 +38,11 @@ const TimetablePage = () => (
     </TableOfContents>
   </MainLayout>
 );
-TimetablePage.getInitialProps = async ({ req }) => {
-  const userAgent = req ? req.headers['user-agent'] : navigator.userAgent;
-  return ({
-    userAgent,
-    os: (new MobileDetect(userAgent)).os(),
-  });
+TimetablePage.propTypes = {
+  mobile: PropTypes.shape(mobilePropTypes).isRequired,
 };
+TimetablePage.getInitialProps = async ({ req }) => ({
+  mobile: getMobileEnv(req),
+});
 
 export default withMaterialUI(TimetablePage);

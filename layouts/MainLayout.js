@@ -5,6 +5,11 @@ import compose from 'recompose/compose';
 import { withStyles } from 'material-ui/styles';
 import { withRouter } from 'next/router';
 
+// libs
+import getMobileEnv, {
+  propTypes as mobilePropTypes,
+} from '../libs/getMobileEnv';
+
 // components
 import DocumentHeader from '../components/DocumentHeader';
 import AppTitleBar from '../components/AppTitleBar';
@@ -26,10 +31,24 @@ class MainLayout extends PureComponent {
     }).isRequired,
     children: PropTypes.node.isRequired,
     classes: PropTypes.objectOf(PropTypes.string).isRequired,
+    ...mobilePropTypes,
+  }
+
+  constructor(props, ...args) {
+    super(props, ...args);
+    const { standalone } = props.mobile;
+    this.state = {
+      showAppGetting: standalone === undefined ? false : !standalone,
+    };
   }
 
   componentDidMount() {
-    const { router } = this.props;
+    const { router, mobile } = this.props;
+    // show/hide navi to app-getting page
+    if (mobile.standalone === undefined) {
+      this.setState({ showAppGetting: !getMobileEnv().standalone });
+    }
+    // prefetching pages when production
     const otherPaths = paths.filter(path => path !== router.pathname);
     otherPaths.forEach((path) => {
       console.log(`prefetching... '${path}'`);
@@ -49,10 +68,12 @@ class MainLayout extends PureComponent {
       children,
       classes,
     } = this.props;
+    const { showAppGetting } = this.state;
     const page = pages[router.pathname];
-    const pathsAndLabels = paths.map(path => ({
-      path, label: pages[path].label,
-    }));
+    const pathsAndLabels = paths.filter((path) => {
+      if (path === '/getapp') { return showAppGetting; }
+      return true;
+    }).map(path => ({ path, label: pages[path].label }));
 
     return (
       <div className={classes.pageContainer}>

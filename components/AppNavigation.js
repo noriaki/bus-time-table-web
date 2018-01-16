@@ -9,6 +9,7 @@ import BottomNavigation, {
 } from 'material-ui/BottomNavigation';
 import TimerIcon from 'material-ui-icons/Schedule';
 import TimeTableIcon from 'material-ui-icons/ViewList';
+import DownloadIcon from 'material-ui-icons/CloudDownload';
 
 // libs
 import { firstOrCreateReadStateOfUser, updateReadState } from '../libs/db';
@@ -39,6 +40,7 @@ class AppNavigation extends PureComponent {
   static icons = {
     '/': TimerIcon,
     '/timetable': TimeTableIcon,
+    '/getapp': DownloadIcon,
     '/info': NotifiableInfoIcon,
   }
   state = { badge: false }
@@ -62,6 +64,7 @@ class AppNavigation extends PureComponent {
       key={path}
       label={label}
       value={path}
+      style={path === '/getapp' ? { color: 'green' } : null} // TODO
       icon={this.renderIcon(path)} />
   )
 

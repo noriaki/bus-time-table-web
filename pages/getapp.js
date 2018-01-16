@@ -8,19 +8,19 @@ import getMobileEnv, {
 
 // components
 import MainLayout from '../layouts/MainLayout';
-import TimersBoard from '../components/TimersBoard';
+import AddToHomescreen from '../components/AddToHomescreen';
 import withMaterialUI from '../containers/withMaterialUI';
 
-const IndexPage = ({ mobile }) => (
+const GetappPage = ({ mobile }) => (
   <MainLayout mobile={mobile}>
-    <TimersBoard />
+    <AddToHomescreen os={mobile.os} />
   </MainLayout>
 );
-IndexPage.propTypes = {
+GetappPage.propTypes = {
   mobile: PropTypes.shape(mobilePropTypes).isRequired,
 };
-IndexPage.getInitialProps = async ({ req }) => ({
+GetappPage.getInitialProps = async ({ req }) => ({
   mobile: getMobileEnv(req),
 });
 
-export default withMaterialUI(IndexPage);
+export default withMaterialUI(GetappPage);
