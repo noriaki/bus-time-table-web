@@ -9,11 +9,13 @@ import getMobileEnv, {
 // components
 import MainLayout from '../layouts/MainLayout';
 import TimersBoard from '../components/TimersBoard';
+import AddToHomescreen from '../components/AddToHomescreen';
 import withMaterialUI from '../containers/withMaterialUI';
 
 const IndexPage = ({ mobile }) => (
   <MainLayout mobile={mobile}>
     <TimersBoard />
+    <AddToHomescreen mobile={mobile} />
   </MainLayout>
 );
 IndexPage.propTypes = {
