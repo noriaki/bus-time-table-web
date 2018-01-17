@@ -1,5 +1,7 @@
 import React, { PureComponent, Fragment } from 'react';
+import { findDOMNode } from 'react-dom'; // DEBUG
 import PropTypes from 'prop-types';
+import { withStyles } from 'material-ui/styles';
 import Popover from 'material-ui/Popover';
 
 // libs
@@ -11,6 +13,9 @@ import getMobileEnv, {
 import LaunchButton from './LaunchButton';
 import Contents from './Contents';
 import GA from '../GA';
+
+// styles
+import AddToHomescreenStyles from '../../styles/AddToHomescreen/index-Style';
 
 class AddToHomescreen extends PureComponent {
   static propTypes = {
@@ -34,7 +39,14 @@ class AddToHomescreen extends PureComponent {
     if (mobile.standalone === undefined) {
       this.setState({ hidden: getMobileEnv().standalone });
     }
+    setTimeout(() => this.debugOpen(), 300); // DEBUG
   }
+
+  /* DEBUG */
+  debugOpen = () => {
+    findDOMNode(this.button).click();
+  }
+  /* DEBUG */
 
   handleOpen = (event) => {
     const previousPage = GA.gets('page', 'title');
@@ -59,17 +71,23 @@ class AddToHomescreen extends PureComponent {
   };
 
   render() {
+    const { classes } = this.props;
     const { os } = this.props.mobile;
     const { hidden, open, anchorEl } = this.state;
     if (hidden) { return null; }
+    const handleRef = (r) => { this.button = r; }; // DEBUG
     return (
       <Fragment>
-        <LaunchButton onClick={this.handleOpen} />
+        <LaunchButton
+          ref={handleRef}
+          onClick={this.handleOpen} />
         <Popover
+          classes={classes}
           open={open}
+          BackdropInvisible={false}
           anchorEl={anchorEl}
-          anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-          transformOrigin={{ vertical: 'center', horizontal: 'right' }}
+          anchorOrigin={{ vertical: 'center', horizontal: 'right' }}
+          transformOrigin={{ vertical: 'bottom', horizontal: 'right' }}
           onRequestClose={this.handleClose}>
           <Contents os={os} />
         </Popover>
@@ -77,4 +95,4 @@ class AddToHomescreen extends PureComponent {
     );
   }
 }
-export default AddToHomescreen;
+export default withStyles(AddToHomescreenStyles)(AddToHomescreen);

@@ -26,7 +26,10 @@ const Contents = ({ os, classes }) => {
       </Typography>
       <Typography>
         急いでいるときにも簡単にすぐ起動できるよう、ホーム画面にアプリとして配置（ダウンロード）することが可能です。
-        <Typography type="caption" component="span">
+        <Typography
+          type="caption"
+          component="span"
+          className={classes.caption}>
           容量 10KB(0.01MB)以下
         </Typography>
       </Typography>

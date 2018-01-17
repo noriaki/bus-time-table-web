@@ -1,7 +1,12 @@
 export const container = theme => ({
-  width: `calc(100vw - ${theme.spacing.unit * 2}px)`,
+  padding: theme.spacing.unit,
 });
+
+export const caption = {
+  display: 'inline',
+};
 
 export default theme => ({
   container: container(theme),
+  caption,
 });

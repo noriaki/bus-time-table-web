@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { withStyles } from 'material-ui/styles';
-import Card, { CardContent } from 'material-ui/Card';
+import Card, { CardMedia, CardContent } from 'material-ui/Card';
 import Typography from 'material-ui/Typography';
 
 import ForiOSStyles from '../../styles/AddToHomescreen/iOS-Style';
@@ -14,7 +14,7 @@ const stepTexts = [
 
 const ForiOS = ({ classes }) => (
   <Fragment>
-    <Typography type="headline" className={classes.headline}>
+    <Typography type="title" className={classes.title}>
       3ステップでアプリ化
     </Typography>
     <ol className={classes.container}>
@@ -30,9 +30,12 @@ const buildStepItem = classes => (text, index) => {
   return (
     <li key={i} className={classes.item}>
       <Card>
+        <CardMedia
+          component="img"
+          src={imgSrc}
+          srcSet={imgSrcSet} />
         <CardContent>
-          <img src={imgSrc} srcSet={imgSrcSet} alt={`Step${i}:${text}`} />
-          <Typography type="headline" component="h2">Step{ i }</Typography>
+          <Typography type="subheading">Step{ i }</Typography>
           <Typography>{ text }</Typography>
         </CardContent>
       </Card>
