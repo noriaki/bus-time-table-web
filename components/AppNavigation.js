@@ -20,7 +20,7 @@ import { version } from '../package.json';
 // components
 import NotifiableInfoIcon from './NotifiableInfoIcon';
 
-// style
+// styles
 import AppNavigationStyles from '../styles/AppNavigation-Style';
 
 class AppNavigation extends PureComponent {

@@ -16,7 +16,7 @@ import timetableShimbashi from '../data/st-shimbashi-timetable.json';
 // components
 import DevGitBranchCommit from './DevGitBranchCommit';
 
-// style
+// styles
 import AboutThisAppStyles from '../styles/AboutThisApp-Style';
 
 const AboutThisApp = ({ classes }) => (
