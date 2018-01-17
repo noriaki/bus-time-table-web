@@ -39,10 +39,6 @@ class ShareMenu extends Component {
   }
 
   render() {
-    const ModalProps = {
-      onBackdropClick: this.handleClose,
-      onEscapeKeyUp: this.handleClose,
-    };
     const viewables = detectItemViewables();
     if (!viewables.self) { return null; }
 
@@ -56,8 +52,7 @@ class ShareMenu extends Component {
         <Drawer
           anchor="bottom"
           open={this.state.open}
-          onClose={this.handleClose}
-          ModalProps={ModalProps}>
+          onRequestClose={this.handleClose}>
           <List subheader={<ShareListSubheader />}>
             {viewables.line ? <Line onFinish={this.handleClose} /> : null}
             {viewables.fb ? <FacebookMessenger onFinish={this.handleClose} /> : null}
