@@ -1,9 +1,16 @@
 export default (theme) => {
   const { unit } = theme.spacing;
-  const { minHeight } = theme.mixins.toolbar;
+  const greyBackground = {
+    backgroundColor: theme.palette.grey[300],
+  };
   return ({
-    paper: {
-      maxHeight: `calc(100vh - ${(minHeight * 2) + (unit * 5)}px)`,
+    dialogTitle: {
+      ...greyBackground,
+    },
+    dialogActions: {
+      ...greyBackground,
+      margin: 0,
+      padding: `${unit}px ${unit / 2}px`,
     },
   });
 };

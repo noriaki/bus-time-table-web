@@ -2,7 +2,12 @@ import React, { PureComponent, Fragment } from 'react';
 import { findDOMNode } from 'react-dom'; // DEBUG
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
-import Popover from 'material-ui/Popover';
+import Button from 'material-ui/Button';
+import Dialog, {
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+} from 'material-ui/Dialog';
 
 // libs
 import getMobileEnv, {
@@ -28,7 +33,6 @@ class AddToHomescreen extends PureComponent {
     this.state = {
       hidden: standalone === undefined ? true : standalone,
       open: false,
-      anchorEl: null,
       previousPage: null,
     };
   }
@@ -56,7 +60,6 @@ class AddToHomescreen extends PureComponent {
     });
     this.setState({
       open: true,
-      anchorEl: event.currentTarget,
       previousPage,
     });
   };
@@ -65,7 +68,6 @@ class AddToHomescreen extends PureComponent {
     GA.pageview(this.state.previousPage);
     this.setState({
       open: false,
-      anchorEl: null,
       previousPage: null,
     });
   };
@@ -73,7 +75,7 @@ class AddToHomescreen extends PureComponent {
   render() {
     const { classes } = this.props;
     const { os } = this.props.mobile;
-    const { hidden, open, anchorEl } = this.state;
+    const { hidden, open } = this.state;
     if (hidden) { return null; }
     const handleRef = (r) => { this.button = r; }; // DEBUG
     return (
@@ -81,16 +83,22 @@ class AddToHomescreen extends PureComponent {
         <LaunchButton
           ref={handleRef}
           onClick={this.handleOpen} />
-        <Popover
-          classes={classes}
+        <Dialog
           open={open}
-          BackdropInvisible={false}
-          anchorEl={anchorEl}
-          anchorOrigin={{ vertical: 'center', horizontal: 'right' }}
-          transformOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-          onRequestClose={this.handleClose}>
-          <Contents os={os} />
-        </Popover>
+          onRequestClose={this.handleClose}
+          aria-labelledby="getapp-screen-title">
+          <DialogTitle
+            id="getapp-screen-title"
+            classes={{ root: classes.dialogTitle }}>
+            アプリをホーム画面に追加
+          </DialogTitle>
+          <DialogContent>
+            <Contents os={os} />
+          </DialogContent>
+          <DialogActions classes={{ root: classes.dialogActions }}>
+            <Button onClick={this.handleClose} color="accent">閉じる</Button>
+          </DialogActions>
+        </Dialog>
       </Fragment>
     );
   }

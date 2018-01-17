@@ -20,16 +20,10 @@ const Contents = ({ os, classes }) => {
     innerContents = <p>Other</p>;
   }
   return (
-    <section className={classes.container}>
-      <Typography type="headline">
-        アプリをホーム画面に追加
-      </Typography>
-      <Typography>
+    <section>
+      <Typography className={classes.description}>
         急いでいるときにも簡単にすぐ起動できるよう、ホーム画面にアプリとして配置（ダウンロード）することが可能です。
-        <Typography
-          type="caption"
-          component="span"
-          className={classes.caption}>
+        <Typography type="caption" component="span">
           容量 10KB(0.01MB)以下
         </Typography>
       </Typography>
