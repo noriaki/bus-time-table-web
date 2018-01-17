@@ -1,11 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 // libs
 import getOriginalDisplayName from '../libs/getOriginalDisplayName';
-import getMobileEnv, {
-  propTypes as mobilePropTypes,
-} from '../libs/getMobileEnv';
 
 // components
 import MainLayout from '../layouts/MainLayout';
@@ -21,8 +17,8 @@ const labels = {
   [getOriginalDisplayName(ContactForm)]: '要望・不具合の問い合わせ',
 };
 
-const InfoPage = ({ mobile }) => (
-  <MainLayout mobile={mobile}>
+const InfoPage = () => (
+  <MainLayout>
     <TableOfContents labels={labels}>
       <ChangeLogs />
       <AboutThisApp />
@@ -30,11 +26,5 @@ const InfoPage = ({ mobile }) => (
     </TableOfContents>
   </MainLayout>
 );
-InfoPage.propTypes = {
-  mobile: PropTypes.shape(mobilePropTypes).isRequired,
-};
-InfoPage.getInitialProps = async ({ req }) => ({
-  mobile: getMobileEnv(req),
-});
 
 export default withMaterialUI(InfoPage);

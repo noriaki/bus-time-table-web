@@ -13,7 +13,7 @@ import AddToHomescreen from '../components/AddToHomescreen';
 import withMaterialUI from '../containers/withMaterialUI';
 
 const IndexPage = ({ mobile }) => (
-  <MainLayout mobile={mobile}>
+  <MainLayout>
     <TimersBoard />
     <AddToHomescreen mobile={mobile} />
   </MainLayout>
