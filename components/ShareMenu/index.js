@@ -19,7 +19,10 @@ const ShareListSubheader = () => (
 );
 
 class ShareMenu extends Component {
-  state = { open: false }
+  state = {
+    open: false,
+    previousPage: null,
+  }
 
   handleOpen = () => {
     const previousPage = GA.gets('page', 'title');
@@ -35,7 +38,10 @@ class ShareMenu extends Component {
 
   handleClose = () => {
     GA.pageview(this.state.previousPage);
-    this.setState({ open: false });
+    this.setState({
+      open: false,
+      previousPage: null,
+    });
   }
 
   render() {
