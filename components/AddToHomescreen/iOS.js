@@ -41,7 +41,7 @@ const buildStepItem = classes => (text, index) => {
 };
 
 const mapImgSrcSet = index => ([
-  `/static/images/ios-add-to-homescreen-step0${index}.jpg`,
-  `/static/images/ios-add-to-homescreen-step0${index}@2x.jpg 2x`,
-  `/static/images/ios-add-to-homescreen-step0${index}@3x.jpg 3x`,
+  `/static/images/getapp/ios/step0${index}.png`,
+  `/static/images/getapp/ios/step0${index}@2x.png 2x`,
+  `/static/images/getapp/ios/step0${index}@3x.png 3x`,
 ]);
