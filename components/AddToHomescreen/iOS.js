@@ -1,23 +1,47 @@
-import React from 'react';
-import Card, {
-  CardHeader,
-  CardMedia,
-  CardContent,
-} from 'material-ui/Card';
-import Avatar from 'material-ui/Avatar';
+import React, { Fragment } from 'react';
+import { withStyles } from 'material-ui/styles';
+import Card, { CardContent } from 'material-ui/Card';
 import Typography from 'material-ui/Typography';
 
-const ForiOS = () => (
-  <Card>
-    <CardHeader
-      avatar={<Avatar aria-label="Step1">1</Avatar>}
-      title="Step1" />
-    <CardMedia
-      style={{ height: 70, margin: '0 8px' }}
-      image="/static/images/ios-add-to-homescreen-step01.jpg" />
-    <CardContent>
-      <Typography>ブラウザ下部アイコンをタップ</Typography>
-    </CardContent>
-  </Card>
+import ForiOSStyles from '../../styles/AddToHomescreen/iOS-Style';
+
+const stepTexts = [
+  'ブラウザ下部アイコンをタップ',
+  '「ホーム画面に追加」をタップ',
+  '「追加」をタップ',
+  'アイコンからいつでも起動OK',
+];
+
+const ForiOS = ({ classes }) => (
+  <Fragment>
+    <Typography type="headline" className={classes.headline}>
+      3ステップでアプリ化
+    </Typography>
+    <ol className={classes.container}>
+      { stepTexts.map(buildStepItem(classes)) }
+    </ol>
+  </Fragment>
 );
-export default ForiOS;
+export default withStyles(ForiOSStyles)(ForiOS);
+
+const buildStepItem = classes => (text, index) => {
+  const i = index + 1;
+  const [imgSrc, ...imgSrcSet] = mapImgSrcSet(i);
+  return (
+    <li key={i} className={classes.item}>
+      <Card>
+        <CardContent>
+          <img src={imgSrc} srcSet={imgSrcSet} alt={`Step${i}:${text}`} />
+          <Typography type="headline" component="h2">Step{ i }</Typography>
+          <Typography>{ text }</Typography>
+        </CardContent>
+      </Card>
+    </li>
+  );
+};
+
+const mapImgSrcSet = index => ([
+  `/static/images/ios-add-to-homescreen-step0${index}.jpg`,
+  `/static/images/ios-add-to-homescreen-step0${index}@2x.jpg 2x`,
+  `/static/images/ios-add-to-homescreen-step0${index}@3x.jpg 3x`,
+]);
