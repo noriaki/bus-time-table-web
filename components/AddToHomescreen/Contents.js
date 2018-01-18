@@ -5,6 +5,7 @@ import Typography from 'material-ui/Typography';
 // components
 import ForiOS from './iOS';
 import ForAndroid from './Android';
+import ForPC from './PC';
 
 // styles
 import ContentsStyles from '../../styles/AddToHomescreen/Contents-Style';
@@ -16,7 +17,7 @@ const Contents = ({ os, classes }) => {
   } else if (os === 'AndroidOS') {
     innerContents = <ForAndroid />;
   } else {
-    innerContents = <p>ご利用中の端末は対応していないようです</p>;
+    innerContents = <ForPC />;
   }
   return (
     <section>
