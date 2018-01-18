@@ -4,18 +4,17 @@ import Typography from 'material-ui/Typography';
 
 // components
 import ForiOS from './iOS';
+import ForAndroid from './Android';
 
 // styles
 import ContentsStyles from '../../styles/AddToHomescreen/Contents-Style';
-
-const Temp = () => <p>android</p>;
 
 const Contents = ({ os, classes }) => {
   let innerContents;
   if (os === 'iOS') {
     innerContents = <ForiOS />;
   } else if (os === 'AndroidOS') {
-    innerContents = <Temp />;
+    innerContents = <ForAndroid />;
   } else {
     innerContents = <p>Other</p>;
   }
