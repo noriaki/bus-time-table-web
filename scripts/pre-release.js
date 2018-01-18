@@ -15,9 +15,11 @@ if (args.length === 1 && (/^(patch|minor|major)$/).test(args[0])) {
   process.exit(1);
 }
 
+const now = moment();
+
 // -- update sitemap.xml
 const baseUrl = 'https://deux-tours-bus.com';
-const lastmod = moment().format();
+const lastmod = now.format();
 const url = paths.map(pathname => ({
   loc: `${baseUrl}${pathname}`,
   lastmod,
@@ -30,3 +32,13 @@ let xml = xmlBuilder.buildObject({ url });
 xml = xml.replace(/<urlset>/, '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">');
 
 fs.writeFileSync(path.resolve('static', 'sitemap.xml'), `${xml}\n`);
+
+// -- update ServiceWorker (sw.js)
+const swFilePath = path.resolve('static', 'sw.js');
+const updatedAt = now.format();
+const regexp = /\/\* ServiceWorker\. Updated at [0-9T+:.-]* \*\//;
+const comment = `/* ServiceWorker. Updated at ${updatedAt} */\n`;
+
+const code = fs.readFileSync(swFilePath).toString();
+const output = code.replace(regexp, comment);
+fs.writeFileSync(swFilePath, output);
