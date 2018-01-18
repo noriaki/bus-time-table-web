@@ -31,7 +31,7 @@ class AddToHomescreen extends PureComponent {
     super(props, ...args);
     const { standalone } = props.mobile;
     this.state = {
-      hidden: standalone === undefined ? true : standalone,
+      hidden: standalone === null ? true : standalone,
       open: false,
       previousPage: null,
     };
@@ -40,7 +40,7 @@ class AddToHomescreen extends PureComponent {
   componentDidMount() {
     const { mobile } = this.props;
     // show/hide button to launching app-getting popover
-    if (mobile.standalone === undefined) {
+    if (mobile.standalone === null) {
       this.setState({ hidden: getMobileEnv().standalone });
     }
     setTimeout(() => this.debugOpen(), 300); // DEBUG

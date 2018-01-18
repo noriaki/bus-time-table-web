@@ -1,10 +1,19 @@
-const isStandaloneApp = ({ query }) => {
-  if (query.display === 'standalone') { return true; }
-  const g = global || window;
-  if (typeof g.matchMedia === 'function') {
-    return g.matchMedia('(display-mode: standalone)').matches;
-  }
-  if (g.navigator) { return g.navigator.standalone != null; }
-  return null;
-};
+const isStandaloneApp = ({ query }) => (
+  isAbleToDetect() ? (
+    matchQueryString(query) || matchMediaQuery() || matchNavigatorProperty()
+  ) : null
+);
 export default isStandaloneApp;
+
+const isAbleToDetect = () => (
+  typeof matchMedia === 'function' && typeof navigator === 'object'
+);
+
+const matchQueryString = query => query.display === 'standalone';
+const matchMediaQuery = () => (
+  typeof matchMedia === 'function' &&
+    matchMedia('(display-mode: standalone)').matches
+);
+const matchNavigatorProperty = () => (
+  typeof navigator === 'object' && navigator.standalone != null
+);

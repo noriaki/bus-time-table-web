@@ -5,9 +5,10 @@ import isStandaloneApp from './isStandaloneApp';
 
 // @req: in getInitialProps of next.js
 const getMobileEnv = (req) => {
-  const userAgent = req ? req.headers['user-agent'] : navigator.userAgent;
+  const isServer = req != null;
+  const userAgent = isServer ? req.headers['user-agent'] : navigator.userAgent;
   const mobile = new MobileDetect(userAgent);
-  const url = parse(req ? req.url : document.location.href, true);
+  const url = parse(isServer ? req.url : document.location.href, true);
   return {
     os: mobile.os(),
     iOS: mobile.is('iOS'),
