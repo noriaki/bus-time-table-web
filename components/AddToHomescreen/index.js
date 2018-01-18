@@ -92,7 +92,7 @@ class AddToHomescreen extends PureComponent {
             classes={{ root: classes.dialogTitle }}>
             アプリをホーム画面に追加
           </DialogTitle>
-          <DialogContent>
+          <DialogContent classes={{ root: classes.dialogContent }}>
             <Contents os={os} />
           </DialogContent>
           <DialogActions classes={{ root: classes.dialogActions }}>

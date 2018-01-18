@@ -6,6 +6,12 @@ export default (theme) => {
   return ({
     dialogTitle: {
       ...greyBackground,
+      paddingLeft: unit * 2,
+      paddingRight: unit * 2,
+    },
+    dialogContent: {
+      paddingLeft: unit * 2,
+      paddingRight: unit * 2,
     },
     dialogActions: {
       ...greyBackground,
