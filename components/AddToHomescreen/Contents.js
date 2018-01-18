@@ -16,7 +16,7 @@ const Contents = ({ os, classes }) => {
   } else if (os === 'AndroidOS') {
     innerContents = <ForAndroid />;
   } else {
-    innerContents = <p>Other</p>;
+    innerContents = <p>ご利用中の端末は対応していないようです</p>;
   }
   return (
     <section>
