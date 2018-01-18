@@ -3,7 +3,7 @@ import { withStyles } from 'material-ui/styles';
 import Card, { CardMedia, CardContent } from 'material-ui/Card';
 import Typography from 'material-ui/Typography';
 
-import ForiOSStyles from '../../styles/AddToHomescreen/iOS-Style';
+import ForiOSStyles from '../../styles/AddToHomescreen/Contents-Style';
 
 const stepTexts = [
   'ブラウザ下部アイコンをタップ',
