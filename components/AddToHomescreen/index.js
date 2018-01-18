@@ -43,16 +43,9 @@ class AddToHomescreen extends PureComponent {
     if (mobile.standalone === null) {
       this.setState({ hidden: getMobileEnv().standalone });
     }
-    setTimeout(() => this.debugOpen(), 300); // DEBUG
   }
 
-  /* DEBUG */
-  debugOpen = () => {
-    findDOMNode(this.button).click();
-  }
-  /* DEBUG */
-
-  handleOpen = (event) => {
+  handleOpen = () => {
     const previousPage = GA.gets('page', 'title');
     GA.pageview({
       title: 'アプリをホーム画面へ追加する方法',
@@ -77,12 +70,9 @@ class AddToHomescreen extends PureComponent {
     const { os } = this.props.mobile;
     const { hidden, open } = this.state;
     if (hidden) { return null; }
-    const handleRef = (r) => { this.button = r; }; // DEBUG
     return (
       <Fragment>
-        <LaunchButton
-          ref={handleRef}
-          onClick={this.handleOpen} />
+        <LaunchButton onClick={this.handleOpen} />
         <Dialog
           open={open}
           onRequestClose={this.handleClose}
