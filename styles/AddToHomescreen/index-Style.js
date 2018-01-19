@@ -16,7 +16,7 @@ export default (theme) => {
     dialogActions: {
       ...greyBackground,
       margin: 0,
-      padding: `${unit}px ${unit / 2}px`,
+      padding: [unit, unit / 2],
     },
   });
 };
