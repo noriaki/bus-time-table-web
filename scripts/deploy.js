@@ -29,6 +29,7 @@ if (targetBranch == null) {
 
 const originBranch = `origin/${targetBranch}`;
 const localBranch = `${isStg ? 'stg/' : ''}${targetBranch}`;
+const runCommand = `start${isStg ? ':staging' : ''}`;
 
 if (!cli.flags.local) {
   if (cli.flags.fetch) {
@@ -45,7 +46,7 @@ const commands = [
   'yarn',
   'yarn build',
   `./node_modules/.bin/pm2 delete "${processName}"`,
-  `./node_modules/.bin/pm2 start npm --name="${processName}" -- run start:staging`,
+  `./node_modules/.bin/pm2 start npm --name="${processName}" -- run ${runCommand}`,
 ];
 console.log('...updating packages and building');
 execSync(commands.join(' && '));

@@ -11,7 +11,7 @@ import Table, {
   TableRow,
 } from 'material-ui/Table';
 
-// style
+// styles
 import TimeTableStyles from '../styles/TimeTable-Style';
 
 class TimeTable extends PureComponent {

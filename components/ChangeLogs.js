@@ -8,7 +8,7 @@ import { withStyles } from 'material-ui/styles';
 // data
 import logs from '../data/changelogs.json';
 
-// style
+// styles
 import ChangeLogsStyles from '../styles/ChangeLogs-Style';
 
 const ChangeLogs = ({ classes }) => (
