@@ -1,5 +1,4 @@
 import React, { PureComponent, Fragment } from 'react';
-import { findDOMNode } from 'react-dom'; // DEBUG
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import Button from 'material-ui/Button';
