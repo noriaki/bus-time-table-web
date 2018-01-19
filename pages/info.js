@@ -1,5 +1,4 @@
 import React from 'react';
-import MobileDetect from 'mobile-detect';
 
 // libs
 import getOriginalDisplayName from '../libs/getOriginalDisplayName';
@@ -27,12 +26,5 @@ const InfoPage = () => (
     </TableOfContents>
   </MainLayout>
 );
-InfoPage.getInitialProps = async ({ req }) => {
-  const userAgent = req ? req.headers['user-agent'] : navigator.userAgent;
-  return ({
-    userAgent,
-    os: (new MobileDetect(userAgent)).os(),
-  });
-};
 
 export default withMaterialUI(InfoPage);

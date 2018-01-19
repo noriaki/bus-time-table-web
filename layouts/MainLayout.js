@@ -30,6 +30,7 @@ class MainLayout extends PureComponent {
 
   componentDidMount() {
     const { router } = this.props;
+    // prefetching pages when production
     const otherPaths = paths.filter(path => path !== router.pathname);
     otherPaths.forEach((path) => {
       console.log(`prefetching... '${path}'`);
@@ -50,9 +51,9 @@ class MainLayout extends PureComponent {
       classes,
     } = this.props;
     const page = pages[router.pathname];
-    const pathsAndLabels = paths.map(path => ({
-      path, label: pages[path].label,
-    }));
+    const pathsAndLabels = paths.map(
+      path => ({ path, label: pages[path].label })
+    );
 
     return (
       <div className={classes.pageContainer}>

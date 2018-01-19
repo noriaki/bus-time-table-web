@@ -19,7 +19,10 @@ const ShareListSubheader = () => (
 );
 
 class ShareMenu extends Component {
-  state = { open: false }
+  state = {
+    open: false,
+    previousPage: null,
+  }
 
   handleOpen = () => {
     const previousPage = GA.gets('page', 'title');
@@ -35,14 +38,13 @@ class ShareMenu extends Component {
 
   handleClose = () => {
     GA.pageview(this.state.previousPage);
-    this.setState({ open: false });
+    this.setState({
+      open: false,
+      previousPage: null,
+    });
   }
 
   render() {
-    const ModalProps = {
-      onBackdropClick: this.handleClose,
-      onEscapeKeyUp: this.handleClose,
-    };
     const viewables = detectItemViewables();
     if (!viewables.self) { return null; }
 
@@ -56,8 +58,7 @@ class ShareMenu extends Component {
         <Drawer
           anchor="bottom"
           open={this.state.open}
-          onClose={this.handleClose}
-          ModalProps={ModalProps}>
+          onRequestClose={this.handleClose}>
           <List subheader={<ShareListSubheader />}>
             {viewables.line ? <Line onFinish={this.handleClose} /> : null}
             {viewables.fb ? <FacebookMessenger onFinish={this.handleClose} /> : null}

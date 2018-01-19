@@ -4,7 +4,7 @@ import Card, { CardContent } from 'material-ui/Card';
 import Typography from 'material-ui/Typography';
 import { withStyles } from 'material-ui/styles';
 
-// style
+// styles
 import ContactFormStyles from '../styles/ContactForm-Style';
 
 class ContactForm extends PureComponent {

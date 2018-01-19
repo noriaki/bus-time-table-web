@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { compose } from 'recompose';
 import { withStyles } from 'material-ui/styles';
 import SvgIcon from 'material-ui/SvgIcon';
 import InfoIcon from 'material-ui-icons/InfoOutline';
 
-// style
+// styles
 import NotifiableInfoIconStyles from '../styles/NotifiableInfoIcon-Style';
 
 const NotifiableInfoIcon = ({ badge, classes, theme }) => {
