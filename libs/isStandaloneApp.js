@@ -15,5 +15,5 @@ const matchMediaQuery = () => (
     matchMedia('(display-mode: standalone)').matches
 );
 const matchNavigatorProperty = () => (
-  typeof navigator === 'object' && navigator.standalone
+  typeof navigator === 'object' && Boolean(navigator.standalone)
 );
