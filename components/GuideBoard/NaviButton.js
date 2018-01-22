@@ -2,15 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { withStyles } from 'material-ui/styles';
-import Button from 'material-ui/Button';
 import ArrowLeftIcon from 'material-ui-icons/KeyboardArrowLeft';
 import ArrowRightIcon from 'material-ui-icons/KeyboardArrowRight';
 
+// components
+import DoubleClickableButton from '../../containers/DoubleClickableButton';
+
+// styles
 import NaviButtonStyle from '../../styles/GuideBoard/NaviButton-Style';
 
 const NaviButton = ({
   to,
   onClick,
+  onDoubleClick,
   disable,
   classes,
 }) => {
@@ -29,19 +33,21 @@ const NaviButton = ({
     finalClasses.label = classnames(finalClasses.label, labelVertical);
   }
   return (
-    <Button
+    <DoubleClickableButton
       classes={finalClasses}
       color="accent"
       disabled={disable}
-      onClick={onClick}>
+      onClick={onClick}
+      onDoubleClick={onDoubleClick}>
       <span>{params.text}</span>
       <params.Icon />
-    </Button>
+    </DoubleClickableButton>
   );
 };
 NaviButton.propTypes = {
   to: PropTypes.oneOf(['LxV', 'LxH', 'RxV', 'RxH']).isRequired,
   onClick: PropTypes.func.isRequired,
+  onDoubleClick: PropTypes.func.isRequired,
   disable: PropTypes.bool.isRequired,
   classes: PropTypes.shape({
     root: PropTypes.string,
