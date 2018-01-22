@@ -1,7 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { compose, withStateHandlers, setStatic } from 'recompose';
+import { parse } from 'url';
+import { compose, withStateHandlers, lifecycle, setStatic } from 'recompose';
 import Button from 'material-ui/Button';
+
+import isStandaloneApp from '../libs/isStandaloneApp';
 
 const initialState = {
   timer: null,
@@ -14,6 +17,11 @@ const stateUpdaters = {
   },
 };
 const isWaitingForDoubleClick = timer => typeof timer === 'number';
+
+function componentDidMount() {
+  const isStandalone = isStandaloneApp(parse(document.location.href, true));
+  if (!isStandalone) { this.setState({ onDoubleClick: null }); }
+}
 
 const DoubleClickableButton = ({
   onClick,
@@ -61,6 +69,7 @@ DoubleClickableButton.defaultProps = {
 };
 
 const enhance = compose(
+  lifecycle({ componentDidMount }),
   withStateHandlers(initialState, stateUpdaters),
   setStatic('muiName', 'Button')
 );
