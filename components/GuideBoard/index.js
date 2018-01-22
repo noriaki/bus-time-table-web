@@ -31,16 +31,16 @@ const GuideBoard = ({
   classes,
 }) => {
   const noop = () => {};
-  const disablePrev = onPrev === false;
-  const disableNext = onNext === false;
+  const isFront = onPrev === false;
+  const isLast = onNext === false;
   const gaEvent = {
     category: 'Timer',
     label: departure,
   };
-  const onClickPrev = !disablePrev ? () => GA.event({
+  const onClickPrev = !isFront ? () => GA.event({
     ...gaEvent, action: 'Prev', callback: onPrev,
   }) : noop;
-  const onClickNext = !disableNext ? () => GA.event({
+  const onClickNext = !isLast ? () => GA.event({
     ...gaEvent, action: 'Next', callback: onNext,
   }) : noop;
   const onClickFront = onFront && (() => GA.event({
@@ -74,7 +74,10 @@ const GuideBoard = ({
   } else {
     boardContentComponents = (
       <Fragment>
-        <DepartureInfo departure={departure} nextTime={nextTime} />
+        <DepartureInfo
+          departure={departure}
+          nextTime={nextTime}
+          last={isLast} />
         <CountDownClock remaining={remaining} />
       </Fragment>
     );
@@ -89,14 +92,14 @@ const GuideBoard = ({
           to={`Lx${classSuffix}`}
           onClick={onClickPrev}
           onDoubleClick={onClickFront}
-          disable={disablePrev} />
+          disable={isFront} />
       </nav>
       <nav className={nextClasses}>
         <NaviButton
           to={`Rx${classSuffix}`}
           onClick={onClickNext}
           onDoubleClick={onClickLast}
-          disable={disableNext} />
+          disable={isLast} />
       </nav>
     </article>
   );
