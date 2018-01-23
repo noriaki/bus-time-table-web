@@ -47,12 +47,15 @@ const NaviButton = ({
 NaviButton.propTypes = {
   to: PropTypes.oneOf(['LxV', 'LxH', 'RxV', 'RxH']).isRequired,
   onClick: PropTypes.func.isRequired,
-  onDoubleClick: PropTypes.func.isRequired,
+  onDoubleClick: PropTypes.func,
   disable: PropTypes.bool.isRequired,
   classes: PropTypes.shape({
     root: PropTypes.string,
     label: PropTypes.string,
   }).isRequired,
+};
+NaviButton.defaultProps = {
+  onDoubleClick: null,
 };
 
 export default withStyles(NaviButtonStyle)(NaviButton);
