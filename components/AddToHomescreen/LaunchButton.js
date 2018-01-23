@@ -8,11 +8,11 @@ import DownloadIcon from 'material-ui-icons/CloudDownload';
 import LaunchButtonStyles from '../../styles/AddToHomescreen/LaunchButton-Style';
 
 const LaunchButton = ({ classes, onClick }) => {
-  const { icon, ...buttonClasses } = classes;
+  const { icon, text, ...buttonClasses } = classes;
   return (
     <Button raised color="accent" onClick={onClick} classes={buttonClasses}>
       <DownloadIcon className={icon} />
-      アプリをダウンロード
+      <span className={text}>アプリをダウンロード</span>
     </Button>
   );
 };
