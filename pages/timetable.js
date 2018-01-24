@@ -16,7 +16,7 @@ import TimeTable from '../components/TimeTable';
 import withMaterialUI from '../containers/withMaterialUI';
 
 const HomeTimeTable = setComponentName('Home')(TimeTable);
-const HGinzaTimeTable = setComponentName('HGinza')(TimeTable);
+const HGinzaTimeTable = setComponentName('HigashiGinza')(TimeTable);
 const ShimbashiTimeTable = setComponentName('Shimbashi')(TimeTable);
 
 const labels = {
