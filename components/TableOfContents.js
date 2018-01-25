@@ -62,7 +62,6 @@ const buildTOCLinkItem = (labels, classes) => name => (
       offset={-64}
       duration={calcDuration}
       spy
-      hashSpy
       smooth>
       { labels[name] }
     </ScrollButton>

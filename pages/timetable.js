@@ -1,10 +1,8 @@
 import React from 'react';
-import { compose, lifecycle } from 'recompose';
 
 // libs
 import getOriginalDisplayName from '../libs/getOriginalDisplayName';
 import setComponentName from '../libs/setComponentName';
-import { scrollToHash } from '../libs/scroller';
 
 // data
 import timeTableHome from '../data/home-timetable.json';
@@ -37,10 +35,4 @@ const TimetablePage = () => (
   </MainLayout>
 );
 
-const enhance = compose(
-  withMaterialUI,
-  lifecycle({
-    componentDidMount() { scrollToHash(document.location.hash.slice(1)); },
-  })
-);
-export default enhance(TimetablePage);
+export default withMaterialUI(TimetablePage);

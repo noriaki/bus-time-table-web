@@ -1,18 +1,20 @@
-import { scroller } from 'react-scroll';
+import { scroller, animateScroll } from 'react-scroll';
 
 export const calcDuration = delta => (250 + (Math.log2(delta) * 20));
 
-export const scrollToHash = (hash) => {
-  if (hash !== '') {
-    scroller.scrollTo(hash, {
-      offset: -64,
-      duration: calcDuration,
-      smooth: true,
-    });
+export const scrollToHashOrTop = (scrollTarget) => {
+  const options = {
+    duration: calcDuration,
+    smooth: true,
+  };
+  if (scrollTarget != null && scrollTarget !== '') {
+    scroller.scrollTo(scrollTarget, { ...options, offset: -64 });
+  } else {
+    animateScroll.scrollToTop({ ...options, duration: 400 });
   }
 };
 
 export default {
   calcDuration,
-  scrollToHash,
+  scrollToHashOrTop,
 };

@@ -18,6 +18,7 @@ import GuideBoardHorizontallyStyle from '../../styles/GuideBoard/horizontally';
 import GuideBoardVerticallyStyle from '../../styles/GuideBoard/vertically';
 
 const GuideBoard = ({
+  id,
   departure,
   nextTime,
   remaining,
@@ -68,13 +69,18 @@ const GuideBoard = ({
   );
   let boardContentComponents;
   if (inactiveDay) {
-    boardContentComponents = <InactiveDaysBoard departure={departure} />;
+    boardContentComponents = (
+      <InactiveDaysBoard id={id} departure={departure} />
+    );
   } else if (afterTheLastBus) {
-    boardContentComponents = <ClosingTimeBoard departure={departure} />;
+    boardContentComponents = (
+      <ClosingTimeBoard id={id} departure={departure} />
+    );
   } else {
     boardContentComponents = (
       <Fragment>
         <DepartureInfo
+          id={id}
           departure={departure}
           nextTime={nextTime}
           last={isLast} />
@@ -105,6 +111,7 @@ const GuideBoard = ({
   );
 };
 GuideBoard.propTypes = {
+  id: PropTypes.oneOf(['Home', 'HigashiGinza', 'Shimbashi']).isRequired,
   departure: PropTypes.string.isRequired,
   nextTime: PropTypes.number,
   remaining: PropTypes.number,
