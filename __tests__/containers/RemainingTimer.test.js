@@ -36,7 +36,7 @@ describe('<RemainingTimer />', () => {
       const timetable = [{ hour: 23, minutes: [30] }];
       const wrapper = mount(
         <CurrentTimer timetable={timetable}>
-          <GuideBoard departure="t" />
+          <GuideBoard id="Home" departure="t" />
         </CurrentTimer>
       );
       expect(wrapper.find('GuideBoard').prop('afterTheLastBus')).toBe(false);
@@ -53,7 +53,7 @@ describe('<RemainingTimer />', () => {
       const timetable = [{ hour: 6, minutes: [0] }];
       const wrapper = mount(
         <CurrentTimer timetable={timetable}>
-          <GuideBoard departure="t" />
+          <GuideBoard id="Home" departure="t" />
         </CurrentTimer>
       );
       expect(wrapper.find('GuideBoard').prop('afterTheLastBus')).toBe(true);
@@ -70,7 +70,7 @@ describe('<RemainingTimer />', () => {
       const timetable = [{ hour: 6, minutes: [0] }];
       const wrapper = mount(
         <CurrentTimer timetable={timetable}>
-          <GuideBoard departure="t" />
+          <GuideBoard id="Home" departure="t" />
         </CurrentTimer>
       );
       expect(wrapper.find('GuideBoard').prop('afterTheLastBus')).toBe(true);
@@ -90,7 +90,7 @@ describe('<RemainingTimer />', () => {
       const timetable = [{ hour: 6, minutes: [0] }];
       const wrapper = mount(
         <CurrentTimer timetable={timetable}>
-          <GuideBoard departure="t" />
+          <GuideBoard id="Home" departure="t" />
         </CurrentTimer>
       );
       expect(wrapper.find('GuideBoard').prop('afterTheLastBus')).toBe(true);

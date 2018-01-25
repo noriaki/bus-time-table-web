@@ -6,7 +6,7 @@ import setComponentName from '../libs/setComponentName';
 
 // data
 import timeTableHome from '../data/home-timetable.json';
-import timeTableHGinza from '../data/st-higashiginza-timetable.json';
+import timeTableHigashiGinza from '../data/st-higashiginza-timetable.json';
 import timeTableShimbashi from '../data/st-shimbashi-timetable.json';
 
 // components
@@ -15,9 +15,9 @@ import TableOfContents from '../components/TableOfContents';
 import TimeTable from '../components/TimeTable';
 import withMaterialUI from '../containers/withMaterialUI';
 
-const HomeTimeTable = setComponentName('Home')(TimeTable);
-const HGinzaTimeTable = setComponentName('HGinza')(TimeTable);
-const ShimbashiTimeTable = setComponentName('Shimbashi')(TimeTable);
+const HomeTimeTable = setComponentName(timeTableHome.id)(TimeTable);
+const HGinzaTimeTable = setComponentName(timeTableHigashiGinza.id)(TimeTable);
+const ShimbashiTimeTable = setComponentName(timeTableShimbashi.id)(TimeTable);
 
 const labels = {
   [getOriginalDisplayName(HomeTimeTable)]: 'マンション',
@@ -29,7 +29,7 @@ const TimetablePage = () => (
   <MainLayout>
     <TableOfContents labels={labels}>
       <HomeTimeTable data={timeTableHome} />
-      <HGinzaTimeTable data={timeTableHGinza} />
+      <HGinzaTimeTable data={timeTableHigashiGinza} />
       <ShimbashiTimeTable data={timeTableShimbashi} />
     </TableOfContents>
   </MainLayout>

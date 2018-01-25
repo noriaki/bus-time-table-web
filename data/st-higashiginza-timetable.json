@@ -1,5 +1,6 @@
 {
   "version": 20171101,
+  "id": "HigashiGinza",
   "name": "東銀座駅",
   "activeDays": [1, 2, 3, 4, 5],
   "timetable": [

@@ -1,24 +1,35 @@
-export const container = {
-  margin: 0,
-  fontSize: 16,
-  fontWeight: 'normal',
-};
+export default (theme) => {
+  const { unit } = theme.spacing;
+  const { pxToRem } = theme.typography;
+  const container = {
+    margin: 0,
+    fontSize: pxToRem(16),
+    fontWeight: 'normal',
+  };
 
-export const departure = {
-};
+  const departure = {
+  };
 
-export const time = {
-  fontSize: 18,
-  margin: '0 8px',
-};
+  const time = {
+    fontSize: pxToRem(18),
+    margin: [0, unit],
+  };
 
-export const suffix = {
-  fontSize: 12,
-};
+  const suffix = {
+    fontSize: pxToRem(12),
+  };
 
-export default {
-  container,
-  departure,
-  time,
-  suffix,
+  const sign = {
+    ...suffix,
+    marginLeft: unit,
+    color: '#f44336', // material color red[500]
+  };
+
+  return {
+    container,
+    departure,
+    time,
+    suffix,
+    sign,
+  };
 };

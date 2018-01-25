@@ -23,21 +23,28 @@ const TimersBoard = ({ delay, classes }) => {
         <CurrentTimer
           timetable={timeTableHome.timetable}
           activeDays={timeTableHome.activeDays}>
-          <GuideBoard departure={timeTableHome.name} />
+          <GuideBoard
+            id={timeTableHome.id}
+            departure={timeTableHome.name} />
         </CurrentTimer>
       </div>
       <div className={classes.rightAside}>
         <CurrentTimer
           timetable={timeTableHigashiGinza.timetable}
           activeDays={timeTableHigashiGinza.activeDays}>
-          <GuideBoard vertically departure={timeTableHigashiGinza.name} />
+          <GuideBoard
+            vertically
+            id={timeTableHigashiGinza.id}
+            departure={timeTableHigashiGinza.name} />
         </CurrentTimer>
       </div>
       <div className={classes.crossBar}>
         <CurrentTimer
           timetable={timeTableShimbashi.timetable}
           activeDays={timeTableShimbashi.activeDays}>
-          <GuideBoard departure={timeTableShimbashi.name} />
+          <GuideBoard
+            id={timeTableShimbashi.id}
+            departure={timeTableShimbashi.name} />
         </CurrentTimer>
       </div>
       <div className={classes.leftAsideSeparator}>

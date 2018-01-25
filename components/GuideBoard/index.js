@@ -18,31 +18,38 @@ import GuideBoardHorizontallyStyle from '../../styles/GuideBoard/horizontally';
 import GuideBoardVerticallyStyle from '../../styles/GuideBoard/vertically';
 
 const GuideBoard = ({
+  id,
   departure,
   nextTime,
   remaining,
   onPrev,
   onNext,
+  onFront,
+  onLast,
   vertically,
   inactiveDay,
   afterTheLastBus,
   classes,
 }) => {
   const noop = () => {};
-  const disablePrev = onPrev === false;
-  const disableNext = onNext === false;
-  const onClickPrev = !disablePrev ? () => GA.event({
+  const isFront = onPrev === false;
+  const isLast = onNext === false;
+  const gaEvent = {
     category: 'Timer',
-    action: 'Prev',
     label: departure,
-    callback: onPrev,
+  };
+  const onClickPrev = !isFront ? () => GA.event({
+    ...gaEvent, action: 'Prev', callback: onPrev,
   }) : noop;
-  const onClickNext = !disableNext ? () => GA.event({
-    category: 'Timer',
-    action: 'Next',
-    label: departure,
-    callback: onNext,
+  const onClickNext = !isLast ? () => GA.event({
+    ...gaEvent, action: 'Next', callback: onNext,
   }) : noop;
+  const onClickFront = onFront && (() => GA.event({
+    ...gaEvent, action: 'Front', callback: onFront,
+  }));
+  const onClickLast = onLast && (() => GA.event({
+    ...gaEvent, action: 'Last', callback: onLast,
+  }));
   const classSuffix = vertically ? 'V' : 'H';
   const articleClasses = classnames(
     classes.container,
@@ -62,13 +69,21 @@ const GuideBoard = ({
   );
   let boardContentComponents;
   if (inactiveDay) {
-    boardContentComponents = <InactiveDaysBoard departure={departure} />;
+    boardContentComponents = (
+      <InactiveDaysBoard id={id} departure={departure} />
+    );
   } else if (afterTheLastBus) {
-    boardContentComponents = <ClosingTimeBoard departure={departure} />;
+    boardContentComponents = (
+      <ClosingTimeBoard id={id} departure={departure} />
+    );
   } else {
     boardContentComponents = (
       <Fragment>
-        <DepartureInfo departure={departure} nextTime={nextTime} />
+        <DepartureInfo
+          id={id}
+          departure={departure}
+          nextTime={nextTime}
+          last={isLast} />
         <CountDownClock remaining={remaining} />
       </Fragment>
     );
@@ -82,23 +97,28 @@ const GuideBoard = ({
         <NaviButton
           to={`Lx${classSuffix}`}
           onClick={onClickPrev}
-          disable={disablePrev} />
+          onDoubleClick={onClickFront}
+          disable={isFront} />
       </nav>
       <nav className={nextClasses}>
         <NaviButton
           to={`Rx${classSuffix}`}
           onClick={onClickNext}
-          disable={disableNext} />
+          onDoubleClick={onClickLast}
+          disable={isLast} />
       </nav>
     </article>
   );
 };
 GuideBoard.propTypes = {
+  id: PropTypes.oneOf(['Home', 'HigashiGinza', 'Shimbashi']).isRequired,
   departure: PropTypes.string.isRequired,
   nextTime: PropTypes.number,
   remaining: PropTypes.number,
   onPrev: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
   onNext: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
+  onFront: PropTypes.func,
+  onLast: PropTypes.func,
   vertically: PropTypes.bool,
   inactiveDay: PropTypes.bool,
   afterTheLastBus: PropTypes.bool,
@@ -109,6 +129,8 @@ GuideBoard.defaultProps = {
   remaining: undefined,
   onPrev: false,
   onNext: false,
+  onFront: null,
+  onLast: null,
   vertically: false,
   inactiveDay: false,
   afterTheLastBus: false,

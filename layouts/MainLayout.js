@@ -5,6 +5,9 @@ import compose from 'recompose/compose';
 import { withStyles } from 'material-ui/styles';
 import { withRouter } from 'next/router';
 
+// libs
+import { scrollToHashOrTop } from '../libs/scroller';
+
 // components
 import DocumentHeader from '../components/DocumentHeader';
 import AppTitleBar from '../components/AppTitleBar';
@@ -36,6 +39,10 @@ class MainLayout extends PureComponent {
       console.log(`prefetching... '${path}'`);
       router.prefetch(path);
     });
+    // scrolling anchor in page
+    const { scrollTarget } = router.query;
+    const hash = document.location.hash.slice(1);
+    scrollToHashOrTop(scrollTarget || hash);
   }
 
   analyticsValue = () => {

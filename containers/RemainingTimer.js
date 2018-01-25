@@ -37,12 +37,19 @@ class RemainingTimer extends PureComponent {
     };
   }
 
-  handleChangeTargetTo = (prevOrNext) => {
+  // @target: enum(['prev', 'next', 'front', 'last'])
+  handleChangeTargetTo = (target) => {
     const { timetable, index } = this.state;
-    if (index !== timetable.length - 1 && prevOrNext === 'next') {
+    const firstIndexOfTimetable = 0;
+    const lastIndexOfTimetable = timetable.length - 1;
+    if (index !== lastIndexOfTimetable && target === 'next') {
       return () => this.setState({ index: index + 1 });
-    } else if (index !== 0 && prevOrNext === 'prev') {
+    } else if (index !== firstIndexOfTimetable && target === 'prev') {
       return () => this.setState({ index: index - 1 });
+    } else if (target === 'front') {
+      return () => this.setState({ index: firstIndexOfTimetable });
+    } else if (target === 'last') {
+      return () => this.setState({ index: lastIndexOfTimetable });
     }
     return false;
   }
@@ -73,7 +80,9 @@ class RemainingTimer extends PureComponent {
         nextTime={nextTime.valueOf()}
         remaining={remaining.valueOf()}
         onPrev={this.handleChangeTargetTo('prev')}
-        onNext={this.handleChangeTargetTo('next')} />
+        onNext={this.handleChangeTargetTo('next')}
+        onFront={this.handleChangeTargetTo('front')}
+        onLast={this.handleChangeTargetTo('last')} />
     );
   }
 }
