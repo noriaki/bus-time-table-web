@@ -1,5 +1,6 @@
 {
   "version": 20171101,
+  "id": "Home",
   "name": "マンション",
   "activeDays": [1, 2, 3, 4, 5],
   "timetable": [
