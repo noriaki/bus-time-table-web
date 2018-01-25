@@ -1,5 +1,6 @@
 {
   "version": 20171101,
+  "id": "Shimbashi",
   "name": "新橋駅",
   "activeDays": [1, 2, 3, 4, 5],
   "timetable": [
