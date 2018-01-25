@@ -10,6 +10,7 @@ import { withStyles } from 'material-ui/styles';
 
 // libs
 import getOriginalDisplayName from '../libs/getOriginalDisplayName';
+import { calcDuration } from '../libs/scroller';
 
 // styles
 import TableOfContentsStyles from '../styles/TableOfContents-Style';
@@ -67,5 +68,3 @@ const buildTOCLinkItem = (labels, classes) => name => (
     </ScrollButton>
   </li>
 );
-
-const calcDuration = delta => (250 + (Math.log2(delta) * 20));

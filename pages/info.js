@@ -1,7 +1,9 @@
 import React from 'react';
+import { compose, lifecycle } from 'recompose';
 
 // libs
 import getOriginalDisplayName from '../libs/getOriginalDisplayName';
+import { scrollToHash } from '../libs/scroller';
 
 // components
 import MainLayout from '../layouts/MainLayout';
@@ -27,4 +29,10 @@ const InfoPage = () => (
   </MainLayout>
 );
 
-export default withMaterialUI(InfoPage);
+const enhance = compose(
+  withMaterialUI,
+  lifecycle({
+    componentDidMount() { scrollToHash(document.location.hash.slice(1)); },
+  })
+);
+export default enhance(InfoPage);
