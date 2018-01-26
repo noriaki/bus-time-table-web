@@ -5,7 +5,8 @@ import Button from 'material-ui/Button';
 import DownloadIcon from 'material-ui-icons/CloudDownload';
 
 // styles
-import LaunchButtonStyles from '../../styles/AddToHomescreen/LaunchButton-Style';
+import LaunchButtonAnimateStyles from '../../styles/AddToHomescreen/LaunchButtonAnimate-Style';
+import LaunchButtonMinimizeStyles from '../../styles/AddToHomescreen/LaunchButtonMinimize-Style';
 
 const LaunchButton = ({ classes, onClick }) => {
   const { icon, text, ...buttonClasses } = classes;
@@ -20,4 +21,15 @@ LaunchButton.propTypes = {
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
   onClick: PropTypes.func.isRequired,
 };
-export default withStyles(LaunchButtonStyles)(LaunchButton);
+
+export const LaunchButtonAnimate = withStyles(
+  LaunchButtonAnimateStyles
+)(LaunchButton);
+export const LaunchButtonMinimize = withStyles(
+  LaunchButtonMinimizeStyles
+)(LaunchButton);
+
+export default {
+  LaunchButtonAnimate,
+  LaunchButtonMinimize,
+};
