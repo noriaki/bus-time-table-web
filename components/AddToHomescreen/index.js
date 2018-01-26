@@ -12,9 +12,10 @@ import Dialog, {
 import getMobileEnv, {
   propTypes as mobilePropTypes,
 } from '../../libs/getMobileEnv';
+import { isMinimizeAppBanner, updateLastShownAt } from '../../libs/db';
 
 // components
-import LaunchButton from './LaunchButton';
+import { LaunchButtonAnimate, LaunchButtonMinimize } from './LaunchButton';
 import Contents from './Contents';
 import GA from '../GA';
 
@@ -31,6 +32,7 @@ class AddToHomescreen extends PureComponent {
     const { standalone } = props.mobile;
     this.state = {
       hidden: standalone === null ? true : standalone,
+      minimize: false,
       open: false,
       previousPage: null,
     };
@@ -38,10 +40,22 @@ class AddToHomescreen extends PureComponent {
 
   componentDidMount() {
     const { mobile } = this.props;
-    // show/hide button to launching app-getting popover
+
+    // for launching app-getting dialog
+    const nextState = {};
+
+    // show or hide button
     if (mobile.standalone === null) {
-      this.setState({ hidden: getMobileEnv().standalone });
+      nextState.hidden = getMobileEnv().standalone;
     }
+
+    // minimize or animate button
+    (async () => {
+      const isMinimize = await isMinimizeAppBanner();
+      nextState.minimize = isMinimize;
+      if (!isMinimize) { await updateLastShownAt(); }
+      this.setState(nextState);
+    })();
   }
 
   handleOpen = () => {
@@ -67,8 +81,9 @@ class AddToHomescreen extends PureComponent {
   render() {
     const { classes } = this.props;
     const { os } = this.props.mobile;
-    const { hidden, open } = this.state;
+    const { hidden, minimize, open } = this.state;
     if (hidden) { return null; }
+    const LaunchButton = minimize ? LaunchButtonMinimize : LaunchButtonAnimate;
     return (
       <Fragment>
         <LaunchButton onClick={this.handleOpen} />
