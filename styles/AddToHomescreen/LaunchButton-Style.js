@@ -1,28 +1,24 @@
-export const root = theme => ({
-  position: 'fixed',
-  right: 0,
-  bottom: theme.mixins.toolbar.minHeight,
-  marginRight: theme.spacing.unit,
-  marginBottom: theme.spacing.unit,
-});
-
-export const raisedAccent = (theme) => {
-  const baseProps = {
-    backgroundColor: theme.palette.secondary[100],
-    color: theme.palette.secondary[900],
+export default (theme) => {
+  const { unit } = theme.spacing;
+  const toolbarMinHeight = theme.mixins.toolbar.minHeight;
+  const secondaryColor = theme.palette.secondary;
+  const baseRaisedAccent = {
+    backgroundColor: secondaryColor[100],
+    color: secondaryColor[900],
   };
+
   return ({
-    ...baseProps,
-    '&:hover': { ...baseProps },
+    root: {
+      position: 'fixed',
+      right: 0,
+      bottom: toolbarMinHeight,
+      marginRight: unit,
+      marginBottom: unit,
+      minWidth: unit * 3,
+    },
+    raisedAccent: {
+      ...baseRaisedAccent,
+      '&:hover': { ...baseRaisedAccent },
+    },
   });
 };
-
-export const icon = theme => ({
-  marginRight: theme.spacing.unit,
-});
-
-export default theme => ({
-  root: root(theme),
-  raisedAccent: raisedAccent(theme),
-  icon: icon(theme),
-});
