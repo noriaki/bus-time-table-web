@@ -31,13 +31,13 @@ export default (theme) => {
       '@global': {
         '@keyframes shrinkContainer': {
           from: { maxWidth: '100vw' },
-          to: { maxWidth: unit * 7 },
+          to: { maxWidth: unit * 5 },
         },
         '@keyframes roundCorner': {
           to: { borderRadius: '50%' },
         },
         '@keyframes equalPadding': {
-          to: { padding: unit * 2 },
+          to: { padding: unit },
         },
         '@keyframes floatingPosition': {
           to: {
@@ -50,7 +50,7 @@ export default (theme) => {
         animationProp('shrinkContainer'),
         animationProp('roundCorner', 'ease-in'),
         animationProp('equalPadding', 'ease-in'),
-        animationProp('floatingPosition', 'ease-in'),
+        // animationProp('floatingPosition', 'ease-in'),
       ],
     },
     raisedAccent: {
