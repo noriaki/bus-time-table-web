@@ -30,6 +30,38 @@ class TimeTable extends PureComponent {
     classes: PropTypes.objectOf(PropTypes.string).isRequired,
   }
 
+  buildRow = ({ hour, minutes, estimated }, index) => {
+    const { classes } = this.props;
+    const { expanded } = this.state;
+    if (!expanded && !this.mainHourRange.includes(hour)) { return null; }
+    const minutesColumnClassName = classnames(
+      classes.timetableMinutesContainer,
+      estimated ? classes.timetableMinutesContainerEstimated : undefined
+    );
+    return (
+      <TableRow key={`${index}-${hour}`} className={classes.timetableRow}>
+        <TableCell padding="dense" className={classes.timetableHourColumn}>
+          { moment({ hour }).format('HH') }
+        </TableCell>
+        <TableCell padding="dense" className={minutesColumnClassName}>
+          { minutes.map(this.buildMinutesColumn(hour)) }
+        </TableCell>
+      </TableRow>
+    );
+  }
+
+  buildMinutesColumn = hour => (minute) => {
+    const { classes } = this.props;
+    const time = moment({ hour, minute });
+    const pos = Math.floor(minute / 5);
+    const className = classnames(classes.timetableMinuteColumn, classes[pos]);
+    return (
+      <span key={time.format('HH:mm')} className={className}>
+        { time.format('mm') }
+      </span>
+    );
+  }
+
   render() {
     const { classes, data } = this.props;
     return (
@@ -48,7 +80,7 @@ class TimeTable extends PureComponent {
           <CardContent className={classes.cardContentRoot}>
             <Table className={classes.timetableRoot}>
               <TableBody>
-                { data.timetable.map(buildTimeTableRow(classes)) }
+                { data.timetable.map(this.buildRow) }
               </TableBody>
             </Table>
           </CardContent>
@@ -58,31 +90,3 @@ class TimeTable extends PureComponent {
   }
 }
 export default withStyles(TimeTableStyles)(TimeTable);
-
-const buildTimeTableRow = classes => ({ hour, minutes, estimated }, index) => {
-  const minutesColumnClassName = classnames(
-    classes.timetableMinutesContainer,
-    estimated ? classes.timetableMinutesContainerEstimated : undefined
-  );
-  return (
-    <TableRow key={`${index}-${hour}`} className={classes.timetableRow}>
-      <TableCell padding="dense" className={classes.timetableHourColumn}>
-        { moment({ hour }).format('HH') }
-      </TableCell>
-      <TableCell padding="dense" className={minutesColumnClassName}>
-        { minutes.map(buildTimeTableMinutes({ hour, classes })) }
-      </TableCell>
-    </TableRow>
-  );
-};
-
-const buildTimeTableMinutes = ({ hour, classes }) => (minute) => {
-  const time = moment({ hour, minute });
-  const pos = Math.floor(minute / 5);
-  const className = classnames(classes.timetableMinuteColumn, classes[pos]);
-  return (
-    <span key={time.format('HH:mm')} className={className}>
-      { time.format('mm') }
-    </span>
-  );
-};
