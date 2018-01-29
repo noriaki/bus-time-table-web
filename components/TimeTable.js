@@ -40,6 +40,10 @@ class TimeTable extends PureComponent {
             発
           </Typography>
         </Typography>
+        <Typography type="caption" className={classes.caption}>
+          灰色の時間帯は発着目安時刻です。<br />
+          到着時点で待っている人のみ乗車可能ですのでご注意ください。
+        </Typography>
         <Card>
           <CardContent className={classes.cardContentRoot}>
             <Table className={classes.timetableRoot}>

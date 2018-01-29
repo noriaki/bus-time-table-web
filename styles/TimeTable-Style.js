@@ -5,6 +5,10 @@ export const headlineSuffix = {
   margin: '0 .5em',
 };
 
+export const caption = {
+  marginBottom: '0.5em',
+};
+
 export const cardContentRoot = {
   padding: 0,
   '&:last-child': {
@@ -75,6 +79,7 @@ const minuteColumnPositions = [...new Array(minutesColumnSize)].map(
 export default theme => ({
   headline: headline(theme),
   headlineSuffix,
+  caption,
   cardContentRoot,
   timetableRoot,
   timetableRow: timetableRow(theme),
