@@ -11,6 +11,9 @@ import Table, {
   TableRow,
 } from 'material-ui/Table';
 import range from 'lodash.range';
+import Button from 'material-ui/Button';
+import ArrowCollapseIcon from 'mdi-material-ui/ArrowCollapse';
+import ArrowExpandIcon from 'mdi-material-ui/ArrowExpand';
 
 // styles
 import TimeTableStyles from '../styles/TimeTable-Style';
@@ -28,13 +31,9 @@ class TimeTable extends PureComponent {
         })
       ),
     }).isRequired,
-    nextTime: PropTypes.number,
-    remaining: PropTypes.number,
+    nextTime: PropTypes.number.isRequired,
+    remaining: PropTypes.number.isRequired,
     classes: PropTypes.objectOf(PropTypes.string).isRequired,
-  }
-  static defaultProps = { // TODO: to required
-    nextTime: moment().add(30, 'minutes').valueOf(),
-    remaining: 30 * 60 * 1000,
   }
 
   constructor(props, ...args) {
@@ -97,16 +96,31 @@ class TimeTable extends PureComponent {
     );
   }
 
+  handleClick = () => {
+    this.setState({ expanded: !this.state.expanded });
+  }
+
   render() {
     const { classes, data } = this.props;
+    const { expanded } = this.state;
+    const toggle = {
+      Icon: expanded ? ArrowCollapseIcon : ArrowExpandIcon,
+      label: expanded ? '4時間分だけ表示する' : '全ての時間帯を表示する',
+    };
     return (
       <section>
-        <Typography type="headline" className={classes.headline}>
-          { data.name }
-          <Typography component="span" className={classes.headlineSuffix}>
-            発
+        <div className={classes.headlineContainer}>
+          <Typography type="headline">
+            { data.name }
+            <Typography component="span" className={classes.headlineSuffix}>
+              発
+            </Typography>
           </Typography>
-        </Typography>
+          <Button dense onClick={this.handleClick}>
+            { toggle.label }
+            { <toggle.Icon className={classes.buttonIcon} /> }
+          </Button>
+        </div>
         <Typography type="caption" className={classes.caption}>
           灰色の時間帯は発着目安時刻です。<br />
           到着時点で待っている人のみ乗車可能ですのでご注意ください。

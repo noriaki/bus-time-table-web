@@ -1,9 +1,21 @@
 import { headline } from './InfoBase-Style';
 
+export const headlineContainer = theme => ({
+  ...headline(theme),
+  marginBottom: 0,
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+});
+
 export const headlineSuffix = {
   display: 'inline',
   margin: '0 .5em',
 };
+
+export const buttonIcon = theme => ({
+  marginLeft: theme.spacing.unit / 2,
+});
 
 export const caption = {
   marginBottom: '0.5em',
@@ -89,8 +101,10 @@ const currentTimeMinuteColumn = (theme) => {
 };
 
 export default theme => ({
+  headlineContainer: headlineContainer(theme),
   headline: headline(theme),
   headlineSuffix,
+  buttonIcon: buttonIcon(theme),
   caption,
   cardContentRoot,
   timetableRoot,
