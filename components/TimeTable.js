@@ -10,6 +10,7 @@ import Table, {
   TableCell,
   TableRow,
 } from 'material-ui/Table';
+import range from 'lodash.range';
 
 // styles
 import TimeTableStyles from '../styles/TimeTable-Style';
@@ -27,7 +28,35 @@ class TimeTable extends PureComponent {
         })
       ),
     }).isRequired,
+    nextTime: PropTypes.number,
+    remaining: PropTypes.number,
     classes: PropTypes.objectOf(PropTypes.string).isRequired,
+  }
+  static defaultProps = { // TODO: to required
+    nextTime: moment().add(30, 'minutes').valueOf(),
+    remaining: 30 * 60 * 1000,
+  }
+
+  constructor(props, ...args) {
+    super(props, ...args);
+    const { nextTime, remaining } = props;
+    this.setMainHourRange({ nextTime, remaining });
+    this.state = {
+      expanded: true,
+    };
+  }
+
+  componentDidMount() {}
+
+  componentWillReceiveProps({ nextTime, remaining }) {
+    this.setMainHourRange({ nextTime, remaining });
+  }
+
+  setMainHourRange = ({ nextTime, remaining }) => {
+    const currentTime = nextTime - remaining;
+    const currentHour = moment(currentTime).hours();
+    // taking 4 hours for showing expanded view
+    this.mainHourRange = range(currentHour - 1, currentHour + 3);
   }
 
   buildRow = ({ hour, minutes, estimated }, index) => {
@@ -51,12 +80,18 @@ class TimeTable extends PureComponent {
   }
 
   buildMinutesColumn = hour => (minute) => {
-    const { classes } = this.props;
+    const { classes, nextTime } = this.props;
     const time = moment({ hour, minute });
+    const hhmm = time.format('HH:mm');
     const pos = Math.floor(minute / 5);
-    const className = classnames(classes.timetableMinuteColumn, classes[pos]);
+    const isNextTime = hhmm === moment(nextTime).format('HH:mm');
+    const className = classnames(
+      classes.timetableMinuteColumn,
+      classes[pos],
+      isNextTime ? classes.currentTimeMinuteColumn : undefined
+    );
     return (
-      <span key={time.format('HH:mm')} className={className}>
+      <span key={hhmm} title={hhmm} className={className}>
         { time.format('mm') }
       </span>
     );

@@ -76,6 +76,18 @@ const minuteColumnPositions = [...new Array(minutesColumnSize)].map(
   (_, i) => ({ gridColumn: `${i + 1} / ${i + 2}` })
 );
 
+const currentTimeMinuteColumn = (theme) => {
+  const space = theme.spacing.unit / 2;
+  return ({
+    backgroundColor: theme.palette.secondary[200],
+    color: theme.palette.grey[100],
+    fontWeight: 'lighter',
+    paddingLeft: space,
+    paddingRight: space,
+    marginLeft: space * -1,
+  });
+};
+
 export default theme => ({
   headline: headline(theme),
   headlineSuffix,
@@ -88,4 +100,5 @@ export default theme => ({
   timetableMinutesContainerEstimated: timetableMinutesContainerEstimated(theme),
   timetableMinuteColumn: timetableMinuteColumn(theme),
   ...minuteColumnPositions,
+  currentTimeMinuteColumn: currentTimeMinuteColumn(theme),
 });
