@@ -15,6 +15,9 @@ import Button from 'material-ui/Button';
 import ArrowCollapseIcon from 'mdi-material-ui/ArrowCollapse';
 import ArrowExpandIcon from 'mdi-material-ui/ArrowExpand';
 
+// libs
+import { isTimetableCollapse, updateTimetableCollapse } from '../libs/db';
+
 // styles
 import TimeTableStyles from '../styles/TimeTable-Style';
 
@@ -22,6 +25,7 @@ class TimeTable extends PureComponent {
   static propTypes = {
     data: PropTypes.shape({
       version: PropTypes.number,
+      id: PropTypes.string,
       name: PropTypes.string,
       timetable: PropTypes.arrayOf(
         PropTypes.shape({
@@ -48,11 +52,18 @@ class TimeTable extends PureComponent {
     const { timestamp } = props;
     this.setMainHourRange(timestamp);
     this.state = {
-      expanded: true,
+      collapse: false,
     };
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    if (this.isInOperation()) {
+      (async () => {
+        const isCollapse = await isTimetableCollapse(this.props.data.id);
+        this.setState({ collapse: isCollapse });
+      })();
+    }
+  }
 
   componentWillReceiveProps({ timestamp }) {
     this.setMainHourRange(timestamp);
@@ -60,7 +71,7 @@ class TimeTable extends PureComponent {
 
   setMainHourRange = (timestamp) => {
     const currentHour = moment(timestamp).hours();
-    // taking 4 hours for showing expanded view
+    // taking 4 hours for showing collapsed view
     this.mainHourRange = range(currentHour - 1, currentHour + 3);
   }
 
@@ -68,8 +79,8 @@ class TimeTable extends PureComponent {
 
   buildRow = ({ hour, minutes, estimated }, index) => {
     const { classes } = this.props;
-    const { expanded } = this.state;
-    if (!expanded && !this.mainHourRange.includes(hour)) { return null; }
+    const { collapse } = this.state;
+    if (collapse && !this.mainHourRange.includes(hour)) { return null; }
     const minutesColumnClassName = classnames(
       classes.timetableMinutesContainer,
       estimated ? classes.timetableMinutesContainerEstimated : undefined
@@ -105,15 +116,17 @@ class TimeTable extends PureComponent {
   }
 
   handleClick = () => {
-    this.setState({ expanded: !this.state.expanded });
+    const nextCollapse = !this.state.collapse;
+    updateTimetableCollapse(this.props.data.id, nextCollapse)
+      .then(() => { this.setState({ collapse: nextCollapse }); });
   }
 
   render() {
     const { classes, data } = this.props;
-    const { expanded } = this.state;
+    const { collapse } = this.state;
     const toggle = {
-      Icon: expanded ? ArrowCollapseIcon : ArrowExpandIcon,
-      label: expanded ? '4時間分だけ表示する' : '全ての時間帯を表示する',
+      Icon: collapse ? ArrowExpandIcon : ArrowCollapseIcon,
+      label: collapse ? '全ての時間帯を表示する' : '4時間分だけ表示する',
     };
     const ToggleButton = () => (this.isInOperation() ? (
       <Button dense onClick={this.handleClick}>
