@@ -31,15 +31,22 @@ class TimeTable extends PureComponent {
         })
       ),
     }).isRequired,
-    nextTime: PropTypes.number.isRequired,
-    remaining: PropTypes.number.isRequired,
+    nextTime: PropTypes.number,
+    inactiveDay: PropTypes.bool,
+    afterTheLastBus: PropTypes.bool,
+    timestamp: PropTypes.number.isRequired,
     classes: PropTypes.objectOf(PropTypes.string).isRequired,
+  }
+  static defaultProps = {
+    nextTime: null,
+    inactiveDay: false,
+    afterTheLastBus: false,
   }
 
   constructor(props, ...args) {
     super(props, ...args);
-    const { nextTime, remaining } = props;
-    this.setMainHourRange({ nextTime, remaining });
+    const { timestamp } = props;
+    this.setMainHourRange(timestamp);
     this.state = {
       expanded: true,
     };
@@ -47,16 +54,17 @@ class TimeTable extends PureComponent {
 
   componentDidMount() {}
 
-  componentWillReceiveProps({ nextTime, remaining }) {
-    this.setMainHourRange({ nextTime, remaining });
+  componentWillReceiveProps({ timestamp }) {
+    this.setMainHourRange(timestamp);
   }
 
-  setMainHourRange = ({ nextTime, remaining }) => {
-    const currentTime = nextTime - remaining;
-    const currentHour = moment(currentTime).hours();
+  setMainHourRange = (timestamp) => {
+    const currentHour = moment(timestamp).hours();
     // taking 4 hours for showing expanded view
     this.mainHourRange = range(currentHour - 1, currentHour + 3);
   }
+
+  isInOperation = () => !this.props.inactiveDay && !this.props.afterTheLastBus
 
   buildRow = ({ hour, minutes, estimated }, index) => {
     const { classes } = this.props;
@@ -83,7 +91,7 @@ class TimeTable extends PureComponent {
     const time = moment({ hour, minute });
     const hhmm = time.format('HH:mm');
     const pos = Math.floor(minute / 5);
-    const isNextTime = hhmm === moment(nextTime).format('HH:mm');
+    const isNextTime = nextTime && hhmm === moment(nextTime).format('HH:mm');
     const className = classnames(
       classes.timetableMinuteColumn,
       classes[pos],
@@ -107,6 +115,12 @@ class TimeTable extends PureComponent {
       Icon: expanded ? ArrowCollapseIcon : ArrowExpandIcon,
       label: expanded ? '4時間分だけ表示する' : '全ての時間帯を表示する',
     };
+    const ToggleButton = () => (this.isInOperation() ? (
+      <Button dense onClick={this.handleClick}>
+        { toggle.label }
+        { <toggle.Icon className={classes.buttonIcon} /> }
+      </Button>
+    ) : null);
     return (
       <section>
         <div className={classes.headlineContainer}>
@@ -116,10 +130,7 @@ class TimeTable extends PureComponent {
               発
             </Typography>
           </Typography>
-          <Button dense onClick={this.handleClick}>
-            { toggle.label }
-            { <toggle.Icon className={classes.buttonIcon} /> }
-          </Button>
+          <ToggleButton />
         </div>
         <Typography type="caption" className={classes.caption}>
           灰色の時間帯は発着目安時刻です。<br />
