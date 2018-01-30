@@ -12,8 +12,8 @@ db
 db
   .version(2)
   .stores({
-    userStates: '&version, isUnreadNotification',
-    uiStates: '&name, state',
+    userStates: '&version',
+    uiStates: '&name',
   });
 
 export default db;
@@ -36,7 +36,7 @@ export const firstOrCreateUiState = async (stateName) => {
   let state = await db.uiStates.where('name').equals(stateName).first();
   if (state === undefined) {
     if (stateName === 'appBannerShow') {
-      state = { name: stateName, lastShownAt: undefined };
+      state = { name: stateName, state: { lastShownAt: undefined } };
     } else {
       return new Error('Not valid params. valid: enum[appBannerShow]');
     }
@@ -46,13 +46,12 @@ export const firstOrCreateUiState = async (stateName) => {
 };
 
 export const isMinimizeAppBanner = async () => {
-  const needUpdatingAfter = [2, 'days'];
-  const { lastShownAt } = await firstOrCreateUiState('appBannerShow');
-  if (lastShownAt === undefined) { return false; }
-  return moment(lastShownAt).add(...needUpdatingAfter).isAfter(moment());
+  const { state } = await firstOrCreateUiState('appBannerShow');
+  if (state.lastShownAt === undefined) { return false; }
+  return moment(state.lastShownAt).add(2, 'days').isAfter(moment());
 };
 
 // @async
-export const updateLastShownAt = () => db.uiStates
+export const updateLastShownAt = (lastShownAt = Date.now()) => db.uiStates
   .where('name').equals('appBannerShow')
-  .modify({ lastShownAt: Date.now() });
+  .modify({ state: { lastShownAt } });
