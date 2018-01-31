@@ -19,6 +19,9 @@ import ArrowExpandIcon from 'mdi-material-ui/ArrowExpand';
 import { isTimetableCollapse, updateTimetableCollapse } from '../libs/db';
 import { momentFromVersion } from '../libs/timeTableDataHandler';
 
+// components
+import GA from './GA';
+
 // styles
 import TimeTableStyles from '../styles/TimeTable-Style';
 
@@ -122,10 +125,16 @@ class TimeTable extends PureComponent {
     );
   }
 
-  handleClick = () => {
+  handleClick = async () => {
     const nextCollapse = !this.state.collapse;
-    updateTimetableCollapse(this.props.data.id, nextCollapse)
-      .then(() => { this.setState({ collapse: nextCollapse }); });
+    const { id, name } = this.props.data;
+    await updateTimetableCollapse(id, nextCollapse);
+    GA.event({
+      category: 'Timetable',
+      action: nextCollapse ? 'Collapse' : 'Expand',
+      label: name,
+      callback: () => { this.setState({ collapse: nextCollapse }); },
+    });
   }
 
   render() {
