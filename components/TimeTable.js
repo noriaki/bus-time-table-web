@@ -17,6 +17,7 @@ import ArrowExpandIcon from 'mdi-material-ui/ArrowExpand';
 
 // libs
 import { isTimetableCollapse, updateTimetableCollapse } from '../libs/db';
+import { momentFromVersion } from '../libs/timeTableDataHandler';
 
 // styles
 import TimeTableStyles from '../styles/TimeTable-Style';
@@ -124,6 +125,8 @@ class TimeTable extends PureComponent {
   render() {
     const { classes, data } = this.props;
     const { collapse } = this.state;
+    const timetableUpdatedAt =
+            momentFromVersion(data.version).format('YYYY/MM/DD');
     const toggle = {
       Icon: collapse ? ArrowExpandIcon : ArrowCollapseIcon,
       label: collapse ? '全ての時間帯を表示する' : '4時間分だけ表示する',
@@ -145,7 +148,7 @@ class TimeTable extends PureComponent {
           </Typography>
           <ToggleButton />
         </div>
-        <Typography type="caption" className={classes.caption}>
+        <Typography type="caption" gutterBottom>
           灰色の時間帯は発着目安時刻です。<br />
           到着時点で待っている人のみ乗車可能ですのでご注意ください。
         </Typography>
@@ -158,6 +161,9 @@ class TimeTable extends PureComponent {
             </Table>
           </CardContent>
         </Card>
+        <Typography type="caption" align="right" className={classes.updatedAt}>
+          時刻表更新日：{ timetableUpdatedAt }
+        </Typography>
       </section>
     );
   }

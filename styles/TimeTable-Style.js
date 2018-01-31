@@ -17,10 +17,6 @@ export const buttonIcon = theme => ({
   marginLeft: theme.spacing.unit / 2,
 });
 
-export const caption = {
-  marginBottom: '0.5em',
-};
-
 export const cardContentRoot = {
   padding: 0,
   '&:last-child': {
@@ -100,12 +96,15 @@ const currentTimeMinuteColumn = (theme) => {
   });
 };
 
+export const updatedAt = theme => ({
+  marginTop: theme.spacing.unit,
+});
+
 export default theme => ({
   headlineContainer: headlineContainer(theme),
   headline: headline(theme),
   headlineSuffix,
   buttonIcon: buttonIcon(theme),
-  caption,
   cardContentRoot,
   timetableRoot,
   timetableRow: timetableRow(theme),
@@ -115,4 +114,5 @@ export default theme => ({
   timetableMinuteColumn: timetableMinuteColumn(theme),
   ...minuteColumnPositions,
   currentTimeMinuteColumn: currentTimeMinuteColumn(theme),
+  updatedAt: updatedAt(theme),
 });
