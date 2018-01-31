@@ -50,8 +50,8 @@ class TimeTable extends PureComponent {
 
   constructor(props, ...args) {
     super(props, ...args);
-    const { timestamp } = props;
-    this.setMainHourRange(timestamp);
+    const { timestamp, nextTime } = props;
+    this.setMainHourRange(timestamp, nextTime);
     this.state = {
       collapse: false,
     };
@@ -66,14 +66,20 @@ class TimeTable extends PureComponent {
     }
   }
 
-  componentWillReceiveProps({ timestamp }) {
-    this.setMainHourRange(timestamp);
+  componentWillReceiveProps({ timestamp, nextTime }) {
+    this.setMainHourRange(timestamp, nextTime);
   }
 
-  setMainHourRange = (timestamp) => {
+  setMainHourRange = (timestamp, nextTime) => {
     const currentHour = moment(timestamp).hours();
     // taking 4 hours for showing collapsed view
-    this.mainHourRange = range(currentHour - 1, currentHour + 3);
+    let displayStartHour;
+    if (nextTime != null && currentHour !== moment(nextTime).hours()) {
+      displayStartHour = currentHour;
+    } else {
+      displayStartHour = currentHour - 1;
+    }
+    this.mainHourRange = range(displayStartHour, displayStartHour + 4);
   }
 
   isInOperation = () => !this.props.inactiveDay && !this.props.afterTheLastBus
