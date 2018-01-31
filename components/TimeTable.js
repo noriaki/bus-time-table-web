@@ -19,6 +19,9 @@ import ArrowExpandIcon from 'mdi-material-ui/ArrowExpand';
 import { isTimetableCollapse, updateTimetableCollapse } from '../libs/db';
 import { momentFromVersion } from '../libs/timeTableDataHandler';
 
+// components
+import GA from './GA';
+
 // styles
 import TimeTableStyles from '../styles/TimeTable-Style';
 
@@ -50,8 +53,8 @@ class TimeTable extends PureComponent {
 
   constructor(props, ...args) {
     super(props, ...args);
-    const { timestamp } = props;
-    this.setMainHourRange(timestamp);
+    const { timestamp, nextTime } = props;
+    this.setMainHourRange(timestamp, nextTime);
     this.state = {
       collapse: false,
     };
@@ -66,14 +69,20 @@ class TimeTable extends PureComponent {
     }
   }
 
-  componentWillReceiveProps({ timestamp }) {
-    this.setMainHourRange(timestamp);
+  componentWillReceiveProps({ timestamp, nextTime }) {
+    this.setMainHourRange(timestamp, nextTime);
   }
 
-  setMainHourRange = (timestamp) => {
+  setMainHourRange = (timestamp, nextTime) => {
     const currentHour = moment(timestamp).hours();
     // taking 4 hours for showing collapsed view
-    this.mainHourRange = range(currentHour - 1, currentHour + 3);
+    let displayStartHour;
+    if (nextTime != null && currentHour !== moment(nextTime).hours()) {
+      displayStartHour = currentHour;
+    } else {
+      displayStartHour = currentHour - 1;
+    }
+    this.mainHourRange = range(displayStartHour, displayStartHour + 4);
   }
 
   isInOperation = () => !this.props.inactiveDay && !this.props.afterTheLastBus
@@ -116,10 +125,16 @@ class TimeTable extends PureComponent {
     );
   }
 
-  handleClick = () => {
+  handleClick = async () => {
     const nextCollapse = !this.state.collapse;
-    updateTimetableCollapse(this.props.data.id, nextCollapse)
-      .then(() => { this.setState({ collapse: nextCollapse }); });
+    const { id, name } = this.props.data;
+    await updateTimetableCollapse(id, nextCollapse);
+    GA.event({
+      category: 'Timetable',
+      action: nextCollapse ? 'Collapse' : 'Expand',
+      label: name,
+      callback: () => { this.setState({ collapse: nextCollapse }); },
+    });
   }
 
   render() {
