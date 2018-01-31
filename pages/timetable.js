@@ -1,4 +1,5 @@
 import React from 'react';
+import timer from 'react-timer-hoc';
 
 // libs
 import getOriginalDisplayName from '../libs/getOriginalDisplayName';
@@ -12,6 +13,7 @@ import timeTableShimbashi from '../data/st-shimbashi-timetable.json';
 // components
 import MainLayout from '../layouts/MainLayout';
 import TableOfContents from '../components/TableOfContents';
+import RemainingTimer from '../containers/RemainingTimer';
 import TimeTable from '../components/TimeTable';
 import withMaterialUI from '../containers/withMaterialUI';
 
@@ -25,14 +27,33 @@ const labels = {
   [getOriginalDisplayName(ShimbashiTimeTable)]: '新橋駅',
 };
 
-const TimetablePage = () => (
-  <MainLayout>
-    <TableOfContents labels={labels}>
-      <HomeTimeTable data={timeTableHome} />
-      <HGinzaTimeTable data={timeTableHigashiGinza} />
-      <ShimbashiTimeTable data={timeTableShimbashi} />
-    </TableOfContents>
-  </MainLayout>
-);
+const TimetablePage = () => {
+  const delay = 60 * 1000;
+  const CurrentTimer = timer(delay)(RemainingTimer);
+  const HomeTimer = setComponentName(timeTableHome.id)(CurrentTimer);
+  const HigashiGinzaTimer = setComponentName(timeTableHigashiGinza.id)(CurrentTimer);
+  const ShimbashiTimer = setComponentName(timeTableShimbashi.id)(CurrentTimer);
+  return (
+    <MainLayout>
+      <TableOfContents labels={labels}>
+        <HomeTimer
+          timetable={timeTableHome.timetable}
+          activeDays={timeTableHome.activeDays}>
+          <HomeTimeTable data={timeTableHome} />
+        </HomeTimer>
+        <HigashiGinzaTimer
+          timetable={timeTableHigashiGinza.timetable}
+          activeDays={timeTableHigashiGinza.activeDays}>
+          <HGinzaTimeTable data={timeTableHigashiGinza} />
+        </HigashiGinzaTimer>
+        <ShimbashiTimer
+          timetable={timeTableShimbashi.timetable}
+          activeDays={timeTableShimbashi.activeDays}>
+          <ShimbashiTimeTable data={timeTableShimbashi} />
+        </ShimbashiTimer>
+      </TableOfContents>
+    </MainLayout>
+  );
+};
 
 export default withMaterialUI(TimetablePage);
