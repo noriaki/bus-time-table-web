@@ -89,7 +89,7 @@ class AddToHomescreen extends PureComponent {
         <LaunchButton onClick={this.handleOpen} />
         <Dialog
           open={open}
-          onRequestClose={this.handleClose}
+          onClose={this.handleClose}
           aria-labelledby="getapp-screen-title">
           <DialogTitle
             id="getapp-screen-title"

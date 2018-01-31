@@ -58,7 +58,7 @@ class ShareMenu extends Component {
         <Drawer
           anchor="bottom"
           open={this.state.open}
-          onRequestClose={this.handleClose}>
+          onClose={this.handleClose}>
           <List subheader={<ShareListSubheader />}>
             {viewables.line ? <Line onFinish={this.handleClose} /> : null}
             {viewables.fb ? <FacebookMessenger onFinish={this.handleClose} /> : null}

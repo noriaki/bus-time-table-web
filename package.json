@@ -31,7 +31,7 @@
     "jss-preset-default": "^4.0.1",
     "lodash.defaultsdeep": "^4.6.0",
     "lodash.range": "^3.2.0",
-    "material-ui": "^1.0.0-beta.21",
+    "material-ui": "1.0.0-beta.24",
     "material-ui-icons": "^1.0.0-beta.17",
     "mdi-material-ui": "^3.0.0",
     "mobile-detect": "^1.4.0",
