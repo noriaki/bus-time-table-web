@@ -1,9 +1,21 @@
 import { headline } from './InfoBase-Style';
 
+export const headlineContainer = theme => ({
+  ...headline(theme),
+  marginBottom: 0,
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+});
+
 export const headlineSuffix = {
   display: 'inline',
   margin: '0 .5em',
 };
+
+export const buttonIcon = theme => ({
+  marginLeft: theme.spacing.unit / 2,
+});
 
 export const cardContentRoot = {
   padding: 0,
@@ -72,9 +84,27 @@ const minuteColumnPositions = [...new Array(minutesColumnSize)].map(
   (_, i) => ({ gridColumn: `${i + 1} / ${i + 2}` })
 );
 
+const currentTimeMinuteColumn = (theme) => {
+  const space = theme.spacing.unit / 2;
+  return ({
+    backgroundColor: theme.palette.secondary[200],
+    color: theme.palette.grey[100],
+    fontWeight: 'lighter',
+    paddingLeft: space,
+    paddingRight: space,
+    marginLeft: space * -1,
+  });
+};
+
+export const updatedAt = theme => ({
+  marginTop: theme.spacing.unit,
+});
+
 export default theme => ({
+  headlineContainer: headlineContainer(theme),
   headline: headline(theme),
   headlineSuffix,
+  buttonIcon: buttonIcon(theme),
   cardContentRoot,
   timetableRoot,
   timetableRow: timetableRow(theme),
@@ -83,4 +113,6 @@ export default theme => ({
   timetableMinutesContainerEstimated: timetableMinutesContainerEstimated(theme),
   timetableMinuteColumn: timetableMinuteColumn(theme),
   ...minuteColumnPositions,
+  currentTimeMinuteColumn: currentTimeMinuteColumn(theme),
+  updatedAt: updatedAt(theme),
 });

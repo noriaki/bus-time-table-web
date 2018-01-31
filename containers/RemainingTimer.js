@@ -8,6 +8,23 @@ import {
 } from '../libs/timeTableDataHandler';
 
 class RemainingTimer extends PureComponent {
+  static propTypes = {
+    children: PropTypes.element.isRequired,
+    timetable: PropTypes.arrayOf(
+      PropTypes.shape({
+        hour: PropTypes.number,
+        minutes: PropTypes.arrayOf(PropTypes.number),
+      })
+    ).isRequired,
+    activeDays: PropTypes.arrayOf(PropTypes.number),
+    timer: PropTypes.shape({
+      timestamp: PropTypes.number.isRequired,
+    }).isRequired,
+  }
+  static defaultProps = {
+    activeDays: [1, 2, 3, 4, 5],
+  }
+
   constructor(props, ...args) {
     super(props, ...args);
     const { timer, timetable, activeDays } = props;
@@ -55,7 +72,7 @@ class RemainingTimer extends PureComponent {
   }
 
   render() {
-    const { children } = this.props;
+    const { children, timer } = this.props;
     const {
       timetable,
       index,
@@ -69,16 +86,18 @@ class RemainingTimer extends PureComponent {
       return (
         <ChildComponent.type
           {...ChildComponent.props}
+          timestamp={timer.timestamp}
           inactiveDay={inactiveDay}
           afterTheLastBus={afterTheLastBus} />
       );
     }
-    const remaining = nextTime.diff(Date.now());
+    const remaining = nextTime.diff(timer.timestamp);
     return (
       <ChildComponent.type
         {...ChildComponent.props}
         nextTime={nextTime.valueOf()}
         remaining={remaining.valueOf()}
+        timestamp={timer.timestamp}
         onPrev={this.handleChangeTargetTo('prev')}
         onNext={this.handleChangeTargetTo('next')}
         onFront={this.handleChangeTargetTo('front')}
@@ -86,20 +105,5 @@ class RemainingTimer extends PureComponent {
     );
   }
 }
-RemainingTimer.propTypes = {
-  children: PropTypes.element.isRequired,
-  timetable: PropTypes.arrayOf(
-    PropTypes.shape({
-      hour: PropTypes.number,
-      minutes: PropTypes.arrayOf(PropTypes.number),
-    })
-  ).isRequired,
-  activeDays: PropTypes.arrayOf(PropTypes.number),
-  timer: PropTypes.shape({
-    timestamp: PropTypes.number.isRequired,
-  }).isRequired,
-};
-RemainingTimer.defaultProps = {
-  activeDays: [1, 2, 3, 4, 5],
-};
+
 export default RemainingTimer;
