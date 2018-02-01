@@ -42,3 +42,16 @@ const comment = `/* ServiceWorker. Updated at ${updatedAt} */\n`;
 const code = fs.readFileSync(swFilePath).toString();
 const output = code.replace(regexp, comment);
 fs.writeFileSync(swFilePath, output);
+
+// -- update ld+json
+const jsonldFilePath = path.resolve('data', 'jsonld.json');
+const packageJson = JSON.parse(fs.readFileSync(path.resolve('package.json')));
+const nextVersion = packageJson.version;
+const jsonldData = JSON.parse(fs.readFileSync(jsonldFilePath));
+const nextJsonldData = {
+  ...jsonldData,
+  version: nextVersion,
+  softwareVersion: nextVersion,
+  dateModified: now.format(),
+};
+fs.writeFileSync(jsonldFilePath, JSON.stringify(nextJsonldData, null, 2));
