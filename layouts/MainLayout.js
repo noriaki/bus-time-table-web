@@ -14,12 +14,14 @@ import AppTitleBar from '../components/AppTitleBar';
 import AppNavigation from '../components/AppNavigation';
 import GA from '../components/GA';
 import SW from '../components/SW';
+import JsonLd from '../components/JsonLd';
 
 // styles
 import MainLayoutStyle from '../styles/MainLayout-Style';
 
 // data(pages)
 import pages, { paths } from '../constants/pages';
+import dataJsonLd from '../data/jsonld.json';
 
 class MainLayout extends PureComponent {
   static propTypes = {
@@ -76,6 +78,7 @@ class MainLayout extends PureComponent {
           <GA id="UA-97608334-1" initialPageView={this.analyticsValue()} />
         </NoSSR>
         <NoSSR><SW /></NoSSR>
+        <JsonLd data={dataJsonLd} />
       </div>
     );
   }
