@@ -5,7 +5,7 @@ import { animateScroll } from 'react-scroll';
 import { withStyles } from 'material-ui/styles';
 import { withRouter } from 'next/router';
 import BottomNavigation, {
-  BottomNavigationButton,
+  BottomNavigationAction,
 } from 'material-ui/BottomNavigation';
 import TimerIcon from 'material-ui-icons/Schedule';
 import TimeTableIcon from 'material-ui-icons/ViewList';
@@ -57,8 +57,8 @@ class AppNavigation extends PureComponent {
       });
   }
 
-  buildBottomNavigationButton = ({ path, label }) => (
-    <BottomNavigationButton
+  buildBottomNavigationAction = ({ path, label }) => (
+    <BottomNavigationAction
       key={path}
       label={label}
       value={path}
@@ -96,7 +96,7 @@ class AppNavigation extends PureComponent {
           value={router.pathname}
           showLabels
           onChange={this.handleNavigationChange}>
-          { pathsAndLabels.map(this.buildBottomNavigationButton) }
+          { pathsAndLabels.map(this.buildBottomNavigationAction) }
         </BottomNavigation>
       </div>
     );
