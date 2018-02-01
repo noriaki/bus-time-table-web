@@ -1,7 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 import { create, SheetsRegistry } from 'jss';
-import preset from 'jss-preset-default';
-import { createMuiTheme } from 'material-ui/styles';
+import { createMuiTheme, jssPreset } from 'material-ui/styles';
 import createGenerateClassName from 'material-ui/styles/createGenerateClassName';
 
 import customThemeOptions from '../themes/custom';
@@ -9,7 +8,7 @@ import customThemeOptions from '../themes/custom';
 const theme = createMuiTheme(customThemeOptions);
 
 // Configure JSS
-const jss = create(preset());
+const jss = create(jssPreset());
 jss.options.createGenerateClassName = createGenerateClassName;
 
 const createContext = () => ({

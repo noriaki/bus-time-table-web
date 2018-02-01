@@ -54,8 +54,8 @@ export default withStyles(TableOfContentsStyles)(TableOfContents);
 const buildTOCLinkItem = (labels, classes) => name => (
   <li key={name} className={classes.li}>
     <ScrollButton
-      dense
-      color="accent"
+      size="small"
+      color="secondary"
       href={`#${name}`}
       className={classes.link}
       to={name}

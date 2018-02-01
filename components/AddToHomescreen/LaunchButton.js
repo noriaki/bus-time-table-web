@@ -11,7 +11,7 @@ import LaunchButtonMinimizeStyles from '../../styles/AddToHomescreen/LaunchButto
 const LaunchButton = ({ classes, onClick }) => {
   const { icon, text, ...buttonClasses } = classes;
   return (
-    <Button raised color="accent" onClick={onClick} classes={buttonClasses}>
+    <Button raised color="secondary" onClick={onClick} classes={buttonClasses}>
       <DownloadIcon className={icon} />
       <span className={text}>アプリをダウンロード</span>
     </Button>

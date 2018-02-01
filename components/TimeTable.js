@@ -147,7 +147,7 @@ class TimeTable extends PureComponent {
       label: collapse ? '全ての時間帯を表示する' : '4時間分だけ表示する',
     };
     const ToggleButton = () => (this.isInOperation() ? (
-      <Button dense onClick={this.handleClick}>
+      <Button size="small" onClick={this.handleClick}>
         { toggle.label }
         { <toggle.Icon className={classes.buttonIcon} /> }
       </Button>

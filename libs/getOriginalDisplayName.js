@@ -16,6 +16,8 @@ export const isContinueToDiving = (component, displayName) => {
   if (component != null) {
     if (displayName === 'Component') {
       return true;
+    } else if (displayName === 'WithStyles' || displayName === 'WithTheme') {
+      return true;
     } else if (/\([a-zA-Z0-9-_]*\)$/.test(displayName)) {
       return true;
     }
