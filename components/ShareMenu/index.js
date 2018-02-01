@@ -50,15 +50,13 @@ class ShareMenu extends Component {
 
     return (
       <div>
-        <IconButton
-          color="contrast"
-          onClick={this.handleOpen}>
+        <IconButton color="inherit" onClick={this.handleOpen}>
           <ShareIcon />
         </IconButton>
         <Drawer
           anchor="bottom"
           open={this.state.open}
-          onRequestClose={this.handleClose}>
+          onClose={this.handleClose}>
           <List subheader={<ShareListSubheader />}>
             {viewables.line ? <Line onFinish={this.handleClose} /> : null}
             {viewables.fb ? <FacebookMessenger onFinish={this.handleClose} /> : null}

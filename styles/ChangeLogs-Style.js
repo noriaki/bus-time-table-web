@@ -1,3 +1,4 @@
+import { lighten } from 'material-ui/styles/colorManipulator';
 import { headline } from './InfoBase-Style';
 
 export const card = theme => ({
@@ -11,6 +12,10 @@ export const badge = {
   width: 36,
 };
 
+export const colorSecondary = theme => ({
+  backgroundColor: lighten(theme.palette.secondary.main, 0.5),
+});
+
 export const subjects = {
   margin: 0,
 };
@@ -23,6 +28,7 @@ export default theme => ({
   headline: headline(theme),
   card: card(theme),
   badge,
+  colorSecondary: colorSecondary(theme),
   subjects,
   subject: subject(theme),
 });

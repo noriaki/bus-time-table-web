@@ -1,118 +1,101 @@
+import { lighten } from 'material-ui/styles/colorManipulator';
+
 import { headline } from './InfoBase-Style';
 
-export const headlineContainer = theme => ({
-  ...headline(theme),
-  marginBottom: 0,
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-});
-
-export const headlineSuffix = {
-  display: 'inline',
-  margin: '0 .5em',
-};
-
-export const buttonIcon = theme => ({
-  marginLeft: theme.spacing.unit / 2,
-});
-
-export const cardContentRoot = {
-  padding: 0,
-  '&:last-child': {
-    paddingBottom: 0,
-  },
-};
-
-export const timetableRoot = {
-  borderCollapse: 'collapse',
-  borderSpacing: 0,
-};
-
-export const timetableRow = theme => ({
-  height: theme.spacing.unit * 5,
-  '&:nth-child(odd)': {
-    backgroundColor: theme.palette.secondary[50],
-  },
-});
-
-export const timetableHourColumn = (theme) => {
+export default (theme) => {
   const { unit } = theme.spacing;
+  const space = unit / 2;
   const { pxToRem } = theme.typography;
-  return {
-    fontSize: pxToRem(unit * 2),
-    height: unit * 5,
-    width: unit * 2,
-    paddingLeft: unit,
-    paddingRight: unit,
-    textAlign: 'center',
-    backgroundColor: theme.palette.primary[500],
-    color: theme.palette.grey[100],
-    fontWeight: 100,
-  };
-};
+  const minutesColumnSize = 12;
 
-const minutesColumnSize = 12;
+  const minuteColumnPositions = [...new Array(minutesColumnSize)].map(
+    (_, i) => ({ gridColumn: `${i + 1} / ${i + 2}` })
+  );
 
-export const timetableMinutesContainer = (theme) => {
-  const { unit } = theme.spacing;
+  const { primary, secondary, grey } = theme.palette;
+
   return {
-    paddingLeft: unit,
-    paddingRight: unit,
-    height: unit * 5,
-    display: 'grid',
-    gridGap: `${unit / 2}px`,
-    gridTemplateColumns: `repeat(${minutesColumnSize}, 1fr)`,
-    '&:last-child': {
-      paddingRight: unit,
+    headlineContainer: {
+      ...headline(theme),
+      marginBottom: 0,
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
     },
+
+    headline: headline(theme),
+
+    headlineSuffix: {
+      display: 'inline',
+      margin: '0 .5em',
+    },
+
+    buttonIcon: { marginLeft: space },
+
+    cardContentRoot: {
+      padding: 0,
+      '&:last-child': {
+        paddingBottom: 0,
+      },
+    },
+
+    timetableRoot: {
+      borderCollapse: 'collapse',
+      borderSpacing: 0,
+    },
+
+    timetableRow: {
+      height: unit * 5,
+      '&:nth-child(odd)': { backgroundColor: lighten(secondary.main, 0.88) },
+    },
+
+    timetableHourColumn: {
+      fontSize: pxToRem(unit * 2),
+      height: unit * 5,
+      width: unit * 2,
+      paddingLeft: unit,
+      paddingRight: unit,
+      textAlign: 'center',
+      backgroundColor: primary.main,
+      color: grey[100],
+      fontWeight: 100,
+    },
+
+    timetableMinutesContainer: {
+      paddingLeft: unit,
+      paddingRight: unit,
+      height: unit * 5,
+      display: 'grid',
+      gridGap: `${space}px`,
+      gridTemplateColumns: `repeat(${minutesColumnSize}, 1fr)`,
+      '&:last-child': {
+        paddingRight: unit,
+      },
+    },
+
+    timetableMinutesContainerEstimated: {
+      backgroundColor: grey[200],
+      color: grey[700],
+    },
+
+    timetableMinuteColumn: {
+      fontSize: unit * 3,
+      display: 'inline-flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+
+    ...minuteColumnPositions,
+
+    currentTimeMinuteColumn: {
+      backgroundColor: lighten(secondary.main, 0.5),
+      color: grey[100],
+      fontWeight: 'lighter',
+      paddingLeft: space,
+      paddingRight: space,
+      marginLeft: space * -1,
+    },
+
+    updatedAt: { marginTop: unit },
   };
 };
-
-export const timetableMinutesContainerEstimated = theme => ({
-  backgroundColor: theme.palette.grey[200],
-  color: theme.palette.grey[700],
-});
-
-export const timetableMinuteColumn = theme => ({
-  fontSize: theme.spacing.unit * 3,
-  display: 'inline-flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-});
-const minuteColumnPositions = [...new Array(minutesColumnSize)].map(
-  (_, i) => ({ gridColumn: `${i + 1} / ${i + 2}` })
-);
-
-const currentTimeMinuteColumn = (theme) => {
-  const space = theme.spacing.unit / 2;
-  return ({
-    backgroundColor: theme.palette.secondary[200],
-    color: theme.palette.grey[100],
-    fontWeight: 'lighter',
-    paddingLeft: space,
-    paddingRight: space,
-    marginLeft: space * -1,
-  });
-};
-
-export const updatedAt = theme => ({
-  marginTop: theme.spacing.unit,
-});
-
-export default theme => ({
-  headlineContainer: headlineContainer(theme),
-  headline: headline(theme),
-  headlineSuffix,
-  buttonIcon: buttonIcon(theme),
-  cardContentRoot,
-  timetableRoot,
-  timetableRow: timetableRow(theme),
-  timetableHourColumn: timetableHourColumn(theme),
-  timetableMinutesContainer: timetableMinutesContainer(theme),
-  timetableMinutesContainerEstimated: timetableMinutesContainerEstimated(theme),
-  timetableMinuteColumn: timetableMinuteColumn(theme),
-  ...minuteColumnPositions,
-  currentTimeMinuteColumn: currentTimeMinuteColumn(theme),
-  updatedAt: updatedAt(theme),
-});

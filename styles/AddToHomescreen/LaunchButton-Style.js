@@ -1,10 +1,12 @@
+import { darken, lighten } from 'material-ui/styles/colorManipulator';
+
 export default (theme) => {
   const { unit } = theme.spacing;
   const toolbarMinHeight = theme.mixins.toolbar.minHeight;
-  const secondaryColor = theme.palette.secondary;
-  const baseRaisedAccent = {
-    backgroundColor: secondaryColor[100],
-    color: secondaryColor[900],
+  const mainColor = theme.palette.secondary.main;
+  const baseRaisedSecondary = {
+    backgroundColor: lighten(mainColor, 0.7),
+    color: darken(mainColor, 0.33),
   };
 
   return ({
@@ -16,9 +18,9 @@ export default (theme) => {
       marginBottom: unit,
       minWidth: unit * 3,
     },
-    raisedAccent: {
-      ...baseRaisedAccent,
-      '&:hover': { ...baseRaisedAccent },
+    raisedSecondary: {
+      ...baseRaisedSecondary,
+      '&:hover': { ...baseRaisedSecondary },
     },
   });
 };

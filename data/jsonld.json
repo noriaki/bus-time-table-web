@@ -1,0 +1,42 @@
+{
+  "@context": "http://schema.org/",
+  "@type": "WebApplication",
+  "identifier": "com.deux-tours-bus",
+  "name": "シャトルバス時刻表・発車タイマー（中央区晴海のドゥ・トゥール/DEUX TOURS）",
+  "description": "東京都中央区晴海三丁目のマンション「ドゥ・トゥール(DEUX TOURS)」から東銀座を経由して新橋駅を結ぶシャトルバスの発車タイマーと時刻表を手軽にチェックできるアプリです。 発車タイマーは、アプリを起動して3秒で各バス停の次の発車時刻までの残り時間が分かります。時刻表のページでは、マンション発、東銀座駅発、新橋駅発の各バス停の全時間帯のシャトルバス時刻表を一覧で見ることが出来ます",
+  "applicationCategory": "Maps and Navigation",
+  "applicationSubCategory": "Bus-stop timetable",
+  "browserRequirements": "requires HTML5 support",
+  "downloadUrl": "https://deux-tours-bus.com/",
+  "operatingSystem": "Windows 7, macOS 10, iOS 9, Android 4",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "JPY"
+  },
+  "dateCreated": "2017-04-05T12:59:42+09:00",
+  "dateModified": "2018-02-01T21:23:10+09:00",
+  "version": "1.1.4",
+  "softwareVersion": "1.1.4",
+  "releaseNotes": "https://deux-tours-bus.com/info#ChangeLogs",
+  "thumbnailUrl": "https://deux-tours-bus.com/static/icons/app-512x512.png",
+  "screenshot": [
+    {
+      "@type": "ImageObject",
+      "name": "Bus Departure Timer",
+      "caption": "バス発車タイマー",
+      "url": "https://deux-tours-bus.com/static/images/screenshots/01BusDepartureTimer.png"
+    },
+    {
+      "@type": "ImageObject",
+      "name": "Bus Timetable",
+      "caption": "バス時刻表",
+      "url": "https://deux-tours-bus.com/static/images/screenshots/02BusTimetable.png"
+    }
+  ],
+  "author": {
+    "@type": "Person",
+    "name": "@noriaki",
+    "url": "https://github.com/noriaki"
+  }
+}
