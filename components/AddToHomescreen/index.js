@@ -100,7 +100,7 @@ class AddToHomescreen extends PureComponent {
             <Contents os={os} />
           </DialogContent>
           <DialogActions classes={{ root: classes.dialogActions }}>
-            <Button onClick={this.handleClose} color="accent">閉じる</Button>
+            <Button onClick={this.handleClose} color="secondary">閉じる</Button>
           </DialogActions>
         </Dialog>
       </Fragment>

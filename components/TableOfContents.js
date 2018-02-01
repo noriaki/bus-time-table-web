@@ -55,7 +55,7 @@ const buildTOCLinkItem = (labels, classes) => name => (
   <li key={name} className={classes.li}>
     <ScrollButton
       dense
-      color="accent"
+      color="secondary"
       href={`#${name}`}
       className={classes.link}
       to={name}

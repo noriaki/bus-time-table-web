@@ -50,9 +50,7 @@ class ShareMenu extends Component {
 
     return (
       <div>
-        <IconButton
-          color="contrast"
-          onClick={this.handleOpen}>
+        <IconButton color="inherit" onClick={this.handleOpen}>
           <ShareIcon />
         </IconButton>
         <Drawer

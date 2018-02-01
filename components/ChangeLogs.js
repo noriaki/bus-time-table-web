@@ -34,9 +34,12 @@ const buildChangeLog = classes => ({
 }, index) => {
   const longVersion = replaceVersionString(version);
   const badgedTitle = (title) => {
-    const { badge } = classes;
+    const { badge, colorSecondary } = classes;
     return (
-      <Badge badgeContent="new" color="accent" classes={{ badge }}>
+      <Badge
+        badgeContent="new"
+        color="secondary"
+        classes={{ badge, colorSecondary }}>
         {title}
       </Badge>
     );

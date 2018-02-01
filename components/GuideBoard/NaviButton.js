@@ -35,7 +35,7 @@ const NaviButton = ({
   return (
     <DoubleClickableButton
       classes={finalClasses}
-      color="accent"
+      color="secondary"
       disabled={disable}
       onClick={onClick}
       onDoubleClick={onDoubleClick}>
