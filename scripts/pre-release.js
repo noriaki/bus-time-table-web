@@ -37,7 +37,7 @@ fs.writeFileSync(path.resolve('static', 'sitemap.xml'), `${xml}\n`);
 const swFilePath = path.resolve('static', 'sw.js');
 const updatedAt = now.format();
 const regexp = /\/\* ServiceWorker\. Updated at [0-9T+:.-]* \*\//;
-const comment = `/* ServiceWorker. Updated at ${updatedAt} */\n`;
+const comment = `/* ServiceWorker. Updated at ${updatedAt} */`;
 
 const code = fs.readFileSync(swFilePath).toString();
 const output = code.replace(regexp, comment);
