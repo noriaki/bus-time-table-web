@@ -5,7 +5,19 @@ import GA from './GA';
 export default class extends Component {
   componentDidMount() {
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/sw.js');
+      navigator.serviceWorker.register('/sw.js')
+        .then((reg) => {
+          if (reg.installing) {
+            console.log('Service worker installing');
+          } else if (reg.waiting) {
+            console.log('Service worker installed');
+          } else if (reg.active) {
+            console.log('Service worker active');
+          }
+        })
+        .catch((error) => {
+          console.log('Registration failed with ', error);
+        });
     }
     window.addEventListener('beforeinstallprompt', (e) => {
       GA.event({
