@@ -35,12 +35,6 @@ class MainLayout extends PureComponent {
 
   componentDidMount() {
     const { router } = this.props;
-    // prefetching pages when production
-    const otherPaths = paths.filter(path => path !== router.pathname);
-    otherPaths.forEach((path) => {
-      console.log(`prefetching... '${path}'`);
-      router.prefetch(path);
-    });
     // scrolling anchor in page
     const { scrollTarget } = router.query;
     const hash = document.location.hash.slice(1);
@@ -51,6 +45,13 @@ class MainLayout extends PureComponent {
     const { router } = this.props;
     const page = pages[router.pathname];
     return { page: router.pathname, title: page.appbarTitle };
+  }
+
+  handleActivated = () => {
+    // prefetching pages when production
+    const { router } = this.props;
+    paths.forEach(router.prefetch);
+    window.location.reload();
   }
 
   render() {
@@ -75,9 +76,11 @@ class MainLayout extends PureComponent {
         </main>
         <AppNavigation pathsAndLabels={pathsAndLabels} />
         <NoSSR>
+          <SW onActivated={this.handleActivated} />
+        </NoSSR>
+        <NoSSR>
           <GA id="UA-97608334-1" initialPageView={this.analyticsValue()} />
         </NoSSR>
-        <NoSSR><SW /></NoSSR>
         <JsonLd data={dataJsonLd} />
       </div>
     );

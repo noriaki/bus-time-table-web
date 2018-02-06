@@ -1,16 +1,34 @@
-import { Component } from 'react';
+import { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 
 import GA from './GA';
 
-export default class extends Component {
+export default class extends PureComponent {
+  static propTypes = {
+    onActivated: PropTypes.func,
+  }
+  static defaultProps = {
+    onActivated: () => {},
+  }
+
   componentDidMount() {
     if ('serviceWorker' in navigator) {
+      const { onActivated } = this.props;
       navigator.serviceWorker.register('/sw.js')
         .then((reg) => {
           if (reg.installing) {
             console.log('Service worker installing');
+            const newWorker = reg.installing;
+            console.log(newWorker, newWorker.state);
+            newWorker.addEventListener('statechange', () => {
+              console.log(`Service worer state: ${newWorker.state}`);
+              if (newWorker.state === 'activated') {
+                console.log('prefetch all pages');
+                onActivated();
+              }
+            });
           } else if (reg.waiting) {
-            console.log('Service worker installed');
+            console.log('Service worker waiting');
           } else if (reg.active) {
             console.log('Service worker active');
           }
