@@ -7,6 +7,7 @@ import { withRouter } from 'next/router';
 
 // libs
 import { scrollToHashOrTop } from '../libs/scroller';
+import precache4NextJS from '../libs/precache4NextJS';
 
 // components
 import DocumentHeader from '../components/DocumentHeader';
@@ -47,11 +48,13 @@ class MainLayout extends PureComponent {
     return { page: router.pathname, title: page.appbarTitle };
   }
 
-  handleActivated = () => {
+  handleSwActivated = () => {
     // prefetching pages when production
     const { router } = this.props;
     paths.forEach(router.prefetch);
-    window.location.reload();
+    precache4NextJS()
+      .then(rets => console.log(rets))
+      .catch(err => console.log(err));
   }
 
   render() {
@@ -76,7 +79,7 @@ class MainLayout extends PureComponent {
         </main>
         <AppNavigation pathsAndLabels={pathsAndLabels} />
         <NoSSR>
-          <SW onActivated={this.handleActivated} />
+          <SW onActivated={this.handleSwActivated} />
         </NoSSR>
         <NoSSR>
           <GA id="UA-97608334-1" initialPageView={this.analyticsValue()} />
