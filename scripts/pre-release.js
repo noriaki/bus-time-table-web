@@ -33,16 +33,6 @@ xml = xml.replace(/<urlset>/, '<urlset xmlns="http://www.sitemaps.org/schemas/si
 
 fs.writeFileSync(path.resolve('static', 'sitemap.xml'), `${xml}\n`);
 
-// -- update ServiceWorker (sw.js)
-const swFilePath = path.resolve('static', 'sw.js');
-const updatedAt = now.format();
-const regexp = /\/\* ServiceWorker\. Updated at [0-9T+:.-]* \*\//;
-const comment = `/* ServiceWorker. Updated at ${updatedAt} */`;
-
-const code = fs.readFileSync(swFilePath).toString();
-const output = code.replace(regexp, comment);
-fs.writeFileSync(swFilePath, output);
-
 // -- update ld+json
 const jsonldFilePath = path.resolve('data', 'jsonld.json');
 const packageJson = JSON.parse(fs.readFileSync(path.resolve('package.json')));
