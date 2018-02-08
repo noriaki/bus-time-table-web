@@ -1,4 +1,3 @@
-/* global: self */
 /* eslint-disable no-restricted-globals */
 
 // const swScriptPath = 'https://unpkg.com/workbox-sw@2.1.2';
