@@ -7,6 +7,7 @@ import { withRouter } from 'next/router';
 
 // libs
 import { scrollToHashOrTop } from '../libs/scroller';
+import precache4NextJS from '../libs/precache4NextJS';
 
 // components
 import DocumentHeader from '../components/DocumentHeader';
@@ -35,12 +36,6 @@ class MainLayout extends PureComponent {
 
   componentDidMount() {
     const { router } = this.props;
-    // prefetching pages when production
-    const otherPaths = paths.filter(path => path !== router.pathname);
-    otherPaths.forEach((path) => {
-      console.log(`prefetching... '${path}'`);
-      router.prefetch(path);
-    });
     // scrolling anchor in page
     const { scrollTarget } = router.query;
     const hash = document.location.hash.slice(1);
@@ -51,6 +46,15 @@ class MainLayout extends PureComponent {
     const { router } = this.props;
     const page = pages[router.pathname];
     return { page: router.pathname, title: page.appbarTitle };
+  }
+
+  handleSwActivated = () => {
+    // prefetching pages when production
+    const { router } = this.props;
+    paths.forEach(router.prefetch);
+    precache4NextJS()
+      .then(rets => console.log(rets))
+      .catch(err => console.log(err));
   }
 
   render() {
@@ -75,9 +79,11 @@ class MainLayout extends PureComponent {
         </main>
         <AppNavigation pathsAndLabels={pathsAndLabels} />
         <NoSSR>
+          <SW onActivated={this.handleSwActivated} />
+        </NoSSR>
+        <NoSSR>
           <GA id="UA-97608334-1" initialPageView={this.analyticsValue()} />
         </NoSSR>
-        <NoSSR><SW /></NoSSR>
         <JsonLd data={dataJsonLd} />
       </div>
     );

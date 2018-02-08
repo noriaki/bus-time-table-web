@@ -1,12 +1,20 @@
-import { Component } from 'react';
+import { PureComponent } from 'react';
+import PropTypes from 'prop-types';
+
+import registServiceWorker from '../libs/registServiceWorker';
 
 import GA from './GA';
 
-export default class extends Component {
+export default class extends PureComponent {
+  static propTypes = {
+    onActivated: PropTypes.func,
+  }
+  static defaultProps = {
+    onActivated: () => {},
+  }
+
   componentDidMount() {
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/sw.js');
-    }
+    registServiceWorker({ onActivatedState: this.props.onActivated });
     window.addEventListener('beforeinstallprompt', (e) => {
       GA.event({
         category: 'Banner',

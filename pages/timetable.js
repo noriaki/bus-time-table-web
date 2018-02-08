@@ -17,14 +17,10 @@ import RemainingTimer from '../containers/RemainingTimer';
 import TimeTable from '../components/TimeTable';
 import withMaterialUI from '../containers/withMaterialUI';
 
-const HomeTimeTable = setComponentName(timeTableHome.id)(TimeTable);
-const HGinzaTimeTable = setComponentName(timeTableHigashiGinza.id)(TimeTable);
-const ShimbashiTimeTable = setComponentName(timeTableShimbashi.id)(TimeTable);
-
 const labels = {
-  [getOriginalDisplayName(HomeTimeTable)]: 'マンション',
-  [getOriginalDisplayName(HGinzaTimeTable)]: '東銀座駅',
-  [getOriginalDisplayName(ShimbashiTimeTable)]: '新橋駅',
+  [timeTableHome.id]: 'マンション',
+  [timeTableHigashiGinza.id]: '東銀座駅',
+  [timeTableShimbashi.id]: '新橋駅',
 };
 
 const TimetablePage = () => {
@@ -39,17 +35,17 @@ const TimetablePage = () => {
         <HomeTimer
           timetable={timeTableHome.timetable}
           activeDays={timeTableHome.activeDays}>
-          <HomeTimeTable data={timeTableHome} />
+          <TimeTable data={timeTableHome} />
         </HomeTimer>
         <HigashiGinzaTimer
           timetable={timeTableHigashiGinza.timetable}
           activeDays={timeTableHigashiGinza.activeDays}>
-          <HGinzaTimeTable data={timeTableHigashiGinza} />
+          <TimeTable data={timeTableHigashiGinza} />
         </HigashiGinzaTimer>
         <ShimbashiTimer
           timetable={timeTableShimbashi.timetable}
           activeDays={timeTableShimbashi.activeDays}>
-          <ShimbashiTimeTable data={timeTableShimbashi} />
+          <TimeTable data={timeTableShimbashi} />
         </ShimbashiTimer>
       </TableOfContents>
     </MainLayout>

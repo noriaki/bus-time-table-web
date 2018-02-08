@@ -1,6 +1,10 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 const { DefinePlugin } = require('webpack');
+const { join } = require('path');
 const GitRevisionPlugin = require('git-revision-webpack-plugin');
+const WorkboxPlugin = require('workbox-webpack-plugin');
+
+const { paths } = require('./constants/pages');
 
 module.exports = {
   webpack(config) {
@@ -11,6 +15,7 @@ module.exports = {
       /* eslint-enable no-param-reassign */
     }
 
+    // display git branch/revision
     const git = new GitRevisionPlugin();
     const branch = git.branch();
     const commit = git.commithash();
@@ -21,6 +26,22 @@ module.exports = {
       })
     );
 
+    // precache by service worker
+    config.plugins.push(
+      new WorkboxPlugin({
+        globDirectory: __dirname,
+        globPatterns: ['static/**/*.{jpg,png,ico,css,json}'],
+        swSrc: join(__dirname, 'libs', 'service-worker.js'),
+        swDest: join(config.output.path, 'sw.js'),
+      })
+    );
+
     return config;
   },
+  exportPathMap: () => (
+    paths.reduce((pathMap, page) => ({
+      ...pathMap,
+      [page]: { page },
+    }), {})
+  ),
 };

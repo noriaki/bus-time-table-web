@@ -29,10 +29,12 @@ app.prepare()
       const rootStaticFiles = [
         '/robots.txt',
         '/sitemap.xml',
-        '/sw.js',
       ];
       if (rootStaticFiles.indexOf(parsedUrl.pathname) > -1) {
         const path = join(__dirname, 'static', parsedUrl.pathname);
+        app.serveStatic(req, res, path);
+      } else if (isServiceWorkerFiles(parsedUrl.pathname)) {
+        const path = join(__dirname, '.next', parsedUrl.pathname);
         app.serveStatic(req, res, path);
       } else {
         handle(req, res, parsedUrl);
@@ -43,3 +45,8 @@ app.prepare()
         console.log(`> Ready [${env}] on http://localhost:${port}`);
       });
   });
+
+const isServiceWorkerFiles = pathname => (
+  pathname === '/sw.js' ||
+    /\/workbox-sw\.prod\.v2\.1\.\d\.js(\.map)?$/.test(pathname)
+);

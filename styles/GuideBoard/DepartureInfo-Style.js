@@ -12,7 +12,7 @@ export default (theme) => {
 
   const time = {
     fontSize: pxToRem(18),
-    margin: [0, unit],
+    margin: `0 ${unit}px`,
   };
 
   const suffix = {
