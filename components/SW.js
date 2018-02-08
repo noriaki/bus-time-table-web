@@ -1,6 +1,8 @@
 import { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
+import registServiceWorker from '../libs/registServiceWorker';
+
 import GA from './GA';
 
 export default class extends PureComponent {
@@ -12,31 +14,7 @@ export default class extends PureComponent {
   }
 
   componentDidMount() {
-    if ('serviceWorker' in navigator) {
-      const { onActivated } = this.props;
-      navigator.serviceWorker.register('/sw.js')
-        .then((reg) => {
-          if (reg.installing) {
-            console.log('Service worker installing');
-            const newWorker = reg.installing;
-            console.log(newWorker, newWorker.state);
-            newWorker.addEventListener('statechange', () => {
-              console.log(`Service worer state: ${newWorker.state}`);
-              if (newWorker.state === 'activated') {
-                console.log('prefetch all pages');
-                onActivated();
-              }
-            });
-          } else if (reg.waiting) {
-            console.log('Service worker waiting');
-          } else if (reg.active) {
-            console.log('Service worker active');
-          }
-        })
-        .catch((error) => {
-          console.log('Registration failed with ', error);
-        });
-    }
+    registServiceWorker({ onActivatedState: this.props.onActivated }, true);
     window.addEventListener('beforeinstallprompt', (e) => {
       GA.event({
         category: 'Banner',
