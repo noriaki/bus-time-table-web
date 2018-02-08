@@ -4,6 +4,8 @@ const { join } = require('path');
 const GitRevisionPlugin = require('git-revision-webpack-plugin');
 const WorkboxPlugin = require('workbox-webpack-plugin');
 
+const { paths } = require('./constants/pages');
+
 module.exports = {
   webpack(config) {
     if (config.resolve.alias) {
@@ -36,4 +38,10 @@ module.exports = {
 
     return config;
   },
+  exportPathMap: () => (
+    paths.reduce((pathMap, page) => ({
+      ...pathMap,
+      [page]: { page },
+    }), {})
+  ),
 };
