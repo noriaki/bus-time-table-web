@@ -3,6 +3,8 @@ import Document, { Head, Main, NextScript } from 'next/document';
 import JssProvider from 'react-jss/lib/JssProvider';
 import getContext from '../styles/getContext';
 
+import { premiumBlack } from '../themes/colors';
+
 class DocumentContainer extends Document {
   render() {
     const { baseURI } = this.props;
@@ -20,6 +22,7 @@ class DocumentContainer extends Document {
           <meta
             name="viewport"
             content="width=device-width, initial-scale=1, user-scalable=no" />
+          <meta name="theme-color" content={premiumBlack} />
           <link rel="stylesheet" href="/static/normalize.css" />
           <link
             rel="stylesheet"
