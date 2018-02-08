@@ -14,7 +14,7 @@ export default class extends PureComponent {
   }
 
   componentDidMount() {
-    registServiceWorker({ onActivatedState: this.props.onActivated }, true);
+    registServiceWorker({ onActivatedState: this.props.onActivated });
     window.addEventListener('beforeinstallprompt', (e) => {
       GA.event({
         category: 'Banner',
