@@ -4,6 +4,7 @@
   "env": {
     "node": true,
     "browser": true,
+    "serviceworker": true,
     "es6": true,
     "jest": true
   },
@@ -19,22 +20,10 @@
       "jsx": true
     }
   },
-  "settings": {
-    "import/resolver": {
-      "node": {
-        "moduleDirectory": [
-          "node_modules",
-          "js"
-        ]
-      }
-    }
-  },
   "globals": {
     "BRANCH": true,
     "COMMIT": true,
-    "ga": true,
-    "FB": true,
-    "LineIt": true
+    "ga": true
   },
   "rules": {
     "indent": ["error", 2],
