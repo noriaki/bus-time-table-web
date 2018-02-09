@@ -4,10 +4,10 @@ import IconButton from 'material-ui/IconButton';
 import Drawer from 'material-ui/Drawer';
 import List from 'material-ui/List';
 import ListSubheader from 'material-ui/List/ListSubheader';
-import Snackbar from 'material-ui/Snackbar';
 import ShareIcon from 'material-ui-icons/Share';
 
 // components
+import SnackbarOnBottomNavigation from '../SnackbarOnBottomNavigation';
 import Line from './Line';
 import FacebookMessenger from './FacebookMessenger';
 import URLCopy from './URLCopy';
@@ -46,12 +46,15 @@ class ShareMenu extends PureComponent {
 
   handleCopyFinish = ({ notify } = {}) => {
     this.handleClose();
-    if (notify) {
-      setTimeout(() => this.setState({ openSnackbar: true }), 300);
-    }
+    if (notify) { setTimeout(this.handleOpenSnackbar, 300); }
   }
 
-  handleCloseSnackbar = () => this.setState({ openSnackbar: false })
+  handleOpenSnackbar = () => this.setState({ openSnackbar: true })
+  handleCloseSnackbar = (_, reason) => {
+    if (reason !== 'clickaway') {
+      this.setState({ openSnackbar: false });
+    }
+  }
 
   render() {
     const viewables = detectItemViewables();
@@ -72,12 +75,10 @@ class ShareMenu extends PureComponent {
             {viewables.copy && <URLCopy onFinish={this.handleCopyFinish} />}
           </List>
         </Drawer>
-        <Snackbar
+        <SnackbarOnBottomNavigation
+          text="URLをコピーしました"
           open={this.state.openSnackbar}
-          onClose={this.handleCloseSnackbar}
-          autoHideDuration={2000}
-          SnackbarContentProps={{ 'aria-describedby': 'message-id' }}
-          message={<span id="message-id">URLをコピーしました</span>} />
+          onClose={this.handleCloseSnackbar} />
       </div>
     );
   }
