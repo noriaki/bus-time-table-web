@@ -5,6 +5,7 @@ import IconButton from 'material-ui/IconButton';
 import Drawer from 'material-ui/Drawer';
 import List from 'material-ui/List';
 import ListSubheader from 'material-ui/List/ListSubheader';
+import Snackbar from 'material-ui/Snackbar';
 import ShareIcon from 'material-ui-icons/Share';
 
 import Line from './Line';
@@ -21,6 +22,7 @@ const ShareListSubheader = () => (
 class ShareMenu extends Component {
   state = {
     open: false,
+    openSnackbar: false,
     previousPage: null,
   }
 
@@ -44,6 +46,15 @@ class ShareMenu extends Component {
     });
   }
 
+  handleCopyFinish = ({ notify } = {}) => {
+    this.handleClose();
+    if (notify) {
+      setTimeout(() => this.setState({ openSnackbar: true }), 300);
+    }
+  }
+
+  handleCloseSnackbar = () => this.setState({ openSnackbar: false })
+
   render() {
     const viewables = detectItemViewables();
     if (!viewables.self) { return null; }
@@ -60,9 +71,15 @@ class ShareMenu extends Component {
           <List subheader={<ShareListSubheader />}>
             {viewables.line && <Line onFinish={this.handleClose} />}
             {viewables.fb && <FacebookMessenger onFinish={this.handleClose} />}
-            {viewables.copy && <URLCopy onFinish={this.handleClose} />}
+            {viewables.copy && <URLCopy onFinish={this.handleCopyFinish} />}
           </List>
         </Drawer>
+        <Snackbar
+          open={this.state.openSnackbar}
+          onClose={this.handleCloseSnackbar}
+          autoHideDuration={2000}
+          SnackbarContentProps={{ 'aria-describedby': 'message-id' }}
+          message={<span id="message-id">URLをコピーしました</span>} />
       </div>
     );
   }
