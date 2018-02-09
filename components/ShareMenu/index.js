@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import MobileDetect from 'mobile-detect';
-import { withStyles } from 'material-ui/styles';
 import IconButton from 'material-ui/IconButton';
 import Drawer from 'material-ui/Drawer';
 import List from 'material-ui/List';
@@ -8,18 +7,17 @@ import ListSubheader from 'material-ui/List/ListSubheader';
 import Snackbar from 'material-ui/Snackbar';
 import ShareIcon from 'material-ui-icons/Share';
 
+// components
 import Line from './Line';
 import FacebookMessenger from './FacebookMessenger';
 import URLCopy from './URLCopy';
 import GA from '../GA';
 
-import ShareMenuStyles from '../../styles/ShareMenu-Style';
-
 const ShareListSubheader = () => (
   <ListSubheader>知人・友人へ共有</ListSubheader>
 );
 
-class ShareMenu extends Component {
+class ShareMenu extends PureComponent {
   state = {
     open: false,
     openSnackbar: false,
@@ -84,7 +82,7 @@ class ShareMenu extends Component {
     );
   }
 }
-export default withStyles(ShareMenuStyles)(ShareMenu);
+export default ShareMenu;
 
 export const detectItemViewables = () => {
   const { standalone, userAgent } = global.navigator;
