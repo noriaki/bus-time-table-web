@@ -26,11 +26,17 @@ const handleClick = onFinish => () => {
   const url = 'https://deux-tours-bus.com';
   const ret = copyToClipboard(url);
   if (ret) {
+    let isCallbacked = false;
+    const callback = () => {
+      if (isCallbacked) { return; }
+      isCallbacked = true;
+      onFinish({ notify: true });
+    };
     GA.event({
       category: 'Share',
       action: 'copy',
       label: 'clipboard',
-      callback: () => onFinish({ notify: true }),
+      callback,
     });
   } else { onFinish(); }
 };
