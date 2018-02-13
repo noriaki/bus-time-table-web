@@ -9,6 +9,7 @@ const SnackbarOnBottomNavigation = ({
   open,
   onClose,
   theme,
+  ...others
 }) => {
   const { duration, getAutoHeightDuration } = theme.transitions;
   const { minHeight } = theme.mixins.toolbar;
@@ -23,6 +24,7 @@ const SnackbarOnBottomNavigation = ({
 
   return (
     <Snackbar
+      {...others}
       open={open}
       onClose={onClose}
       transitionDuration={snackbarTransitionDuration}

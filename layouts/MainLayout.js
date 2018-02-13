@@ -13,6 +13,7 @@ import precache4NextJS from '../libs/precache4NextJS';
 import DocumentHeader from '../components/DocumentHeader';
 import AppTitleBar from '../components/AppTitleBar';
 import AppNavigation from '../components/AppNavigation';
+import SnackbarOnBottomNavigation from '../components/SnackbarOnBottomNavigation';
 import GA from '../components/GA';
 import SW from '../components/SW';
 import JsonLd from '../components/JsonLd';
@@ -32,6 +33,9 @@ class MainLayout extends PureComponent {
     }).isRequired,
     children: PropTypes.node.isRequired,
     classes: PropTypes.objectOf(PropTypes.string).isRequired,
+  }
+  state = {
+    openSnackbar: false,
   }
 
   componentDidMount() {
@@ -53,9 +57,16 @@ class MainLayout extends PureComponent {
     const { router } = this.props;
     paths.forEach(router.prefetch);
     precache4NextJS()
-      .then(rets => console.log(rets))
+      .then((responses) => {
+        if (responses.length > 0 && responses.every(res => res.ok)) {
+          this.handleOpenSnackbar();
+        }
+      })
       .catch(err => console.log(err));
   }
+
+  handleOpenSnackbar = () => this.setState({ openSnackbar: true })
+  handleCloseSnackbar = () => this.setState({ openSnackbar: false })
 
   render() {
     const {
@@ -78,6 +89,10 @@ class MainLayout extends PureComponent {
           { children }
         </main>
         <AppNavigation pathsAndLabels={pathsAndLabels} />
+        <SnackbarOnBottomNavigation
+          text="オフラインで利用できるようになりました"
+          open={this.state.openSnackbar}
+          onClose={this.handleCloseSnackbar} />
         <NoSSR>
           <SW onActivated={this.handleSwActivated} />
         </NoSSR>
