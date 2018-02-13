@@ -57,8 +57,8 @@ class MainLayout extends PureComponent {
     const { router } = this.props;
     paths.forEach(router.prefetch);
     precache4NextJS()
-      .then((rets) => {
-        if (rets.length > 0 && rets.every(response => response.ok)) {
+      .then((responses) => {
+        if (responses.length > 0 && responses.every(res => res.ok)) {
           this.handleOpenSnackbar();
         }
       })
