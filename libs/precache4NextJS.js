@@ -1,8 +1,26 @@
 import { join } from 'path';
+import {
+  composableFetch as cf,
+  delays,
+  tryCatchP,
+  pipeP,
+} from 'composable-fetch';
 import { paths } from '../constants/pages';
 
+const createFetch = () => tryCatchP(
+  pipeP(
+    cf.retryable(fetch),
+    cf.withTimeout(2000),
+    cf.withRetry(3, delays.exponential(2000)),
+    cf.checkStatus
+  ),
+  cf.logFetchError
+);
+
 const precache4NextJS = () => {
-  if (typeof window === 'undefined') { return null; }
+  if (typeof window === 'undefined') {
+    return Promise.reject(new Error('No executable env (e.g. Server-side)'));
+  }
   // eslint-disable-next-line no-underscore-dangle
   const { buildStats, buildId } = window.__NEXT_DATA__;
   const promises = [];
@@ -24,14 +42,19 @@ const precache4NextJS = () => {
 };
 export default precache4NextJS;
 
-const fetchPage = pagePath => fetch(pagePath);
+const fetchPage = (pagePath) => {
+  const f = createFetch();
+  return f(pagePath);
+};
 const fetchPageScript = (pagePath, buildId) => {
+  const f = createFetch();
   const endpoint = join(
     '/_next', buildId.toString(), 'page', `${pagePath}.js`
   );
-  return fetch(endpoint);
+  return f(endpoint);
 };
 const fetchAppShell = (appShellFileName, buildHash) => {
+  const f = createFetch();
   const endpoint = join('/_next', buildHash, appShellFileName);
-  return fetch(endpoint);
+  return f(endpoint);
 };
