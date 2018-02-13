@@ -1,26 +1,26 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import MobileDetect from 'mobile-detect';
-import { withStyles } from 'material-ui/styles';
 import IconButton from 'material-ui/IconButton';
 import Drawer from 'material-ui/Drawer';
 import List from 'material-ui/List';
 import ListSubheader from 'material-ui/List/ListSubheader';
 import ShareIcon from 'material-ui-icons/Share';
 
+// components
+import SnackbarOnBottomNavigation from '../SnackbarOnBottomNavigation';
 import Line from './Line';
 import FacebookMessenger from './FacebookMessenger';
 import URLCopy from './URLCopy';
 import GA from '../GA';
 
-import ShareMenuStyles from '../../styles/ShareMenu-Style';
-
 const ShareListSubheader = () => (
   <ListSubheader>知人・友人へ共有</ListSubheader>
 );
 
-class ShareMenu extends Component {
+class ShareMenu extends PureComponent {
   state = {
     open: false,
+    openSnackbar: false,
     previousPage: null,
   }
 
@@ -44,6 +44,18 @@ class ShareMenu extends Component {
     });
   }
 
+  handleCopyFinish = ({ notify } = {}) => {
+    this.handleClose();
+    if (notify) { setTimeout(this.handleOpenSnackbar, 300); }
+  }
+
+  handleOpenSnackbar = () => this.setState({ openSnackbar: true })
+  handleCloseSnackbar = (_, reason) => {
+    if (reason !== 'clickaway') {
+      this.setState({ openSnackbar: false });
+    }
+  }
+
   render() {
     const viewables = detectItemViewables();
     if (!viewables.self) { return null; }
@@ -58,16 +70,20 @@ class ShareMenu extends Component {
           open={this.state.open}
           onClose={this.handleClose}>
           <List subheader={<ShareListSubheader />}>
-            {viewables.line ? <Line onFinish={this.handleClose} /> : null}
-            {viewables.fb ? <FacebookMessenger onFinish={this.handleClose} /> : null}
-            {viewables.copy ? <URLCopy onFinish={this.handleClose} /> : null}
+            {viewables.line && <Line onFinish={this.handleClose} />}
+            {viewables.fb && <FacebookMessenger onFinish={this.handleClose} />}
+            {viewables.copy && <URLCopy onFinish={this.handleCopyFinish} />}
           </List>
         </Drawer>
+        <SnackbarOnBottomNavigation
+          text="URLをコピーしました"
+          open={this.state.openSnackbar}
+          onClose={this.handleCloseSnackbar} />
       </div>
     );
   }
 }
-export default withStyles(ShareMenuStyles)(ShareMenu);
+export default ShareMenu;
 
 export const detectItemViewables = () => {
   const { standalone, userAgent } = global.navigator;
