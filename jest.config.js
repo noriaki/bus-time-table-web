@@ -1,4 +1,13 @@
+const pathIgnorePatterns = [
+  '<rootDir>/.git/',
+  '<rootDir>/.next/',
+  '<rootDir>/node_modules/',
+];
+
 module.exports = {
-  setupFiles: ['raf/polyfill', './enzyme.setup.js'],
-  watchPathIgnorePatterns: ['<rootDir>/node_modules/'],
+  setupFilesAfterEnv: [
+    './jest.setup.js',
+  ],
+  testPathIgnorePatterns: pathIgnorePatterns,
+  watchPathIgnorePatterns: pathIgnorePatterns,
 };

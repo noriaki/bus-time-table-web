@@ -1,22 +1,9 @@
 language: node_js
 node_js:
-  - 9.3.0
+  - 8
 branches:
   except:
     - /^v\d+\.\d+\.\d+$/
 cache: yarn
 before_install:
   - export TZ=Asia/Tokyo
-notifications:
-  webhooks:
-    urls:
-      - https://webhook.deux-tours-bus.com/travis/
-    on_success: always
-    on_failure: never
-    on_start: never
-    on_cancel: never
-    on_error: never
-  slack:
-    rooms:
-      secure: mC0V9rHfPC00JHwJivKB7AtqPotoVj+tRKw5eskpJGvHrMi1eTiecZ91c0+z287Vf72Abq0+G6bSh4zhIknzi59Xwo9MICY8HAf/JSHSCQEfVWqXF59DNgGnTkzprMAC9F1C2c+Twrw0waxZE8SpG2FE8wEd56GoGjy+xbTwdjuUTBDMl+J1/yIY8tlylWtjfspNjffXx1MOWu+1UtTBG50bRxUyazEF9HNJrhVB90w6UHMfwlXST5XMoRN8yRM5cwYn5wpeBfbcuygdxgcKPes71vhEFIyfB4qFCgkBthIeXpvpyyMBN7pUwn8dmQ4nDs/HKrBGTiYNnoouE1s0At9hSBDB/n1NQd+5w0E8ZRwc04N+evLdwerrlSQ1gmNIEmLbqJrQHcnEFByBAWvw7ZgRzpBpsUfwrjK4W+KUeoC/0r49qlZ1YcJ492jvx2Kg1Mr/CBLvxzCRDKa20l1hvTNNPf5m5WCXm/VwlMcwrnHknH79Q+LRH+Uv4onPTfvBi6fYNT8cTs+HpW94Gc148RvHHBYy6gErcdoM9qZHcthP4+/6pyOO000hw6ggAllqXAmdxgKURaRWTw6OFbbVqqsBYqMdN/Y8I8wLGHp/CehRufh/ranZAz1HH2y2lYrfMj/ilB0hivHeoP8YqCsd6gD8VwSQefih+QLY5smgqVM=
-    on_pull_requests: false
