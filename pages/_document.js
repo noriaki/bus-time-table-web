@@ -1,37 +1,28 @@
 import React from 'react';
 import Document, { Head, Main, NextScript } from 'next/document';
-import JssProvider from 'react-jss/lib/JssProvider';
-import getContext from '../styles/getContext';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import flush from 'styled-jsx/server';
 
-import { premiumBlack } from '../themes/colors';
-
-class DocumentContainer extends Document {
+class MyDocument extends Document {
   render() {
-    const { baseURI } = this.props;
+    const { pageContext } = this.props;
+    const themeColor = (
+      pageContext ? pageContext.theme.palette.primary.main : null
+    );
+
     return (
-      <html lang="ja">
+      <html lang="en" dir="ltr">
         <Head>
           <meta charSet="utf-8" />
-          <meta name="mobile-web-app-capable" content="yes" />
-          <link rel="manifest" href="/static/manifest.json" />
-          <meta name="apple-mobile-web-app-capable" content="yes" />
-          <meta name="apple-mobile-web-app-title" content="バス時刻表" />
-          <link rel="apple-touch-icon-precomposed" href="/static/icons/app.png" />
-          <meta property="og:type" content="website" />
-          <meta property="og:image" content={`${baseURI}/static/icons/app.png`} />
+          {/* Use minimum-scale=1 to enable GPU rasterization */}
           <meta
             name="viewport"
-            content="width=device-width, initial-scale=1, user-scalable=no" />
-          <meta name="theme-color" content={premiumBlack} />
-          <link rel="stylesheet" href="/static/normalize.css" />
+            content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no" />
+          {/* PWA primary color */}
+          <meta name="theme-color" content={themeColor} />
           <link
             rel="stylesheet"
-            href="//fonts.googleapis.com/css?family=Roboto:300,400,500" />
-          <link
-            rel="stylesheet"
-            href="//fonts.googleapis.com/earlyaccess/notosansjp.css" />
-          <link rel="stylesheet" href="/static/style.css" />
-          <link rel="shortcut icon" href="/static/icons/favicon.ico" />
+            href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" />
         </Head>
         <body>
           <Main />
@@ -41,46 +32,63 @@ class DocumentContainer extends Document {
     );
   }
 }
-DocumentContainer.getInitialProps = ({ renderPage, req }) => {
+
+MyDocument.getInitialProps = (ctx) => {
   // Resolution order
   //
   // On the server:
-  // 1. page.getInitialProps
-  // 2. document.getInitialProps
-  // 3. page.render
-  // 4. document.render
+  // 1. app.getInitialProps
+  // 2. page.getInitialProps
+  // 3. document.getInitialProps
+  // 4. app.render
+  // 5. page.render
+  // 6. document.render
   //
   // On the server with error:
-  // 2. document.getInitialProps
+  // 1. document.getInitialProps
+  // 2. app.render
   // 3. page.render
   // 4. document.render
   //
   // On the client
-  // 1. page.getInitialProps
-  // 3. page.render
+  // 1. app.getInitialProps
+  // 2. page.getInitialProps
+  // 3. app.render
+  // 4. page.render
 
-  // Get the context to collected side effects.
-  const context = getContext();
-  const page = renderPage(Component => props => (
-    <JssProvider registry={context.sheetsRegistry} jss={context.jss}>
-      <Component {...props} />
-    </JssProvider>
-  ));
+  // Render app and page and get the context of the page with collected side effects.
+  let pageContext;
+  const page = ctx.renderPage((Component) => {
+    const WrappedComponent = (props) => {
+      /* eslint-disable prefer-destructuring,react/destructuring-assignment */
+      pageContext = props.pageContext;
+      /* eslint-enable prefer-destructuring,react/destructuring-assignment */
+      return <Component {...props} />;
+    };
 
-  const baseURI = req ? fqdn(req.headers) : fqdn(document.location);
+    return WrappedComponent;
+  });
+
+  let css;
+  // It might be undefined, e.g. after an error.
+  if (pageContext) {
+    css = pageContext.sheetsRegistry.toString();
+  }
+
   return {
     ...page,
-    baseURI,
-    stylesContext: context,
+    pageContext,
+    // Styles fragment is rendered after the app and page rendering finish.
     styles: (
-      <style
-        id="jss-server-side"
-        // eslint-disable-next-line react/no-danger
-        dangerouslySetInnerHTML={{ __html: context.sheetsRegistry.toString() }} />
+      <React.Fragment>
+        <style
+          id="jss-server-side"
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{ __html: css }} />
+        {flush() || null}
+      </React.Fragment>
     ),
   };
 };
 
-export default DocumentContainer;
-
-const fqdn = ({ protocol = 'https:', host }) => `${protocol}//${host}`;
+export default MyDocument;

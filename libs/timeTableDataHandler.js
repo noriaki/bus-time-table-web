@@ -1,6 +1,6 @@
 import moment from 'moment';
 
-import holidays from '../data/holidays.json';
+import holidays from '~/data/holidays.json';
 
 const timeShift = 4;
 
