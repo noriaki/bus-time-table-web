@@ -17,6 +17,7 @@ export const premiumBlackPalette = {
   A200: '#1affff',
   A400: '#00e6e6',
   A700: '#00cdcd',
+  contrastText: '#fff',
   contrastDefaultColor: 'light',
 };
 
@@ -35,5 +36,6 @@ export const shinbashiBluePalette = {
   A200: '#76d2ff',
   A400: '#43c1ff',
   A700: '#2ab9ff',
+  contrastText: '#fff',
   contrastDefaultColor: 'light',
 };
