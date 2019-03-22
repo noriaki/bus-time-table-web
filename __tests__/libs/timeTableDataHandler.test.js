@@ -5,11 +5,11 @@ import {
   findNextTime,
   sliceNextTimeList,
   isInactiveDays,
-} from '../../libs/timeTableDataHandler';
+} from '~/libs/timeTableDataHandler';
 
-import timeTableHome from '../../data/home-timetable.json';
-import timeTableHigashiGinza from '../../data/st-higashiginza-timetable.json';
-import timeTableShimbashi from '../../data/st-shimbashi-timetable.json';
+import timeTableHome from '~/data/home-timetable.json';
+import timeTableHigashiGinza from '~/data/st-higashiginza-timetable.json';
+import timeTableShimbashi from '~/data/st-shimbashi-timetable.json';
 
 describe('timeTableDataHandler', () => {
   describe('.momentFromVersion', () => {

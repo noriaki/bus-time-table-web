@@ -9,6 +9,13 @@ module.exports = {
     jest: true,
   },
   extends: ['eslint:recommended', 'airbnb'],
+  settings: {
+    'import/resolver': {
+      'babel-module': {
+        alias: { '~': './' },
+      },
+    },
+  },
   parserOptions: {
     ecmaVersion: 2018,
     sourceType: 'module',
