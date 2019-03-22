@@ -20,5 +20,29 @@
     "email": "uchiyama.noriaki@gmail.com",
     "url": "https://github.com/noriaki"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "@material-ui/core": "^4.0.0-alpha.4",
+    "@material-ui/icons": "^4.0.0-alpha.1",
+    "@material-ui/styles": "^4.0.0-alpha.4",
+    "babel-plugin-module-resolver": "^3.2.0",
+    "jss": "^9.8.7",
+    "moment": "^2.24.0",
+    "next": "^8.0.3",
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.0.1",
+    "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.11.2",
+    "eslint": "^5.15.3",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-import-resolver-babel-module": "^5.0.1",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-jsx-a11y": "^6.2.1",
+    "eslint-plugin-react": "^7.12.4",
+    "jest": "^24.5.0",
+    "jest-enzyme": "^7.0.2"
+  }
 }
