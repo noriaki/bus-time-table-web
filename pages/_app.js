@@ -3,6 +3,7 @@ import App, { Container } from 'next/app';
 import Head from 'next/head';
 import { StylesProvider, ThemeProvider } from '@material-ui/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import { Provider as StoreProvider } from 'unstated';
 import getPageContext from '~/contexts/mui/getPageContext';
 
 class MyApp extends App {
@@ -36,7 +37,9 @@ class MyApp extends App {
             <CssBaseline />
             {/* Pass pageContext to the _document though the renderPage enhancer
                 to render collected styles on server-side. */}
-            <Component pageContext={this.pageContext} {...pageProps} />
+            <StoreProvider>
+              <Component pageContext={this.pageContext} {...pageProps} />
+            </StoreProvider>
           </ThemeProvider>
         </StylesProvider>
       </Container>
