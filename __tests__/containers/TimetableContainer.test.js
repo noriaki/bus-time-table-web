@@ -1,20 +1,17 @@
+import { renderHook, act } from 'react-hooks-testing-library';
 import moment from 'moment';
 
-import TimetableContainer, { createContainer } from '~/containers/TimetableContainer';
+import { ShimbashiTimetableHook } from '~/containers/TimetableContainer';
 
-import timetableShimbashi from '~/data/st-shimbashi-timetable.json';
-
-describe(TimetableContainer, () => {
+describe('ShimbashiTimetable Container', () => {
   let currentTime;
   let container;
   beforeEach(() => {
     currentTime = moment('2017-06-15', 'YYYY-MM-DD');
-    const Container = createContainer(timetableShimbashi);
-    container = new Container();
+    container = renderHook(() => ShimbashiTimetableHook()).result;
   });
 
   it('default state', () => {
-    container.tick(currentTime);
     const expected = {
       flatData: null,
       sliceData: [],
@@ -22,28 +19,28 @@ describe(TimetableContainer, () => {
       inactiveDay: null,
       outOfService: null,
     };
-    expect(container.state).toEqual(expected);
+    expect(container.current.state).toEqual(expected);
   });
 
-  it('inactive day', async () => {
+  it('inactive day', () => {
     currentTime.day('sunday').hour(8);
-    await container.tick(currentTime);
-    expect(container.state.inactiveDay).toBe(true);
+    act(() => container.current.tick(currentTime));
+    expect(container.current.state.inactiveDay).toBe(true);
   });
 
-  it('the last bus was gone', async () => {
+  it('the last bus was gone', () => {
     currentTime.hour(3);
-    await container.tick(currentTime);
-    expect(container.state.outOfService).toBe(true);
+    act(() => container.current.tick(currentTime));
+    expect(container.current.state.outOfService).toBe(true);
   });
 
-  it('departure time has come', async () => {
+  it('departure time has come', () => {
     currentTime.set({ hour: 21, minute: 9, second: 30 });
-    await container.tick(currentTime);
-    expect(container.state.sliceData).toHaveLength(6);
+    act(() => container.current.tick(currentTime));
+    expect(container.current.state.sliceData).toHaveLength(6);
 
     currentTime.set({ minute: 10 });
-    await container.tick(currentTime);
-    expect(container.state.sliceData).toHaveLength(5);
+    act(() => container.current.tick(currentTime));
+    expect(container.current.state.sliceData).toHaveLength(5);
   });
 });

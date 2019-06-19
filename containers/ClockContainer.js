@@ -1,22 +1,27 @@
-import { Container } from 'unstated';
+import { useState } from 'react';
+import { createContainer } from 'unstated-next';
 
-export default class ClockContainer extends Container {
-  state = {
-    now: Date.now(),
+const useClock = (initialState = Date.now()) => {
+  const [currentTime, setClock] = useState(initialState);
+  let timer = null;
+
+  const start = () => {
+    timer = setInterval(() => {
+      setClock(Date.now());
+    }, 1000);
   };
 
-  constructor() {
-    super();
-    this.start();
-  }
+  const stop = () => {
+    if (timer != null) {
+      clearInterval(timer);
+      timer = null;
+    }
+    setClock(null);
+  };
 
-  start() {
-    this.interval = setInterval(() => {
-      this.setState({ now: Date.now() });
-    }, 500);
-  }
+  return { currentTime, start, stop };
+};
 
-  stop() {
-    clearTimeout(this.interval);
-  }
-}
+const Clock = createContainer(useClock);
+
+export default Clock;
