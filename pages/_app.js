@@ -1,6 +1,7 @@
 import React from 'react';
 import App, { Container } from 'next/app';
 import Head from 'next/head';
+import MuiContainer from '@material-ui/core/Container';
 import { ThemeProvider } from '@material-ui/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
@@ -25,7 +26,9 @@ class MyApp extends App {
         </Head>
         <ThemeProvider theme={theme}>
           <CssBaseline />
-          <Component {...pageProps} />
+          <MuiContainer maxWidth="xs">
+            <Component {...pageProps} />
+          </MuiContainer>
         </ThemeProvider>
       </Container>
     );
