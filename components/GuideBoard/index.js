@@ -6,6 +6,7 @@ import Paper from '@material-ui/core/Paper';
 // components
 import ActiveBoard from './ActiveBoard';
 import InactiveBoard from './InactiveBoard';
+import OutOfServiceBoard from './OutOfServiceBoard';
 
 // styles
 import useStyles from '~/styles/GuideBoard-Style';
@@ -27,7 +28,7 @@ const GuideBoard = ({ clock, Timetable, mini }) => {
   } else if (timetable.isOutOfService()) {
     return (
       <Paper component="section" className={classes.root}>
-        out of service
+        <OutOfServiceBoard timetable={timetable} />
       </Paper>
     );
   }

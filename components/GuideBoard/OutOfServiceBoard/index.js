@@ -26,12 +26,12 @@ const InactiveBoard = ({ timetable }) => {
       </Grid>
       <Grid item>
         <Typography variant="body2">
-          本日バス運行はありません
+          本日のバスは終了しました
         </Typography>
       </Grid>
       <Grid item>
         <Typography variant="caption">
-          (運行は土日祝を除く平日のみ)
+          (明日以降は時刻表を参照)
         </Typography>
       </Grid>
     </Grid>
