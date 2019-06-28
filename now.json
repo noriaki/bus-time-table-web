@@ -6,8 +6,7 @@
   ],
   "public": true,
   "alias": [
-    "deux-tours-bus-timetable",
-    "deux-tours-bus.com"
+    "deux-tours-bus-timetable.now.sh"
   ],
   "builds": [
     { "src": "next.config.js", "use": "@now/next" }
