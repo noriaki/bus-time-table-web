@@ -35,6 +35,6 @@ action "deploy" {
 action "alias" {
   uses = "actions/zeit-now@5c51b26db987d15a0133e4c760924896b4f1512f"
   needs = ["Deploy2Staging"]
-  args = "alias `cat ${HOME}/Deploy2Staging.txt` bus-time-table-web-pr-`node -pe 'JSON.parse(process.argv[1]).number' $(cat $GITHUB_EVENT_PATH)`.now.sh"
+  args = "alias `cat ${HOME}/Deploy2Staging.txt` bus-time-table-web-pr-`node -pe 'JSON.parse(require("fs").readFileSync(process.env.GITHUB_EVENT_PATH)).number'`.now.sh"
   secrets = ["ZEIT_TOKEN"]
 }
