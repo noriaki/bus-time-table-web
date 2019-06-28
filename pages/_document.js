@@ -3,7 +3,12 @@ import Document, { Head, Main, NextScript } from 'next/document';
 import { ServerStyleSheets } from '@material-ui/styles';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import flush from 'styled-jsx/server';
+
+// material-ui theme
 import theme from '~/contexts/mui/theme';
+
+// components
+import MetaHeaders from '~/components/MetaHeaders';
 
 class MyDocument extends Document {
   render() {
@@ -20,6 +25,7 @@ class MyDocument extends Document {
           <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+          <MetaHeaders />
         </Head>
         <body>
           <Main />
