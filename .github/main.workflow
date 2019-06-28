@@ -1,6 +1,6 @@
 workflow "Deploy on Now (Staging)" {
   on = "pull_request"
-  resolves = ["Release"]
+  resolves = ["Deploy2Staging"]
 }
 
 action "Filters [opened, synchronize] for GitHub Actions" {
@@ -12,19 +12,12 @@ action "Deploy2Staging" {
   uses = "actions/zeit-now@5c51b26db987d15a0133e4c760924896b4f1512f"
   needs = ["Filters [opened, synchronize] for GitHub Actions"]
   secrets = ["ZEIT_TOKEN"]
-  args = "deploy --local-config=./now.json --env NODE_ENV=staging --public --no-clipboard > $HOME/$GITHUB_ACTION.txt"
-}
-
-action "Release" {
-  uses = "actions/zeit-now@5c51b26db987d15a0133e4c760924896b4f1512f"
-  args = "alias `cat ${HOME}/Deploy2Staging.txt` bus-time-table-web-stg"
-  secrets = ["ZEIT_TOKEN"]
-  needs = ["Deploy2Staging"]
+  args = "deploy --local-config=./now.json --env NODE_ENV=staging --target=staging --public --no-clipboard"
 }
 
 workflow "Deploy on Now" {
   on = "push"
-  resolves = ["release"]
+  resolves = ["deploy"]
 }
 
 action "Filters branch [master] " {
@@ -35,13 +28,6 @@ action "Filters branch [master] " {
 action "deploy" {
   uses = "actions/zeit-now@5c51b26db987d15a0133e4c760924896b4f1512f"
   needs = ["Filters branch [master] "]
-  args = "deploy --local-config=./now.json --env NODE_ENV=production --public --no-clipboard"
-  secrets = ["ZEIT_TOKEN"]
-}
-
-action "release" {
-  uses = "actions/zeit-now@5c51b26db987d15a0133e4c760924896b4f1512f"
-  needs = ["deploy"]
-  args = "alias --local-config=./now.json"
+  args = "deploy --local-config=./now.json --env NODE_ENV=production --target=production --public --no-clipboard"
   secrets = ["ZEIT_TOKEN"]
 }
