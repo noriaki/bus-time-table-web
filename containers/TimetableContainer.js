@@ -22,85 +22,100 @@ const defaultState = {
   outOfService: null,
 };
 
-const createTimetableHook = data => (initialState = { ...defaultState }) => {
-  const [timetableState, setTimetableState] = useState(initialState);
-  const {
-    id, name, timetable, version, activeDays,
-  } = data;
-
-  const tick = (timestamp) => {
+const createTimetableHook = (data) => {
+  const nextTimetableState = timestamp => (currentState = defaultState) => {
+    const { timetable, activeDays } = data;
     const inactiveDay = isInactiveDays(activeDays, timestamp);
     const flatData = flattenTimeTable(timetable, timestamp);
     const nextSliceData = sliceNextTimeList(flatData, timestamp);
 
-    // initialize
-    const nextState = { ...timetableState };
-    let updated = false;
+    const nextState = {
+      ...currentState,
+      inactiveDay, // sunday, saturday, holiday
+      flatData,
+      sliceData: nextSliceData,
+    };
 
     if (inactiveDay) {
-      // sunday, saturday, holiday
-      Object.assign(nextState, { inactiveDay });
-      updated = true;
+      nextState.outOfService = null;
     } else if (nextSliceData.length === 0) {
       // the last bus was gone
-      Object.assign(nextState, { outOfService: true });
-      updated = true;
-    } else if (nextState.sliceData.length !== nextSliceData.length) {
-      // departure time has come
-      const nextIndex = nextIndex > 0 ? nextIndex - 1 : 0;
-      Object.assign(nextState, {
-        sliceData: nextSliceData, index: nextIndex,
-      });
-      updated = true;
+      nextState.outOfService = true;
+    } else {
+      // in service
+      nextState.outOfService = false;
     }
 
-    // update state if needed
-    if (updated) { setTimetableState(nextState); }
+    if (currentState.sliceData.length !== nextSliceData.length) {
+      // departure time has come
+      const nextIndex = currentState.index > 0 ? currentState.index - 1 : 0;
+      nextState.index = nextIndex;
+    }
+
+    return nextState;
   };
 
-  const moveFront = () => setTimetableState(
-    state => ({ ...state, index: 0 })
-  );
+  const hook = (initialState = { ...defaultState }) => {
+    const [timetableState, setTimetableState] = useState(initialState);
+    const { id, name, version } = data;
 
-  const movePrev = () => setTimetableState(
-    state => ({ ...state, index: state.index - 1 })
-  );
+    const tick = (timestamp) => {
+      setTimetableState(nextTimetableState(timestamp));
+    };
 
-  const moveNext = () => setTimetableState(
-    state => ({ ...state, index: state.index + 1 })
-  );
+    const moveFront = () => setTimetableState(
+      state => ({ ...state, index: 0 })
+    );
 
-  const moveLast = () => setTimetableState(
-    state => ({ ...state, index: state.sliceData.length - 1 })
-  );
+    const movePrev = () => setTimetableState(
+      state => ({ ...state, index: state.index - 1 })
+    );
 
-  const isFront = () => timetableState.index === 0;
+    const moveNext = () => setTimetableState(
+      state => ({ ...state, index: state.index + 1 })
+    );
 
-  const isLast = () => (
-    timetableState.index === timetableState.sliceData.length - 1
-  );
+    const moveLast = () => setTimetableState(
+      state => ({ ...state, index: state.sliceData.length - 1 })
+    );
 
-  const nextTime = () => {
-    const { sliceData, index } = timetableState;
-    return sliceData[index] || null;
+    const isFront = () => timetableState.index === 0;
+
+    const isLast = () => (
+      timetableState.index === timetableState.sliceData.length - 1
+    );
+
+    const isClosedDay = () => !!timetableState.inactiveDay;
+
+    const isOutOfService = () => !!timetableState.outOfService;
+
+    const nextTime = () => {
+      const { sliceData, index } = timetableState;
+      return sliceData[index] || null;
+    };
+
+    const lastUpdate = momentFromVersion(version);
+
+    return {
+      id,
+      name,
+      lastUpdate,
+      state: timetableState,
+      tick,
+      moveFront,
+      movePrev,
+      moveNext,
+      moveLast,
+      isFront,
+      isLast,
+      isClosedDay,
+      isOutOfService,
+      nextTime,
+    };
   };
 
-  const lastUpdate = momentFromVersion(version);
-
-  return {
-    id,
-    name,
-    lastUpdate,
-    state: timetableState,
-    tick,
-    moveFront,
-    movePrev,
-    moveNext,
-    moveLast,
-    isFront,
-    isLast,
-    nextTime,
-  };
+  hook.buildState = nextTimetableState;
+  return hook;
 };
 
 // Hooks

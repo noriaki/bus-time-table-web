@@ -6,6 +6,7 @@
   ],
   "public": true,
   "alias": [
+    "deux-tours-bus.com",
     "deux-tours-bus-timetable.now.sh"
   ],
   "builds": [
