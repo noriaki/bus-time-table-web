@@ -15,7 +15,12 @@ import CountDownClock from './CountDownClock';
 // styles
 import useStyles from '~/styles/GuideBoard/ActiveBoard-Style';
 
-const ActiveBoard = ({ timetable, currentTime, nextTime, mini }) => {
+const ActiveBoard = ({
+  timetable,
+  currentTime,
+  nextTime,
+  mini,
+}) => {
   const remaining = nextTime.valueOf() - currentTime;
 
   const classes = useStyles({ mini });

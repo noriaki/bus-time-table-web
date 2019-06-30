@@ -23,8 +23,8 @@ const defaultState = {
 };
 
 const createTimetableHook = (data) => {
-  const { timetable, activeDays } = data;
-  const buildNextState = (currentState, timestamp = Date.now()) => {
+  const nextTimetableState = timestamp => (currentState = defaultState) => {
+    const { timetable, activeDays } = data;
     const inactiveDay = isInactiveDays(activeDays, timestamp);
     const flatData = flattenTimeTable(timetable, timestamp);
     const nextSliceData = sliceNextTimeList(flatData, timestamp);
@@ -40,19 +40,21 @@ const createTimetableHook = (data) => {
     } else if (currentState.sliceData.length !== nextSliceData.length) {
       // departure time has come
       const nextIndex = currentState.index > 0 ? currentState.index - 1 : 0;
-      nextState = Object.assign(nextState, { sliceData: nextSliceData, index: nextIndex });
+      nextState = Object.assign(nextState, {
+        sliceData: nextSliceData,
+        index: nextIndex,
+      });
     }
 
     return nextState;
   };
 
-  return (initialState = { ...defaultState }) => {
-    const [timetableState, setTimetableState] = useState(buildNextState(initialState));
+  const hook = (initialState = { ...defaultState }) => {
+    const [timetableState, setTimetableState] = useState(initialState);
     const { id, name, version } = data;
 
     const tick = (timestamp) => {
-      const nextState = buildNextState(timetableState, timestamp);
-      setTimetableState(nextState);
+      setTimetableState(nextTimetableState(timestamp));
     };
 
     const moveFront = () => setTimetableState(
@@ -105,6 +107,9 @@ const createTimetableHook = (data) => {
       nextTime,
     };
   };
+
+  hook.buildState = nextTimetableState;
+  return hook;
 };
 
 // Hooks
