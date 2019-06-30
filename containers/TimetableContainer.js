@@ -29,21 +29,27 @@ const createTimetableHook = (data) => {
     const flatData = flattenTimeTable(timetable, timestamp);
     const nextSliceData = sliceNextTimeList(flatData, timestamp);
 
-    let nextState = { ...currentState };
+    const nextState = {
+      ...currentState,
+      inactiveDay, // sunday, saturday, holiday
+      flatData,
+      sliceData: nextSliceData,
+    };
 
     if (inactiveDay) {
-      // sunday, saturday, holiday
-      nextState = Object.assign(nextState, { inactiveDay });
+      nextState.outOfService = null;
     } else if (nextSliceData.length === 0) {
       // the last bus was gone
-      nextState = Object.assign(nextState, { outOfService: true });
-    } else if (currentState.sliceData.length !== nextSliceData.length) {
+      nextState.outOfService = true;
+    } else {
+      // in service
+      nextState.outOfService = false;
+    }
+
+    if (currentState.sliceData.length !== nextSliceData.length) {
       // departure time has come
       const nextIndex = currentState.index > 0 ? currentState.index - 1 : 0;
-      nextState = Object.assign(nextState, {
-        sliceData: nextSliceData,
-        index: nextIndex,
-      });
+      nextState.index = nextIndex;
     }
 
     return nextState;
