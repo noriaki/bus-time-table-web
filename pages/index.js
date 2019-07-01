@@ -10,6 +10,7 @@ import Clock from '~/containers/ClockContainer';
 // components
 import TimersBoard from '~/components/TimersBoard';
 import Timetables from '~/components/Timetables';
+import AboutApps from '~/components/AboutApps';
 
 // styles
 import useStyles from '~/styles/Base-Style';
@@ -35,6 +36,10 @@ const IndexPage = () => {
       <Divider variant="middle" className={classes.divider} />
       <article className={classes.article}>
         <Timetables clock={clock} />
+      </article>
+      <Divider variant="middle" className={classes.divider} />
+      <article className={classes.article}>
+        <AboutApps />
       </article>
     </main>
   );

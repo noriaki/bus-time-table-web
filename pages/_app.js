@@ -10,6 +10,12 @@ import theme from '~/contexts/mui/theme';
 // containers
 import Clock from '~/containers/ClockContainer';
 
+// components
+import JsonLd from '~/components/commons/JsonLd';
+
+// data
+import jsonLdData from '~/data/jsonld.json';
+
 class ComDeuxToursBusApp extends App {
   componentDidMount() {
     // Remove the server-side injected CSS.
@@ -32,6 +38,7 @@ class ComDeuxToursBusApp extends App {
             </Clock.Provider>
           </MuiContainer>
         </ThemeProvider>
+        <JsonLd data={jsonLdData} />
       </NextContainer>
     );
   }
