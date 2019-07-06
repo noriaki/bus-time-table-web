@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 
 // material-ui
 import Grid from '@material-ui/core/Grid';
@@ -7,6 +7,9 @@ import Button from '@material-ui/core/Button';
 // material-ui icons
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+
+// libs
+import { trackMovePrev, trackMoveNext } from '~/libs/ga';
 
 // components
 import Departure from './Departure';
@@ -24,6 +27,16 @@ const ActiveBoard = ({
   const remaining = nextTime.valueOf() - currentTime;
 
   const classes = useStyles({ mini });
+
+  const onPrevClick = useCallback(() => {
+    trackMovePrev(timetable.name);
+    timetable.movePrev();
+  });
+
+  const onNextClick = useCallback(() => {
+    trackMoveNext(timetable.name);
+    timetable.moveNext();
+  });
 
   return (
     <Grid container justify="space-between">
@@ -49,7 +62,7 @@ const ActiveBoard = ({
           color="secondary"
           disabled={timetable.isFront()}
           classes={{ root: classes.buttonRoot, label: classes.buttonLabel }}
-          onClick={() => timetable.movePrev()}>
+          onClick={onPrevClick}>
           <span>前発</span>
           <ChevronLeftIcon className={classes.prevIcon} />
         </Button>
@@ -59,7 +72,7 @@ const ActiveBoard = ({
           color="secondary"
           disabled={timetable.isLast()}
           classes={{ root: classes.buttonRoot, label: classes.buttonLabel }}
-          onClick={() => timetable.moveNext()}>
+          onClick={onNextClick}>
           <span>次発</span>
           <ChevronRightIcon />
         </Button>

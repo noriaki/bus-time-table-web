@@ -10,6 +10,9 @@ import theme from '~/contexts/mui/theme';
 // components
 import MetaHeaders from '~/components/MetaHeaders';
 
+// constants
+import { trackID, initCode } from '~/libs/ga';
+
 class MyDocument extends Document {
   render() {
     return (
@@ -25,6 +28,11 @@ class MyDocument extends Document {
           <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+          {/* Google Analytics */}
+          <script
+            async
+            src={`https://www.googletagmanager.com/gtag/js?id=${trackID}`} />
+          <script dangerouslySetInnerHTML={{ __html: initCode }} />
           <MetaHeaders />
         </Head>
         <body>
