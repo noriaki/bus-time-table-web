@@ -31,12 +31,20 @@ const ActiveBoard = ({
   const onPrevClick = useCallback(() => {
     trackMovePrev(timetable.name);
     timetable.movePrev();
-  });
+  }, [
+    timetable.name,
+    timetable.state.index,
+    timetable.state.sliceData,
+  ]);
 
   const onNextClick = useCallback(() => {
     trackMoveNext(timetable.name);
     timetable.moveNext();
-  });
+  }, [
+    timetable.name,
+    timetable.state.index,
+    timetable.state.sliceData,
+  ]);
 
   return (
     <Grid container justify="space-between">
