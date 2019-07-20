@@ -57,7 +57,7 @@ const createTimetableHook = (data) => {
 
   const hook = (initialState = { ...defaultState }) => {
     const [timetableState, setTimetableState] = useState(initialState);
-    const { id, name, version } = data;
+    const { version, id, name, timetable } = data;
 
     const tick = (timestamp) => {
       setTimetableState(nextTimetableState(timestamp));
@@ -99,6 +99,7 @@ const createTimetableHook = (data) => {
     return {
       id,
       name,
+      timetable,
       lastUpdate,
       state: timetableState,
       tick,
