@@ -1,16 +1,17 @@
 {
   "extends": [
     "config:base",
-    "group:recommended",
     ":pinAllExceptPeerDependencies"
   ],
   "timezone": "Asia/Tokyo",
   "assignees": ["noriaki"],
   "labels": ["update-dependencies"],
+  "bumpVersion": "minor",
   "minor": {
     "automerge": true
   },
   "patch": {
+    "groupName": "all patch dependencies",
     "automerge": true
   }
 }
