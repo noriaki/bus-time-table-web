@@ -35,6 +35,16 @@ const Timetables = ({ clock }) => {
             <Timetable clock={clock} TimetableContainer={HomeTimetable} />
           </HomeTimetable.Provider>
         </CardContent>
+        <CardContent>
+          <HigashiGinzaTimetable.Provider initialState={higashiGinzaState}>
+            <Timetable clock={clock} TimetableContainer={HigashiGinzaTimetable} />
+          </HigashiGinzaTimetable.Provider>
+        </CardContent>
+        <CardContent>
+          <ShimbashiTimetable.Provider initialState={shimbashiState}>
+            <Timetable clock={clock} TimetableContainer={ShimbashiTimetable} />
+          </ShimbashiTimetable.Provider>
+        </CardContent>
       </Card>
     </Fragment>
   );
