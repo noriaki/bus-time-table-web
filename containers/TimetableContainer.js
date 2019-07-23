@@ -57,7 +57,12 @@ const createTimetableHook = (data) => {
 
   const hook = (initialState = { ...defaultState }) => {
     const [timetableState, setTimetableState] = useState(initialState);
-    const { version, id, name, timetable } = data;
+    const {
+      version,
+      id,
+      name,
+      timetable,
+    } = data;
 
     const tick = (timestamp) => {
       setTimetableState(nextTimetableState(timestamp));
@@ -94,12 +99,14 @@ const createTimetableHook = (data) => {
       return sliceData[index] || null;
     };
 
+    const nearestTime = () => (timetableState.sliceData[0] || null);
+
     const lastUpdate = momentFromVersion(version);
 
     return {
       id,
       name,
-      timetable,
+      data: timetable,
       lastUpdate,
       state: timetableState,
       tick,
@@ -111,6 +118,7 @@ const createTimetableHook = (data) => {
       isLast,
       isClosedDay,
       isOutOfService,
+      nearestTime,
       nextTime,
     };
   };
