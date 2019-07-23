@@ -13,5 +13,11 @@
   "patch": {
     "groupName": "all patch dependencies",
     "automerge": true
-  }
+  },
+  "packageRules": [
+    {
+      "groupName": "eslint packages",
+      "packagePatterns": ["^babel-eslint", "^eslint"]
+    }
+  ]
 }
