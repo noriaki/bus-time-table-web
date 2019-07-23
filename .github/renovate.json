@@ -2,9 +2,9 @@
   "extends": [
     "config:base",
     "group:recommended",
+    ":combinePatchMinorReleases",
     ":pinAllExceptPeerDependencies",
     ":timezone(Asia/Tokyo)",
     ":automergePatch"
-  ],
-  "schedule": "before 8am on Monday"
+  ]
 }
