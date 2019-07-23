@@ -2,9 +2,15 @@
   "extends": [
     "config:base",
     "group:recommended",
-    ":combinePatchMinorReleases",
-    ":pinAllExceptPeerDependencies",
-    ":timezone(Asia/Tokyo)",
-    ":automergePatch"
-  ]
+    ":pinAllExceptPeerDependencies"
+  ],
+  "timezone": "Asia/Tokyo",
+  "assignees": ["noriaki"],
+  "labels": ["update-dependencies"],
+  "minor": {
+    "automerge": true
+  },
+  "patch": {
+    "automerge": true
+  }
 }
