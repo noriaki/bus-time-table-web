@@ -32,7 +32,10 @@ const Timetable = ({ clock, TimetableContainer }) => {
       </Table>
       <Typography variant="caption">
         灰色の時間帯は発着目安時刻です。
-        到着時にバス停で待っている人だけ乗車可能ですのでご注意ください。
+        到着時に待っている人だけ乗車可能ですのでご注意ください。
+        <br />
+        時刻表更新日：
+        { timetable.lastUpdate.format('YYYY/MM/DD') }
       </Typography>
     </Fragment>
   );
