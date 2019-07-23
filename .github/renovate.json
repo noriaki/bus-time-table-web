@@ -1,12 +1,16 @@
 {
   "extends": [
     "config:base",
+    ":preserveSemverRanges",
     ":pinAllExceptPeerDependencies"
   ],
   "timezone": "Asia/Tokyo",
   "assignees": ["noriaki"],
   "labels": ["update-dependencies"],
   "bumpVersion": "minor",
+  "node": {
+    "enabled": false
+  },
   "minor": {
     "automerge": true
   },
