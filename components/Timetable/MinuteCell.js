@@ -10,7 +10,7 @@ import useStyles from '~/styles/Timetable/MinuteCell-Style';
 const MinuteCell = ({ minute, current = false }) => {
   const mm = moment({ minute }).format('mm');
 
-  const classes = useStyles({ index: minute / 5, current });
+  const classes = useStyles({ index: Math.floor(minute / 5), current });
 
   return (
     <Typography component="span" classes={classes}>{ mm }</Typography>
