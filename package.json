@@ -33,6 +33,7 @@
     "unstated-next": "1.1.0"
   },
   "devDependencies": {
+    "@testing-library/react-hooks": "^1.1.0",
     "babel-eslint": "10.0.2",
     "enzyme": "3.10.0",
     "enzyme-adapter-react-16": "1.14.0",
@@ -44,7 +45,6 @@
     "eslint-plugin-react": "7.14.3",
     "jest": "24.8.0",
     "jest-enzyme": "7.0.2",
-    "now": "15.8.6",
-    "react-hooks-testing-library": "0.6.0"
+    "now": "15.8.6"
   }
 }
