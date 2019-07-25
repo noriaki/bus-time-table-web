@@ -42,7 +42,6 @@ module.exports = {
     }],
     'react/prop-types': 'warn',
     'react/no-did-mount-set-state': 'warn',
-    'import/no-extraneous-dependencies': ['error', { dependencies: true } ],
     'jsx-a11y/label-has-for': ['error', {
       components: ['label'],
       required: { some: ['id'] },
