@@ -8,6 +8,7 @@ import Divider from '@material-ui/core/Divider';
 import Clock from '~/containers/ClockContainer';
 
 // components
+import TitleBar from '~/components/TitleBar';
 import TimersBoard from '~/components/TimersBoard';
 import Timetables from '~/components/Timetables';
 import AboutApps from '~/components/AboutApps';
@@ -27,9 +28,7 @@ const IndexPage = () => {
 
   return (
     <main>
-      <Typography component="h1" variant="h5">
-        Deux Tours シャトルバス
-      </Typography>
+      <TitleBar />
       <article className={classes.article}>
         <TimersBoard clock={clock} />
       </article>
