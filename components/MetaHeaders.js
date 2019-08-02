@@ -20,6 +20,7 @@ const MetaHeaders = () => (
       property="og:image"
       content="https://deux-tours-bus.com/static/icons/app.png" />
     <link rel="shortcut icon" href="/static/icons/favicon.ico" />
+    <link rel="canonical" href="https://deux-tours-bus.com/" />
   </Fragment>
 );
 
