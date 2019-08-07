@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 // styles
 import useDepartureStyles from '~/styles/GuideBoard/Departure-Style';
 
-const InactiveBoard = ({ timetable }) => {
+const OutOfServiceBoard = ({ timetable }) => {
   const { name } = timetable;
 
   const { departure, suffix } = useDepartureStyles();
@@ -38,4 +38,4 @@ const InactiveBoard = ({ timetable }) => {
   );
 };
 
-export default InactiveBoard;
+export default OutOfServiceBoard;
