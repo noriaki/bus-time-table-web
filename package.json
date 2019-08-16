@@ -45,6 +45,6 @@
     "eslint-plugin-react": "7.14.3",
     "jest": "24.8.0",
     "jest-enzyme": "7.1.0",
-    "now": "15.8.7"
+    "now": "16.1.1"
   }
 }
