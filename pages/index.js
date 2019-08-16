@@ -43,11 +43,13 @@ const IndexPage = () => {
   );
 };
 
+/*
 IndexPage.getInitialProps = ({ res }) => {
   if (res) {
     res.setHeader('Cache-Control', 's-maxage=1, stale-while-revalidate');
   }
   return {};
 };
+*/
 
 export default IndexPage;
