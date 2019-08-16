@@ -5,26 +5,26 @@ import moment from 'moment';
 import Typography from '@material-ui/core/Typography';
 
 // styles
-import useStyles from '~/styles/GuideBoard/CountDownClock-Style';
+import useStyles from '~/styles/GuideBoard/ActiveBoard/CountDownClock-Style';
 
 const CountDownClock = ({ remaining }) => {
-  const remainingTime = moment.utc(remaining);
-  const hasHours = remainingTime.hours() > 0;
+  const rTime = moment.utc(remaining);
+  const hasHours = rTime.hours() > 0;
 
-  const { time, suffix } = useStyles();
+  const classes = useStyles();
 
   return (
     <Typography>
-      { hasHours && <span className={time}>{remainingTime.format('H')}</span> }
-      { hasHours && <span className={suffix}>時間</span> }
-      <span className={time}>
-        { remainingTime.format('mm') }
+      { hasHours && <span className={classes.time}>{rTime.format('H')}</span> }
+      { hasHours && <span className={classes.suffix}>時間</span> }
+      <span className={classes.time}>
+        { rTime.format('mm') }
       </span>
-      <span className={suffix}>分</span>
-      <span className={time}>
-        { remainingTime.format('ss') }
+      <span className={classes.suffix}>分</span>
+      <span className={classes.time}>
+        { rTime.format('ss') }
       </span>
-      <span className={suffix}>秒</span>
+      <span className={classes.suffix}>秒</span>
     </Typography>
   );
 };

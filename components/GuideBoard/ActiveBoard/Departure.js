@@ -2,19 +2,18 @@ import React from 'react';
 
 // material-ui
 import Typography from '@material-ui/core/Typography';
-// import Chip from '@material-ui/core/Chip';
 import Badge from '@material-ui/core/Badge';
 
-
 // styles
-import useStyles, { useLastBadgeStyles } from '~/styles/GuideBoard/Departure-Style';
+import useStyles from '~/styles/GuideBoard/ActiveBoard/Departure-Style';
+import useLastBadgeStyles from '~/styles/GuideBoard/ActiveBoard/LastBadge-Style';
 
 const Departure = ({ name, nextTime, isLast }) => {
   const classes = useStyles();
   const lastBadgeClasses = useLastBadgeStyles();
 
   return (
-    <Typography component="h1" className={classes.root}>
+    <Typography component="h1">
       <span className={classes.departure}>
         { name }
       </span>

@@ -1,22 +1,22 @@
 import { makeStyles } from '@material-ui/styles';
 
 const useStyles = makeStyles({
-  content: ({ mini }) => ({
-    width: mini ? '100%' : 'auto',
-  }),
+  content: {
+    width: ({ mini }) => (mini ? '100%' : 'auto'),
+  },
   buttonRoot: {
     height: '100%',
   },
-  buttonLabel: ({ mini }) => ({
+  buttonLabel: {
     display: 'inline-flex',
-    flexDirection: mini ? 'row' : 'column',
-  }),
-  prevButton: ({ mini }) => ({
-    order: mini ? 0 : -1,
-  }),
-  prevIcon: ({ mini }) => ({
-    order: mini ? -1 : 0,
-  }),
+    flexDirection: ({ mini }) => (mini ? 'row' : 'column'),
+  },
+  prevButton: {
+    order: ({ mini }) => (mini ? 0 : -1),
+  },
+  prevIcon: {
+    order: ({ mini }) => (mini ? -1 : 0),
+  },
 });
 
 export default useStyles;
