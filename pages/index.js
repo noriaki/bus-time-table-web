@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 
 // material-ui components
-import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 
 // containers
@@ -42,6 +41,13 @@ const IndexPage = () => {
       </article>
     </main>
   );
+};
+
+IndexPage.getInitialProps = ({ res }) => {
+  if (res) {
+    res.setHeader('Cache-Control', 's-maxage=1, stale-while-revalidate');
+  }
+  return {};
 };
 
 export default IndexPage;
