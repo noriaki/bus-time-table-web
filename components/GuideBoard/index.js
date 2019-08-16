@@ -18,29 +18,26 @@ const GuideBoard = ({ clock, Timetable, mini }) => {
   useEffect(() => { timetable.tick(currentTime); }, [currentTime]);
 
   const classes = useStyles();
+  let boardComponent;
 
   if (timetable.isClosedDay()) {
-    return (
-      <Paper component="section" className={classes.root}>
-        <InactiveBoard timetable={timetable} mini={mini} />
-      </Paper>
-    );
+    boardComponent = <InactiveBoard timetable={timetable} />;
   } else if (timetable.isOutOfService()) {
-    return (
-      <Paper component="section" className={classes.root}>
-        <OutOfServiceBoard timetable={timetable} mini={mini} />
-      </Paper>
-    );
-  }
-  const nextTime = timetable.nextTime();
-
-  return (
-    <Paper component="section" className={classes.root}>
+    boardComponent = <OutOfServiceBoard timetable={timetable} />;
+  } else {
+    const nextTime = timetable.nextTime();
+    boardComponent = (
       <ActiveBoard
         timetable={timetable}
         currentTime={currentTime}
         nextTime={nextTime}
         mini={mini} />
+    );
+  }
+
+  return (
+    <Paper component="section" className={classes.root}>
+      { boardComponent }
     </Paper>
   );
 };
