@@ -1,7 +1,7 @@
 {
   "name": "bus-time-table-web",
   "title": "シャトルバス時刻表・発車タイマー（中央区晴海のドゥ・トゥール/DEUX TOURS）",
-  "version": "2.12.0",
+  "version": "2.16.0",
   "description": "起動して3秒で次の発車時刻が分かる。東京都中央区晴海三丁目のマンション「ドゥ・トゥール(DEUX TOURS)」から東銀座を経由して新橋駅を結ぶシャトルバスの発車タイマーと時刻表を手軽にチェックできるアプリです。",
   "private": true,
   "engines": {
@@ -22,29 +22,29 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@material-ui/core": "4.3.1",
+    "@material-ui/core": "4.3.2",
     "@material-ui/icons": "4.2.1",
     "@material-ui/styles": "4.3.0",
     "babel-plugin-module-resolver": "3.2.0",
     "moment": "2.24.0",
     "next": "9.0.3",
-    "react": "16.8.6",
-    "react-dom": "16.8.6",
+    "react": "16.9.0",
+    "react-dom": "16.9.0",
     "unstated-next": "1.1.0"
   },
   "devDependencies": {
-    "@testing-library/react-hooks": "1.1.0",
+    "@testing-library/react-hooks": "2.0.1",
     "babel-eslint": "10.0.2",
     "enzyme": "3.10.0",
     "enzyme-adapter-react-16": "1.14.0",
     "eslint": "6.1.0",
-    "eslint-config-airbnb": "17.1.1",
+    "eslint-config-airbnb": "18.0.1",
     "eslint-import-resolver-babel-module": "5.1.0",
     "eslint-plugin-import": "2.18.2",
     "eslint-plugin-jsx-a11y": "6.2.3",
     "eslint-plugin-react": "7.14.3",
     "jest": "24.8.0",
-    "jest-enzyme": "7.0.2",
-    "now": "15.8.7"
+    "jest-enzyme": "7.1.0",
+    "now": "16.1.1"
   }
 }
