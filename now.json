@@ -13,10 +13,6 @@
   ],
   "routes": [
     { "src": "/robots.txt", "dest": "/static/robots.txt" },
-    { "src": "/sitemap.xml", "dest": "/static/sitemap.xml" },
-    {
-      "src": "/",
-      "headers": { "Cache-Control": "s-maxage=1, stale-while-revalidate" }
-    }
+    { "src": "/sitemap.xml", "dest": "/static/sitemap.xml" }
   ]
 }
