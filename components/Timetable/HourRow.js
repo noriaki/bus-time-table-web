@@ -25,17 +25,16 @@ const HourRow = ({
     }
     return <MinuteCell key={`${minute}`} minute={minute} current={current} />;
   });
-  const hh = moment({ hour }).format('HH');
 
   const classes = useStyles({ estimated });
 
   return (
-    <TableRow key={hh}>
+    <TableRow>
       <TableCell
         variant="head"
         align="center"
         className={classes.head}>
-        { hh }
+        { moment({ hour }).format('HH') }
       </TableCell>
       <TableCell align="center" className={classes.column}>
         <div className={classes.cellContainer}>
