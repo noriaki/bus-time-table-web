@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 
 // material-ui
 import Card from '@material-ui/core/Card';
@@ -25,7 +25,7 @@ const Timetables = ({ clock }) => {
   const shimbashiState = ShimbashiTimetableHook.buildState(currentTime)();
 
   return (
-    <Fragment>
+    <>
       <Typography component="h2" variant="h6">
         時刻表
       </Typography>
@@ -46,7 +46,7 @@ const Timetables = ({ clock }) => {
           </ShimbashiTimetable.Provider>
         </CardContent>
       </Card>
-    </Fragment>
+    </>
   );
 };
 
