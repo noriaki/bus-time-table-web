@@ -22,13 +22,13 @@ const GuideBoard = ({ clock, Timetable, mini }) => {
   if (timetable.isClosedDay()) {
     return (
       <Paper component="section" className={classes.root}>
-        <InactiveBoard timetable={timetable} />
+        <InactiveBoard timetable={timetable} mini={mini} />
       </Paper>
     );
   } else if (timetable.isOutOfService()) {
     return (
       <Paper component="section" className={classes.root}>
-        <OutOfServiceBoard timetable={timetable} />
+        <OutOfServiceBoard timetable={timetable} mini={mini} />
       </Paper>
     );
   }
