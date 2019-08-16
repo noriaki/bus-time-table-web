@@ -8,7 +8,6 @@
   "alias": [
     "deux-tours-bus.com"
   ],
-  "env": { "TZ": "Asia/Tokyo" },
   "builds": [
     { "src": "next.config.js", "use": "@now/next" }
   ],
