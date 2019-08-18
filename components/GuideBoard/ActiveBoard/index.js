@@ -47,7 +47,7 @@ const ActiveBoard = ({
   ]);
 
   return (
-    <Grid container justify="space-between">
+    <>
       <Grid
         container
         direction="column"
@@ -85,7 +85,7 @@ const ActiveBoard = ({
           <ChevronRightIcon />
         </Button>
       </Grid>
-    </Grid>
+    </>
   );
 };
 

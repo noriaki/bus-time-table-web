@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 
 // material-ui
 import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
 
 // components
 import ActiveBoard from './ActiveBoard';
@@ -37,7 +38,9 @@ const GuideBoard = ({ clock, Timetable, mini }) => {
 
   return (
     <Paper component="section" className={classes.root}>
-      { boardComponent }
+      <Grid container justify="space-between">
+        { boardComponent }
+      </Grid>
     </Paper>
   );
 };

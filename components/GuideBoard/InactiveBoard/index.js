@@ -17,7 +17,8 @@ const InactiveBoard = ({ timetable }) => {
       container
       direction="column"
       alignItems="center"
-      justify="center">
+      justify="center"
+      item>
       <Grid item>
         <Typography component="h1">
           <span className={classes.departure}>{ name }</span>
