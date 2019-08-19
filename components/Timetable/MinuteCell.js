@@ -1,5 +1,6 @@
 import React from 'react';
 import moment from 'moment';
+import clsx from 'clsx';
 
 // material-ui
 import Typography from '@material-ui/core/Typography';
@@ -8,12 +9,17 @@ import Typography from '@material-ui/core/Typography';
 import useStyles from '~/styles/Timetable/MinuteCell-Style';
 
 const MinuteCell = ({ minute, current = false }) => {
-  const mm = moment({ minute }).format('mm');
-
-  const classes = useStyles({ index: Math.floor(minute / 5), current });
+  const index = Math.floor(minute / 5);
+  const classes = useStyles();
+  const className = clsx(
+    classes[`pos${index + 1}`],
+    { [classes.current]: current }
+  );
 
   return (
-    <Typography component="span" classes={classes}>{ mm }</Typography>
+    <Typography component="span" className={className}>
+      { moment({ minute }).format('mm') }
+    </Typography>
   );
 };
 

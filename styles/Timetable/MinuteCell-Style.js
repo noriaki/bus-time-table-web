@@ -4,15 +4,21 @@ import { lighten } from '@material-ui/core/styles/colorManipulator';
 const useStyles = makeStyles(({ palette }) => {
   const currentColor = lighten(palette.secondary.light, 0.5);
 
-  return {
-    root: {
-      gridColumn: ({ index }) => `${index + 1} / auto`,
-      backgroundColor: ({ current }) => (current ? currentColor : 'inherit'),
+  const styles = {
+    current: {
+      backgroundColor: currentColor,
     },
   };
+  const indexStyles = {};
+  [...Array(12).keys()].forEach(
+    (i) => {
+      indexStyles[`pos${i + 1}`] = { gridColumn: `${i + 1} / auto` };
+    }
+  );
+
+  return { ...indexStyles, ...styles };
 }, {
   name: 'TimetableMinuteCell',
-  link: true,
 });
 
 export default useStyles;
