@@ -20,9 +20,9 @@ jobs:
 
     - name: Extract pull_request.number
       run: |
-        jq -r '.number' ${GITHUB_EVENT_PATH} > ${HOME}/pr-number.txt
-        echo ${HOME}/pr-number.txt
-        cat ${HOME}/pr-number.txt
+        jq -r '.number' ${GITHUB_EVENT_PATH} > /github/home/pr-number.txt
+        echo /github/home/pr-number.txt
+        cat /github/home/pr-number.txt
 
     - name: Deploy2Staging
       uses: actions/zeit-now@5c51b26
@@ -35,7 +35,7 @@ jobs:
           --env NODE_ENV=staging
           --public
           --no-clipboard
-          > ${HOME}/Deploy2Staging.txt
+          > /github/home/Deploy2Staging.txt
 
     - name: Debug on actions/zeit-now
       run: env | sort -f
@@ -47,5 +47,5 @@ jobs:
       with:
         args: >
           alias
-          `cat ${HOME}/Deploy2Staging.txt`
-          bus-time-table-web-pr-`cat ${HOME}/pr-number.txt`.now.sh
+          `cat /github/home/Deploy2Staging.txt`
+          bus-time-table-web-pr-`cat /github/home/pr-number.txt`.now.sh
