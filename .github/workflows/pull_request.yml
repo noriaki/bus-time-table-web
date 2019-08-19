@@ -1,0 +1,26 @@
+on: pull_request
+name: Deploy on Now (Staging)
+jobs:
+  build:
+    name: Filters [opened, synchronize] for GitHub Actions
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Filters [opened, synchronize] for GitHub Actions
+      uses: actions/bin/filter@3c0b4f0e63ea54ea5df2914b4fabf383368cd0da
+      with:
+        args: action 'opened|synchronize'
+    - name: Deploy2Staging
+      uses: actions/zeit-now@5c51b26db987d15a0133e4c760924896b4f1512f
+      env:
+        ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }}
+      with:
+        args: deploy --local-config=./now.json --env NODE_ENV=staging --public --no-clipboard
+          > $HOME/${{ github.action }}.txt
+    - name: alias
+      uses: actions/zeit-now@5c51b26db987d15a0133e4c760924896b4f1512f
+      env:
+        ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }}
+      with:
+        args: alias `cat ${HOME}/Deploy2Staging.txt` bus-time-table-web-pr-`node -pe
+          'JSON.parse(require("fs").readFileSync(process.env.GITHUB_EVENT_PATH)).number'`.now.sh
