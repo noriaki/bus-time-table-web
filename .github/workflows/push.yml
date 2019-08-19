@@ -20,5 +20,4 @@ jobs:
       env:
         ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }}
       with:
-        args: deploy --local-config=./now.json --env NODE_ENV=production --target=production
-          --public --no-clipboard
+        args: deploy --local-config=./now.json --env NODE_ENV=production --target=production --public --no-clipboard
