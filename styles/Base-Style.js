@@ -5,6 +5,8 @@ const useStyles = makeStyles({
     margin: '32px 0',
   },
   divider: {},
+}, {
+  name: 'Base',
 });
 
 export default useStyles;

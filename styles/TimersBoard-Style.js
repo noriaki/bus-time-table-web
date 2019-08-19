@@ -31,6 +31,8 @@ const useStyles = makeStyles({
   arrowIcon: {
     color: premiumBlackPalette[200],
   },
+}, {
+  name: 'TimersBoard',
 });
 
 export default useStyles;

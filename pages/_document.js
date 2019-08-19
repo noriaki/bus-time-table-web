@@ -1,8 +1,6 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import Document, { Head, Main, NextScript } from 'next/document';
 import { ServerStyleSheets } from '@material-ui/styles';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import flush from 'styled-jsx/server';
 
 // material-ui theme
 import theme from '~/contexts/mui/theme';
@@ -80,12 +78,12 @@ MyDocument.getInitialProps = async (ctx) => {
   return {
     ...initialProps,
     // Styles fragment is rendered after the app and page rendering finish.
-    styles: (
-      <>
+    styles: [
+      <Fragment key="styles">
+        {initialProps.styles}
         {sheets.getStyleElement()}
-        {flush() || null}
-      </>
-    ),
+      </Fragment>,
+    ],
   };
 };
 

@@ -5,23 +5,25 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
 // styles
-import useDepartureStyles from '~/styles/GuideBoard/Departure-Style';
+import useStyles from '~/styles/GuideBoard/OutOfServiceBoard-Style';
 
-const InactiveBoard = ({ timetable }) => {
+const OutOfServiceBoard = ({ timetable }) => {
   const { name } = timetable;
 
-  const { departure, suffix } = useDepartureStyles();
+  const classes = useStyles();
 
   return (
     <Grid
+      key="outOfServiceBoard"
       container
       direction="column"
       alignItems="center"
-      justify="center">
+      justify="center"
+      item>
       <Grid item>
         <Typography component="h1">
-          <span className={departure}>{ name }</span>
-          <span className={suffix}>発</span>
+          <span className={classes.departure}>{ name }</span>
+          <span className={classes.suffix}>発</span>
         </Typography>
       </Grid>
       <Grid item>
@@ -38,4 +40,4 @@ const InactiveBoard = ({ timetable }) => {
   );
 };
 
-export default InactiveBoard;
+export default OutOfServiceBoard;

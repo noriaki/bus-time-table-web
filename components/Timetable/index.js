@@ -1,4 +1,4 @@
-import React, { useEffect, Fragment } from 'react';
+import React, { useEffect } from 'react';
 
 // material-ui
 import Typography from '@material-ui/core/Typography';
@@ -15,12 +15,17 @@ const Timetable = ({ clock, TimetableContainer }) => {
   useEffect(() => { timetable.tick(currentTime); }, [currentTime]);
 
   const nextTime = timetable.nearestTime();
-  const rows = timetable.data.map(
-    data => <HourRow key={`${data.hour}`} {...data} nextTime={nextTime} />
-  );
+  const rows = timetable.data.map(({ hour, minutes, estimated }) => (
+    <HourRow
+      key={`${hour}`}
+      hour={hour}
+      minutes={minutes}
+      estimated={estimated}
+      nextTime={nextTime} />
+  ));
 
   return (
-    <Fragment>
+    <>
       <Typography component="h3" variant="h6">
         { timetable.name }
         <Typography component="span" variant="caption">発</Typography>
@@ -37,7 +42,7 @@ const Timetable = ({ clock, TimetableContainer }) => {
         時刻表更新日：
         { timetable.lastUpdate.format('YYYY/MM/DD') }
       </Typography>
-    </Fragment>
+    </>
   );
 };
 

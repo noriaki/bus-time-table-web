@@ -5,6 +5,8 @@ const useStyles = makeStyles({
     padding: '8px 0',
     width: '100%',
   },
+}, {
+  name: 'GuideBoard',
 });
 
 export default useStyles;

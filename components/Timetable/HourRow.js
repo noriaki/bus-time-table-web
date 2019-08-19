@@ -1,5 +1,5 @@
 import React from 'react';
-import moment from 'moment';
+import clsx from 'clsx';
 
 // material-ui
 import TableRow from '@material-ui/core/TableRow';
@@ -25,19 +25,19 @@ const HourRow = ({
     }
     return <MinuteCell key={`${minute}`} minute={minute} current={current} />;
   });
-  const hh = moment({ hour }).format('HH');
 
-  const classes = useStyles({ estimated });
+  const classes = useStyles();
+  const columnClassName = clsx(estimated && classes.estimatedColumn);
 
   return (
-    <TableRow key={hh}>
+    <TableRow>
       <TableCell
         variant="head"
         align="center"
         className={classes.head}>
-        { hh }
+        { `${hour}`.padStart(2, '0') }
       </TableCell>
-      <TableCell align="center" className={classes.column}>
+      <TableCell align="center" className={columnClassName}>
         <div className={classes.cellContainer}>
           { cells }
         </div>

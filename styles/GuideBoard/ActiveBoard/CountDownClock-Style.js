@@ -1,7 +1,6 @@
 import { makeStyles } from '@material-ui/styles';
 
 const useStyles = makeStyles({
-  root: {},
   time: {
     fontSize: 30,
     marginLeft: 6,
@@ -10,6 +9,8 @@ const useStyles = makeStyles({
   suffix: {
     fontSize: 12,
   },
+}, {
+  name: 'CountDownClock',
 });
 
 export default useStyles;
