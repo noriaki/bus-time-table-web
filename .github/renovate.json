@@ -8,7 +8,7 @@
   "assignees": ["noriaki"],
   "schedule": ["every weekend"],
   "labels": ["update-dependencies"],
-  "bumpVersion": "minor",
+  "bumpVersion": "patch",
   "node": {
     "enabled": false
   },
