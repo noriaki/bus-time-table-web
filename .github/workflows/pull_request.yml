@@ -19,6 +19,7 @@ jobs:
     - name: Extract pull_request.number
       run: |
         jq -r '.number' ${GITHUB_EVENT_PATH} > ${HOME}/pr-number.txt
+        echo ${GITHUB_EVENT_PATH}
         cat ${HOME}/pr-number.txt
 
     - name: Deploy2Staging
