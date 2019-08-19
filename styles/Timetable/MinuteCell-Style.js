@@ -6,8 +6,8 @@ const useStyles = makeStyles(({ palette }) => {
 
   return {
     root: {
-      gridColumn: ({ index }) => index + 1,
-      backgroundColor: ({ current }) => current && currentColor,
+      gridColumn: ({ index }) => `${index + 1} / auto`,
+      backgroundColor: ({ current }) => (current ? currentColor : 'inherit'),
     },
   };
 }, {
