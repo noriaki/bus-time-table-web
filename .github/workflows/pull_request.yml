@@ -8,7 +8,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@master
+    - uses: actions/checkout@v1
+    - uses: actions/setup-node@v1
 
     - name: Filters [opened, synchronize] for GitHub Actions
       uses: actions/bin/filter@3c0b4f0e63ea54ea5df2914b4fabf383368cd0da
