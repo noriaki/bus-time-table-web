@@ -18,9 +18,9 @@ jobs:
 
     - name: Extract pull_request.number
       run: |
-        jq -r '.number' ${GITHUB_EVENT_PATH} > ${HOME}/pr-number.txt
-        echo ${GITHUB_EVENT_PATH}
-        cat ${HOME}/pr-number.txt
+        jq -r '.number' ${GITHUB_EVENT_PATH} > ${GITHUB_WORKSPACE}/pr-number.txt
+        echo ${GITHUB_WORKSPACE}/pr-number.txt
+        cat ${GITHUB_WORKSPACE}/pr-number.txt
 
     - name: Deploy2Staging
       uses: actions/zeit-now@5c51b26db987d15a0133e4c760924896b4f1512f
@@ -43,4 +43,4 @@ jobs:
         args: >
           alias
           `cat ${HOME}/Deploy2Staging.txt`
-          bus-time-table-web-pr-`cat ${HOME}/pr-number.txt`.now.sh
+          bus-time-table-web-pr-`cat ${GITHUB_WORKSPACE}/pr-number.txt`.now.sh
