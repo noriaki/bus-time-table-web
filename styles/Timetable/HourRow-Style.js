@@ -9,10 +9,8 @@ const useStyles = makeStyles(({ palette }) => {
       width: '2em',
       borderRight: `solid 1px ${borderColor}`,
     },
-    column: {
-      backgroundColor: ({ estimated }) => (
-        estimated ? palette.grey[200] : 'inherit'
-      ),
+    estimatedColumn: {
+      backgroundColor: palette.grey[200],
     },
     cellContainer: {
       display: 'grid',
@@ -22,7 +20,6 @@ const useStyles = makeStyles(({ palette }) => {
   });
 }, {
   name: 'TimetableHourRow',
-  link: true,
 });
 
 export default useStyles;
