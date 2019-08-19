@@ -2,21 +2,23 @@ import moment from 'moment';
 
 import holidays from '~/data/holidays.json';
 
+const offset = '+09:00';
 const timeShift = 4;
 
 export const momentFromVersion = (version) => {
   const year = parseInt((version / 10000) % 10000, 10);
   const month = parseInt((version / 100) % 100, 10) - 1;
   const day = parseInt(version % 100, 10);
-  return moment({ year, month, day });
+  return moment({ year, month, day }).utcOffset(offset);
 };
 
 export const flattenTimeTable = (timeTable, now) => {
-  const currentTime = now || moment();
+  const currentTime = now || Date.now();
   return timeTable.reduce((ret, { hour, minutes }) => {
     (minutes || []).forEach((minute) => {
       ret.push(
         moment(currentTime)
+          .utcOffset(offset)
           .subtract(timeShift, 'hours')
           .set({
             hour: hour - timeShift,
@@ -36,7 +38,7 @@ export const findNextTime = (list, now) => (
 );
 
 export const findNextTimeIndex = (list, now) => {
-  const currentTime = moment(now || moment());
+  const currentTime = moment(now || Date.now()).utcOffset(offset);
   return list.findIndex(m => (m.diff(currentTime) >= 0));
 };
 
@@ -47,7 +49,7 @@ export const sliceNextTimeList = (list, now) => {
 };
 
 export const isInactiveDays = (activeDays, now) => {
-  const currentTime = moment(now || moment());
+  const currentTime = moment(now || Date.now()).utcOffset(offset);
   if (currentTime.hours() < timeShift) { currentTime.subtract(1, 'day'); }
   return (
     !activeDays.includes(currentTime.day())

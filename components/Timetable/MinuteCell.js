@@ -1,5 +1,4 @@
 import React from 'react';
-import moment from 'moment';
 import clsx from 'clsx';
 
 // material-ui
@@ -18,7 +17,7 @@ const MinuteCell = ({ minute, current = false }) => {
 
   return (
     <Typography component="span" className={className}>
-      { moment({ minute }).format('mm') }
+      { `${minute}`.padStart(2, '0') }
     </Typography>
   );
 };

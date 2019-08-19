@@ -1,5 +1,4 @@
 import React from 'react';
-import moment from 'moment';
 import clsx from 'clsx';
 
 // material-ui
@@ -36,7 +35,7 @@ const HourRow = ({
         variant="head"
         align="center"
         className={classes.head}>
-        { moment({ hour }).format('HH') }
+        { `${hour}`.padStart(2, '0') }
       </TableCell>
       <TableCell align="center" className={columnClassName}>
         <div className={classes.cellContainer}>
