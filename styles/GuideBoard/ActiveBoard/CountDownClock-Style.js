@@ -9,6 +9,8 @@ const useStyles = makeStyles({
   suffix: {
     fontSize: 12,
   },
+}, {
+  name: 'CountDownClock',
 });
 
 export default useStyles;

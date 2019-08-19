@@ -12,6 +12,8 @@ const useStyles = makeStyles({
     backgroundColor: red[50],
     color: red[500],
   },
+}, {
+  name: 'LastBadge',
 });
 
 export default useStyles;

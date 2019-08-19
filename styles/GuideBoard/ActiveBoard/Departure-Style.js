@@ -9,6 +9,8 @@ const useStyles = makeStyles({
     fontWeight: 'bold',
     margin: '0 4px',
   },
+}, {
+  name: 'Departure',
 });
 
 export default useStyles;
