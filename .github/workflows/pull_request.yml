@@ -12,9 +12,12 @@ jobs:
     - uses: actions/setup-node@v1
 
     - name: Filters [opened, synchronize] for GitHub Actions
-      uses: actions/bin/filter@3c0b4f0e63ea54ea5df2914b4fabf383368cd0da
+      uses: actions/bin/filter@3c0b4f0
       with:
         args: "action 'opened|synchronize'"
+
+    - name: Extract pull_request.number
+      run: jq '.number' ${GITHUB_EVENT_PATH} > ${HOME}/pr-number.txt
 
     - name: Deploy2Staging
       uses: actions/zeit-now@5c51b26db987d15a0133e4c760924896b4f1512f
@@ -37,4 +40,4 @@ jobs:
         args: >
           alias
           `cat ${HOME}/Deploy2Staging.txt`
-          bus-time-table-web-pr-$(cat ${GITHUB_EVENT_PATH} | jq -r '.number').now.sh
+          bus-time-table-web-pr-`cat ${HOME}/pr-number.txt`.now.sh
