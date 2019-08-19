@@ -14,6 +14,7 @@ const InactiveBoard = ({ timetable }) => {
 
   return (
     <Grid
+      key="inactiveBoard"
       container
       direction="column"
       alignItems="center"

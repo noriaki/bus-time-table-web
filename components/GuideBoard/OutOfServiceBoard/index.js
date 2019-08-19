@@ -14,6 +14,7 @@ const OutOfServiceBoard = ({ timetable }) => {
 
   return (
     <Grid
+      key="outOfServiceBoard"
       container
       direction="column"
       alignItems="center"
