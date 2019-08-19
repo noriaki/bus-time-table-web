@@ -20,6 +20,9 @@ const useStyles = makeStyles(({ palette }) => {
       padding: '0 8px',
     },
   });
+}, {
+  name: 'TimetableHourRow',
+  link: true,
 });
 
 export default useStyles;

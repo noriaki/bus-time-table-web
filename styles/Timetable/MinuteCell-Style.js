@@ -10,6 +10,9 @@ const useStyles = makeStyles(({ palette }) => {
       backgroundColor: ({ current }) => current && currentColor,
     },
   };
+}, {
+  name: 'TimetableMinuteCell',
+  link: true,
 });
 
 export default useStyles;

@@ -17,6 +17,9 @@ const useStyles = makeStyles({
   prevIcon: {
     order: ({ mini }) => (mini ? -1 : 0),
   },
+}, {
+  name: 'ActiveBoard',
+  link: true,
 });
 
 export default useStyles;
