@@ -1,9 +1,12 @@
 on: pull_request
+
 name: Deploy on Now (Staging)
+
 jobs:
   build:
-    name: Filters [opened, synchronize] for GitHub Actions
+    name: Deploy and Alias with PR number
     runs-on: ubuntu-latest
+
     steps:
     - uses: actions/checkout@master
     - name: Filters [opened, synchronize] for GitHub Actions
@@ -16,7 +19,7 @@ jobs:
         ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }}
       with:
         args: deploy --local-config=./now.json --env NODE_ENV=staging --public --no-clipboard
-          > $HOME/${{ github.action }}.txt
+          > ${HOME}/Deploy2Staging.txt
     - name: alias
       uses: actions/zeit-now@5c51b26db987d15a0133e4c760924896b4f1512f
       env:
