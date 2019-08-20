@@ -47,6 +47,8 @@ jobs:
 
     - name: Test
       run: yarn test
+      env:
+        tz: Asia/Tokyo
 
   deploy_on_zeit_now_staging:
     name: Deploy and Alias with PR number
