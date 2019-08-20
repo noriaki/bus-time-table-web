@@ -3,17 +3,60 @@ on: pull_request
 name: Deploy on Now (Staging)
 
 jobs:
-  deploy_on_zeit_now_staging:
-    name: Deploy and Alias with PR number
+  filter_opened_or_synchronize:
+    name: Filter pull-request opened or synchronize
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v1
-
     - name: Filters opened or synchronize
       uses: actions/bin/filter@3c0b4f0
       with:
         args: "action 'opened|synchronize'"
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    needs: filter_opened_or_synchronize
+
+    steps:
+    - uses: actions/checkout@v1
+      with:
+        fetch-depth: 1
+
+    - name: Setup node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: 10.x
+
+    - name: Install Yarn-pkg
+      run: npm install -g yarn
+
+    - name: Versions
+      run: |
+        echo "node: `node --version`"
+        echo "npm:  v`npm --version`"
+        echo "yarn: v`yarn --version`"
+
+    - name: Install packages
+      run: >
+        yarn install
+        --frozen-lockfile
+        --ignore-optional
+        --no-progress
+        --non-interactive
+
+    - name: Test
+      run: TZ="Asia/Tokyo" yarn test
+
+  deploy_on_zeit_now_staging:
+    name: Deploy and Alias with PR number
+    runs-on: ubuntu-latest
+    needs: test
+
+    steps:
+    - uses: actions/checkout@v1
+      with:
+        fetch-depth: 1
 
     - name: Deploy for staging
       uses: actions/zeit-now@5c51b26
