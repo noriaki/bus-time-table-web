@@ -46,9 +46,7 @@ jobs:
         --non-interactive
 
     - name: Test
-      run: yarn test
-      env:
-        tz: Asia/Tokyo
+      run: TZ="Asia/Tokyo" yarn test
 
   deploy_on_zeit_now_staging:
     name: Deploy and Alias with PR number
