@@ -33,9 +33,9 @@ jobs:
 
     - name: Versions
       run: |
-        echo 'node: `node --version`'
-        echo 'npm:  v`npm --version`'
-        echo 'yarn: v`yarn --version`'
+        echo "node: `node --version`"
+        echo "npm:  v`npm --version`"
+        echo "yarn: v`yarn --version`"
 
     - name: Install packages
       run: >
