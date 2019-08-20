@@ -33,12 +33,17 @@ jobs:
 
     - name: Versions
       run: |
-        node --version
-        npm --version
-        yarn --version
+        echo 'node: `node --version`'
+        echo 'npm:  v`npm --version`'
+        echo 'yarn: v`yarn --version`'
 
     - name: Install packages
-      run: yarn install --production --no-progress --non-interactive
+      run: >
+        yarn install
+        --frozen-lockfile
+        --ignore-optional
+        --no-progress
+        --non-interactive
 
     - name: Test
       run: yarn test
