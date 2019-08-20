@@ -1,0 +1,31 @@
+on:
+  push:
+    branches:
+      - master
+    tags:
+      - '!*'
+
+name: Deploy on Now
+
+jobs:
+  deploy_on_zeit_now:
+    name: Production deploy
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+
+    - name: Deploy for production
+      uses: actions/zeit-now@5c51b26
+      env:
+        ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }}
+      with:
+        args: >
+          deploy
+          --local-config=./now.json
+          --build-env NODE_ENV=production
+          --env NODE_ENV=production
+          --target=production
+          --public
+          --no-clipboard

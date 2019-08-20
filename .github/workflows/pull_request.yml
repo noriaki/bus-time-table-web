@@ -1,0 +1,40 @@
+on: pull_request
+
+name: Deploy on Now (Staging)
+
+jobs:
+  deploy_on_zeit_now_staging:
+    name: Deploy and Alias with PR number
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+
+    - name: Filters opened or synchronize
+      uses: actions/bin/filter@3c0b4f0
+      with:
+        args: "action 'opened|synchronize'"
+
+    - name: Deploy for staging
+      uses: actions/zeit-now@5c51b26
+      env:
+        ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }}
+      with:
+        args: >
+          deploy
+          --local-config=./now.json
+          --build-env NODE_ENV=staging
+          --env NODE_ENV=staging
+          --public
+          --no-clipboard
+          > ${HOME}/deployment-url.txt
+
+    - name: Alias with PR number
+      uses: actions/zeit-now@5c51b26
+      env:
+        ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }}
+      with:
+        args: >
+          alias
+          `cat ${HOME}/deployment-url.txt`
+          bus-time-table-web-pr-${{ github.event.number }}.now.sh
