@@ -66,8 +66,8 @@ jobs:
         args: >
           deploy
           --local-config=./now.json
-          --build-env NODE_ENV=staging
-          --env NODE_ENV=staging
+          --build-env NODE_ENV=production
+          --env NODE_ENV=production
           --public
           --no-clipboard
           > ${HOME}/deployment-url.txt
