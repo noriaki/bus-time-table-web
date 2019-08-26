@@ -5,13 +5,47 @@ on:
     tags:
       - '!*'
 
-name: Deploy on Now
+name: Test and Deploy (Production)
 
 jobs:
+  test:
+    name: CI Test
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+      with:
+        fetch-depth: 1
+
+    - name: Setup node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: 10.x
+
+    - name: Install Yarn-pkg
+      run: npm install -g yarn
+
+    - name: "[INFO] Versions"
+      run: |
+        echo "node: `node --version`"
+        echo "npm:  v`npm --version`"
+        echo "yarn: v`yarn --version`"
+
+    - name: Install packages
+      run: >
+        yarn install
+        --frozen-lockfile
+        --ignore-optional
+        --no-progress
+        --non-interactive
+
+    - name: Test
+      run: TZ="Asia/Tokyo" yarn test
+
   deploy_on_zeit_now:
     name: Production deploy
-
     runs-on: ubuntu-latest
+    needs: test
 
     steps:
     - uses: actions/checkout@v1
