@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 
 // material-ui
 import Card from '@material-ui/core/Card';
@@ -7,7 +7,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 
 const AboutApps = () => (
-  <Fragment>
+  <>
     <Typography component="h2" variant="h6">
       このアプリについて
     </Typography>
@@ -39,7 +39,7 @@ const AboutApps = () => (
         </Typography>
       </CardContent>
     </Card>
-  </Fragment>
+  </>
 );
 
 export default AboutApps;
