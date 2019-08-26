@@ -31,7 +31,7 @@ jobs:
     - name: Install Yarn-pkg
       run: npm install -g yarn
 
-    - name: [INFO] Versions
+    - name: "[INFO] Versions"
       run: |
         echo "node: `node --version`"
         echo "npm:  v`npm --version`"
@@ -89,7 +89,7 @@ jobs:
 
     steps:
     - name: Filter only opened
-      run: [[ ${{ github.event.action }} != "opened" ]] || exit 78
+      run: "[[ ${{ github.event.action }} != 'opened' ]] || exit 78"
 
     - name: Post review app URL to the GitHub API
       run: >
