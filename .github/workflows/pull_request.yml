@@ -92,9 +92,9 @@ jobs:
       run: >
         curl
         -X POST
-        -H "Authorization: token ${GITHUB_TOKEN}"
+        -H "Authorization: token $GITHUB_TOKEN"
         -H "Accept: application/vnd.github.v3+json"
         --data "{ \"body\": \"Review-App URL: ${{ github.event.repository.name }}-pr-${{ github.event.number }}.now.sh\" }"
-        ${{ github.event.pull_reqest.review_comments_url }}
+        ${{ github.event.pull_request.review_comments_url }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
