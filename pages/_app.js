@@ -1,5 +1,5 @@
 import React from 'react';
-import App, { Container as NextContainer } from 'next/app';
+import App from 'next/app';
 import MuiContainer from '@material-ui/core/Container';
 import { ThemeProvider } from '@material-ui/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -29,17 +29,15 @@ class ComDeuxToursBusApp extends App {
     const { Component, pageProps } = this.props;
 
     return (
-      <NextContainer>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <MuiContainer maxWidth="xs">
-            <Clock.Provider>
-              <Component {...pageProps} />
-            </Clock.Provider>
-          </MuiContainer>
-        </ThemeProvider>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <MuiContainer maxWidth="xs">
+          <Clock.Provider>
+            <Component {...pageProps} />
+          </Clock.Provider>
+        </MuiContainer>
         <JsonLd data={jsonLdData} />
-      </NextContainer>
+      </ThemeProvider>
     );
   }
 }
