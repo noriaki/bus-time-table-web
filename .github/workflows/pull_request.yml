@@ -89,7 +89,7 @@ jobs:
 
     steps:
     - name: Filter only opened
-      run: "[[ ${{ github.event.action }} != 'opened' ]] || exit 78"
+      run: "[[ '${{ github.event.action }}' == 'opened' ]] || exit 78"
 
     - name: Post review app URL to the GitHub API
       run: >
