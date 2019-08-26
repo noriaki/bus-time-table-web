@@ -68,7 +68,7 @@ jobs:
           --local-config=./now-staging.json
           --build-env NODE_ENV=production
           --env NODE_ENV=production
-          --target=production
+          --prod
           --public
           --no-clipboard
           > ${HOME}/deployment-url.txt
