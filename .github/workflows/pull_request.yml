@@ -1,6 +1,6 @@
 on: pull_request
 
-name: Deploy to Now (Staging)
+name: Test and Deploy (Staging)
 
 jobs:
   filter_opened_or_synchronize:
