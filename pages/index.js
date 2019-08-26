@@ -11,6 +11,7 @@ import TitleBar from '~/components/TitleBar';
 import TimersBoard from '~/components/TimersBoard';
 import Timetables from '~/components/Timetables';
 import AboutApps from '~/components/AboutApps';
+import Footer from '~/components/Footer';
 
 // styles
 import useStyles from '~/styles/Base-Style';
@@ -39,6 +40,7 @@ const IndexPage = () => {
       <article className={classes.article}>
         <AboutApps />
       </article>
+      <Footer />
     </main>
   );
 };
