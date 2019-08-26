@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 
 // material-ui
 import AppBar from '@material-ui/core/AppBar';
@@ -15,7 +15,7 @@ const TitleBar = () => {
   const trigger = useScrollTrigger();
 
   return (
-    <Fragment>
+    <>
       <Slide appear={false} direction="down" in={!trigger}>
         <AppBar>
           <Toolbar variant="dense">
@@ -30,7 +30,7 @@ const TitleBar = () => {
         </AppBar>
       </Slide>
       <Toolbar variant="dense" />
-    </Fragment>
+    </>
   );
 };
 
