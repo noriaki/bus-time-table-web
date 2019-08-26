@@ -83,17 +83,13 @@ jobs:
           ${{ github.event.repository.name }}-pr-${{ github.event.number }}.now.sh
 
   post_review_app_url:
-    name: Post review app URL to PR comments
+    name: Post review app URL when PR opened
     runs-on: ubuntu-latest
     needs: deploy_to_zeit_now_staging
 
     steps:
-    - name: Filter only opened
-      uses: actions/bin/filter@3c0b4f0
-      with:
-        args: action "opened"
-
     - name: Post review app URL to the GitHub API
+      if: github.event_name == 'pull_request' && github.event.action == 'opened'
       run: >
         curl
         -X POST
