@@ -11,7 +11,11 @@ const HalfModalCloseIcon = ({ onClick: handleClick }) => {
   const classes = useStyles();
 
   return (
-    <Grid container justify="center" onClick={handleClick}>
+    <Grid
+      container
+      justify="center"
+      onClick={handleClick}
+      className={classes.root}>
       <div className={clsx(classes.border, classes.left)} />
       <div className={clsx(classes.border, classes.right)} />
     </Grid>

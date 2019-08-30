@@ -17,7 +17,7 @@ const useStyles = makeStyles(({ spacing, shape }) => ({
   },
   form: {
     width: '100%',
-    height: `calc(100% - ${spacing(2.5)}px)`,
+    height: `calc(100% - ${spacing(2)}px)`,
     marginTop: spacing(2),
   },
 }));

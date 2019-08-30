@@ -5,6 +5,9 @@ import grey from '@material-ui/core/colors/grey';
 const degree = 20;
 
 const useStyles = makeStyles(({ spacing }) => ({
+  root: {
+    position: 'fixed',
+  },
   border: {
     backgroundColor: grey[300],
     height: spacing(0.5),
