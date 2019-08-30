@@ -11,6 +11,7 @@ import TitleBar from '~/components/TitleBar';
 import TimersBoard from '~/components/TimersBoard';
 import Timetables from '~/components/Timetables';
 import AboutApps from '~/components/AboutApps';
+import ContactModal from '~/components/ContactModal';
 import Footer from '~/components/Footer';
 
 // styles
@@ -39,6 +40,7 @@ const IndexPage = () => {
       <Divider variant="middle" className={classes.divider} />
       <article className={classes.article}>
         <AboutApps />
+        <ContactModal />
       </article>
       <Footer />
     </main>
