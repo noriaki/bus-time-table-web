@@ -18,7 +18,7 @@ const ContactModal = () => {
   const handleOpen = useCallback(() => setOpen(true), [open]);
   const handleClose = useCallback(() => setOpen(false), [open]);
 
-  const { form, ...classes } = useStyles();
+  const { container, form, ...classes } = useStyles();
 
   return (
     <>
@@ -33,16 +33,18 @@ const ContactModal = () => {
         onOpen={handleOpen}
         onClose={handleClose}
         classes={classes}>
-        <HalfModalCloseIcon onClick={handleClose} />
-        <iframe
-          src={formUri}
-          title="DEUX TOURS シャトルバス時刻表 問い合わせフォーム"
-          frameBorder="0"
-          marginHeight="0"
-          marginWidth="0"
-          className={form}>
-          読み込んでいます...
-        </iframe>
+        <div className={container}>
+          <HalfModalCloseIcon onClick={handleClose} />
+          <iframe
+            src={formUri}
+            title="DEUX TOURS シャトルバス時刻表 問い合わせフォーム"
+            frameBorder="0"
+            marginHeight="0"
+            marginWidth="0"
+            className={form}>
+            読み込んでいます...
+          </iframe>
+        </div>
       </SwipeableDrawer>
     </>
   );

@@ -1,15 +1,20 @@
 import { makeStyles } from '@material-ui/styles';
 
-import grey from '@material-ui/core/colors/grey';
-
 const degree = 20;
 
-const useStyles = makeStyles(({ spacing }) => ({
+const useStyles = makeStyles(({ palette, spacing, shape }) => ({
   root: {
-    position: 'fixed',
+    height: spacing(4),
+    position: 'sticky',
+    top: 0,
+    backgroundColor: palette.common.white,
+    zIndex: 1,
+    borderRadius: [
+      shape.borderRadius * 2, shape.borderRadius * 2, 0, 0,
+    ].map((u) => `${u}px`).join(' '),
   },
   border: {
-    backgroundColor: grey[300],
+    backgroundColor: palette.grey[300],
     height: spacing(0.5),
     width: spacing(2),
     borderRadius: spacing(0.25),

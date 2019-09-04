@@ -10,15 +10,18 @@ const useStyles = makeStyles(({ spacing, shape }) => ({
     width: '96vw',
     left: 'auto',
     right: 'auto',
-    padding: spacing(2, 0, 0),
+    padding: 0,
     borderRadius: [
       shape.borderRadius * 2, shape.borderRadius * 2, 0, 0,
     ].map((u) => `${u}px`).join(' '),
   },
+  container: {
+    position: 'relative',
+    height: '100%',
+  },
   form: {
     width: '100%',
-    height: `calc(100% - ${spacing(2)}px)`,
-    marginTop: spacing(2),
+    height: `calc(100% - ${spacing(4)}px)`,
   },
 }));
 
