@@ -6,9 +6,9 @@ import red from '@material-ui/core/colors/red';
 const useStyles = makeStyles({
   badge: {
     right: 'unset',
-    left: '-4px',
+    left: '-1em',
     fontSize: 10,
-    width: '3em',
+    width: '3.5em',
     backgroundColor: red[50],
     color: red[500],
   },
