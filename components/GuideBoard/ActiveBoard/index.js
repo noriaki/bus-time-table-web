@@ -1,4 +1,4 @@
-import React, { useCallback, Fragment } from 'react';
+import React, { useCallback } from 'react';
 
 // material-ui
 import Grid from '@material-ui/core/Grid';
@@ -47,7 +47,10 @@ const ActiveBoard = ({
   ]);
 
   return (
-    <Fragment key="activeBoard">
+    <Grid
+      container
+      justify="space-between"
+      className={classes.content}>
       <Grid
         container
         direction="column"
@@ -85,7 +88,7 @@ const ActiveBoard = ({
           <ChevronRightIcon />
         </Button>
       </Grid>
-    </Fragment>
+    </Grid>
   );
 };
 

@@ -13,28 +13,29 @@ const OutOfServiceBoard = ({ timetable }) => {
   const classes = useStyles();
 
   return (
-    <Grid
-      key="outOfServiceBoard"
-      container
-      direction="column"
-      alignItems="center"
-      justify="center"
-      item>
-      <Grid item>
-        <Typography component="h1">
-          <span className={classes.departure}>{ name }</span>
-          <span className={classes.suffix}>発</span>
-        </Typography>
-      </Grid>
-      <Grid item>
-        <Typography variant="body2">
-          本日のバスは終了しました
-        </Typography>
-      </Grid>
-      <Grid item>
-        <Typography variant="caption">
-          (明日以降は時刻表を参照)
-        </Typography>
+    <Grid container justify="space-between">
+      <Grid
+        container
+        direction="column"
+        alignItems="center"
+        justify="center"
+        item>
+        <Grid item>
+          <Typography component="h1">
+            <span className={classes.departure}>{ name }</span>
+            <span className={classes.suffix}>発</span>
+          </Typography>
+        </Grid>
+        <Grid item>
+          <Typography variant="body2">
+            本日のバスは終了しました
+          </Typography>
+        </Grid>
+        <Grid item>
+          <Typography variant="caption">
+            (明日以降は時刻表を参照)
+          </Typography>
+        </Grid>
       </Grid>
     </Grid>
   );
