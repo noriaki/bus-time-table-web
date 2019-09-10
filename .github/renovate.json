@@ -8,7 +8,6 @@
   "assignees": ["noriaki"],
   "schedule": ["every weekend"],
   "labels": ["update-dependencies"],
-  "bumpVersion": "patch",
   "node": {
     "enabled": false
   },
@@ -23,6 +22,14 @@
     {
       "groupName": "eslint packages",
       "packagePatterns": ["^babel-eslint", "^eslint"]
+    },
+    {
+      "groupName": "mui monorepo",
+      "description": "Material-UI monorepo",
+      "sourceUrlPrefixes": [
+        "https://github.com/mui-org/material-ui"
+      ],
+      "automerge": false
     }
   ]
 }
