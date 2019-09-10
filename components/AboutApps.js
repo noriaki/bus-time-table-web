@@ -15,6 +15,7 @@ const AboutApps = () => (
     <Card>
       <CardMedia
         component="img"
+        alt="DEUX TOURS シャトルバス時刻表アプリ"
         src="/static/icons/app-512x512.png" />
       <CardContent>
         <Typography component="h3" variant="body1">
