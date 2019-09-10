@@ -4,7 +4,7 @@ import React, { Fragment } from 'react';
 import { description } from '~/package.json';
 
 const MetaHeaders = () => (
-  <Fragment>
+  <Fragment key="headers">
     <title>
       シャトルバス時刻表・発車タイマー
       （中央区晴海のドゥ・トゥール/DEUX TOURS）
