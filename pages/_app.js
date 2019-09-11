@@ -23,6 +23,14 @@ class ComDeuxToursBusApp extends App {
     if (jssStyles) {
       jssStyles.parentNode.removeChild(jssStyles);
     }
+
+    // Install service-worker
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker
+        .register('/sw.bundle.js')
+        .then(() => console.log('service worker registration successful'))
+        .catch((err) => console.warn('service worker registration failed', err.message));
+    }
   }
 
   render() {
