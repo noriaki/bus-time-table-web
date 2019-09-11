@@ -1,5 +1,12 @@
 [
   {
+    "version": "v2.20.0",
+    "date": "2018-09-11",
+    "subjects": [
+      "オフラインで動作するようにしました(iOS: Safari, Chrome)(Android: Chrome)"
+    ]
+  },
+  {
     "version": "v2.19.0",
     "date": "2018-09-10",
     "subjects": [
