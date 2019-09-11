@@ -15,7 +15,7 @@
     { "src": "/robots.txt", "dest": "/static/robots.txt" },
     { "src": "/sitemap.xml", "dest": "/static/sitemap.xml" },
     {
-      "src": "/sw.js",
+      "src": "/sw.bundle.js",
       "dest": "_next/static/deux-tours-bus-web-app/pages/sw.js"
     }
   ]

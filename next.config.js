@@ -12,7 +12,9 @@ module.exports = {
     if (!isServer && !dev) {
       config.plugins.push(
         new NextWorkboxWebpackPlugin({
+          importScripts: ['static/sw.js'],
           importWorkboxFrom: 'cdn',
+          offlineGoogleAnalytics: true,
           distDir,
           buildId,
           swDestRoot: `.next/static/${customBuildId}/pages`,
