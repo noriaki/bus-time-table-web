@@ -5537,7 +5537,7 @@ neo-async@^2.5.0, neo-async@^2.6.0, neo-async@^2.6.1:
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.1.tgz#ac27ada66167fa8849a6addd837f6b189ad2081c"
   integrity sha512-iyam8fBuCUpWeKPGpaNMetEocMt364qkCsfL9JuhjXX6dRnguRVOfk2GZaDpPjcOKiiXCPINZC1GczQ7iTq3Zw==
 
-next-workbox-webpack-plugin@^2.1.1:
+next-workbox-webpack-plugin@2.1.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/next-workbox-webpack-plugin/-/next-workbox-webpack-plugin-2.1.1.tgz#b16022096a2cbc023d34923cd8116fb46e259356"
   integrity sha512-0HNWHNzWofAiMdNuqJwn80tPnp1zbZ+rrIIYvxOGIYRjkPq5dwZxqorr83x5lOUV0e8w8K/a2jXlJDKQQjnKBg==
