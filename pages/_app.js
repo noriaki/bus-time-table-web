@@ -25,7 +25,7 @@ class ComDeuxToursBusApp extends App {
     }
 
     // Install service-worker
-    if ('serviceWorker' in navigator) {
+    if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
       navigator.serviceWorker
         .register('/sw.bundle.js')
         .then(() => console.log('service worker registration successful'))
