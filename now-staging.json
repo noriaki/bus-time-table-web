@@ -13,7 +13,7 @@
     { "src": "/sitemap.xml", "dest": "/static/sitemap.xml" },
     {
       "src": "/sw.bundle.js",
-      "dest": "_next/static/deux-tours-bus-web-app/pages/sw.js"
+      "dest": "_next/static/deux-tours-bus-web-app-f340441/pages/sw.js"
     }
   ]
 }
