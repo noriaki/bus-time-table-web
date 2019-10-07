@@ -5,9 +5,6 @@
     "all"
   ],
   "public": true,
-  "alias": [
-    "deux-tours-bus.com"
-  ],
   "builds": [
     { "src": "next.config.js", "use": "@now/next" }
   ],
@@ -16,7 +13,7 @@
     { "src": "/sitemap.xml", "dest": "/static/sitemap.xml" },
     {
       "src": "/sw.bundle.js",
-      "dest": "_next/static/deux-tours-bus-web-app-f340441/pages/sw.js"
+      "dest": "_next/static/deux-tours-bus-web-app-3c5dd36/pages/sw.js"
     }
   ]
 }
