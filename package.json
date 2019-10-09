@@ -14,7 +14,7 @@
     "dev": "next dev --port 3333",
     "build:generate-id": "node scripts/pre-build.js",
     "build:perform": "next build",
-    "now-build": "run-s build:*"
+    "now-build": "next build"
   },
   "repository": "https://github.com/noriaki/bus-time-table-web",
   "author": {
