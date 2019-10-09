@@ -1,7 +1,7 @@
 {
   "name": "bus-time-table-web",
   "title": "シャトルバス時刻表・発車タイマー（中央区晴海のドゥ・トゥール/DEUX TOURS）",
-  "version": "2.20.1",
+  "version": "2.20.2",
   "description": "起動して3秒で次の発車時刻が分かる。東京都中央区晴海三丁目のマンション「ドゥ・トゥール(DEUX TOURS)」から東銀座を経由して新橋駅を結ぶシャトルバスの発車タイマーと時刻表を手軽にチェックできるアプリです。",
   "private": true,
   "engines": {
@@ -12,6 +12,8 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "dev": "next dev --port 3333",
+    "build:generate-id": "node scripts/pre-build.js",
+    "build:perform": "next build",
     "now-build": "next build"
   },
   "repository": "https://github.com/noriaki/bus-time-table-web",
@@ -50,6 +52,7 @@
     "jest": "24.9.0",
     "jest-enzyme": "7.1.1",
     "now": "16.3.1",
+    "npm-run-all": "4.1.5",
     "react-test-renderer": "16.10.2"
   }
 }

@@ -1,5 +1,4 @@
 const NextWorkboxWebpackPlugin = require('next-workbox-webpack-plugin');
-const { buildId: customBuildId } = require('./constants/build');
 
 module.exports = {
   target: 'serverless',
@@ -17,12 +16,16 @@ module.exports = {
           offlineGoogleAnalytics: true,
           distDir,
           buildId,
-          swDestRoot: `.next/static/${customBuildId}/pages`,
-          swURLRoot: `_next/static/${customBuildId}/pages`,
+          swDestRoot: `.next/static/${buildId}/pages`,
+          swURLRoot: `_next/static/${buildId}/pages`,
         })
       );
     }
     return config;
   },
-  generateBuildId: async () => customBuildId,
+  generateBuildId: async () => {
+    const { BUILD_ID } = process.env;
+    if (BUILD_ID != null) { return BUILD_ID; }
+    return null;
+  },
 };
