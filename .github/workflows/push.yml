@@ -49,18 +49,48 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
+      with:
+        fetch-depth: 1
+
+    - name: Setup node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: 10.x
+
+    - name: Install Yarn-pkg
+      run: npm install -g yarn
+
+    - name: "[INFO] Versions"
+      run: |
+        echo "node: `node --version`"
+        echo "npm:  v`npm --version`"
+        echo "yarn: v`yarn --version`"
+
+    - name: Install packages
+      run: >
+        yarn install
+        --frozen-lockfile
+        --ignore-optional
+        --no-progress
+        --non-interactive
+
+    - name: Generate BUILD_ID
+      env:
+        BUILD_ID: ${{ github.sha }}
+      run: yarn build:generate-id
 
     - name: Deploy for production
       uses: actions/zeit-now@5c51b26
       env:
         BUILD_ID: ${{ github.sha }}
         ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }}
-      with:
-        args: >
-          deploy
-          --local-config=./now.json
-          --build-env NODE_ENV=production
-          --env NODE_ENV=production
-          --prod
-          --public
-          --no-clipboard
+      run: >
+        yarn now deploy
+        --local-config=./now.json
+        --build-env NODE_ENV=production
+        --build-env BUILD_ID=${BUILD_ID}
+        --env NODE_ENV=production
+        --prod
+        --public
+        --no-clipboard
+        --token ${ZEIT_TOKEN}

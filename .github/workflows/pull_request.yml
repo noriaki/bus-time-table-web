@@ -61,7 +61,7 @@ jobs:
       run: |
         echo "node: `node --version`"
         echo "npm:  v`npm --version`"
-        echo "npx:  v`npx --version`"
+        echo "yarn: v`yarn --version`"
 
     - name: Install packages
       run: >
