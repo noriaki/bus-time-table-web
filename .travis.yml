@@ -1,9 +1,0 @@
-language: node_js
-node_js:
-  - "10"
-branches:
-  except:
-    - /^v\d+\.\d+\.\d+$/
-cache: yarn
-before_install:
-  - export TZ=Asia/Tokyo
