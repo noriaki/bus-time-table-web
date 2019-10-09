@@ -61,6 +61,7 @@ jobs:
     - name: Deploy for staging
       uses: actions/zeit-now@5c51b26
       env:
+        BUILD_ID: ${{ github.sha }}
         ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }}
       with:
         args: >
