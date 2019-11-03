@@ -52,6 +52,14 @@ jobs:
       with:
         fetch-depth: 1
 
+    - name: Setup node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: 10.x
+
+    - name: Install Yarn-pkg
+      run: npm install -g yarn
+
     - name: "[INFO] Versions"
       run: |
         echo "node: `node --version`"
