@@ -6204,10 +6204,10 @@ normalize-url@1.9.1:
     query-string "^4.1.0"
     sort-keys "^1.0.0"
 
-now@16.4.3:
-  version "16.4.3"
-  resolved "https://registry.yarnpkg.com/now/-/now-16.4.3.tgz#ff194b6addd2974e638dbaadbd15340d9d14ea99"
-  integrity sha512-BF4Zx6/RRovRWmShJB6O8vEkUT/baNWgxwerXjdJpG4xAiWP0s1EpXCEanDNMzaCWOuG+RaNxwHpOTyVNWWULg==
+now@16.5.0:
+  version "16.5.0"
+  resolved "https://registry.yarnpkg.com/now/-/now-16.5.0.tgz#8ef78ab608b8fecaddaac0626831fd484a0c6b0e"
+  integrity sha512-Qpy4ZW5yMGMqYh9abBeHF9e57ZO0Az1HMZHQtzN8G4AeDIDLDPb229FFixYzCUwLB41n4Xz09sxb6MoxDlJTBQ==
 
 npm-bundled@^1.0.1:
   version "1.0.6"
