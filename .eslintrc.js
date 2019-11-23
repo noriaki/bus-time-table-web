@@ -9,6 +9,7 @@ module.exports = {
     jest: true,
   },
   extends: ['eslint:recommended', 'airbnb'],
+  plugins: ['react-hooks'],
   settings: {
     'import/resolver': {
       'babel-module': {
@@ -45,6 +46,8 @@ module.exports = {
     'jsx-a11y/label-has-for': ['error', {
       components: ['label'],
       required: { some: ['id'] },
-    }]
+    }],
+    'react-hooks/rules-of-hooks': 'error',
+    'react-hooks/exhaustive-deps': 'error',
   },
 };
