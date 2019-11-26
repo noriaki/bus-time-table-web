@@ -15,8 +15,8 @@ const formUri = 'https://docs.google.com/forms/d/e/1FAIpQLSc-Thtn4jIWPvdFq1wsBZ-
 
 const ContactModal = () => {
   const [open, setOpen] = useState(false);
-  const handleOpen = useCallback(() => setOpen(true), [open]);
-  const handleClose = useCallback(() => setOpen(false), [open]);
+  const handleOpen = useCallback(() => setOpen(true), []);
+  const handleClose = useCallback(() => setOpen(false), []);
 
   const { container, form, ...classes } = useStyles();
 
