@@ -1,14 +1,17 @@
 import { renderHook, act } from '@testing-library/react-hooks';
 import moment from 'moment';
 
-import { ShimbashiTimetableHook } from '~/containers/TimetableContainer';
+import testTimetable from './fixtures/timetable.json';
+import { createTimetableHook } from '~/containers/TimetableContainer';
 
-describe('ShimbashiTimetable Container', () => {
+const TestTimetableHook = createTimetableHook(testTimetable);
+
+describe('TestTimetable Container', () => {
   let currentTime;
   let container;
   beforeEach(() => {
     currentTime = moment('2017-06-15', 'YYYY-MM-DD');
-    container = renderHook(() => ShimbashiTimetableHook()).result;
+    container = renderHook(() => TestTimetableHook()).result;
   });
 
   it('default state', () => {
@@ -37,22 +40,24 @@ describe('ShimbashiTimetable Container', () => {
   });
 
   it('departure time has come', () => {
+    const expectedLength = 7;
+
     currentTime.set({ hour: 21, minute: 9, second: 30 });
     act(() => container.current.tick(currentTime));
-    expect(container.current.state.sliceData).toHaveLength(6);
+    expect(container.current.state.sliceData).toHaveLength(expectedLength);
 
     currentTime.set({ minute: 10 });
     act(() => container.current.tick(currentTime));
-    expect(container.current.state.sliceData).toHaveLength(5);
+    expect(container.current.state.sliceData).toHaveLength(expectedLength - 1);
   });
 
   describe('when time has changed', () => {
     it('in service -> last bus gone', () => {
-      currentTime.set({ hour: 23, minute: 29, second: 30 });
+      currentTime.set({ hour: 24, minute: 4, second: 30 });
       act(() => container.current.tick(currentTime));
       expect(container.current.state.sliceData).toHaveLength(1);
 
-      currentTime.set({ minute: 30 });
+      currentTime.set({ minute: 5 });
       act(() => container.current.tick(currentTime));
       expect(container.current.state.sliceData).toHaveLength(0);
       expect(container.current.isOutOfService()).toBe(true);
@@ -61,7 +66,7 @@ describe('ShimbashiTimetable Container', () => {
     });
 
     it('last bus gone -> inactive day', () => {
-      currentTime.set({ hour: 23, minute: 30, second: 30 });
+      currentTime.set({ hour: 24, minute: 5, second: 30 });
       act(() => container.current.tick(currentTime));
       expect(container.current.isOutOfService()).toBe(true);
       expect(container.current.isClosedDay()).toBe(false);
@@ -73,7 +78,7 @@ describe('ShimbashiTimetable Container', () => {
     });
 
     it('last bus gone -> in service', () => {
-      currentTime.set({ hour: 23, minute: 30, second: 30 });
+      currentTime.set({ hour: 24, minute: 5, second: 30 });
       act(() => container.current.tick(currentTime));
       expect(container.current.isOutOfService()).toBe(true);
 

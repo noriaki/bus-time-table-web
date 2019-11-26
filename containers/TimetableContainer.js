@@ -22,7 +22,7 @@ const defaultState = {
   outOfService: null,
 };
 
-const createTimetableHook = (data) => {
+export const createTimetableHook = (data) => {
   const nextTimetableState = timestamp => (currentState = defaultState) => {
     const { timetable, activeDays } = data;
     const inactiveDay = isInactiveDays(activeDays, timestamp);
