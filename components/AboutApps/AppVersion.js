@@ -11,6 +11,7 @@ const AppVersion = ({ version, date, subjects }) => {
   const latestChangelog = subjects.map((subject) => (
     <ListItem key={subject} dense>
       <ListItemText
+        style={{ margin: 0 }}
         secondaryTypographyProps={{ variant: 'caption' }}
         secondary={subject} />
     </ListItem>
