@@ -31,7 +31,7 @@ const FuturePage = () => {
 
   return (
     <main>
-      <TitleBar />
+      <TitleBar backTo="/" />
       <article className={classes.article}>
         <Typography component="h2" variant="h6">
           時刻表（2019/12/02更新予定）
