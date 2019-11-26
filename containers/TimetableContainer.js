@@ -22,7 +22,8 @@ const defaultState = {
   outOfService: null,
 };
 
-const createTimetableHook = (data) => {
+// createHook
+export const createTimetableHook = (data) => {
   const nextTimetableState = timestamp => (currentState = defaultState) => {
     const { timetable, activeDays } = data;
     const inactiveDay = isInactiveDays(activeDays, timestamp);
@@ -131,6 +132,11 @@ const createTimetableHook = (data) => {
 export const HomeTimetableHook = createTimetableHook(timetableHome);
 export const HigashiGinzaTimetableHook = createTimetableHook(timetableHigashiGinza);
 export const ShimbashiTimetableHook = createTimetableHook(timetableShimbashi);
+
+// createContainer
+export const createTimetableContainer = (data) => (
+  createContainer(createTimetableHook(data))
+);
 
 // Containers
 export const HomeTimetable = createContainer(HomeTimetableHook);
