@@ -7,6 +7,9 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 
+import logs from '~/data/changelogs.json';
+import AppVersion from './AppVersion';
+
 const AboutApps = () => (
   <>
     <Typography component="h2" variant="h6">
@@ -18,7 +21,7 @@ const AboutApps = () => (
         alt="DEUX TOURS シャトルバス時刻表アプリ"
         src="/static/icons/app-512x512.png" />
       <CardContent>
-        <Typography component="h3" variant="body1">
+        <Typography component="h3" variant="body2">
           開いて3秒で次の発車時刻が分かる
         </Typography>
         <Typography
@@ -30,9 +33,7 @@ const AboutApps = () => (
           <br />
           シャトルバスの発車タイマーは『起動して3秒で次の発車時刻が分かる』というコンセプトのもと、各バス停の次発への残り時間をカウントダウンします。時刻表では、マンション発、東銀座駅発、新橋駅発の各バス停の全時間帯のシャトルバス時刻表を一覧で見ることが出来ます。
         </Typography>
-        <Typography variant="body2">
-          最新時刻表は2017年11月1日更新
-        </Typography>
+        <AppVersion {...logs[0]} />
       </CardContent>
     </Card>
   </>
