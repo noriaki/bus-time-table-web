@@ -1,5 +1,5 @@
 {
-  "version": 20171101,
+  "version": 20191202,
   "id": "Shimbashi",
   "name": "新橋駅",
   "activeDays": [1, 2, 3, 4, 5],
@@ -92,6 +92,11 @@
     {
       "hour": 23,
       "minutes": [30],
+      "estimated": false
+    },
+    {
+      "hour": 24,
+      "minutes": [5],
       "estimated": false
     }
   ]
