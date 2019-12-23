@@ -34,9 +34,11 @@ const Notice = () => {
     <Paper square elevation={0} className={classes.root}>
       <NotificationsIcon className={classes.icon} />
       <Typography variant="body2" className={classes.text}>
-        12/2
-        <Typography component="span" variant="caption">(月)</Typography>
-        からの新時刻表に対応しました
+        12/28
+        <Typography component="span" variant="caption">(土)</Typography>
+        〜1/5
+        <Typography component="span" variant="caption">(日)</Typography>
+        は年末年始運休です
       </Typography>
     </Paper>
   );
