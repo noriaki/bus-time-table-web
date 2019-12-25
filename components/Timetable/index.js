@@ -12,7 +12,10 @@ const Timetable = ({ clock, TimetableContainer }) => {
   const timetable = TimetableContainer.useContainer();
   const { currentTime } = clock;
 
-  useEffect(() => { timetable.tick(currentTime); }, [currentTime]);
+  useEffect(() => {
+    timetable.tick(currentTime);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentTime]);
 
   const nextTime = timetable.nearestTime();
   const rows = timetable.data.map(({ hour, minutes, estimated }) => (

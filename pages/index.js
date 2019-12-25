@@ -24,6 +24,7 @@ const IndexPage = () => {
   useEffect(() => {
     clock.start();
     return () => { clock.stop(); };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const classes = useStyles();

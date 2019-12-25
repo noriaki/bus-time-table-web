@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 
 // material-ui
 import Typography from '@material-ui/core/Typography';
@@ -32,7 +32,7 @@ const TimersBoard = ({ clock }) => {
   const shimbashiState = ShimbashiTimetableHook.buildState(currentTime)();
 
   return (
-    <Fragment>
+    <>
       <Typography component="h2" variant="h6">
         発車タイマー
       </Typography>
@@ -64,7 +64,7 @@ const TimersBoard = ({ clock }) => {
           <ArrowUpwardIcon className={classes.arrowIcon} />
         </div>
       </div>
-    </Fragment>
+    </>
   );
 };
 

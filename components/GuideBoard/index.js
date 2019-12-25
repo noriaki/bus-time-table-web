@@ -15,7 +15,10 @@ const GuideBoard = ({ clock, Timetable, mini }) => {
   const timetable = Timetable.useContainer();
   const { currentTime } = clock;
 
-  useEffect(() => { timetable.tick(currentTime); }, [currentTime]);
+  useEffect(() => {
+    timetable.tick(currentTime);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentTime]);
 
   const classes = useStyles();
   let boardComponent;
