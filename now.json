@@ -2,16 +2,8 @@
   "version": 2,
   "routes": [
     {
-      "src": "/robots.txt",
-      "dest": "/static/robots.txt"
-    },
-    {
-      "src": "/sitemap.xml",
-      "dest": "/static/sitemap.xml"
-    },
-    {
       "src": "/sw.bundle.js",
-      "dest": "/static/sw.js"
+      "dest": "/sw.js"
     }
   ]
 }

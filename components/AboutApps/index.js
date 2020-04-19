@@ -19,7 +19,7 @@ const AboutApps = () => (
       <CardMedia
         component="img"
         alt="DEUX TOURS シャトルバス時刻表アプリ"
-        src="/static/icons/app-512x512.png" />
+        src="/icons/app-512x512.png" />
       <CardContent>
         <Typography component="h3" variant="body2">
           開いて3秒で次の発車時刻が分かる
