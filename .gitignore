@@ -63,3 +63,5 @@ out/
 
 # temporary old files
 */.old/
+
+.now
