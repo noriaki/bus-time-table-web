@@ -75,6 +75,8 @@ jobs:
       env:
         BUILD_ID: ${{ github.sha }}
         ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }}
+        NOW_ORG_ID: ${{ secrets.NOW_ORG_ID }}
+        NOW_PROJECT_ID: ${{ secrets.NOW_PROJECT_ID }}
       run: >
         now deploy
         --local-config=./now.json
