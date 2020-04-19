@@ -1,16 +1,5 @@
 {
   "version": 2,
-  "name": "bus-time-table-web",
-  "regions": [
-    "all"
-  ],
-  "public": true,
-  "builds": [
-    {
-      "src": "next.config.js",
-      "use": "@now/next"
-    }
-  ],
   "routes": [
     {
       "src": "/robots.txt",
