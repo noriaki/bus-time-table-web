@@ -7,6 +7,13 @@ const useStyles = makeStyles({
   copyright: {
     textAlign: 'center',
   },
+  version: {
+    margin: 0,
+    textAlign: 'center',
+    '& a:link': {
+      marginLeft: '.5em',
+    },
+  },
 }, {
   name: 'Footer',
 });
