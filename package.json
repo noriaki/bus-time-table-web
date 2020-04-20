@@ -12,9 +12,9 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "dev": "next dev --port 3333",
+    "build": "yarn build:perform",
     "build:generate-id": "node scripts/pre-build.js",
-    "build:perform": "next build",
-    "now-build": "next build"
+    "build:perform": "next build"
   },
   "repository": "https://github.com/noriaki/bus-time-table-web",
   "author": {
