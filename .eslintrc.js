@@ -13,7 +13,7 @@ module.exports = {
   settings: {
     'import/resolver': {
       'babel-module': {
-        alias: { '~': './' },
+        alias: { '~': './src/' },
       },
     },
   },

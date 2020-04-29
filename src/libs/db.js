@@ -1,6 +1,6 @@
 import Dexie from 'dexie';
 import moment from 'moment';
-import { name } from '../package.json';
+import { name } from '../../package.json';
 
 const db = new Dexie(`${name}-db`);
 db
