@@ -17,7 +17,7 @@ import Footer from '~/components/Footer';
 // styles
 import useStyles from '~/styles/Base-Style';
 
-const IndexPage = () => {
+const IndexPage = ({ buildId }) => {
   const clock = Clock.useContainer();
   // componentDidMount, componentWillUnmount
   useEffect(() => {
@@ -43,16 +43,21 @@ const IndexPage = () => {
         <AboutApps />
         <ContactModal />
       </article>
-      <Footer />
+      <Footer buildId={buildId} />
     </main>
   );
 };
 
-IndexPage.getInitialProps = ({ res }) => {
-  if (res) {
-    res.setHeader('Cache-Control', 's-maxage=1, stale-while-revalidate');
+export const getStaticProps = () => {
+  const { BUILD_ID } = process.env;
+  if (BUILD_ID == null) {
+    return {
+      props: { buildId: 'dev' },
+    };
   }
-  return {};
+  return {
+    props: { buildId: BUILD_ID },
+  };
 };
 
 export default IndexPage;
