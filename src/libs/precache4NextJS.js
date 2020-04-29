@@ -5,7 +5,7 @@ import {
   tryCatchP,
   pipeP,
 } from 'composable-fetch';
-import { paths } from '../constants/pages';
+import { paths } from '~/constants/pages';
 
 const createFetch = () => tryCatchP(
   pipeP(

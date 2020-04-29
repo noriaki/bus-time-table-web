@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 
 // constants
-import { description } from '~/package.json';
+import { description } from '~/../package.json';
 
 const MetaHeaders = () => (
   <Fragment key="headers">
