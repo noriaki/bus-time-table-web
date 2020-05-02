@@ -2,17 +2,17 @@ import React from 'react';
 
 // material-ui components
 import Typography from '@material-ui/core/Typography';
-import Link from '@material-ui/core/Link';
+
+// components
+import Version from './Version';
 
 // styles
 import useStyles from '~/styles/Footer-Style';
 
 const Footer = ({ buildId }) => {
   const currentYear = new Date().getFullYear();
-  const abbr = buildId.slice(0, 8);
-  const repoURL = `https://github.com/noriaki/bus-time-table-web/tree/${buildId}`;
 
-  const { root, copyright, version } = useStyles();
+  const { root, copyright } = useStyles();
 
   return (
     <footer className={root}>
@@ -23,14 +23,7 @@ const Footer = ({ buildId }) => {
           noriaki
         </Typography>
       </p>
-      <p className={version}>
-        <Typography component="small" variant="body2" color="textSecondary">
-          version:
-          <Link href={repoURL} color="inherit">
-            {abbr}
-          </Link>
-        </Typography>
-      </p>
+      <Version buildId={buildId} />
     </footer>
   );
 };
