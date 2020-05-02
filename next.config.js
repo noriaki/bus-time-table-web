@@ -11,7 +11,7 @@ module.exports = {
     if (!isServer && !dev) {
       config.plugins.push(
         new NextWorkboxWebpackPlugin({
-          importScripts: ['public/sw.js'],
+          importScripts: ['sw.js'],
           importWorkboxFrom: 'cdn',
           offlineGoogleAnalytics: true,
           distDir,
