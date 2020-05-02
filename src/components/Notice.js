@@ -33,13 +33,16 @@ const Notice = () => {
   return (
     <Paper square elevation={0} className={classes.root}>
       <NotificationsIcon className={classes.icon} />
-      <Typography variant="body2" className={classes.text}>
-        12/28
-        <Typography component="span" variant="caption">(土)</Typography>
-        〜1/5
-        <Typography component="span" variant="caption">(日)</Typography>
-        は年末年始運休です
-      </Typography>
+      <div>
+        <Typography variant="body2" className={classes.text}>
+          4/8
+          <Typography component="span" variant="caption">(水)</Typography>
+          から東京都緊急事態措置の影響で一時運休中です。
+        </Typography>
+        <Typography variant="body2" className={classes.text}>
+          再開時期は未定で、管理組合が行政の見解を待って別途告知予定です。
+        </Typography>
+      </div>
     </Paper>
   );
 };
