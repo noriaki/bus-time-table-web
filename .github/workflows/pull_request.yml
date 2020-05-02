@@ -80,6 +80,7 @@ jobs:
         --build-env NODE_ENV=production
         --build-env BUILD_ID=${BUILD_ID}
         --env NODE_ENV=production
+        --env BUILD_ID=${BUILD_ID}
         --public
         --no-clipboard
         --token ${ZEIT_TOKEN}
