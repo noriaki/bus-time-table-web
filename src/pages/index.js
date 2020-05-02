@@ -48,15 +48,14 @@ const IndexPage = ({ buildId }) => {
   );
 };
 
-export const getStaticProps = () => {
+export const getServerSideProps = () => {
+  const currentTime = Date.now();
   const { BUILD_ID } = process.env;
-  if (BUILD_ID == null) {
-    return {
-      props: { buildId: 'dev' },
-    };
-  }
   return {
-    props: { buildId: BUILD_ID },
+    props: {
+      buildId: BUILD_ID || 'development',
+      currentTime,
+    },
   };
 };
 

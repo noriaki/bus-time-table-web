@@ -40,7 +40,7 @@ class ComDeuxToursBusApp extends App {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <MuiContainer maxWidth="xs">
-          <Clock.Provider>
+          <Clock.Provider initialState={pageProps.currentTime}>
             <Component {...pageProps} />
           </Clock.Provider>
         </MuiContainer>
