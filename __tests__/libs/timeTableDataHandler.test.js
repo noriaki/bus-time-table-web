@@ -5,6 +5,7 @@ import {
   findNextTime,
   sliceNextTimeList,
   isInactiveDays,
+  isSuspended,
 } from '~/libs/timeTableDataHandler';
 
 import timeTableHome from '~/data/home-timetable.json';
@@ -274,6 +275,26 @@ describe('timeTableDataHandler', () => {
         subjectTime.set({ month: 2, date: 21, hour: 8 });
         expect(isInactiveDays(activeDays, subjectTime)).toBe(false);
       });
+    });
+  });
+
+  describe('.isSuspended', () => {
+    it('should be true in suspension days (2020/04/08-)', () => {
+      const subjectTime = moment('2020-04-08T04:00:00');
+      const { result: subject } = isSuspended(subjectTime);
+      expect(subject).toBe(true);
+    });
+
+    it('should be false when out of suspension days', () => {
+      const subjectTime = moment('2020-04-07T23:59:59');
+      const { result: subject } = isSuspended(subjectTime);
+      expect(subject).toBe(false);
+    });
+
+    it('should be false when out of suspension days over midnight', () => {
+      const subjectTime = moment('2020-04-08T03:59:59');
+      const { result: subject } = isSuspended(subjectTime);
+      expect(subject).toBe(false);
     });
   });
 });

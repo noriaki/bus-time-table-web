@@ -1,6 +1,7 @@
 import moment from 'moment';
 
 import holidays from '~/data/holidays.json';
+import suspensionDays from '~/data/suspension.json';
 
 const offset = '+09:00';
 const timeShift = 4;
@@ -57,9 +58,21 @@ export const isInactiveDays = (activeDays, now) => {
   );
 };
 
+export const isSuspended = (now) => {
+  const currentTime = moment(now || Date.now()).utcOffset(offset);
+  if (currentTime.hours() < timeShift) { currentTime.subtract(1, 'day'); }
+  const result = suspensionDays.find((suspension) => (
+    currentTime.isBetween(suspension.start, suspension.end, null, '[]')
+  ));
+  if (result == null) { return { result: false, reason: {} }; }
+  const { title, subtitle } = result;
+  return { result: true, reason: { title, subtitle } };
+};
+
 export default {
   momentFromVersion,
   flattenTimeTable,
   findNextTime,
   isInactiveDays,
+  isSuspended,
 };
