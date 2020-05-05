@@ -7,9 +7,7 @@ import Typography from '@material-ui/core/Typography';
 // styles
 import useStyles from '~/styles/GuideBoard/InactiveBoard-Style';
 
-const InactiveBoard = ({ timetable }) => {
-  const { name } = timetable;
-
+const InactiveBoard = ({ name, title, subtitle }) => {
   const classes = useStyles();
 
   return (
@@ -28,12 +26,12 @@ const InactiveBoard = ({ timetable }) => {
         </Grid>
         <Grid item>
           <Typography variant="body2">
-            本日バス運行はありません
+            { title }
           </Typography>
         </Grid>
         <Grid item>
           <Typography variant="caption">
-            (運行は土日祝を除く平日のみ)
+            { subtitle }
           </Typography>
         </Grid>
       </Grid>
