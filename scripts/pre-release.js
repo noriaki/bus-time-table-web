@@ -15,9 +15,8 @@ if (args.length === 1 && (/^(patch|minor|major)$/).test(args[0])) {
 const now = moment().set({ second: 0, millisecond: 0 });
 
 // -- update ld+json
-const jsonldFilePath = resolve('data', 'jsonld.json');
-const packageJson = JSON.parse(readFileSync(resolve('package.json')));
-const nextVersion = packageJson.version;
+const jsonldFilePath = resolve('src', 'data', 'jsonld.json');
+const { version: nextVersion } = JSON.parse(readFileSync(resolve('package.json')));
 const jsonldData = JSON.parse(readFileSync(jsonldFilePath));
 const nextJsonldData = {
   ...jsonldData,
@@ -28,7 +27,7 @@ const nextJsonldData = {
 writeFileSync(jsonldFilePath, JSON.stringify(nextJsonldData, null, 2));
 
 // -- sitemap.xml
-const sitemapFilePath = resolve('static', 'sitemap.xml');
+const sitemapFilePath = resolve('public', 'sitemap.xml');
 let sitemap = readFileSync(sitemapFilePath).toString('utf8');
 sitemap = sitemap
   .replace(/<lastmod>.*?<\/lastmod>/, `<lastmod>${now.format()}</lastmod>`);

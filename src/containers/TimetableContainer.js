@@ -7,6 +7,7 @@ import {
   flattenTimeTable,
   sliceNextTimeList,
   isInactiveDays,
+  isSuspended,
 } from '~/libs/timeTableDataHandler';
 
 // data
@@ -26,18 +27,20 @@ const defaultState = {
 export const createTimetableHook = (data) => {
   const nextTimetableState = timestamp => (currentState = defaultState) => {
     const { timetable, activeDays } = data;
+    const suspensionDay = isSuspended(timestamp);
     const inactiveDay = isInactiveDays(activeDays, timestamp);
     const flatData = flattenTimeTable(timetable, timestamp);
     const nextSliceData = sliceNextTimeList(flatData, timestamp);
 
     const nextState = {
       ...currentState,
+      suspensionDay,
       inactiveDay, // sunday, saturday, holiday
       flatData,
       sliceData: nextSliceData,
     };
 
-    if (inactiveDay) {
+    if (suspensionDay.result || inactiveDay) {
       nextState.outOfService = null;
     } else if (nextSliceData.length === 0) {
       // the last bus was gone
@@ -91,6 +94,10 @@ export const createTimetableHook = (data) => {
       timetableState.index === timetableState.sliceData.length - 1
     );
 
+    const isSuspendedDay = () => !!timetableState.suspensionDay.result;
+
+    const suspendedReason = () => timetableState.suspensionDay.reason;
+
     const isClosedDay = () => !!timetableState.inactiveDay;
 
     const isOutOfService = () => !!timetableState.outOfService;
@@ -117,6 +124,8 @@ export const createTimetableHook = (data) => {
       moveLast,
       isFront,
       isLast,
+      isSuspendedDay,
+      suspendedReason,
       isClosedDay,
       isOutOfService,
       nearestTime,
