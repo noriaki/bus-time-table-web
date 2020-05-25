@@ -62,7 +62,7 @@ export const isSuspended = (now) => {
   const currentTime = moment(now || Date.now()).utcOffset(offset);
   if (currentTime.hours() < timeShift) { currentTime.subtract(1, 'day'); }
   const result = suspensionDays.find((suspension) => (
-    currentTime.isBetween(suspension.start, suspension.end, null, '[]')
+    currentTime.isBetween(suspension.start, suspension.end, 'day', '[]')
   ));
   if (result == null) { return { result: false, reason: {} }; }
   const { title, subtitle } = result;

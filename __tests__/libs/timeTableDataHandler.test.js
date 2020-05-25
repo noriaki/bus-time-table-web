@@ -296,5 +296,17 @@ describe('timeTableDataHandler', () => {
       const { result: subject } = isSuspended(subjectTime);
       expect(subject).toBe(false);
     });
+
+    it('should be true when end of suspension days', () => {
+      const subjectTime = moment('2020-05-26T09:00:00');
+      const { result: subject } = isSuspended(subjectTime);
+      expect(subject).toBe(true);
+    });
+
+    it('should be false when over the end of suspension days', () => {
+      const subjectTime = moment('2020-05-27T06:00:00');
+      const { result: subject } = isSuspended(subjectTime);
+      expect(subject).toBe(false);
+    });
   });
 });
