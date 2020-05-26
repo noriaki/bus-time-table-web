@@ -3,8 +3,8 @@ import moment from 'moment';
 import holidays from '~/data/holidays.json';
 import suspensionDays from '~/data/suspension.json';
 
-const offset = '+09:00';
-const timeShift = 4;
+export const offset = '+09:00';
+export const timeShift = 4;
 
 export const momentFromVersion = (version) => {
   const year = parseInt((version / 10000) % 10000, 10);
@@ -62,7 +62,7 @@ export const isSuspended = (now) => {
   const currentTime = moment(now || Date.now()).utcOffset(offset);
   if (currentTime.hours() < timeShift) { currentTime.subtract(1, 'day'); }
   const result = suspensionDays.find((suspension) => (
-    currentTime.isBetween(suspension.start, suspension.end, null, '[]')
+    currentTime.isBetween(suspension.start, suspension.end, 'day', '[]')
   ));
   if (result == null) { return { result: false, reason: {} }; }
   const { title, subtitle } = result;
