@@ -3,8 +3,8 @@ import moment from 'moment';
 import holidays from '~/data/holidays.json';
 import suspensionDays from '~/data/suspension.json';
 
-const offset = '+09:00';
-const timeShift = 4;
+export const offset = '+09:00';
+export const timeShift = 4;
 
 export const momentFromVersion = (version) => {
   const year = parseInt((version / 10000) % 10000, 10);
