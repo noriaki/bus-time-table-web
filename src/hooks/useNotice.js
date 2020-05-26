@@ -15,12 +15,12 @@ const useNotice = (now) => {
     if (result == null) {
       return {
         hasNotice: false,
-        text: null,
+        contents: null,
       };
     }
     return {
       hasNotice: true,
-      text: result.text,
+      contents: result.contents,
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentDay]);
