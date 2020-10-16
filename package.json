@@ -37,7 +37,7 @@
     "unstated-next": "1.1.0"
   },
   "devDependencies": {
-    "@babel/core": "7.12.1",
+    "@babel/core": "7.12.3",
     "@testing-library/react-hooks": "3.4.2",
     "babel-eslint": "10.1.0",
     "enzyme": "3.11.0",
