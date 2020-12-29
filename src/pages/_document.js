@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import Document, { Head, Main, NextScript } from 'next/document';
+import Document, { Html, Head, Main, NextScript } from 'next/document';
 import { ServerStyleSheets } from '@material-ui/styles';
 
 // material-ui theme
@@ -14,7 +14,7 @@ import { trackID, initCode } from '~/libs/ga';
 class MyDocument extends Document {
   render() {
     return (
-      <html lang="ja" dir="ltr">
+      <Html lang="ja" dir="ltr">
         <Head>
           <meta charSet="utf-8" />
           {/* PWA primary color */}
@@ -33,7 +33,7 @@ class MyDocument extends Document {
           <Main />
           <NextScript />
         </body>
-      </html>
+      </Html>
     );
   }
 }
