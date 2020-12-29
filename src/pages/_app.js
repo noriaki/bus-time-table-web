@@ -37,15 +37,21 @@ class ComDeuxToursBusApp extends App {
     const { Component, pageProps } = this.props;
 
     return (
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <MuiContainer maxWidth="xs">
-          <Clock.Provider initialState={pageProps.currentTime}>
-            <Component {...pageProps} />
-          </Clock.Provider>
-        </MuiContainer>
-        <JsonLd data={jsonLdData} />
-      </ThemeProvider>
+      <>
+        {/* Use minimum-scale=1 to enable GPU rasterization */}
+        <meta
+          name="viewport"
+          content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no" />
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <MuiContainer maxWidth="xs">
+            <Clock.Provider initialState={pageProps.currentTime}>
+              <Component {...pageProps} />
+            </Clock.Provider>
+          </MuiContainer>
+          <JsonLd data={jsonLdData} />
+        </ThemeProvider>
+      </>
     );
   }
 }

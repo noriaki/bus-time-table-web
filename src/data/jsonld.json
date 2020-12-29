@@ -15,9 +15,9 @@
     "priceCurrency": "JPY"
   },
   "dateCreated": "2017-04-05T12:59:42+09:00",
-  "dateModified": "2020-05-26T10:23:00+09:00",
-  "version": "2.25.0",
-  "softwareVersion": "2.25.0",
+  "dateModified": "2020-12-29T19:43:00+09:00",
+  "version": "2.26.0",
+  "softwareVersion": "2.26.0",
   "releaseNotes": "https://deux-tours-bus.com/info#ChangeLogs",
   "thumbnailUrl": "https://deux-tours-bus.com/static/icons/app-512x512.png",
   "screenshot": [
