@@ -28,4 +28,9 @@ module.exports = {
     if (BUILD_ID != null) { return BUILD_ID; }
     return null;
   },
+  async rewrites() {
+    return [
+      { source: '/sw.bundle.js', destination: '/sw.js' },
+    ];
+  },
 };

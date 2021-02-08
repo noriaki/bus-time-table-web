@@ -1,0 +1,44 @@
+on:
+  pull_request:
+    types: [opened, synchronize]
+  push:
+    branches:
+      - master
+    tags:
+      - '!*'
+
+name: CI Test
+
+jobs:
+  test:
+    name: CI Test
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Setup node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: 12.x
+
+    - name: Install Yarn-pkg
+      run: npm install -g yarn
+
+    - name: "[INFO] Versions"
+      run: |
+        echo "node: `node --version`"
+        echo "npm:  v`npm --version`"
+        echo "yarn: v`yarn --version`"
+
+    - name: Install packages
+      run: >
+        yarn install
+        --frozen-lockfile
+        --ignore-optional
+        --no-progress
+        --non-interactive
+
+    - name: Test
+      run: TZ="Asia/Tokyo" yarn test
