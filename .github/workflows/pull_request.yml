@@ -2,7 +2,7 @@ on:
   pull_request:
     types: [opened, synchronize]
 
-name: Test and Deploy (Staging)
+name: Test on PR
 
 jobs:
   test:
