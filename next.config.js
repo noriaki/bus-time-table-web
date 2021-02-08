@@ -30,7 +30,7 @@ module.exports = {
   },
   async rewrites() {
     return [
-      { srouce: '/sw.bundle.js', destination: '/sw.js' },
+      { source: '/sw.bundle.js', destination: '/sw.js' },
     ];
   },
 };
