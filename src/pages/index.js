@@ -54,10 +54,10 @@ const IndexPage = ({ buildId }) => {
 
 export const getServerSideProps = () => {
   const currentTime = Date.now();
-  const { BUILD_ID } = process.env;
+  const { VERCEL_GIT_COMMIT_SHA } = process.env;
   return {
     props: {
-      buildId: BUILD_ID || 'development',
+      buildId: VERCEL_GIT_COMMIT_SHA || 'development',
       currentTime,
     },
   };
