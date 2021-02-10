@@ -42,7 +42,7 @@ describe('timeTableDataHandler', () => {
         });
 
         it('should every return items are moment object', () => {
-          expect(subject.every(m => moment.isMoment(m))).toBe(true);
+          expect(subject.every((m) => moment.isMoment(m))).toBe(true);
         });
       });
     });
@@ -135,17 +135,14 @@ describe('timeTableDataHandler', () => {
         const beforeTheBoundaryTime = moment({
           hour: 3, minute: 59, second: 59,
         });
-        const listBeforeTheBoundaryTime =
-                flattenTimeTable(raw, beforeTheBoundaryTime);
-        const beforeTheBoundaryTimeSubject =
-                findNextTime(listBeforeTheBoundaryTime, beforeTheBoundaryTime);
+        const listBeforeTheBoundaryTime = flattenTimeTable(raw, beforeTheBoundaryTime);
+        const beforeTheBoundaryTimeSubject = findNextTime(listBeforeTheBoundaryTime, beforeTheBoundaryTime);
         expect(beforeTheBoundaryTimeSubject).toBeUndefined();
 
         const onTheBoundaryTime = moment({ hour: 4 });
         const listOnTheBoundary = flattenTimeTable(raw, onTheBoundaryTime);
         const onTheBoundaryTimeExpected = listOnTheBoundary[0];
-        const onTheBoundaryTimeSubject =
-                findNextTime(listOnTheBoundary, onTheBoundaryTime);
+        const onTheBoundaryTimeSubject = findNextTime(listOnTheBoundary, onTheBoundaryTime);
         expect(
           onTheBoundaryTimeSubject.isSame(onTheBoundaryTimeExpected)
         ).toBe(true);
