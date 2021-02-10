@@ -2,8 +2,8 @@ import React from 'react';
 import { createMount } from '@material-ui/core/test-utils';
 // import { renderHook, act } from '@testing-library/react-hooks';
 import { createContainer } from 'unstated-next';
-import moment from 'moment';
 
+import dayjs from '~/libs/dayjs';
 import GuideBoard from '~/components/GuideBoard';
 
 import testTimetable from '../containers/fixtures/timetable.json';
@@ -26,7 +26,7 @@ describe('<GuideBoard />', () => {
   });
 
   it('should includes with <ActiveBoard />', () => {
-    const currentTime = moment('2017-06-15T08:00:01+09:00');
+    const currentTime = dayjs('2017-06-15T08:00:01+09:00');
     const initialState = TestTimetableHook.buildState(currentTime)();
     const wrapper = mount(
       <Container.Provider initialState={initialState}>
@@ -40,7 +40,7 @@ describe('<GuideBoard />', () => {
 
   describe('when the out of service', () => {
     it('should includes with <InactiveBoard />', () => {
-      const currentTime = moment('2017-06-16T02:00:00+09:00');
+      const currentTime = dayjs('2017-06-16T02:00:00+09:00');
       const initialState = TestTimetableHook.buildState(currentTime)();
       const wrapper = mount(
         <Container.Provider initialState={initialState}>
@@ -58,7 +58,7 @@ describe('<GuideBoard />', () => {
 
   describe('when the closed day (weekend, holiday)', () => {
     it('should includes with <InactiveBoard />', () => {
-      const currentTime = moment('2017-06-15').day('sunday').hour(8);
+      const currentTime = dayjs('2017-06-15').day(dayjs.SUN).hour(8);
       const initialState = TestTimetableHook.buildState(currentTime)();
       const wrapper = mount(
         <Container.Provider initialState={initialState}>
@@ -74,7 +74,7 @@ describe('<GuideBoard />', () => {
     });
 
     it('should closed day even if the out of service hours', () => {
-      const currentTime = moment('2017-06-15').day('sunday').hour(2);
+      const currentTime = dayjs('2017-06-15').day(dayjs.SUN).hour(2);
       const initialState = TestTimetableHook.buildState(currentTime)();
       const wrapper = mount(
         <Container.Provider initialState={initialState}>
@@ -92,7 +92,7 @@ describe('<GuideBoard />', () => {
 
   describe('when the suspended day', () => {
     it('should includes with <InactiveBoard />', () => {
-      const currentTime = moment('2020-04-08T08:00:01+09:00');
+      const currentTime = dayjs('2020-04-08T08:00:01+09:00');
       const initialState = TestTimetableHook.buildState(currentTime)();
       const wrapper = mount(
         <Container.Provider initialState={initialState}>
@@ -109,7 +109,7 @@ describe('<GuideBoard />', () => {
 
     it('should suspend even if the out of service hours or/and the closed day', () => {
       // next sunday, 2 am.
-      const currentTime = moment('2020-04-08').day(7).hour(2);
+      const currentTime = dayjs('2020-04-08').day(7).hour(2);
       const initialState = TestTimetableHook.buildState(currentTime)();
       const wrapper = mount(
         <Container.Provider initialState={initialState}>
