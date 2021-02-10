@@ -1,16 +1,16 @@
 import { renderHook, act } from '@testing-library/react-hooks';
-import moment from 'moment';
 
+import dayjs from '~/libs/dayjs';
 import testTimetable from './fixtures/timetable.json';
 import { createTimetableHook } from '~/containers/TimetableContainer';
 
 const TestTimetableHook = createTimetableHook(testTimetable);
 
 describe('TestTimetable Container', () => {
-  let currentTime;
+  let baseTime;
   let container;
   beforeEach(() => {
-    currentTime = moment('2017-06-15', 'YYYY-MM-DD');
+    baseTime = dayjs('2017-06-15', 'YYYY-MM-DD');
     container = renderHook(() => TestTimetableHook()).result;
   });
 
@@ -26,14 +26,14 @@ describe('TestTimetable Container', () => {
   });
 
   it('inactive day', () => {
-    currentTime.day('sunday').hour(8);
+    const currentTime = baseTime.day('sunday').hour(8);
     act(() => container.current.tick(currentTime));
     expect(container.current.isClosedDay()).toBe(true);
     expect(container.current.state.inactiveDay).toBe(true);
   });
 
   it('the last bus was gone', () => {
-    currentTime.hour(3);
+    const currentTime = baseTime.hour(3);
     act(() => container.current.tick(currentTime));
     expect(container.current.isOutOfService()).toBe(true);
     expect(container.current.state.outOfService).toBe(true);
@@ -42,22 +42,22 @@ describe('TestTimetable Container', () => {
   it('departure time has come', () => {
     const expectedLength = 7;
 
-    currentTime.set({ hour: 21, minute: 9, second: 30 });
+    let currentTime = baseTime.set({ hour: 21, minute: 9, second: 30 });
     act(() => container.current.tick(currentTime));
     expect(container.current.state.sliceData).toHaveLength(expectedLength);
 
-    currentTime.set({ minute: 10 });
+    currentTime = currentTime.set({ minute: 10 });
     act(() => container.current.tick(currentTime));
     expect(container.current.state.sliceData).toHaveLength(expectedLength - 1);
   });
 
   describe('when time has changed', () => {
     it('in service -> last bus gone', () => {
-      currentTime.set({ hour: 24, minute: 4, second: 30 });
+      let currentTime = baseTime.set({ hour: 24, minute: 4, second: 30 });
       act(() => container.current.tick(currentTime));
       expect(container.current.state.sliceData).toHaveLength(1);
 
-      currentTime.set({ minute: 5 });
+      currentTime = currentTime.set({ minute: 5 });
       act(() => container.current.tick(currentTime));
       expect(container.current.state.sliceData).toHaveLength(0);
       expect(container.current.isOutOfService()).toBe(true);
@@ -66,23 +66,23 @@ describe('TestTimetable Container', () => {
     });
 
     it('last bus gone -> inactive day', () => {
-      currentTime.set({ hour: 24, minute: 5, second: 30 });
+      let currentTime = baseTime.set({ hour: 24, minute: 5, second: 30 });
       act(() => container.current.tick(currentTime));
       expect(container.current.isOutOfService()).toBe(true);
       expect(container.current.isClosedDay()).toBe(false);
 
-      currentTime.set({ date: 17, hour: 7 });
+      currentTime = currentTime.set({ date: 17, hour: 7 });
       act(() => container.current.tick(currentTime));
       expect(container.current.isOutOfService()).toBeFalsy();
       expect(container.current.isClosedDay()).toBe(true);
     });
 
     it('last bus gone -> in service', () => {
-      currentTime.set({ hour: 24, minute: 5, second: 30 });
+      let currentTime = baseTime.set({ hour: 24, minute: 5, second: 30 });
       act(() => container.current.tick(currentTime));
       expect(container.current.isOutOfService()).toBe(true);
 
-      currentTime.set({ date: 16, hour: 7 });
+      currentTime = currentTime.set({ date: 16, hour: 7 });
       act(() => container.current.tick(currentTime));
       expect(container.current.isOutOfService()).toBe(false);
 
@@ -90,12 +90,12 @@ describe('TestTimetable Container', () => {
     });
 
     it('inactive day -> in service', () => {
-      currentTime.set({ date: 18, hour: 7 });
+      let currentTime = baseTime.set({ date: 18, hour: 7 });
       act(() => container.current.tick(currentTime));
       expect(container.current.isOutOfService()).toBeFalsy();
       expect(container.current.isClosedDay()).toBe(true);
 
-      currentTime.set({ date: 19 });
+      currentTime = currentTime.set({ date: 19 });
       act(() => container.current.tick(currentTime));
       expect(container.current.isClosedDay()).toBe(false);
       expect(container.current.isOutOfService()).toBeFalsy();
