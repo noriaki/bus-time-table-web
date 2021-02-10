@@ -33,7 +33,7 @@ describe('timeTableDataHandler', () => {
           subject = flattenTimeTable(timetable);
         });
 
-        it('should sorted by moment asc', () => {
+        it('should sorted by dayjs asc', () => {
           expect(
             [...subject]
               .sort((a, b) => a.diff(b))
@@ -41,8 +41,8 @@ describe('timeTableDataHandler', () => {
           ).toBe(true);
         });
 
-        it('should every return items are moment object', () => {
-          expect(subject.every((m) => dayjs.isMoment(m))).toBe(true);
+        it('should every return items are dayjs object', () => {
+          expect(subject.every((m) => dayjs.isDayjs(m))).toBe(true);
         });
       });
     });
