@@ -38,7 +38,7 @@ export const findNextTime = (list, now) => (
 );
 
 export const findNextTimeIndex = (list, now) => {
-  const currentTime = dayjs(now || Date.now()).utcOffset(offset);
+  const currentTime = dayjs.initialize(now).utcOffset(offset);
   return list.findIndex(m => (m.diff(currentTime) >= 0));
 };
 
@@ -49,7 +49,7 @@ export const sliceNextTimeList = (list, now) => {
 };
 
 export const isInactiveDays = (activeDays, now) => {
-  const currentTime = dayjs(now || Date.now()).utcOffset(offset);
+  const currentTime = dayjs.initialize(now).utcOffset(offset);
   if (currentTime.hour() < timeShift) { currentTime.subtract(1, 'day'); }
   return (
     !activeDays.includes(currentTime.day())
@@ -58,7 +58,7 @@ export const isInactiveDays = (activeDays, now) => {
 };
 
 export const isSuspended = (now) => {
-  const currentTime = dayjs(now || Date.now()).utcOffset(offset);
+  const currentTime = dayjs.initialize(now).utcOffset(offset);
   if (currentTime.hour() < timeShift) { currentTime.subtract(1, 'day'); }
   const result = suspensionDays.find((suspension) => (
     currentTime.isBetween(suspension.start, suspension.end, 'day', '[]')

@@ -7,4 +7,12 @@ dayjs.extend(utc);
 dayjs.extend(objectSupport);
 dayjs.extend(duration);
 
+dayjs.initialize = (obj) => {
+  const instance = dayjs.isDayjs(obj) ? obj : dayjs(obj);
+  if (!instance.isValid()) {
+    throw new Error('invalid Dayjs');
+  }
+  return instance;
+};
+
 export default dayjs;
