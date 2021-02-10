@@ -1,6 +1,6 @@
 const { readFileSync, writeFileSync } = require('fs');
 const { resolve } = require('path');
-const moment = require('moment');
+const dayjs = require('dayjs');
 const { execSync } = require('child_process');
 
 // -- bump version
@@ -12,7 +12,7 @@ if (args.length === 1 && (/^(patch|minor|major)$/).test(args[0])) {
   process.exit(1);
 }
 
-const now = moment().set({ second: 0, millisecond: 0 });
+const now = dayjs().set({ second: 0, millisecond: 0 });
 
 // -- update ld+json
 const jsonldFilePath = resolve('src', 'data', 'jsonld.json');
