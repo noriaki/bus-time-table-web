@@ -1,10 +1,10 @@
 import React from 'react';
 
-// libs
-import dayjs from '~/libs/dayjs';
-
 // material-ui
 import Typography from '@material-ui/core/Typography';
+
+// libs
+import dayjs from '~/libs/dayjs';
 
 // styles
 import useStyles from '~/styles/GuideBoard/ActiveBoard/CountDownClock-Style';
