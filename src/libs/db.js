@@ -30,7 +30,7 @@ export const firstOrCreateReadStateOfUser = async (version) => {
 
 // userStates
 // @async
-export const updateReadState = version => db.userStates
+export const updateReadState = (version) => db.userStates
   .where('version').equals(version)
   .modify({ isUnreadNotification: false });
 

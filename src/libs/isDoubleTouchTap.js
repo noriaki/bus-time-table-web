@@ -10,8 +10,8 @@ const isDoubleTouchTap = (event) => {
     target: event.currentTarget,
   };
   const result = (
-    touchTap.target === latestTouchTap.target &&
-      touchTap.time - latestTouchTap.time < delay
+    touchTap.target === latestTouchTap.target
+      && touchTap.time - latestTouchTap.time < delay
   );
   latestTouchTap = touchTap;
   return result;

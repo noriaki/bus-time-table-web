@@ -25,7 +25,7 @@ const defaultState = {
 
 // createHook
 export const createTimetableHook = (data) => {
-  const nextTimetableState = timestamp => (currentState = defaultState) => {
+  const nextTimetableState = (timestamp) => (currentState = defaultState) => {
     const { timetable, activeDays } = data;
     const suspensionDay = isSuspended(timestamp);
     const inactiveDay = isInactiveDays(activeDays, timestamp);
@@ -73,19 +73,19 @@ export const createTimetableHook = (data) => {
     };
 
     const moveFront = () => setTimetableState(
-      state => ({ ...state, index: 0 })
+      (state) => ({ ...state, index: 0 })
     );
 
     const movePrev = () => setTimetableState(
-      state => ({ ...state, index: state.index - 1 })
+      (state) => ({ ...state, index: state.index - 1 })
     );
 
     const moveNext = () => setTimetableState(
-      state => ({ ...state, index: state.index + 1 })
+      (state) => ({ ...state, index: state.index + 1 })
     );
 
     const moveLast = () => setTimetableState(
-      state => ({ ...state, index: state.sliceData.length - 1 })
+      (state) => ({ ...state, index: state.sliceData.length - 1 })
     );
 
     const isFront = () => timetableState.index === 0;

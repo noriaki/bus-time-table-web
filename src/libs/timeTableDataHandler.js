@@ -39,7 +39,7 @@ export const findNextTime = (list, now) => (
 
 export const findNextTimeIndex = (list, now) => {
   const currentTime = dayjs.initialize(now).utcOffset(offset);
-  return list.findIndex(m => (m.diff(currentTime) >= 0));
+  return list.findIndex((m) => (m.diff(currentTime) >= 0));
 };
 
 export const sliceNextTimeList = (list, now) => {

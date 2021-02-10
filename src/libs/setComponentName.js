@@ -6,9 +6,9 @@ import {
 } from 'recompose';
 import getOriginalDisplayName from './getOriginalDisplayName';
 
-const setComponentName = name => (BaseComponent) => {
+const setComponentName = (name) => (BaseComponent) => {
   const componentName = `${getOriginalDisplayName(BaseComponent)}[${name}]`;
-  const EnhancedComponent = props => (
+  const EnhancedComponent = (props) => (
     <BaseComponent {...props} />
   );
   const enhance = compose(
