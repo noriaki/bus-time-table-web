@@ -50,7 +50,7 @@ export const sliceNextTimeList = (list, now) => {
 
 export const isInactiveDays = (activeDays, now) => {
   const currentTime = dayjs(now || Date.now()).utcOffset(offset);
-  if (currentTime.hours() < timeShift) { currentTime.subtract(1, 'day'); }
+  if (currentTime.hour() < timeShift) { currentTime.subtract(1, 'day'); }
   return (
     !activeDays.includes(currentTime.day())
       || holidays[currentTime.format('YYYY-MM-DD')] !== undefined
@@ -59,7 +59,7 @@ export const isInactiveDays = (activeDays, now) => {
 
 export const isSuspended = (now) => {
   const currentTime = dayjs(now || Date.now()).utcOffset(offset);
-  if (currentTime.hours() < timeShift) { currentTime.subtract(1, 'day'); }
+  if (currentTime.hour() < timeShift) { currentTime.subtract(1, 'day'); }
   const result = suspensionDays.find((suspension) => (
     currentTime.isBetween(suspension.start, suspension.end, 'day', '[]')
   ));
