@@ -1,6 +1,6 @@
 import { scroller, animateScroll } from 'react-scroll';
 
-export const calcDuration = delta => (250 + (Math.log2(delta) * 20));
+export const calcDuration = (delta) => (250 + (Math.log2(delta) * 20));
 
 export const scrollToHashOrTop = (scrollTarget) => {
   const options = {

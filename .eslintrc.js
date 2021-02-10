@@ -8,7 +8,7 @@ module.exports = {
     es6: true,
     jest: true,
   },
-  extends: ['eslint:recommended', 'airbnb'],
+  extends: ['eslint:recommended', 'airbnb', 'plugin:you-dont-need-momentjs/recommended'],
   plugins: ['react-hooks'],
   settings: {
     'import/resolver': {

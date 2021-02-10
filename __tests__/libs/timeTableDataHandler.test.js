@@ -1,4 +1,3 @@
-import moment from 'moment';
 import {
   momentFromVersion,
   flattenTimeTable,
@@ -8,6 +7,7 @@ import {
   isSuspended,
 } from '~/libs/timeTableDataHandler';
 
+import dayjs from '~/libs/dayjs';
 import timeTableHome from '~/data/home-timetable.json';
 import timeTableHigashiGinza from '~/data/st-higashiginza-timetable.json';
 import timeTableShimbashi from '~/data/st-shimbashi-timetable.json';
@@ -16,7 +16,7 @@ describe('timeTableDataHandler', () => {
   describe('.momentFromVersion', () => {
     it('split `YYYYMMDD`', () => {
       const subject = momentFromVersion(20170101);
-      const expected = moment('2017-01-01');
+      const expected = dayjs('2017-01-01');
       expect(subject.isSame(expected)).toBe(true);
     });
   });
@@ -33,7 +33,7 @@ describe('timeTableDataHandler', () => {
           subject = flattenTimeTable(timetable);
         });
 
-        it('should sorted by moment asc', () => {
+        it('should sorted by dayjs asc', () => {
           expect(
             [...subject]
               .sort((a, b) => a.diff(b))
@@ -41,8 +41,8 @@ describe('timeTableDataHandler', () => {
           ).toBe(true);
         });
 
-        it('should every return items are moment object', () => {
-          expect(subject.every(m => moment.isMoment(m))).toBe(true);
+        it('should every return items are dayjs object', () => {
+          expect(subject.every((m) => dayjs.isDayjs(m))).toBe(true);
         });
       });
     });
@@ -58,10 +58,10 @@ describe('timeTableDataHandler', () => {
       { hour: 24, minutes: [20, 40] },
       { hour: 25, minutes: [0] },
     ];
-    const durationLimit = moment.duration(10, 'hours').asMilliseconds();
+    const durationLimit = dayjs.duration(10, 'hours').asMilliseconds();
 
     it('wait beginning bus (5:50)', () => {
-      const currentTime = moment({ hour: 5, minute: 50 });
+      const currentTime = dayjs({ hour: 5, minute: 50 });
       const list = flattenTimeTable(raw, currentTime);
       const expected = list[0];
       const subject = findNextTime(list, currentTime);
@@ -70,7 +70,7 @@ describe('timeTableDataHandler', () => {
     });
 
     it('just wait-time is 0 (6:30)', () => {
-      const currentTime = moment({ hour: 6, minute: 30 });
+      const currentTime = dayjs({ hour: 6, minute: 30 });
       const list = flattenTimeTable(raw, currentTime);
       const expected = list[1];
       const subject = findNextTime(list, currentTime);
@@ -79,7 +79,7 @@ describe('timeTableDataHandler', () => {
     });
 
     it('between the buses (8:51)', () => {
-      const currentTime = moment({ hour: 8, minute: 51 });
+      const currentTime = dayjs({ hour: 8, minute: 51 });
       const list = flattenTimeTable(raw, currentTime);
       const expected = list[12];
       const subject = findNextTime(list, currentTime);
@@ -88,7 +88,7 @@ describe('timeTableDataHandler', () => {
     });
 
     it('between dates (midnight passes; 23:58)', () => {
-      const currentTime = moment({ hour: 23, minute: 58 });
+      const currentTime = dayjs({ hour: 23, minute: 58 });
       const list = flattenTimeTable(raw, currentTime);
       const expected = list[18];
       const subject = findNextTime(list, currentTime);
@@ -97,7 +97,7 @@ describe('timeTableDataHandler', () => {
     });
 
     it('just midnight (0:00)', () => {
-      const currentTime = moment({ hour: 0, minute: 0 });
+      const currentTime = dayjs({ hour: 0, minute: 0 });
       const list = flattenTimeTable(raw, currentTime);
       const expected = list[18];
       const subject = findNextTime(list, currentTime);
@@ -106,7 +106,7 @@ describe('timeTableDataHandler', () => {
     });
 
     it('past midnight (0:31)', () => {
-      const currentTime = moment({ hour: 0, minute: 31 });
+      const currentTime = dayjs({ hour: 0, minute: 31 });
       const list = flattenTimeTable(raw, currentTime);
       const expected = list[19];
       const subject = findNextTime(list, currentTime);
@@ -115,7 +115,7 @@ describe('timeTableDataHandler', () => {
     });
 
     it('wait last bus (0:43)', () => {
-      const currentTime = moment({ hour: 0, minute: 43 });
+      const currentTime = dayjs({ hour: 0, minute: 43 });
       const list = flattenTimeTable(raw, currentTime);
       const expected = list[20];
       const subject = findNextTime(list, currentTime);
@@ -124,7 +124,7 @@ describe('timeTableDataHandler', () => {
     });
 
     it('the last bus is over (1:35)', () => {
-      const currentTime = moment({ hour: 1, minute: 35 });
+      const currentTime = dayjs({ hour: 1, minute: 35 });
       const list = flattenTimeTable(raw, currentTime);
       const subject = findNextTime(list, currentTime);
       expect(subject).toBeUndefined();
@@ -132,20 +132,17 @@ describe('timeTableDataHandler', () => {
 
     describe('Boundary value test', () => {
       it('timetable should switches at 4 am (3:59:59 - 4:00:00)', () => {
-        const beforeTheBoundaryTime = moment({
+        const beforeTheBoundaryTime = dayjs({
           hour: 3, minute: 59, second: 59,
         });
-        const listBeforeTheBoundaryTime =
-                flattenTimeTable(raw, beforeTheBoundaryTime);
-        const beforeTheBoundaryTimeSubject =
-                findNextTime(listBeforeTheBoundaryTime, beforeTheBoundaryTime);
+        const listBeforeTheBoundaryTime = flattenTimeTable(raw, beforeTheBoundaryTime);
+        const beforeTheBoundaryTimeSubject = findNextTime(listBeforeTheBoundaryTime, beforeTheBoundaryTime);
         expect(beforeTheBoundaryTimeSubject).toBeUndefined();
 
-        const onTheBoundaryTime = moment({ hour: 4 });
+        const onTheBoundaryTime = dayjs({ hour: 4 });
         const listOnTheBoundary = flattenTimeTable(raw, onTheBoundaryTime);
         const onTheBoundaryTimeExpected = listOnTheBoundary[0];
-        const onTheBoundaryTimeSubject =
-                findNextTime(listOnTheBoundary, onTheBoundaryTime);
+        const onTheBoundaryTimeSubject = findNextTime(listOnTheBoundary, onTheBoundaryTime);
         expect(
           onTheBoundaryTimeSubject.isSame(onTheBoundaryTimeExpected)
         ).toBe(true);
@@ -162,7 +159,7 @@ describe('timeTableDataHandler', () => {
     ];
 
     it('wait beginning bus (5:50)', () => {
-      const currentTime = moment({ hour: 5, minute: 50 });
+      const currentTime = dayjs({ hour: 5, minute: 50 });
       const list = flattenTimeTable(raw, currentTime);
       const expected = list.slice(0);
       const subject = sliceNextTimeList(list, currentTime);
@@ -170,7 +167,7 @@ describe('timeTableDataHandler', () => {
     });
 
     it('just wait-time is 0 (6:30)', () => {
-      const currentTime = moment({ hour: 6, minute: 30 });
+      const currentTime = dayjs({ hour: 6, minute: 30 });
       const list = flattenTimeTable(raw, currentTime);
       const expected = list.slice(1);
       const subject = sliceNextTimeList(list, currentTime);
@@ -178,7 +175,7 @@ describe('timeTableDataHandler', () => {
     });
 
     it('between dates (midnight passes; 23:58)', () => {
-      const currentTime = moment({ hour: 23, minute: 58 });
+      const currentTime = dayjs({ hour: 23, minute: 58 });
       const list = flattenTimeTable(raw, currentTime);
       const expected = list.slice(6);
       const subject = sliceNextTimeList(list, currentTime);
@@ -186,7 +183,7 @@ describe('timeTableDataHandler', () => {
     });
 
     it('just midnight (0:00)', () => {
-      const currentTime = moment({ hour: 0, minute: 0 });
+      const currentTime = dayjs({ hour: 0, minute: 0 });
       const list = flattenTimeTable(raw, currentTime);
       const expected = list.slice(6);
       const subject = sliceNextTimeList(list, currentTime);
@@ -194,7 +191,7 @@ describe('timeTableDataHandler', () => {
     });
 
     it('past midnight (0:31)', () => {
-      const currentTime = moment({ hour: 0, minute: 31 });
+      const currentTime = dayjs({ hour: 0, minute: 31 });
       const list = flattenTimeTable(raw, currentTime);
       const expected = list.slice(7);
       const subject = sliceNextTimeList(list, currentTime);
@@ -202,7 +199,7 @@ describe('timeTableDataHandler', () => {
     });
 
     it('wait last bus (0:43)', () => {
-      const currentTime = moment({ hour: 0, minute: 43 });
+      const currentTime = dayjs({ hour: 0, minute: 43 });
       const list = flattenTimeTable(raw, currentTime);
       const expected = list.slice(8);
       const subject = sliceNextTimeList(list, currentTime);
@@ -210,7 +207,7 @@ describe('timeTableDataHandler', () => {
     });
 
     it('the last bus is over (1:35)', () => {
-      const currentTime = moment({ hour: 1, minute: 35 });
+      const currentTime = dayjs({ hour: 1, minute: 35 });
       const list = flattenTimeTable(raw, currentTime);
       const expected = [];
       const subject = sliceNextTimeList(list, currentTime);
@@ -221,90 +218,90 @@ describe('timeTableDataHandler', () => {
   describe('.isInactiveDays', () => {
     const activeDays = [1, 2, 3, 4, 5];
     let subjectTime;
-    beforeEach(() => { subjectTime = moment('2017-06-15'); });
+    beforeEach(() => { subjectTime = dayjs('2017-06-15'); });
 
     describe('Weekend', () => {
       it('should be true in sunday 13:00', () => {
-        subjectTime.day('sunday').hour(13);
-        expect(isInactiveDays(activeDays, subjectTime)).toBe(true);
+        const subject = subjectTime.day(dayjs.SUN).hour(13);
+        expect(isInactiveDays(activeDays, subject)).toBe(true);
       });
 
       it('should be true in monday 1:30 (sunday 25:30)', () => {
-        subjectTime.day('monday').hour(1).minute(30);
-        expect(isInactiveDays(activeDays, subjectTime)).toBe(true);
+        const subject = subjectTime.day(dayjs.MON).hour(1).minute(30);
+        expect(isInactiveDays(activeDays, subject)).toBe(true);
       });
 
       it('should be false in monday 6:00', () => {
-        subjectTime.day('monday').hour(6);
-        expect(isInactiveDays(activeDays, subjectTime)).toBe(false);
+        const subject = subjectTime.day(dayjs.MON).hour(6);
+        expect(isInactiveDays(activeDays, subject)).toBe(false);
       });
 
       it('should be false in friday 22:00', () => {
-        subjectTime.day('friday').hour(22);
-        expect(isInactiveDays(activeDays, subjectTime)).toBe(false);
+        const subject = subjectTime.day(dayjs.FRI).hour(22);
+        expect(isInactiveDays(activeDays, subject)).toBe(false);
       });
 
       it('should be false in saturday 0:50 (friday 24:50)', () => {
-        subjectTime.day('saturday').minute(50);
-        expect(isInactiveDays(activeDays, subjectTime)).toBe(false);
+        const subject = subjectTime.day(dayjs.SAT).minute(50);
+        expect(isInactiveDays(activeDays, subject)).toBe(false);
       });
 
       it('should be true in saturday 11:00', () => {
-        subjectTime.day('saturday').hour(11);
-        expect(isInactiveDays(activeDays, subjectTime)).toBe(true);
+        const subject = subjectTime.day(dayjs.SAT).hour(11);
+        expect(isInactiveDays(activeDays, subject)).toBe(true);
       });
     });
 
     describe('Public holiday', () => {
       it('should be true in `元日` 1/1 8:00', () => {
-        subjectTime.set({ month: 0, date: 1, hour: 8 });
-        expect(isInactiveDays(activeDays, subjectTime)).toBe(true);
+        const subject = subjectTime.set({ month: 0, date: 1, hour: 8 });
+        expect(isInactiveDays(activeDays, subject)).toBe(true);
       });
 
       it('should be true in `元日 振替休日` 1/2 8:00', () => {
-        subjectTime.set({ month: 0, date: 2, hour: 8 });
-        expect(isInactiveDays(activeDays, subjectTime)).toBe(true);
+        const subject = subjectTime.set({ month: 0, date: 2, hour: 8 });
+        expect(isInactiveDays(activeDays, subject)).toBe(true);
       });
 
       it('should be true in `春分の日` 3/21 1:00 (3/20 25:00)', () => {
-        subjectTime.set({ month: 2, date: 21, hour: 1 });
-        expect(isInactiveDays(activeDays, subjectTime)).toBe(true);
+        const subject = subjectTime.set({ month: 2, date: 21, hour: 1 });
+        expect(isInactiveDays(activeDays, subject)).toBe(true);
       });
 
       it('should be false in next day of `春分の日` 3/21 8:00', () => {
-        subjectTime.set({ month: 2, date: 21, hour: 8 });
-        expect(isInactiveDays(activeDays, subjectTime)).toBe(false);
+        const subject = subjectTime.set({ month: 2, date: 21, hour: 8 });
+        expect(isInactiveDays(activeDays, subject)).toBe(false);
       });
     });
   });
 
   describe('.isSuspended', () => {
     it('should be true in suspension days (2020/04/08-)', () => {
-      const subjectTime = moment('2020-04-08T04:00:00');
+      const subjectTime = dayjs('2020-04-08T04:00:00');
       const { result: subject } = isSuspended(subjectTime);
       expect(subject).toBe(true);
     });
 
     it('should be false when out of suspension days', () => {
-      const subjectTime = moment('2020-04-07T23:59:59');
+      const subjectTime = dayjs('2020-04-07T23:59:59');
       const { result: subject } = isSuspended(subjectTime);
       expect(subject).toBe(false);
     });
 
     it('should be false when out of suspension days over midnight', () => {
-      const subjectTime = moment('2020-04-08T03:59:59');
+      const subjectTime = dayjs('2020-04-08T03:59:59');
       const { result: subject } = isSuspended(subjectTime);
       expect(subject).toBe(false);
     });
 
     it('should be true when end of suspension days', () => {
-      const subjectTime = moment('2020-05-26T09:00:00');
+      const subjectTime = dayjs('2020-05-26T09:00:00');
       const { result: subject } = isSuspended(subjectTime);
       expect(subject).toBe(true);
     });
 
     it('should be false when over the end of suspension days', () => {
-      const subjectTime = moment('2020-05-27T06:00:00');
+      const subjectTime = dayjs('2020-05-27T06:00:00');
       const { result: subject } = isSuspended(subjectTime);
       expect(subject).toBe(false);
     });

@@ -22,16 +22,16 @@ export const trackEvent = ({
   label: event_label, // eslint-disable-line camelcase
 }) => gtag('event', action, { event_category, event_label });
 
-export const trackMovePrev = departure => trackEvent({
+export const trackMovePrev = (departure) => trackEvent({
   action: 'Prev', category: 'Timer', label: departure,
 });
-export const trackMoveNext = departure => trackEvent({
+export const trackMoveNext = (departure) => trackEvent({
   action: 'Next', category: 'Timer', label: departure,
 });
-export const trackMoveFront = departure => trackEvent({
+export const trackMoveFront = (departure) => trackEvent({
   action: 'Front', category: 'Timer', label: departure,
 });
-export const trackMoveLast = departure => trackEvent({
+export const trackMoveLast = (departure) => trackEvent({
   action: 'Last', category: 'Timer', label: departure,
 });
 
