@@ -26,7 +26,7 @@ describe('TestTimetable Container', () => {
   });
 
   it('inactive day', () => {
-    const currentTime = baseTime.day('sunday').hour(8);
+    const currentTime = baseTime.day(dayjs.SUN).hour(8);
     act(() => container.current.tick(currentTime));
     expect(container.current.isClosedDay()).toBe(true);
     expect(container.current.state.inactiveDay).toBe(true);

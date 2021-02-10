@@ -11,6 +11,16 @@ dayjs.extend(toObject);
 dayjs.extend(duration);
 dayjs.extend(isBetween);
 
+// constants
+dayjs.SUN = 0;
+dayjs.MON = 1;
+dayjs.TUE = 2;
+dayjs.WED = 3;
+dayjs.THU = 4;
+dayjs.FRI = 5;
+dayjs.SAT = 6;
+
+// methods
 dayjs.initialize = (obj) => {
   const instance = dayjs.isDayjs(obj) ? obj : dayjs(obj);
   if (!instance.isValid()) {
