@@ -1,4 +1,3 @@
-import dayjs from 'dayjs';
 import {
   momentFromVersion,
   flattenTimeTable,
@@ -8,6 +7,7 @@ import {
   isSuspended,
 } from '~/libs/timeTableDataHandler';
 
+import dayjs from '~/libs/dayjs';
 import timeTableHome from '~/data/home-timetable.json';
 import timeTableHigashiGinza from '~/data/st-higashiginza-timetable.json';
 import timeTableShimbashi from '~/data/st-shimbashi-timetable.json';

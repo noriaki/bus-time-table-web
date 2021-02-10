@@ -1,5 +1,4 @@
-import dayjs from 'dayjs';
-
+import dayjs from '~/libs/dayjs';
 import holidays from '~/data/holidays.json';
 import suspensionDays from '~/data/suspension.json';
 
@@ -10,7 +9,7 @@ export const momentFromVersion = (version) => {
   const year = parseInt((version / 10000) % 10000, 10);
   const month = parseInt((version / 100) % 100, 10) - 1;
   const day = parseInt(version % 100, 10);
-  return dayjs({ year, month, day }).utcOffset(offset);
+  return dayjs({ year, month, day });
 };
 
 export const flattenTimeTable = (timeTable, now) => {
