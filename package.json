@@ -29,6 +29,7 @@
     "@material-ui/styles": "4.11.3",
     "babel-plugin-module-resolver": "4.1.0",
     "clsx": "1.1.1",
+    "dayjs": "^1.10.4",
     "moment": "2.29.1",
     "next": "10.0.6",
     "next-workbox-webpack-plugin": "2.1.1",
