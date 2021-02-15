@@ -17,22 +17,19 @@ const InactiveBoard = ({ name, title, subtitle }) => {
         direction="column"
         alignItems="center"
         justify="center"
-        item>
+        item
+      >
         <Grid item>
           <Typography component="h1">
-            <span className={classes.departure}>{ name }</span>
+            <span className={classes.departure}>{name}</span>
             <span className={classes.suffix}>発</span>
           </Typography>
         </Grid>
         <Grid item>
-          <Typography variant="body2">
-            { title }
-          </Typography>
+          <Typography variant="body2">{title}</Typography>
         </Grid>
         <Grid item>
-          <Typography variant="caption">
-            { subtitle }
-          </Typography>
+          <Typography variant="caption">{subtitle}</Typography>
         </Grid>
       </Grid>
     </Grid>

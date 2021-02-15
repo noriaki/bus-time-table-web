@@ -32,7 +32,7 @@ const Version = ({ buildId }) => {
     <p className={version}>
       <Typography component="small" variant="body2" color="textSecondary">
         version:
-        { LinkedVersion || ` ${buildId}` }
+        {LinkedVersion || ` ${buildId}`}
       </Typography>
     </p>
   );

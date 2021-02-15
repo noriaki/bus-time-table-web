@@ -16,7 +16,8 @@ const HalfModalCloseIcon = ({ onClick: handleClick }) => {
       alignItems="center"
       justify="center"
       onClick={handleClick}
-      className={classes.root}>
+      className={classes.root}
+    >
       <div className={clsx(classes.border, classes.left)} />
       <div className={clsx(classes.border, classes.right)} />
     </Grid>

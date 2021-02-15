@@ -17,15 +17,13 @@ const CountDownClock = ({ remaining }) => {
 
   return (
     <Typography>
-      { hasHours && <span className={classes.time}>{remainingTime.format('H')}</span> }
-      { hasHours && <span className={classes.suffix}>時間</span> }
-      <span className={classes.time}>
-        { remainingTime.format('mm') }
-      </span>
+      {hasHours && (
+        <span className={classes.time}>{remainingTime.format('H')}</span>
+      )}
+      {hasHours && <span className={classes.suffix}>時間</span>}
+      <span className={classes.time}>{remainingTime.format('mm')}</span>
       <span className={classes.suffix}>分</span>
-      <span className={classes.time}>
-        { remainingTime.format('ss') }
-      </span>
+      <span className={classes.time}>{remainingTime.format('ss')}</span>
       <span className={classes.suffix}>秒</span>
     </Typography>
   );

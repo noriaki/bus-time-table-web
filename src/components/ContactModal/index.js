@@ -11,7 +11,8 @@ import HalfModalCloseIcon from './HalfModalCloseIcon';
 // styles
 import useStyles from '~/styles/ContactModal/ContactModal-Style';
 
-const formUri = 'https://docs.google.com/forms/d/e/1FAIpQLSc-Thtn4jIWPvdFq1wsBZ-1bj35mTvCWEqPeULVYH5KSFqWPg/viewform?embedded=true';
+const formUri =
+  'https://docs.google.com/forms/d/e/1FAIpQLSc-Thtn4jIWPvdFq1wsBZ-1bj35mTvCWEqPeULVYH5KSFqWPg/viewform?embedded=true';
 
 const ContactModal = () => {
   const [open, setOpen] = useState(false);
@@ -32,7 +33,8 @@ const ContactModal = () => {
         open={open}
         onOpen={handleOpen}
         onClose={handleClose}
-        classes={classes}>
+        classes={classes}
+      >
         <div className={container}>
           <HalfModalCloseIcon onClick={handleClose} />
           <iframe
@@ -41,7 +43,8 @@ const ContactModal = () => {
             frameBorder="0"
             marginHeight="0"
             marginWidth="0"
-            className={form}>
+            className={form}
+          >
             読み込んでいます...
           </iframe>
         </div>

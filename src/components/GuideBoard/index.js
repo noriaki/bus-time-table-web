@@ -25,28 +25,19 @@ const GuideBoard = ({ clock, Timetable, mini }) => {
   if (timetable.isSuspendedDay()) {
     const { title, subtitle } = timetable.suspendedReason();
     boardComponent = (
-      <InactiveBoard
-        name={timetable.name}
-        title={title}
-        subtitle={subtitle} />
+      <InactiveBoard name={timetable.name} title={title} subtitle={subtitle} />
     );
   } else if (timetable.isClosedDay()) {
     const title = '本日バス運行はありません';
     const subtitle = '(運行は土日祝を除く平日のみ)';
     boardComponent = (
-      <InactiveBoard
-        name={timetable.name}
-        title={title}
-        subtitle={subtitle} />
+      <InactiveBoard name={timetable.name} title={title} subtitle={subtitle} />
     );
   } else if (timetable.isOutOfService()) {
     const title = '本日のバスは終了しました';
     const subtitle = '(明日以降は時刻表を参照)';
     boardComponent = (
-      <InactiveBoard
-        name={timetable.name}
-        title={title}
-        subtitle={subtitle} />
+      <InactiveBoard name={timetable.name} title={title} subtitle={subtitle} />
     );
   } else {
     const nextTime = timetable.nextTime();
@@ -55,13 +46,14 @@ const GuideBoard = ({ clock, Timetable, mini }) => {
         timetable={timetable}
         currentTime={currentTime}
         nextTime={nextTime}
-        mini={mini} />
+        mini={mini}
+      />
     );
   }
 
   return (
     <Paper component="section" className={classes.root}>
-      { boardComponent }
+      {boardComponent}
     </Paper>
   );
 };

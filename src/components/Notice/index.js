@@ -36,7 +36,9 @@ const Notice = () => {
   const classes = useStyles();
   const { hasNotice, contents } = useNotice();
 
-  if (hasNotice === false) { return null; }
+  if (hasNotice === false) {
+    return null;
+  }
 
   return (
     <Paper square elevation={0} className={classes.root}>

@@ -11,9 +11,9 @@ const useStyles = makeStyles(({ spacing, shape }) => ({
     left: 'auto',
     right: 'auto',
     padding: 0,
-    borderRadius: [
-      shape.borderRadius * 2, shape.borderRadius * 2, 0, 0,
-    ].map((u) => `${u}px`).join(' '),
+    borderRadius: [shape.borderRadius * 2, shape.borderRadius * 2, 0, 0]
+      .map((u) => `${u}px`)
+      .join(' '),
   },
   container: {
     position: 'relative',
