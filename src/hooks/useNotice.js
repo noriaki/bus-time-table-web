@@ -5,7 +5,7 @@ import { offset, timeShift } from '~/libs/timeTableDataHandler';
 import notices from '~/data/notice.json';
 
 const useNotice = (now) => {
-  let currentTime = dayjs.initialize(now).utcOffset(offset);
+  let currentTime = dayjs.create(now).utcOffset(offset);
   if (currentTime.hour() < timeShift) {
     currentTime = currentTime.subtract(1, 'day');
   }
