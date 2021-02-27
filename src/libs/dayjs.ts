@@ -1,4 +1,4 @@
-import dayjs, { Dayjs } from 'dayjs';
+import dayjs, { Dayjs, ConfigType } from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
 import objectSupport from 'dayjs/plugin/objectSupport';
@@ -26,7 +26,7 @@ dayjs.FRI = 5;
 dayjs.SAT = 6;
 
 // methods
-dayjs.create = (obj: unknown): Dayjs => {
+dayjs.create = (obj?: ConfigType | Record<string, unknown>): Dayjs => {
   const instance = dayjs.isDayjs(obj) ? obj : dayjs.tz(obj);
   if (!instance.isValid()) {
     throw new Error('invalid Dayjs');
