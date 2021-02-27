@@ -7,26 +7,63 @@ const _BASE_DATE = { year: 2021, month: 3, day: 1 } as const; // for creating da
 const TIME_SHIFT = 4 as const;
 export type ElapsedMsecSince4am = number;
 
+export type Dayjs = typeof dayjs;
+export type ConvertTimePropObject = {
+  hour: number;
+  minute: number;
+};
+export type ConvertTimeProps = ConvertTimePropObject | number;
+
 export default class Timetable {
   readonly id: string;
   readonly published: Date;
   readonly station: string;
   readonly label: string;
-  readonly activeDaysOfWeek: DaysOfWeek[];
-  readonly isActiveOnHoliday: boolean;
-  readonly data: ElapsedMsecSince4am[];
+  private readonly activeDaysOfWeek: DaysOfWeek[];
+  private readonly isActiveOnHoliday: boolean;
+  private readonly data: ElapsedMsecSince4am[];
 
-  static convertTime({
-    hour,
-    minute,
-  }: {
-    hour: number;
-    minute: number;
-  }): ElapsedMsecSince4am {
-    const source = dayjs
-      .create({ ..._BASE_DATE, hour, minute })
-      .subtract(4, 'hours');
+  constructor(
+    id: string,
+    published: Date,
+    station: string,
+    label: string,
+    activeDaysOfWeek: DaysOfWeek[],
+    isActiveOnHoliday: boolean,
+    data: ElapsedMsecSince4am[]
+  ) {
+    this.id = id;
+    this.published = published;
+    this.station = station;
+    this.label = label;
+    this.activeDaysOfWeek = activeDaysOfWeek;
+    this.isActiveOnHoliday = isActiveOnHoliday;
+    this.data = data;
+  }
+
+  static convertTime(prop: ConvertTimeProps): ElapsedMsecSince4am {
+    let time = prop;
+    if (typeof prop !== 'number') {
+      time = { ..._BASE_DATE, hour: prop.hour, minute: prop.minute };
+    }
+    const source = dayjs.create(time).subtract(4, 'hours');
     const start = source.startOf('day');
     return source.diff(start);
+  }
+
+  static revertTime(
+    time: ElapsedMsecSince4am,
+    base: number = dayjs.create().valueOf()
+  ): Dayjs {
+    return dayjs.create(base).hour(4).add(time, 'ms') as Dayjs;
+  }
+
+  findNextTime(currentTime: number): ElapsedMsecSince4am | null {
+    const convertedCurrentTime = Timetable.convertTime(currentTime);
+    const result = this.data.find((time) => convertedCurrentTime <= time);
+    if (result === undefined) {
+      return null;
+    }
+    return result;
   }
 }
