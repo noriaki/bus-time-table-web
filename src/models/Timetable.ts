@@ -46,7 +46,7 @@ export default class Timetable {
     if (typeof prop !== 'number') {
       time = { ..._BASE_DATE, hour: prop.hour, minute: prop.minute };
     }
-    const source = dayjs.create(time).subtract(4, 'hours');
+    const source = dayjs.create(time).subtract(TIME_SHIFT, 'hours');
     const start = source.startOf('day');
     return source.diff(start);
   }
@@ -55,15 +55,20 @@ export default class Timetable {
     time: ElapsedMsecSince4am,
     base: number = dayjs.create().valueOf()
   ): Dayjs {
-    return dayjs.create(base).hour(4).add(time, 'ms') as Dayjs;
+    return dayjs
+      .create(base)
+      .subtract(TIME_SHIFT, 'hours')
+      .startOf('day')
+      .add(TIME_SHIFT, 'hours')
+      .add(time, 'ms') as Dayjs;
   }
 
-  findNextTime(currentTime: number): ElapsedMsecSince4am | null {
+  findNextTime(currentTime: number): Dayjs | null {
     const convertedCurrentTime = Timetable.convertTime(currentTime);
     const result = this.data.find((time) => convertedCurrentTime <= time);
     if (result === undefined) {
       return null;
     }
-    return result;
+    return Timetable.revertTime(result, currentTime);
   }
 }

@@ -43,50 +43,50 @@ describe('Domain models / Timetable', () => {
 
     it('waiting for the first bus (5:50), returning 6:00', () => {
       const currentTime = new Date('2021-03-03T05:50:00+09:00').getTime();
-      const expected = fixtureData[0];
-      const subject = timetable.findNextTime(currentTime);
+      const expected = new Date('2021-03-03T06:00:00+09:00').getTime();
+      const subject = timetable.findNextTime(currentTime)?.valueOf();
       expect(subject).toBe(expected);
     });
 
     it('same time as bus arrival (6:30), returning 6:30', () => {
       const currentTime = new Date('2021-03-03T06:30:00+09:00').getTime();
-      const expected = fixtureData[1];
-      const subject = timetable.findNextTime(currentTime);
+      const expected = new Date('2021-03-03T06:30:00+09:00').getTime();
+      const subject = timetable.findNextTime(currentTime)?.valueOf();
       expect(subject).toBe(expected);
     });
 
     it('between the buses (8:51), returning 8:55', () => {
       const currentTime = new Date('2021-03-03T08:51:00+09:00').getTime();
-      const expected = fixtureData[13];
-      const subject = timetable.findNextTime(currentTime);
+      const expected = new Date('2021-03-03T08:55:00+09:00').getTime();
+      const subject = timetable.findNextTime(currentTime)?.valueOf();
       expect(subject).toBe(expected);
     });
 
     it('between dates, midnight passes (23:58), returning 24:20', () => {
       const currentTime = new Date('2021-03-03T23:58:00+09:00').getTime();
-      const expected = fixtureData[19];
-      const subject = timetable.findNextTime(currentTime);
+      const expected = new Date('2021-03-04T00:20:00+09:00').getTime();
+      const subject = timetable.findNextTime(currentTime)?.valueOf();
       expect(subject).toBe(expected);
     });
 
     it('just midnight (24:00), returning 24:20', () => {
       const currentTime = new Date('2021-03-04T00:00:00+09:00').getTime();
-      const expected = fixtureData[19];
-      const subject = timetable.findNextTime(currentTime);
+      const expected = new Date('2021-03-04T00:20:00+09:00').getTime();
+      const subject = timetable.findNextTime(currentTime)?.valueOf();
       expect(subject).toBe(expected);
     });
 
     it('after midnight (24:31), returning 24:40', () => {
       const currentTime = new Date('2021-03-04T00:31:00+09:00').getTime();
-      const expected = fixtureData[20];
-      const subject = timetable.findNextTime(currentTime);
+      const expected = new Date('2021-03-04T00:40:00+09:00').getTime();
+      const subject = timetable.findNextTime(currentTime)?.valueOf();
       expect(subject).toBe(expected);
     });
 
     it('waiting for the last bus (24:43), returning 25:00', () => {
       const currentTime = new Date('2021-03-04T00:43:00+09:00').getTime();
-      const expected = fixtureData[21];
-      const subject = timetable.findNextTime(currentTime);
+      const expected = new Date('2021-03-04T01:00:00+09:00').getTime();
+      const subject = timetable.findNextTime(currentTime)?.valueOf();
       expect(subject).toBe(expected);
     });
 
