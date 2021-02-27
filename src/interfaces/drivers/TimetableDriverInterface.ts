@@ -14,7 +14,7 @@ export type TimetableJson = {
   id: string;
   station: string;
   label: string;
-  activeDaysOfWeek: boolean;
+  activeDaysOfWeek: number[];
   isActiveOnHoliday: boolean;
   timetable: HourData[];
 };

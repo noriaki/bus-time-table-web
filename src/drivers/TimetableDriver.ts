@@ -5,13 +5,13 @@ import {
   OperationalDay,
 } from '~/interfaces/drivers/TimetableDriverInterface';
 
-import timetableDataHomeWeekday from '~/data/timetable/home-weekday';
-import timetableDataHomeHoliday from '~/data/timetable/home-holiday';
+import timetableDataHomeWeekday from '~/data/timetable/home-weekday.json';
+import timetableDataHomeHoliday from '~/data/timetable/home-holiday.json';
 
 const timetables = {
-  'home-weekday': timetableDataHomeWeekday as TimetableJson,
-  'home-holiday': timetableDataHomeHoliday as TimetableJson,
-} as const;
+  'home-weekday': timetableDataHomeWeekday,
+  'home-holiday': timetableDataHomeHoliday,
+} as Record<string, TimetableJson>;
 
 export default class TimetableDriver implements TimetableDriverInterface {
   async find(
