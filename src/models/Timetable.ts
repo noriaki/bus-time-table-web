@@ -1,13 +1,12 @@
-import dayjs from '~/libs/dayjs';
-
-export const daysOfWeek = [0, 1, 2, 3, 4, 5, 6] as const; // Sunday(0) - Saturday(6)
-export type DaysOfWeek = typeof daysOfWeek[number];
+import dayjs, { Dayjs, Duration } from '~/libs/dayjs';
 
 const _BASE_DATE = { year: 2021, month: 3, day: 1 } as const; // for creating dayjs instance
 const TIME_SHIFT = 4 as const;
+
+export const daysOfWeek = [0, 1, 2, 3, 4, 5, 6] as const; // Sunday(0) - Saturday(6)
+export type DaysOfWeek = typeof daysOfWeek[number];
 export type ElapsedMsecSince4am = number;
 
-export type Dayjs = typeof dayjs;
 export type ConvertTimePropObject = {
   hour: number;
   minute: number;
