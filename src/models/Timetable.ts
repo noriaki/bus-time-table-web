@@ -62,7 +62,9 @@ export default class Timetable {
 
   findNextTime(currentTime: number): Dayjs | null {
     const convertedCurrentTime = Timetable.convertTime(currentTime);
-    const result = this.data.find((time) => convertedCurrentTime <= time);
+    const result = this.data.find(
+      (time) => convertedCurrentTime.asMilliseconds() <= time.asMilliseconds()
+    );
     if (result === undefined) {
       return null;
     }
