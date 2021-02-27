@@ -1,11 +1,11 @@
 import { useMemo } from 'react';
 
-import dayjs from '~/libs/dayjs';
+import dayjs, { createDayjs } from '~/libs/dayjs';
 import { offset, timeShift } from '~/libs/timeTableDataHandler';
 import notices from '~/data/notice.json';
 
 const useNotice = (now) => {
-  let currentTime = dayjs.create(now).utcOffset(offset);
+  let currentTime = createDayjs(now).utcOffset(offset);
   if (currentTime.hour() < timeShift) {
     currentTime = currentTime.subtract(1, 'day');
   }

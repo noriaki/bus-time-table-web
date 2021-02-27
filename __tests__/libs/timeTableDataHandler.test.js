@@ -7,7 +7,7 @@ import {
   isSuspended,
 } from '~/libs/timeTableDataHandler';
 
-import dayjs from '~/libs/dayjs';
+import dayjs, { SUN, MON, FRI, SAT } from '~/libs/dayjs';
 import timeTableHome from '~/data/home-timetable.json';
 import timeTableHigashiGinza from '~/data/st-higashiginza-timetable.json';
 import timeTableShimbashi from '~/data/st-shimbashi-timetable.json';
@@ -222,32 +222,32 @@ describe('timeTableDataHandler', () => {
 
     describe('Weekend', () => {
       it('should be true in sunday 13:00', () => {
-        const subject = subjectTime.day(dayjs.SUN).hour(13);
+        const subject = subjectTime.day(SUN).hour(13);
         expect(isInactiveDays(activeDays, subject)).toBe(true);
       });
 
       it('should be true in monday 1:30 (sunday 25:30)', () => {
-        const subject = subjectTime.day(dayjs.MON).hour(1).minute(30);
+        const subject = subjectTime.day(MON).hour(1).minute(30);
         expect(isInactiveDays(activeDays, subject)).toBe(true);
       });
 
       it('should be false in monday 6:00', () => {
-        const subject = subjectTime.day(dayjs.MON).hour(6);
+        const subject = subjectTime.day(MON).hour(6);
         expect(isInactiveDays(activeDays, subject)).toBe(false);
       });
 
       it('should be false in friday 22:00', () => {
-        const subject = subjectTime.day(dayjs.FRI).hour(22);
+        const subject = subjectTime.day(FRI).hour(22);
         expect(isInactiveDays(activeDays, subject)).toBe(false);
       });
 
       it('should be false in saturday 0:50 (friday 24:50)', () => {
-        const subject = subjectTime.day(dayjs.SAT).minute(50);
+        const subject = subjectTime.day(SAT).minute(50);
         expect(isInactiveDays(activeDays, subject)).toBe(false);
       });
 
       it('should be true in saturday 11:00', () => {
-        const subject = subjectTime.day(dayjs.SAT).hour(11);
+        const subject = subjectTime.day(SAT).hour(11);
         expect(isInactiveDays(activeDays, subject)).toBe(true);
       });
     });

@@ -1,6 +1,6 @@
 import { renderHook, act } from '@testing-library/react-hooks';
 
-import dayjs from '~/libs/dayjs';
+import dayjs, { SUN } from '~/libs/dayjs';
 import testTimetable from './fixtures/timetable.json';
 import { createTimetableHook } from '~/containers/TimetableContainer';
 
@@ -26,7 +26,7 @@ describe('TestTimetable Container', () => {
   });
 
   it('inactive day', () => {
-    const currentTime = baseTime.day(dayjs.SUN).hour(8);
+    const currentTime = baseTime.day(SUN).hour(8);
     act(() => container.current.tick(currentTime));
     expect(container.current.isClosedDay()).toBe(true);
     expect(container.current.state.inactiveDay).toBe(true);

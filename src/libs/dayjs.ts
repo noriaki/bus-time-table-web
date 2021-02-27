@@ -17,16 +17,18 @@ dayjs.extend(isBetween);
 dayjs.tz.setDefault('Asia/Tokyo');
 
 // constants
-dayjs.SUN = 0;
-dayjs.MON = 1;
-dayjs.TUE = 2;
-dayjs.WED = 3;
-dayjs.THU = 4;
-dayjs.FRI = 5;
-dayjs.SAT = 6;
+export const SUN = 0 as const;
+export const MON = 1 as const;
+export const TUE = 2 as const;
+export const WED = 3 as const;
+export const THU = 4 as const;
+export const FRI = 5 as const;
+export const SAT = 6 as const;
 
 // methods
-dayjs.create = (obj?: ConfigType | Record<string, unknown>): Dayjs => {
+export const createDayjs = (
+  obj?: ConfigType | Record<string, unknown>
+): Dayjs => {
   const instance = dayjs.isDayjs(obj) ? obj : dayjs.tz(obj);
   if (!instance.isValid()) {
     throw new Error('invalid Dayjs');
