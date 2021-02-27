@@ -1,11 +1,10 @@
-import dayjs, { Dayjs, Duration } from '~/libs/dayjs';
+import dayjs, { createDayjs, Dayjs, Duration } from '~/libs/dayjs';
 
 const _BASE_DATE = { year: 2021, month: 3, day: 1 } as const; // for creating dayjs instance
 const TIME_SHIFT = 4 as const;
 
 export const daysOfWeek = [0, 1, 2, 3, 4, 5, 6] as const; // Sunday(0) - Saturday(6)
 export type DaysOfWeek = typeof daysOfWeek[number];
-export type ElapsedMsecSince4am = number;
 
 export type ConvertTimePropObject = {
   hour: number;
@@ -20,7 +19,7 @@ export default class Timetable {
   readonly label: string;
   private readonly activeDaysOfWeek: DaysOfWeek[];
   private readonly isActiveOnHoliday: boolean;
-  private readonly data: ElapsedMsecSince4am[];
+  private readonly data: Duration[];
 
   constructor(
     id: string,
@@ -29,7 +28,7 @@ export default class Timetable {
     label: string,
     activeDaysOfWeek: DaysOfWeek[],
     isActiveOnHoliday: boolean,
-    data: ElapsedMsecSince4am[]
+    data: Duration[]
   ) {
     this.id = id;
     this.published = published;
@@ -40,26 +39,25 @@ export default class Timetable {
     this.data = data;
   }
 
-  static convertTime(prop: ConvertTimeProps): ElapsedMsecSince4am {
+  static convertTime(prop: ConvertTimeProps): Duration {
     let time = prop;
     if (typeof prop !== 'number') {
       time = { ..._BASE_DATE, hour: prop.hour, minute: prop.minute };
     }
-    const source = dayjs.create(time).subtract(TIME_SHIFT, 'hours');
+    const source = createDayjs(time).subtract(TIME_SHIFT, 'hours');
     const start = source.startOf('day');
-    return source.diff(start);
+    return dayjs.duration(source.diff(start));
   }
 
   static revertTime(
-    time: ElapsedMsecSince4am,
-    base: number = dayjs.create().valueOf()
+    time: Duration,
+    base: number = createDayjs().valueOf()
   ): Dayjs {
-    return dayjs
-      .create(base)
+    return createDayjs(base)
       .subtract(TIME_SHIFT, 'hours')
       .startOf('day')
       .add(TIME_SHIFT, 'hours')
-      .add(time, 'ms') as Dayjs;
+      .add(time) as Dayjs;
   }
 
   findNextTime(currentTime: number): Dayjs | null {

@@ -2,22 +2,24 @@ import Timetable from '~/models/Timetable';
 
 describe('Domain models / Timetable', () => {
   describe('.convertTime: convert to value for using inside', () => {
-    it('should returning elapsed time(msec) since 4am', () => {
-      const subjectTime = { hour: 8, minute: 10 } as const; // 8:10
+    it('should returning elapsed time(duration) since 4am', () => {
       const expectedTime = (4 * 60 * 60 + 10 * 60) * 1000; // msec since 4am (-4 hours)
-      expect(Timetable.convertTime(subjectTime)).toBe(expectedTime);
+      const subjectTime = { hour: 8, minute: 10 } as const; // 8:10
+      const subject = Timetable.convertTime(subjectTime);
+      expect(subject.asMilliseconds()).toBe(expectedTime);
     });
 
     it('case over-midnight, should returning elapsed time(msec) since 4am of previous day', () => {
-      const subjectTime = { hour: 24, minute: 40 } as const; // 24:40 = 0:40
       const expectedTime = (20 * 60 * 60 + 40 * 60) * 1000; // msec
-      expect(Timetable.convertTime(subjectTime)).toBe(expectedTime);
+      const subjectTime = { hour: 24, minute: 40 } as const; // 24:40 = 0:40
+      const subject = Timetable.convertTime(subjectTime);
+      expect(subject.asMilliseconds()).toBe(expectedTime);
     });
   });
 
   describe('.revertTime: revert from value for using inside', () => {
     it('should returning timestamp based on 2nd arg', () => {
-      const subjectTime = (4 * 60 * 60 + 10 * 60) * 1000; // 8:10
+      const subjectTime = Timetable.convertTime({ hour: 8, minute: 10 });
       const baseTime = new Date('2021-03-03T07:00:00+09:00').getTime();
       const subject = Timetable.revertTime(subjectTime, baseTime).valueOf();
       const expected = new Date('2021-03-03T08:10:00+09:00').getTime();
@@ -26,10 +28,8 @@ describe('Domain models / Timetable', () => {
   });
 
   describe('#findNextTime', () => {
-    let fixtureData: number[];
     let timetable: Timetable;
     beforeEach(() => {
-      fixtureData = createFixtureData();
       timetable = new Timetable(
         'test',
         new Date('2021-03-01T00:00:00+09:00'),
@@ -37,7 +37,7 @@ describe('Domain models / Timetable', () => {
         'label',
         [1, 2, 3, 4, 5],
         false,
-        fixtureData
+        createFixtureData()
       );
     });
 
