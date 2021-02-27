@@ -3,7 +3,8 @@ import dayjs from '~/libs/dayjs';
 export const daysOfWeek = [0, 1, 2, 3, 4, 5, 6] as const; // Sunday(0) - Saturday(6)
 export type DaysOfWeek = typeof daysOfWeek[number];
 
-const TIME_SHIFT = 4;
+const _BASE_DATE = { year: 2021, month: 3, day: 1 } as const; // for creating dayjs instance
+const TIME_SHIFT = 4 as const;
 export type ElapsedMsecSince4am = number;
 
 export default class Timetable {
@@ -22,7 +23,9 @@ export default class Timetable {
     hour: number;
     minute: number;
   }): ElapsedMsecSince4am {
-    const source = dayjs.create({ hour, minute }).subtract(4, 'hours');
+    const source = dayjs
+      .create({ ..._BASE_DATE, hour, minute })
+      .subtract(4, 'hours');
     const start = source.startOf('day');
     return source.diff(start);
   }
