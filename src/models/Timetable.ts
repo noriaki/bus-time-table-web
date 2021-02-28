@@ -57,14 +57,18 @@ export default class Timetable {
       .add(time);
   }
 
-  findNextTime(currentTime: number) {
+  findNextTime(currentTime: number, offsetIndex: number = 0) {
     const convertedCurrentTime = Timetable.convertTime(currentTime);
-    const result = this.data.find(
+    const resultIndex = this.data.findIndex(
       (time) => convertedCurrentTime.asMilliseconds() <= time.asMilliseconds()
     );
-    if (result === undefined) {
+    if (resultIndex === -1) {
       return null;
     }
-    return Timetable.revertTime(result, currentTime);
+    const resultData = this.data[resultIndex + offsetIndex];
+    if (resultData === undefined) {
+      return null;
+    }
+    return Timetable.revertTime(resultData, currentTime);
   }
 }
