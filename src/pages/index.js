@@ -8,9 +8,8 @@ import Clock from '~/containers/ClockContainer';
 
 // components
 import TitleBar from '~/components/TitleBar';
-import TimersBoard from '~/components/TimersBoard';
+import TmpTimetable20210301 from '~/components/TmpTimetable20210301';
 import Notice from '~/components/Notice';
-import Timetables from '~/components/Timetables';
 import AboutApps from '~/components/AboutApps';
 import ContactModal from '~/components/ContactModal';
 import Footer from '~/components/Footer';
@@ -33,14 +32,10 @@ const IndexPage = ({ buildId }) => {
     <main>
       <TitleBar />
       <article className={classes.article}>
-        <TimersBoard clock={clock} />
+        <TmpTimetable20210301 />
       </article>
       <article className={classes.article}>
         <Notice />
-      </article>
-      <Divider variant="middle" className={classes.divider} />
-      <article className={classes.article}>
-        <Timetables clock={clock} />
       </article>
       <Divider variant="middle" className={classes.divider} />
       <article className={classes.article}>
