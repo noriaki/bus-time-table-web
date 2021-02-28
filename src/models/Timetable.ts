@@ -1,4 +1,4 @@
-import dayjs, { createDayjs, Dayjs, Duration } from '~/libs/dayjs';
+import dayjs, { createDayjs, Duration } from '~/libs/dayjs';
 
 const _BASE_DATE = { year: 2021, month: 3, day: 1 } as const; // for creating dayjs instance
 const TIME_SHIFT = 4 as const;
@@ -39,7 +39,7 @@ export default class Timetable {
     this.data = data;
   }
 
-  static convertTime(prop: ConvertTimeProps): Duration {
+  static convertTime(prop: ConvertTimeProps) {
     let time = prop;
     if (typeof prop !== 'number') {
       time = { ..._BASE_DATE, hour: prop.hour, minute: prop.minute };
@@ -49,18 +49,15 @@ export default class Timetable {
     return dayjs.duration(source.diff(start));
   }
 
-  static revertTime(
-    time: Duration,
-    base: number = createDayjs().valueOf()
-  ): Dayjs {
+  static revertTime(time: Duration, base: number = createDayjs().valueOf()) {
     return createDayjs(base)
       .subtract(TIME_SHIFT, 'hours')
       .startOf('day')
       .add(TIME_SHIFT, 'hours')
-      .add(time) as Dayjs;
+      .add(time);
   }
 
-  findNextTime(currentTime: number): Dayjs | null {
+  findNextTime(currentTime: number) {
     const convertedCurrentTime = Timetable.convertTime(currentTime);
     const result = this.data.find(
       (time) => convertedCurrentTime.asMilliseconds() <= time.asMilliseconds()
