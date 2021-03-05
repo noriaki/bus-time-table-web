@@ -1,10 +1,28 @@
-import dayjs, { createDayjs, Duration } from '~/libs/dayjs';
+import dayjs, {
+  createDayjs,
+  Duration,
+  SUN,
+  MON,
+  TUE,
+  WED,
+  THU,
+  FRI,
+  SAT,
+} from '~/libs/dayjs';
+import holidays from '~/data/holidays.json';
 
 const _BASE_DATE = { year: 2021, month: 3, day: 1 } as const; // for creating dayjs instance
 const TIME_SHIFT = 4 as const;
 
-export const daysOfWeek = [0, 1, 2, 3, 4, 5, 6] as const; // Sunday(0) - Saturday(6)
+export const daysOfWeek = [SUN, MON, TUE, WED, THU, FRI, SAT] as const;
 export type DaysOfWeek = typeof daysOfWeek[number];
+export const weekdays = [MON, TUE, WED, THU, FRI] as const;
+export type Weekdays = typeof weekdays[number];
+
+const stationIds = ['home', 'shimbashi', 'higashiginza'] as const;
+const operationalDayIds = ['weekday', 'holiday'] as const;
+export type StationId = typeof stationIds[number];
+export type OperationalDayId = typeof operationalDayIds[number];
 
 export type ConvertTimePropObject = {
   hour: number;
@@ -37,6 +55,25 @@ export default class Timetable {
     this.activeDaysOfWeek = activeDaysOfWeek;
     this.isActiveOnHoliday = isActiveOnHoliday;
     this.data = data;
+  }
+
+  static allStationIds() {
+    return stationIds;
+  }
+
+  static allOperationalDayIds() {
+    return operationalDayIds;
+  }
+
+  static getOperationalDayId(currentTime: number): OperationalDayId {
+    const date = createDayjs(currentTime).subtract(TIME_SHIFT, 'hours');
+    if (
+      weekdays.includes(date.day()) &&
+      holidays[date.format('YYYY-MM-DD')] === undefined
+    ) {
+      return 'weekday';
+    }
+    return 'holiday';
   }
 
   static convertTime(prop: ConvertTimeProps) {

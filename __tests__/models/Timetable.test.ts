@@ -27,6 +27,62 @@ describe('Domain models / Timetable', () => {
     });
   });
 
+  describe('.getOperationalDayId: returning `weekday` or `holiday`', () => {
+    it('should returning `holiday` in Sunday 13:00', () => {
+      const subject = new Date('2021-03-07T13:00:00+09:00').getTime();
+      const expected = 'holiday';
+      expect(Timetable.getOperationalDayId(subject)).toBe(expected);
+    });
+
+    it('should returning `holiday` in Monday 1:30 (Sunday 25:30)', () => {
+      const subject = new Date('2021-03-08T01:30:00+09:00').getTime();
+      const expected = 'holiday';
+      expect(Timetable.getOperationalDayId(subject)).toBe(expected);
+    });
+
+    it('should returning `weekday` in Monday 6:00', () => {
+      const subject = new Date('2021-03-08T06:00:00+09:00').getTime();
+      const expected = 'weekday';
+      expect(Timetable.getOperationalDayId(subject)).toBe(expected);
+    });
+
+    it('should returning `weekday` in Friday 22:00', () => {
+      const subject = new Date('2021-03-12T22:00:00+09:00').getTime();
+      const expected = 'weekday';
+      expect(Timetable.getOperationalDayId(subject)).toBe(expected);
+    });
+
+    it('should returning `weekday` in Saturday 0:50 (Friday 24:50)', () => {
+      const subject = new Date('2021-03-13T00:50:00+09:00').getTime();
+      const expected = 'weekday';
+      expect(Timetable.getOperationalDayId(subject)).toBe(expected);
+    });
+
+    it('should returning `holiday` in Saturday 11:00', () => {
+      const subject = new Date('2021-03-13T11:00:00+09:00').getTime();
+      const expected = 'holiday';
+      expect(Timetable.getOperationalDayId(subject)).toBe(expected);
+    });
+
+    it('should returning `holiday` in 2021/01/01 8:00 Fri (元旦)', () => {
+      const subject = new Date('2021-01-01T08:00:00+09:00').getTime();
+      const expected = 'holiday';
+      expect(Timetable.getOperationalDayId(subject)).toBe(expected);
+    });
+
+    it('should returning `holiday` in 2021/02/11 8:00 Thu (建国記念日)', () => {
+      const subject = new Date('2021-02-11T08:00:00+09:00').getTime();
+      const expected = 'holiday';
+      expect(Timetable.getOperationalDayId(subject)).toBe(expected);
+    });
+
+    it('should returning `weekday` in 2021/02/11 1:00 Thu (before 4am 建国記念日)', () => {
+      const subject = new Date('2021-02-11T01:00:00+09:00').getTime();
+      const expected = 'weekday';
+      expect(Timetable.getOperationalDayId(subject)).toBe(expected);
+    });
+  });
+
   describe('#findNextTime', () => {
     let timetable: Timetable;
     beforeEach(() => {
