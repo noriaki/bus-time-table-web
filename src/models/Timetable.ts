@@ -15,10 +15,11 @@ import dayjs, {
 const _BASE_DATE = { year: 2021, month: 3, day: 1 } as const; // for creating dayjs instance
 const TIME_SHIFT = 4 as const;
 
+const shiftTime = (currentTime: number) =>
+  createDayjs(currentTime).subtract(TIME_SHIFT, 'hours');
+
 export const daysOfWeek = [SUN, MON, TUE, WED, THU, FRI, SAT] as const;
 export type DaysOfWeek = typeof daysOfWeek[number];
-export const weekdays = [MON, TUE, WED, THU, FRI] as const;
-export type Weekdays = typeof weekdays[number];
 
 const stationIds = ['home', 'shimbashi', 'higashiginza'] as const;
 const operationalDayIds = ['weekday', 'holiday'] as const;
@@ -71,17 +72,13 @@ export default class Timetable {
     if (typeof prop !== 'number') {
       time = { ..._BASE_DATE, hour: prop.hour, minute: prop.minute };
     }
-    const source = createDayjs(time).subtract(TIME_SHIFT, 'hours');
+    const source = shiftTime(time);
     const start = source.startOf('day');
     return dayjs.duration(source.diff(start));
   }
 
   static revertTime(time: Duration, base: number = createDayjs().valueOf()) {
-    return createDayjs(base)
-      .subtract(TIME_SHIFT, 'hours')
-      .startOf('day')
-      .add(TIME_SHIFT, 'hours')
-      .add(time);
+    return shiftTime(base).startOf('day').add(TIME_SHIFT, 'hours').add(time);
   }
 
   findNextTime(currentTime: number, offsetIndex: number = 0) {
@@ -100,7 +97,7 @@ export default class Timetable {
   }
 
   isInServiceDay(currentTime: number): boolean {
-    const date = createDayjs(currentTime).subtract(TIME_SHIFT, 'hours');
+    const date = shiftTime(currentTime);
     if (isHoliday(date.toDate())) {
       return this.isActiveOnHoliday;
     }
