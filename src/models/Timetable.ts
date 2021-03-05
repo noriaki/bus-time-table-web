@@ -1,3 +1,5 @@
+import { isHoliday } from '@holiday-jp/holiday_jp';
+
 import dayjs, {
   createDayjs,
   Duration,
@@ -9,7 +11,6 @@ import dayjs, {
   FRI,
   SAT,
 } from '~/libs/dayjs';
-import holidays from '~/data/holidays.json';
 
 const _BASE_DATE = { year: 2021, month: 3, day: 1 } as const; // for creating dayjs instance
 const TIME_SHIFT = 4 as const;
@@ -65,17 +66,6 @@ export default class Timetable {
     return operationalDayIds;
   }
 
-  static getOperationalDayId(currentTime: number): OperationalDayId {
-    const date = createDayjs(currentTime).subtract(TIME_SHIFT, 'hours');
-    if (
-      weekdays.includes(date.day()) &&
-      holidays[date.format('YYYY-MM-DD')] === undefined
-    ) {
-      return 'weekday';
-    }
-    return 'holiday';
-  }
-
   static convertTime(prop: ConvertTimeProps) {
     let time = prop;
     if (typeof prop !== 'number') {
@@ -108,4 +98,18 @@ export default class Timetable {
     }
     return Timetable.revertTime(resultData, currentTime);
   }
+
+  isInServiceDay(currentTime: number): boolean {
+    const date = createDayjs(currentTime).subtract(TIME_SHIFT, 'hours');
+    if (isHoliday(date.toDate())) {
+      return this.isActiveOnHoliday;
+    }
+    if (this.activeDaysOfWeek.includes(date.day() as DaysOfWeek)) {
+      return true;
+    }
+    return false;
+  }
+
+  // isInOperationalTime(currentTime: number): boolean {
+  // }
 }
