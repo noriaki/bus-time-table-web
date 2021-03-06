@@ -1,3 +1,4 @@
+import dayjs from '~/libs/dayjs';
 import TimetableRepository from '~/repositories/TimetableRepository';
 import Timetable from '~/models/Timetable';
 import {
@@ -25,7 +26,18 @@ describe('TimetableRepository', () => {
         label: 'label',
         activeDaysOfWeek: [1, 2, 3, 4, 5],
         isActiveOnHoliday: false,
-        timetable: [],
+        timetable: [
+          {
+            hour: 6,
+            minutes: [0],
+            estimated: false,
+          },
+          {
+            hour: 7,
+            minutes: [0],
+            estimated: false,
+          },
+        ],
       },
     ];
     const fetchAllSpy = jest
@@ -41,7 +53,7 @@ describe('TimetableRepository', () => {
         'label',
         [1, 2, 3, 4, 5],
         false,
-        []
+        [dayjs.duration(2, 'hours'), dayjs.duration(3, 'hours')]
       ),
     ]);
     expect(fetchAllSpy).toHaveBeenCalledTimes(1);
