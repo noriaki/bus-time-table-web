@@ -15,7 +15,7 @@ import dayjs, {
 const _BASE_DATE = { year: 2021, month: 3, day: 1 } as const; // for creating dayjs instance
 const TIME_SHIFT = 4 as const;
 
-const shiftTime = (currentTime: number) =>
+const shiftTime = (currentTime: Parameters<typeof createDayjs>[0]) =>
   createDayjs(currentTime).subtract(TIME_SHIFT, 'hours');
 
 export const daysOfWeek = [SUN, MON, TUE, WED, THU, FRI, SAT] as const;
