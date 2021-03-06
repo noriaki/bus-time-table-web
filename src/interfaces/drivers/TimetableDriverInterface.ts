@@ -1,4 +1,8 @@
-import type { StationId, OperationalDayId } from '~/models/Timetable';
+import type {
+  StationId,
+  OperationalDayId,
+  DaysOfWeek,
+} from '~/models/Timetable';
 export type { StationId, OperationalDayId };
 
 export interface TimetableDriverInterface {
@@ -16,7 +20,7 @@ export type TimetableJson = {
   id: string;
   station: string;
   label: string;
-  activeDaysOfWeek: number[];
+  activeDaysOfWeek: DaysOfWeek[];
   isActiveOnHoliday: boolean;
   timetable: HourData[];
 };

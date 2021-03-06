@@ -8,7 +8,10 @@ import {
 import timetableDataHomeWeekday from '~/data/timetable/home-weekday.json';
 import timetableDataHomeHoliday from '~/data/timetable/home-holiday.json';
 
-const timetables = [timetableDataHomeWeekday, timetableDataHomeHoliday];
+const timetables = [
+  timetableDataHomeWeekday,
+  timetableDataHomeHoliday,
+] as TimetableJson[];
 
 export default class TimetableDriver implements TimetableDriverInterface {
   async fetch(
