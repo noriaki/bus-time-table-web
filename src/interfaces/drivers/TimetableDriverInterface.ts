@@ -1,11 +1,13 @@
-export type StationId = 'home' | 'shimbashi' | 'higashiginza';
-export type OperationalDay = 'weekday' | 'holiday';
+import type { StationId, OperationalDayId } from '~/models/Timetable';
+export type { StationId, OperationalDayId };
 
 export interface TimetableDriverInterface {
-  find(
+  fetch(
     stationId: StationId,
-    oprationalDay: OperationalDay
+    oprationalDayId: OperationalDayId
   ): Promise<TimetableJson>;
+
+  fetchAll(): Promise<TimetableJson[]>;
 }
 
 export type TimetableJson = {
