@@ -346,16 +346,16 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@cybozu/eslint-config@11.0.4":
-  version "11.0.4"
-  resolved "https://registry.yarnpkg.com/@cybozu/eslint-config/-/eslint-config-11.0.4.tgz#3145b5aa9e8dcca13a60f2df99a0ea2541c96d54"
-  integrity sha512-E6uzb7tqm6AWj0a62x9U8lT+K8dSl2oKbopZm0KvtlK/R7CR4eJ1yVQf1Vqn8rxfkIqnY2PzqXyfXBTxfgGHDQ==
+"@cybozu/eslint-config@12.0.0":
+  version "12.0.0"
+  resolved "https://registry.yarnpkg.com/@cybozu/eslint-config/-/eslint-config-12.0.0.tgz#700a8dfe9de5d5597cd981ac5390ea5ee09398a5"
+  integrity sha512-EgnHNrTZd3/NeRuJtngI4HZmCWiYnKNHKA1fsw+ySNATpMm70RNpqJiIAdXB1bMmUrofqcgcUHQ1/klHy4tqtA==
   dependencies:
-    "@typescript-eslint/eslint-plugin" "^4.15.0"
-    "@typescript-eslint/parser" "^4.15.0"
+    "@typescript-eslint/eslint-plugin" "^4.15.1"
+    "@typescript-eslint/parser" "^4.15.1"
     babel-eslint "^10.1.0"
-    eslint-config-prettier "^7.2.0"
-    eslint-plugin-flowtype "^5.2.0"
+    eslint-config-prettier "^8.0.0"
+    eslint-plugin-flowtype "^5.2.2"
     eslint-plugin-import "^2.22.1"
     eslint-plugin-jsx-a11y "^6.4.1"
     eslint-plugin-node "^11.1.0"
@@ -1036,7 +1036,7 @@
   dependencies:
     "@types/yargs-parser" "*"
 
-"@typescript-eslint/eslint-plugin@^4.15.0":
+"@typescript-eslint/eslint-plugin@^4.15.1":
   version "4.16.1"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/eslint-plugin/-/eslint-plugin-4.16.1.tgz#2caf6a79dd19c3853b8d39769a27fccb24e4e651"
   integrity sha512-SK777klBdlkUZpZLC1mPvyOWk9yAFCWmug13eAjVQ4/Q1LATE/NbcQL1xDHkptQkZOLnPmLUA1Y54m8dqYwnoQ==
@@ -1062,7 +1062,7 @@
     eslint-scope "^5.0.0"
     eslint-utils "^2.0.0"
 
-"@typescript-eslint/parser@^4.15.0":
+"@typescript-eslint/parser@^4.15.1":
   version "4.16.1"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/parser/-/parser-4.16.1.tgz#3bbd3234dd3c5b882b2bcd9899bc30e1e1586d2a"
   integrity sha512-/c0LEZcDL5y8RyI1zLcmZMvJrsR6SM1uetskFkoh3dvqDKVXPsXI+wFB/CbVw7WkEyyTKobC1mUNp/5y6gRvXg==
@@ -2707,10 +2707,10 @@ escodegen@^1.14.1, escodegen@^1.9.1:
   optionalDependencies:
     source-map "~0.6.1"
 
-eslint-config-prettier@^7.2.0:
-  version "7.2.0"
-  resolved "https://registry.yarnpkg.com/eslint-config-prettier/-/eslint-config-prettier-7.2.0.tgz#f4a4bd2832e810e8cc7c1411ec85b3e85c0c53f9"
-  integrity sha512-rV4Qu0C3nfJKPOAhFujFxB7RMP+URFyQqqOZW9DMRD7ZDTFyjaIlETU3xzHELt++4ugC0+Jm084HQYkkJe+Ivg==
+eslint-config-prettier@^8.0.0:
+  version "8.1.0"
+  resolved "https://registry.yarnpkg.com/eslint-config-prettier/-/eslint-config-prettier-8.1.0.tgz#4ef1eaf97afe5176e6a75ddfb57c335121abc5a6"
+  integrity sha512-oKMhGv3ihGbCIimCAjqkdzx2Q+jthoqnXSP+d86M9tptwugycmTFdVR4IpLgq2c4SHifbwO90z2fQ8/Aio73yw==
 
 eslint-import-resolver-babel-module@5.2.0:
   version "5.2.0"
@@ -2744,7 +2744,7 @@ eslint-plugin-es@^3.0.0:
     eslint-utils "^2.0.0"
     regexpp "^3.0.0"
 
-eslint-plugin-flowtype@^5.2.0:
+eslint-plugin-flowtype@^5.2.2:
   version "5.3.1"
   resolved "https://registry.yarnpkg.com/eslint-plugin-flowtype/-/eslint-plugin-flowtype-5.3.1.tgz#df6227e28c61d967b825c1327a27818bbb2ad325"
   integrity sha512-mziJD+zw+VTwLtF9qLIxYac0GJCbSEDyqMLP5ENzQeNY5EOxbAfitMFLo+UItjYOISQdh1BCobwE2d4i1o+9Rw==
