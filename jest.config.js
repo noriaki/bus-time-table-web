@@ -1,13 +1,11 @@
-const pathIgnorePatterns = [
-  '<rootDir>/.git/',
-  '<rootDir>/.next/',
-  '<rootDir>/node_modules/',
-];
+const { pathsToModuleNameMapper } = require('ts-jest/utils');
+const { compilerOptions } = require('./tsconfig');
 
 module.exports = {
-  setupFilesAfterEnv: [
-    './jest.setup.js',
-  ],
-  testPathIgnorePatterns: pathIgnorePatterns,
-  watchPathIgnorePatterns: pathIgnorePatterns,
+  preset: 'ts-jest/presets/js-with-babel',
+  testRegex: '/__tests__/.*\\.(test|spec)\\.[jt]sx?$',
+  moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
+    prefix: '<rootDir>/',
+  }),
+  setupFilesAfterEnv: ['./jest.setup.js'],
 };
