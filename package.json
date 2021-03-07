@@ -24,7 +24,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@holiday-jp/holiday_jp": "^2.3.0",
+    "@holiday-jp/holiday_jp": "2.3.0",
     "@material-ui/core": "4.11.3",
     "@material-ui/icons": "4.11.2",
     "@material-ui/styles": "4.11.3",
@@ -40,12 +40,12 @@
   "devDependencies": {
     "@babel/core": "7.13.8",
     "@testing-library/react-hooks": "5.1.0",
-    "@babel/eslint-parser": "^7.12.16",
-    "@cybozu/eslint-config": "^11.0.4",
-    "@types/jest": "^26.0.20",
-    "@types/node": "^14.14.31",
-    "@types/react": "^17.0.2",
-    "@types/react-dom": "^17.0.1",
+    "@babel/eslint-parser": "7.13.8",
+    "@cybozu/eslint-config": "11.0.4",
+    "@types/jest": "26.0.20",
+    "@types/node": "14.14.31",
+    "@types/react": "17.0.2",
+    "@types/react-dom": "17.0.1",
     "@wojtekmaj/enzyme-adapter-react-17": "0.4.1",
     "enzyme": "3.11.0",
     "eslint": "7.21.0",
@@ -53,9 +53,9 @@
     "jest": "26.6.3",
     "jest-enzyme": "7.1.2",
     "npm-run-all": "4.1.5",
-    "prettier": "^2.2.1",
+    "prettier": "2.2.1",
     "react-test-renderer": "17.0.1",
-    "ts-jest": "^26.5.3",
-    "typescript": "^4.1.5"
+    "ts-jest": "26.5.3",
+    "typescript": "4.2.3"
   }
 }
