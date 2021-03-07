@@ -13,16 +13,17 @@ const AppVersion = ({ version, date, subjects }) => {
       <ListItemText
         style={{ margin: 0 }}
         secondaryTypographyProps={{ variant: 'caption' }}
-        secondary={subject} />
+        secondary={subject}
+      />
     </ListItem>
   ));
 
   return (
     <>
       <Typography component="h3" variant="body2">
-        { headerText }
+        {headerText}
       </Typography>
-      <List disablePadding>{ latestChangelog }</List>
+      <List disablePadding>{latestChangelog}</List>
     </>
   );
 };

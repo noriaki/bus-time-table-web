@@ -18,12 +18,7 @@ import CountDownClock from './CountDownClock';
 // styles
 import useStyles from '~/styles/GuideBoard/ActiveBoard-Style';
 
-const ActiveBoard = ({
-  timetable,
-  currentTime,
-  nextTime,
-  mini,
-}) => {
+const ActiveBoard = ({ timetable, currentTime, nextTime, mini }) => {
   const remaining = nextTime.valueOf() - currentTime;
 
   const classes = useStyles({ mini });
@@ -39,22 +34,21 @@ const ActiveBoard = ({
   }, [timetable]);
 
   return (
-    <Grid
-      container
-      justify="space-between"
-      className={classes.content}>
+    <Grid container justify="space-between" className={classes.content}>
       <Grid
         container
         direction="column"
         alignItems="center"
         justify="center"
         className={classes.content}
-        item>
+        item
+      >
         <Grid item>
           <Departure
             name={timetable.name}
             nextTime={nextTime}
-            isLast={timetable.isLast()} />
+            isLast={timetable.isLast()}
+          />
         </Grid>
         <Grid item>
           <CountDownClock remaining={remaining} />
@@ -65,7 +59,8 @@ const ActiveBoard = ({
           color="secondary"
           disabled={timetable.isFront()}
           classes={{ root: classes.buttonRoot, label: classes.buttonLabel }}
-          onClick={onPrevClick}>
+          onClick={onPrevClick}
+        >
           <span>前発</span>
           <ChevronLeftIcon className={classes.prevIcon} />
         </Button>
@@ -75,7 +70,8 @@ const ActiveBoard = ({
           color="secondary"
           disabled={timetable.isLast()}
           classes={{ root: classes.buttonRoot, label: classes.buttonLabel }}
-          onClick={onNextClick}>
+          onClick={onNextClick}
+        >
           <span>次発</span>
           <ChevronRightIcon />
         </Button>

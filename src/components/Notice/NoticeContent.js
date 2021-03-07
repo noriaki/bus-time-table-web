@@ -18,11 +18,11 @@ const NoticeContent = ({ contents }) => {
 
   return (
     <div>
-      { contents.map((content) => (
+      {contents.map((content) => (
         <Typography key={content} variant="body2" className={classes.text}>
-          { content }
+          {content}
         </Typography>
-      )) }
+      ))}
     </div>
   );
 };

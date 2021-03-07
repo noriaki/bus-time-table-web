@@ -61,38 +61,31 @@ export const createTimetableHook = (data) => {
 
   const hook = (initialState = { ...defaultState }) => {
     const [timetableState, setTimetableState] = useState(initialState);
-    const {
-      version,
-      id,
-      name,
-      timetable,
-    } = data;
+    const { version, id, name, timetable } = data;
 
     const tick = (timestamp) => {
       setTimetableState(nextTimetableState(timestamp));
     };
 
-    const moveFront = () => setTimetableState(
-      (state) => ({ ...state, index: 0 })
-    );
+    const moveFront = () =>
+      setTimetableState((state) => ({ ...state, index: 0 }));
 
-    const movePrev = () => setTimetableState(
-      (state) => ({ ...state, index: state.index - 1 })
-    );
+    const movePrev = () =>
+      setTimetableState((state) => ({ ...state, index: state.index - 1 }));
 
-    const moveNext = () => setTimetableState(
-      (state) => ({ ...state, index: state.index + 1 })
-    );
+    const moveNext = () =>
+      setTimetableState((state) => ({ ...state, index: state.index + 1 }));
 
-    const moveLast = () => setTimetableState(
-      (state) => ({ ...state, index: state.sliceData.length - 1 })
-    );
+    const moveLast = () =>
+      setTimetableState((state) => ({
+        ...state,
+        index: state.sliceData.length - 1,
+      }));
 
     const isFront = () => timetableState.index === 0;
 
-    const isLast = () => (
-      timetableState.index === timetableState.sliceData.length - 1
-    );
+    const isLast = () =>
+      timetableState.index === timetableState.sliceData.length - 1;
 
     const isSuspendedDay = () => !!timetableState.suspensionDay.result;
 
@@ -107,7 +100,7 @@ export const createTimetableHook = (data) => {
       return sliceData[index] || null;
     };
 
-    const nearestTime = () => (timetableState.sliceData[0] || null);
+    const nearestTime = () => timetableState.sliceData[0] || null;
 
     const lastUpdate = momentFromVersion(version);
 
@@ -139,13 +132,14 @@ export const createTimetableHook = (data) => {
 
 // Hooks
 export const HomeTimetableHook = createTimetableHook(timetableHome);
-export const HigashiGinzaTimetableHook = createTimetableHook(timetableHigashiGinza);
+export const HigashiGinzaTimetableHook = createTimetableHook(
+  timetableHigashiGinza
+);
 export const ShimbashiTimetableHook = createTimetableHook(timetableShimbashi);
 
 // createContainer
-export const createTimetableContainer = (data) => (
-  createContainer(createTimetableHook(data))
-);
+export const createTimetableContainer = (data) =>
+  createContainer(createTimetableHook(data));
 
 // Containers
 export const HomeTimetable = createContainer(HomeTimetableHook);

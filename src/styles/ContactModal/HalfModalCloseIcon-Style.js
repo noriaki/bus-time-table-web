@@ -9,9 +9,9 @@ const useStyles = makeStyles(({ palette, spacing, shape }) => ({
     top: 0,
     backgroundColor: palette.common.white,
     zIndex: 1,
-    borderRadius: [
-      shape.borderRadius * 2, shape.borderRadius * 2, 0, 0,
-    ].map((u) => `${u}px`).join(' '),
+    borderRadius: [shape.borderRadius * 2, shape.borderRadius * 2, 0, 0]
+      .map((u) => `${u}px`)
+      .join(' '),
   },
   border: {
     backgroundColor: palette.grey[300],

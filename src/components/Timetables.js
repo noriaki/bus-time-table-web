@@ -37,7 +37,10 @@ const Timetables = ({ clock }) => {
         </CardContent>
         <CardContent>
           <HigashiGinzaTimetable.Provider initialState={higashiGinzaState}>
-            <Timetable clock={clock} TimetableContainer={HigashiGinzaTimetable} />
+            <Timetable
+              clock={clock}
+              TimetableContainer={HigashiGinzaTimetable}
+            />
           </HigashiGinzaTimetable.Provider>
         </CardContent>
         <CardContent>

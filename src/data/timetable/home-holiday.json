@@ -1,0 +1,56 @@
+{
+  "version": 20210301,
+  "published": "2021-03-01T00:00:00+09:00",
+  "id": "home-holiday",
+  "station": "マンション",
+  "label": "土日祝",
+  "activeDaysOfWeek": [0, 6],
+  "isActiveOnHoliday": true,
+  "timetable": [
+    {
+      "hour": 10,
+      "minutes": [0],
+      "estimated": false
+    },
+    {
+      "hour": 11,
+      "minutes": [0],
+      "estimated": false
+    },
+    {
+      "hour": 12,
+      "minutes": [0],
+      "estimated": false
+    },
+    {
+      "hour": 13,
+      "minutes": [30],
+      "estimated": false
+    },
+    {
+      "hour": 14,
+      "minutes": [30],
+      "estimated": false
+    },
+    {
+      "hour": 15,
+      "minutes": [30],
+      "estimated": false
+    },
+    {
+      "hour": 16,
+      "minutes": [30],
+      "estimated": false
+    },
+    {
+      "hour": 17,
+      "minutes": [30],
+      "estimated": false
+    },
+    {
+      "hour": 18,
+      "minutes": [30],
+      "estimated": false
+    }
+  ]
+}

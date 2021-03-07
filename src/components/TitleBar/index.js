@@ -19,24 +19,26 @@ import ShareButton from './ShareButton';
 const TitleBar = ({ backTo }) => {
   const trigger = useScrollTrigger();
 
-  const backButton = backTo != null ? (
-    <IconButton
-      edge="start"
-      component={Link}
-      naked
-      href={backTo}
-      color="inherit"
-      aria-label="back">
-      <BackIcon />
-    </IconButton>
-  ) : null;
+  const backButton =
+    backTo != null ? (
+      <IconButton
+        edge="start"
+        component={Link}
+        naked
+        href={backTo}
+        color="inherit"
+        aria-label="back"
+      >
+        <BackIcon />
+      </IconButton>
+    ) : null;
 
   return (
     <>
       <Slide appear={false} direction="down" in={!trigger}>
         <AppBar>
           <Toolbar variant="dense">
-            { backButton }
+            {backButton}
             <Typography component="h1" variant="h6">
               DEUX TOURS シャトルバス
             </Typography>

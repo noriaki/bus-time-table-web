@@ -3,7 +3,7 @@ import { createMount } from '@material-ui/core/test-utils';
 // import { renderHook, act } from '@testing-library/react-hooks';
 import { createContainer } from 'unstated-next';
 
-import dayjs from '~/libs/dayjs';
+import dayjs, { SUN } from '~/libs/dayjs';
 import GuideBoard from '~/components/GuideBoard';
 
 import testTimetable from '../containers/fixtures/timetable.json';
@@ -58,7 +58,7 @@ describe('<GuideBoard />', () => {
 
   describe('when the closed day (weekend, holiday)', () => {
     it('should includes with <InactiveBoard />', () => {
-      const currentTime = dayjs('2017-06-15').day(dayjs.SUN).hour(8);
+      const currentTime = dayjs('2017-06-15').day(SUN).hour(8);
       const initialState = TestTimetableHook.buildState(currentTime)();
       const wrapper = mount(
         <Container.Provider initialState={initialState}>
@@ -74,7 +74,7 @@ describe('<GuideBoard />', () => {
     });
 
     it('should closed day even if the out of service hours', () => {
-      const currentTime = dayjs('2017-06-15').day(dayjs.SUN).hour(2);
+      const currentTime = dayjs('2017-06-15').day(SUN).hour(2);
       const initialState = TestTimetableHook.buildState(currentTime)();
       const wrapper = mount(
         <Container.Provider initialState={initialState}>

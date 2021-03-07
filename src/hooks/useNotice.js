@@ -1,17 +1,17 @@
 import { useMemo } from 'react';
 
-import dayjs from '~/libs/dayjs';
+import dayjs, { createDayjs } from '~/libs/dayjs';
 import { offset, timeShift } from '~/libs/timeTableDataHandler';
 import notices from '~/data/notice.json';
 
 const useNotice = (now) => {
-  let currentTime = dayjs.initialize(now).utcOffset(offset);
+  let currentTime = createDayjs(now).utcOffset(offset);
   if (currentTime.hour() < timeShift) {
     currentTime = currentTime.subtract(1, 'day');
   }
-  const result = notices.find((notice) => (
+  const result = notices.find((notice) =>
     currentTime.isBetween(notice.start, notice.end, 'day', '[]')
-  ));
+  );
   const currentDay = currentTime.format('YYYY-MM-DD');
   const ret = useMemo(() => {
     if (result == null) {

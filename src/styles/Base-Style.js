@@ -1,12 +1,15 @@
 import { makeStyles } from '@material-ui/styles';
 
-const useStyles = makeStyles({
-  article: {
-    margin: '32px 0',
+const useStyles = makeStyles(
+  {
+    article: {
+      margin: '32px 0',
+    },
+    divider: {},
   },
-  divider: {},
-}, {
-  name: 'Base',
-});
+  {
+    name: 'Base',
+  }
+);
 
 export default useStyles;

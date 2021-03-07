@@ -25,7 +25,8 @@ const Link = ({ className, innerRef, naked, ...other }) => {
       component={NextComposed}
       className={className}
       ref={innerRef}
-      {...other} />
+      {...other}
+    />
   );
 };
 

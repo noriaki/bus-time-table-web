@@ -24,7 +24,8 @@ const Timetable = ({ clock, TimetableContainer }) => {
       hour={hour}
       minutes={minutes}
       estimated={estimated}
-      nextTime={nextTime} />
+      nextTime={nextTime}
+    />
   ));
 
   const estimatedNotice = (
@@ -39,19 +40,19 @@ const Timetable = ({ clock, TimetableContainer }) => {
   return (
     <>
       <Typography component="h3" variant="h6">
-        { timetable.name }
-        <Typography component="span" variant="caption">発</Typography>
+        {timetable.name}
+        <Typography component="span" variant="caption">
+          発
+        </Typography>
       </Typography>
       <Table padding="none" size="small">
-        <TableBody>
-          { rows }
-        </TableBody>
+        <TableBody>{rows}</TableBody>
       </Table>
       <Typography align="right" variant="caption" display="block">
         時刻表更新日：
-        { timetable.lastUpdate.format('YYYY/MM/DD') }
+        {timetable.lastUpdate.format('YYYY/MM/DD')}
       </Typography>
-      { hasEstimated && estimatedNotice }
+      {hasEstimated && estimatedNotice}
     </>
   );
 };
