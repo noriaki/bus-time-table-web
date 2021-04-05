@@ -33,6 +33,16 @@ export type ConvertTimePropObject = {
 };
 export type ConvertTimeProps = ConvertTimePropObject | number;
 
+type TimetableJSON = {
+  id: string;
+  published: string;
+  station: string;
+  label: string;
+  activeDaysOfWeek: DaysOfWeek[];
+  isActiveOnHoliday: boolean;
+  data: string[];
+};
+
 export default class Timetable {
   readonly id: string;
   readonly published: Date;
@@ -111,15 +121,34 @@ export default class Timetable {
   // isInOperationalTime(currentTime: number): boolean {
   // }
 
+  asJSON(): TimetableJSON {
+    return JSON.parse(JSON.stringify(this));
+  }
+
+  static fromJSON(props: TimetableJSON): Timetable {
+    return new Timetable(
+      props.id,
+      new Date(props.published),
+      props.station,
+      props.label,
+      props.activeDaysOfWeek,
+      props.isActiveOnHoliday,
+      props.data.map((d) => dayjs.duration(d))
+    );
+  }
+
+  static isTimetable(t: unknown): t is Timetable {
+    return t instanceof Timetable;
+  }
+
   static registerPersistentProps(): void {
-    SuperJSON.registerClass(Timetable, 'Timetable');
-    SuperJSON.registerCustom<Duration, string>(
+    SuperJSON.registerCustom<Timetable, TimetableJSON>(
       {
-        isApplicable: (v) => dayjs.isDuration(v),
-        serialize: (v) => JSON.stringify(v),
-        deserialize: (v) => dayjs.duration(v),
+        isApplicable: Timetable.isTimetable,
+        serialize: (v) => v.asJSON(),
+        deserialize: Timetable.fromJSON,
       },
-      'duration'
+      'Timetable'
     );
   }
 }
