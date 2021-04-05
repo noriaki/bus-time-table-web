@@ -1,4 +1,4 @@
-import { GetStaticProps, NextPage } from 'next';
+import { NextPage, InferGetStaticPropsType, GetStaticPropsContext } from 'next';
 import React from 'react';
 
 import Timetable from '~/models/Timetable';
@@ -6,13 +6,8 @@ import TimetableDriver from '~/drivers/TimetableDriver';
 import TimetableRepository from '~/repositories/TimetableRepository';
 import TimetableUseCase from '~/usecases/TimetableUseCase';
 
-type Props = {
-  // buildId: string;
-  // usecase: TimetableUseCase;
-  timetables: Timetable[];
-};
+type Props = InferGetStaticPropsType<typeof getStaticProps>;
 type NextPageWithProps = NextPage<Props>;
-type GetStaticPropsWithProps = GetStaticProps<Props>;
 
 const BetaPage: NextPageWithProps = ({ timetables }) => {
   console.log(timetables);
@@ -21,7 +16,7 @@ const BetaPage: NextPageWithProps = ({ timetables }) => {
 
 Timetable.registerPersistentProps();
 
-export const getStaticProps: GetStaticPropsWithProps = async (context) => {
+export const getStaticProps = async (context: GetStaticPropsContext) => {
   const repository = new TimetableRepository(new TimetableDriver());
   const usecase = new TimetableUseCase(repository);
   const timetables = await usecase.fetchAll();
