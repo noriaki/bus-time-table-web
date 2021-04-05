@@ -1,4 +1,5 @@
 import { isHoliday } from '@holiday-jp/holiday_jp';
+import SuperJSON from 'superjson';
 
 import dayjs, {
   createDayjs,
@@ -109,4 +110,16 @@ export default class Timetable {
 
   // isInOperationalTime(currentTime: number): boolean {
   // }
+
+  static registerPersistentProps(): void {
+    SuperJSON.registerClass(Timetable, 'Timetable');
+    SuperJSON.registerCustom<Duration, string>(
+      {
+        isApplicable: (v) => dayjs.isDuration(v),
+        serialize: (v) => JSON.stringify(v),
+        deserialize: (v) => dayjs.duration(v),
+      },
+      'duration'
+    );
+  }
 }

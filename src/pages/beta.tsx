@@ -15,8 +15,11 @@ type NextPageWithProps = NextPage<Props>;
 type GetStaticPropsWithProps = GetStaticProps<Props>;
 
 const BetaPage: NextPageWithProps = ({ timetables }) => {
+  console.log(timetables);
   return <div>Beta</div>;
 };
+
+Timetable.registerPersistentProps();
 
 export const getStaticProps: GetStaticPropsWithProps = async (context) => {
   const repository = new TimetableRepository(new TimetableDriver());
