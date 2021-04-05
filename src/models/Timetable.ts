@@ -121,6 +121,8 @@ export default class Timetable {
   // isInOperationalTime(currentTime: number): boolean {
   // }
 
+  /* Passing values between server and client side (with SuperJSON) */
+  /* #asJSON, .fromJSON, .isTimetable, .registerPersistentProps */
   asJSON(): TimetableJSON {
     return JSON.parse(JSON.stringify(this));
   }
