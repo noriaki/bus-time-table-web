@@ -43,6 +43,11 @@ type TimetableJSON = {
   data: string[];
 };
 
+type DataJSON = {
+  hour: number;
+  minutes: number[];
+};
+
 export default class Timetable {
   readonly id: string;
   readonly published: Date;
@@ -116,6 +121,22 @@ export default class Timetable {
       return true;
     }
     return false;
+  }
+
+  asData(): DataJSON[] {
+    return this.data.reduce<DataJSON[]>((ret, time) => {
+      const hour = time.hours() + TIME_SHIFT;
+      const index = ret.findIndex((d) => d.hour === hour);
+      if (index === -1) {
+        ret.push({
+          hour,
+          minutes: [time.minutes()],
+        });
+        return ret;
+      }
+      ret[index].minutes.push(time.minutes());
+      return ret;
+    }, []);
   }
 
   // isInOperationalTime(currentTime: number): boolean {
