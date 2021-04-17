@@ -4,6 +4,7 @@ import SuperJSON from 'superjson';
 import dayjs, {
   createDayjs,
   Duration,
+  DurationUnitType,
   SUN,
   MON,
   TUE,
@@ -125,16 +126,17 @@ export default class Timetable {
 
   asData(): DataJSON[] {
     return this.data.reduce<DataJSON[]>((ret, time) => {
-      const hour = time.hours() + TIME_SHIFT;
+      const hour = getPropFromDuration(time, 'hour') + TIME_SHIFT;
+      const minute = getPropFromDuration(time, 'minute');
       const index = ret.findIndex((d) => d.hour === hour);
       if (index === -1) {
         ret.push({
           hour,
-          minutes: [time.minutes()],
+          minutes: [minute],
         });
         return ret;
       }
-      ret[index].minutes.push(time.minutes());
+      ret[index].minutes.push(minute);
       return ret;
     }, []);
   }
@@ -175,3 +177,13 @@ export default class Timetable {
     );
   }
 }
+
+const getPropFromDuration = (d: Duration, unit: DurationUnitType): number => {
+  const value = d.get(unit);
+  if (value === undefined) {
+    return 0;
+  } else if (typeof value === 'string') {
+    return parseInt(value, 10);
+  }
+  return value;
+};

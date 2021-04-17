@@ -44,5 +44,5 @@ export const createDayjs = (
 };
 
 export type { Dayjs };
-export type { Duration } from 'dayjs/plugin/duration';
+export type { Duration, DurationUnitType } from 'dayjs/plugin/duration';
 export default dayjs;
