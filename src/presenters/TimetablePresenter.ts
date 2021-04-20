@@ -18,3 +18,6 @@ export const groupByStation = (timetables: Timetable[]): GroupedTimetables =>
 
 const isStationId = (station: unknown): station is StationId =>
   Timetable.allStationIds().includes(station as StationId);
+
+export const leftFillZero = (num: number): string =>
+  num.toString().padStart(2, '0');
