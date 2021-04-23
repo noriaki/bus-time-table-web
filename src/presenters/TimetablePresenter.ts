@@ -19,5 +19,22 @@ export const groupByStation = (timetables: Timetable[]): GroupedTimetables =>
 const isStationId = (station: unknown): station is StationId =>
   Timetable.allStationIds().includes(station as StationId);
 
+interface WeekdayTimetable extends Timetable {
+  isActiveOnHoliday: false;
+}
+interface HolidayTimetable extends Timetable {
+  isActiveOnHoliday: true;
+}
+
+export const pickByOperationalDay = (
+  timetables: Timetable[]
+): [WeekdayTimetable, HolidayTimetable] => {
+  const weekdayTimetable = timetables.find(
+    (t) => t.isActiveOnHoliday === false
+  );
+  const holidayTimetable = timetables.find((t) => t.isActiveOnHoliday === true);
+  return [weekdayTimetable, holidayTimetable];
+};
+
 export const leftFillZero = (num: number): string =>
   num.toString().padStart(2, '0');
