@@ -20,7 +20,7 @@ const TimetableComponent: FCwithProps = ({ timetable }) => {
   const data = timetable.asData();
 
   return (
-    <Table padding="none" size="small">
+    <Table padding="none" size="small" style={{ tableLayout: 'fixed' }}>
       <TableBody>
         {data.map((d) => (
           <TableRow key={`${d.hour}`}>
