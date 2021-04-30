@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { VFC } from 'react';
 
 // material-ui
 import Table from '@material-ui/core/Table';
@@ -12,11 +12,11 @@ import { leftFillZero } from '~/presenters/TimetablePresenter';
 type Props = {
   timetable: Timetable;
 };
-type FCwithProps = FC<Props>;
+type VFCwithProps = VFC<Props>;
 
 const minutes = [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55] as const;
 
-const TimetableComponent: FCwithProps = ({ timetable }) => {
+const TimetableComponent: VFCwithProps = ({ timetable }) => {
   const data = timetable.asData();
 
   return (
