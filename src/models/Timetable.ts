@@ -55,7 +55,7 @@ export default class Timetable {
   readonly station: string;
   readonly label: string;
   private readonly activeDaysOfWeek: DaysOfWeek[];
-  private readonly isActiveOnHoliday: boolean;
+  readonly isActiveOnHoliday: boolean;
   private readonly data: Duration[];
 
   constructor(

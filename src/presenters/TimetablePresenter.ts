@@ -6,7 +6,7 @@ import Timetable, {
 } from '~/models/Timetable';
 
 export type GroupedTimetables = {
-  [station in string]?: Timetable[];
+  [station in string]: Timetable[];
 };
 
 export const groupByStation = (timetables: Timetable[]): GroupedTimetables =>
@@ -20,9 +20,14 @@ export const pickByOperationalDay = (
   timetables: Timetable[]
 ): [WeekdayTimetable, HolidayTimetable] => {
   const weekdayTimetable = timetables.find(
-    (t) => t.isActiveOnHoliday === false
+    (t): t is WeekdayTimetable => t.isActiveOnHoliday === false
   );
-  const holidayTimetable = timetables.find((t) => t.isActiveOnHoliday === true);
+  const holidayTimetable = timetables.find(
+    (t): t is HolidayTimetable => t.isActiveOnHoliday === true
+  );
+  if (weekdayTimetable == null || holidayTimetable == null) {
+    throw new Error('WeekdayTimetable | HolidayTimetable not found');
+  }
   return [weekdayTimetable, holidayTimetable];
 };
 
