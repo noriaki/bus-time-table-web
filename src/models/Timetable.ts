@@ -187,3 +187,10 @@ const getPropFromDuration = (d: Duration, unit: DurationUnitType): number => {
   }
   return value;
 };
+
+export interface WeekdayTimetable extends Timetable {
+  isActiveOnHoliday: false;
+}
+export interface HolidayTimetable extends Timetable {
+  isActiveOnHoliday: true;
+}

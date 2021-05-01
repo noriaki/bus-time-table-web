@@ -1,4 +1,9 @@
-import Timetable, { StationId, OperationalDayId } from '~/models/Timetable';
+import Timetable, {
+  StationId,
+  OperationalDayId,
+  WeekdayTimetable,
+  HolidayTimetable,
+} from '~/models/Timetable';
 
 export type GroupedTimetables = {
   [station in string]?: Timetable[];
@@ -10,13 +15,6 @@ export const groupByStation = (timetables: Timetable[]): GroupedTimetables =>
     (ret[station] || (ret[station] = [])).push(timetable);
     return ret;
   }, {});
-
-interface WeekdayTimetable extends Timetable {
-  isActiveOnHoliday: false;
-}
-interface HolidayTimetable extends Timetable {
-  isActiveOnHoliday: true;
-}
 
 export const pickByOperationalDay = (
   timetables: Timetable[]
