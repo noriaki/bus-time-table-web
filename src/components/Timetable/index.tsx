@@ -14,7 +14,7 @@ import {
   leftFillZero,
 } from '~/presenters/TimetablePresenter';
 
-import useStyles from './index.style';
+import useStyles from './index.styles';
 
 type Props = {
   timetable: WeekdayTimetable | HolidayTimetable;
