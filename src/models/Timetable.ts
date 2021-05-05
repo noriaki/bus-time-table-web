@@ -44,7 +44,7 @@ type TimetableJSON = {
   data: string[];
 };
 
-type DataJSON = {
+export type DataJSON = {
   hour: number;
   minutes: number[];
 };

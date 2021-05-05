@@ -8,7 +8,11 @@ import TableCell from '@material-ui/core/TableCell';
 import Typography from '@material-ui/core/Typography';
 
 import { WeekdayTimetable, HolidayTimetable } from '~/models/Timetable';
-import { leftFillZero } from '~/presenters/TimetablePresenter';
+import {
+  timetableMinutes,
+  mapDataToHours,
+  leftFillZero,
+} from '~/presenters/TimetablePresenter';
 
 import useStyles from './index.style';
 
@@ -16,8 +20,6 @@ type Props = {
   timetable: WeekdayTimetable | HolidayTimetable;
 };
 type VFCwithProps = VFC<Props>;
-
-const minutes = [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55] as const;
 
 const Timetable: VFCwithProps = ({ timetable }) => {
   const data = timetable.asData();
@@ -30,7 +32,7 @@ const Timetable: VFCwithProps = ({ timetable }) => {
         <Typography component="h4">{timetable.label}のバス時刻表</Typography>
       </caption>
       <TableBody>
-        {data.map((d) => (
+        {mapDataToHours(data).map((d) => (
           <TableRow key={`${d.hour}`}>
             <TableCell
               variant="head"
@@ -40,7 +42,7 @@ const Timetable: VFCwithProps = ({ timetable }) => {
             >
               {leftFillZero(d.hour)}
             </TableCell>
-            {minutes.map((minute) => (
+            {timetableMinutes.map((minute) => (
               <TableCell key={`${d.hour}-${minute}`} align="center">
                 {d.minutes.find((m) => minute === m) === undefined
                   ? ''
