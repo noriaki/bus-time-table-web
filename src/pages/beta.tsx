@@ -6,12 +6,30 @@ import TimetableDriver from '~/drivers/TimetableDriver';
 import TimetableRepository from '~/repositories/TimetableRepository';
 import TimetableUseCase from '~/usecases/TimetableUseCase';
 
+// presenters
+import { groupByStation } from '~/presenters/TimetablePresenter';
+
+// components
+import StationTimetables from '~/components/StationTimetables';
+
 type Props = InferGetStaticPropsType<typeof getStaticProps>;
 type NextPageWithProps = NextPage<Props>;
 
 const BetaPage: NextPageWithProps = ({ timetables }) => {
-  console.log(timetables);
-  return <div>Beta</div>;
+  const groupedTimetables = groupByStation(timetables);
+  // console.log(timetables);
+  return (
+    <div>
+      <h3>Beta</h3>
+      {Object.keys(groupedTimetables).map((station) => (
+        <StationTimetables
+          key={station}
+          station={station}
+          timetables={groupedTimetables[station]}
+        />
+      ))}
+    </div>
+  );
 };
 
 Timetable.registerPersistentProps();
