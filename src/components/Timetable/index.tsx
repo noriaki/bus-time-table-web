@@ -5,26 +5,39 @@ import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
+import Typography from '@material-ui/core/Typography';
 
-import Timetable from '~/models/Timetable';
+import { WeekdayTimetable, HolidayTimetable } from '~/models/Timetable';
 import { leftFillZero } from '~/presenters/TimetablePresenter';
 
+import useStyles from './index.style';
+
 type Props = {
-  timetable: Timetable;
+  timetable: WeekdayTimetable | HolidayTimetable;
 };
 type VFCwithProps = VFC<Props>;
 
 const minutes = [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55] as const;
 
-const TimetableComponent: VFCwithProps = ({ timetable }) => {
+const Timetable: VFCwithProps = ({ timetable }) => {
   const data = timetable.asData();
 
+  const classes = useStyles({ isHoliday: timetable.isActiveOnHoliday });
+
   return (
-    <Table padding="none" size="small" style={{ tableLayout: 'fixed' }}>
+    <Table padding="none" size="small" className={classes.root}>
+      <caption>
+        <Typography component="h4">{timetable.label}のバス時刻表</Typography>
+      </caption>
       <TableBody>
         {data.map((d) => (
           <TableRow key={`${d.hour}`}>
-            <TableCell variant="head" component="th" align="center">
+            <TableCell
+              variant="head"
+              component="th"
+              align="center"
+              className={classes.head}
+            >
               {leftFillZero(d.hour)}
             </TableCell>
             {minutes.map((minute) => (
@@ -41,4 +54,4 @@ const TimetableComponent: VFCwithProps = ({ timetable }) => {
   );
 };
 
-export default TimetableComponent;
+export default Timetable;
