@@ -15,7 +15,10 @@ import { pickByOperationalDay } from '~/presenters/TimetablePresenter';
 import TimetableComponent from '~/components/Timetable';
 
 // containers
-import Clock from '~/containers/ClockContainer';
+import Clock from '../../containers/ClockContainer';
+
+// styles
+import useStyles from './index.styles';
 
 type Props = { station: string; timetables: Timetable[] };
 type VFCwithProps = VFC<Props>;
@@ -35,9 +38,11 @@ const StationTimetables: VFCwithProps = ({ station, timetables }) => {
     setValue(newValue);
   };
 
+  const classes = useStyles();
+
   return (
     <article>
-      <div>
+      <div className={classes.container}>
         <Typography variant="h5" component="h3">
           {station}
           <Typography variant="caption">発</Typography>
