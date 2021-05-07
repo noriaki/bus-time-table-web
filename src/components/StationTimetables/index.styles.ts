@@ -5,41 +5,74 @@ type Props = {
   isHoliday: boolean;
 };
 
-const useStyles = makeStyles(
-  ({ palette, spacing }: Theme) => {
-    const borderColor = lighten(fade(palette.divider, 1), 0.88);
-
-    return {
-      container: {
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'baseline',
-      },
-      root: (props: Props) => {
-        const p = props.isHoliday ? palette.holiday : palette.weekday;
-        return {
-          tableLayout: 'fixed',
-          '& caption': {
-            padding: spacing(1, 2, 0.5),
-            captionSide: 'top',
-            backgroundColor: p.main,
-            color: p.contrastText,
-          },
-        };
-      },
-      head: (props: Props) => {
-        const p = props.isHoliday ? palette.holiday : palette.weekday;
-        return {
-          width: '2em',
-          borderRight: `solid 1px ${borderColor}`,
-          backgroundColor: lighten(p.light, 0.5),
-        };
-      },
-    };
-  },
+export const useContainerStyles = makeStyles(
+  ({ spacing }: Theme) => ({
+    container: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      marginBottom: spacing(0.5),
+    },
+  }),
   {
-    name: 'Timetable',
+    name: 'StationTimetables',
   }
 );
 
-export default useStyles;
+export const useTabsStyles = makeStyles(
+  ({ palette, spacing }: Theme) => ({
+    root: {
+      backgroundColor: '#eee',
+      borderRadius: 10,
+      minHeight: 'unset',
+    },
+    flexContainer: {
+      display: 'inline-flex',
+      position: 'relative',
+      zIndex: 1,
+    },
+    indicator: {
+      top: 3,
+      bottom: 3,
+      right: 3,
+      height: 'auto',
+      background: 'none',
+      '&:after': {
+        content: '""',
+        display: 'block',
+        position: 'absolute',
+        top: 0,
+        left: 4,
+        right: 4,
+        bottom: 0,
+        borderRadius: 8,
+        backgroundColor: ({ isHoliday }: Props) =>
+          isHoliday ? palette.holiday.light : palette.weekday.light,
+        boxShadow: '0 4px 12px 0 rgba(0,0,0,0.16)',
+      },
+    },
+  }),
+  { name: 'StationTimetablesTabs' }
+);
+
+export const useTabItemStyles = makeStyles(
+  ({ palette }: Theme) => ({
+    root: {
+      '&:hover': {
+        opacity: 1,
+      },
+      minHeight: 'unset',
+    },
+    wrapper: {
+      color: palette.text.primary,
+      textTransform: 'initial',
+    },
+    selected: {
+      fontWeight: 'bold',
+      '& $wrapper': {
+        color: palette.common.white,
+      },
+    },
+  }),
+  { name: 'StationTimetablesTabItem' }
+);

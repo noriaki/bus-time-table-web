@@ -18,7 +18,11 @@ import TimetableComponent from '~/components/Timetable';
 import Clock from '../../containers/ClockContainer';
 
 // styles
-import useStyles from './index.styles';
+import {
+  useContainerStyles,
+  useTabItemStyles,
+  useTabsStyles,
+} from './index.styles';
 
 type Props = { station: string; timetables: Timetable[] };
 type VFCwithProps = VFC<Props>;
@@ -38,11 +42,17 @@ const StationTimetables: VFCwithProps = ({ station, timetables }) => {
     setValue(newValue);
   };
 
-  const classes = useStyles();
+  const isHoliday = [weekdayTimetable, holidayTimetable].find(
+    ({ id }) => id === value
+  )?.isActiveOnHoliday;
+
+  const containerClasses = useContainerStyles();
+  const tabsClasses = useTabsStyles({ isHoliday });
+  const tabItemClasses = useTabItemStyles();
 
   return (
     <article>
-      <div className={classes.container}>
+      <div className={containerClasses.container}>
         <Typography variant="h5" component="h3">
           {station}
           <Typography variant="caption">発</Typography>
@@ -50,10 +60,21 @@ const StationTimetables: VFCwithProps = ({ station, timetables }) => {
         <Tabs
           value={value}
           onChange={handleChange}
+          classes={tabsClasses}
           aria-label={`${station}'s Weekday and Holiday Timetable`}
         >
-          <Tab label={weekdayTimetable.label} value={weekdayTimetable.id} />
-          <Tab label={holidayTimetable.label} value={holidayTimetable.id} />
+          <Tab
+            label={weekdayTimetable.label}
+            value={weekdayTimetable.id}
+            disableRipple
+            classes={tabItemClasses}
+          />
+          <Tab
+            label={holidayTimetable.label}
+            value={holidayTimetable.id}
+            disableRipple
+            classes={tabItemClasses}
+          />
         </Tabs>
       </div>
       <div hidden={value !== weekdayTimetable.id}>
