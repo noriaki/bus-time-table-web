@@ -8,6 +8,26 @@
   "isActiveOnHoliday": true,
   "timetable": [
     {
+      "hour": 6,
+      "minutes": [],
+      "estimated": false
+    },
+    {
+      "hour": 7,
+      "minutes": [],
+      "estimated": false
+    },
+    {
+      "hour": 8,
+      "minutes": [],
+      "estimated": false
+    },
+    {
+      "hour": 9,
+      "minutes": [],
+      "estimated": false
+    },
+    {
       "hour": 10,
       "minutes": [0],
       "estimated": false
@@ -50,6 +70,36 @@
     {
       "hour": 18,
       "minutes": [30],
+      "estimated": false
+    },
+    {
+      "hour": 19,
+      "minutes": [],
+      "estimated": false
+    },
+    {
+      "hour": 20,
+      "minutes": [],
+      "estimated": false
+    },
+    {
+      "hour": 21,
+      "minutes": [],
+      "estimated": false
+    },
+    {
+      "hour": 22,
+      "minutes": [],
+      "estimated": false
+    },
+    {
+      "hour": 23,
+      "minutes": [],
+      "estimated": false
+    },
+    {
+      "hour": 24,
+      "minutes": [],
       "estimated": false
     }
   ]

@@ -1,100 +1,100 @@
 {
   "version": 20210301,
   "published": "2021-03-01T00:00:00+09:00",
-  "id": "home-weekday",
-  "station": "マンション",
-  "label": "平日",
-  "activeDaysOfWeek": [1, 2, 3, 4, 5],
-  "isActiveOnHoliday": false,
+  "id": "shimbashi-holiday",
+  "station": "新橋駅",
+  "label": "土日祝",
+  "activeDaysOfWeek": [0, 6],
+  "isActiveOnHoliday": true,
   "timetable": [
     {
       "hour": 6,
-      "minutes": [0, 30, 45],
+      "minutes": [],
       "estimated": false
     },
     {
       "hour": 7,
-      "minutes": [15, 30, 45],
+      "minutes": [],
       "estimated": false
     },
     {
       "hour": 8,
-      "minutes": [0, 15, 30, 45],
+      "minutes": [],
       "estimated": false
     },
     {
       "hour": 9,
-      "minutes": [15, 40],
+      "minutes": [],
       "estimated": false
     },
     {
       "hour": 10,
-      "minutes": [20],
+      "minutes": [15],
       "estimated": false
     },
     {
       "hour": 11,
-      "minutes": [0],
+      "minutes": [15],
       "estimated": false
     },
     {
       "hour": 12,
-      "minutes": [0],
+      "minutes": [15],
       "estimated": false
     },
     {
       "hour": 13,
-      "minutes": [0],
+      "minutes": [45],
       "estimated": false
     },
     {
       "hour": 14,
-      "minutes": [0],
+      "minutes": [45],
       "estimated": false
     },
     {
       "hour": 15,
-      "minutes": [0],
+      "minutes": [45],
       "estimated": false
     },
     {
       "hour": 16,
-      "minutes": [0],
+      "minutes": [45],
       "estimated": false
     },
     {
       "hour": 17,
-      "minutes": [5, 45],
+      "minutes": [45],
       "estimated": false
     },
     {
       "hour": 18,
-      "minutes": [0, 25, 40],
+      "minutes": [45],
       "estimated": false
     },
     {
       "hour": 19,
-      "minutes": [5, 20, 35, 45],
+      "minutes": [],
       "estimated": false
     },
     {
       "hour": 20,
-      "minutes": [0, 15, 40, 55],
+      "minutes": [],
       "estimated": false
     },
     {
       "hour": 21,
-      "minutes": [35, 50],
+      "minutes": [],
       "estimated": false
     },
     {
       "hour": 22,
-      "minutes": [15, 40],
+      "minutes": [],
       "estimated": false
     },
     {
       "hour": 23,
-      "minutes": [15, 50],
+      "minutes": [],
       "estimated": false
     },
     {
