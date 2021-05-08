@@ -42,7 +42,7 @@ const StationTimetables: VFCwithProps = ({ station, timetables }) => {
     setValue(newValue);
   };
 
-  const isHoliday = [weekdayTimetable, holidayTimetable].find(
+  const isHoliday = !![weekdayTimetable, holidayTimetable].find(
     ({ id }) => id === value
   )?.isActiveOnHoliday;
 
