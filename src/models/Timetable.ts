@@ -23,7 +23,7 @@ const shiftTime = (currentTime: Parameters<typeof createDayjs>[0]) =>
 export const daysOfWeek = [SUN, MON, TUE, WED, THU, FRI, SAT] as const;
 export type DaysOfWeek = typeof daysOfWeek[number];
 
-const stationIds = ['home', 'shimbashi', 'higashiginza'] as const;
+const stationIds = ['home', 'higashiginza', 'shimbashi'] as const;
 const operationalDayIds = ['weekday', 'holiday'] as const;
 export type StationId = typeof stationIds[number];
 export type OperationalDayId = typeof operationalDayIds[number];
