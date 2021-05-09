@@ -1,8 +1,10 @@
 import { isHoliday } from '@holiday-jp/holiday_jp';
+import SuperJSON from 'superjson';
 
 import dayjs, {
   createDayjs,
   Duration,
+  DurationUnitType,
   SUN,
   MON,
   TUE,
@@ -21,7 +23,7 @@ const shiftTime = (currentTime: Parameters<typeof createDayjs>[0]) =>
 export const daysOfWeek = [SUN, MON, TUE, WED, THU, FRI, SAT] as const;
 export type DaysOfWeek = typeof daysOfWeek[number];
 
-const stationIds = ['home', 'shimbashi', 'higashiginza'] as const;
+const stationIds = ['home', 'higashiginza', 'shimbashi'] as const;
 const operationalDayIds = ['weekday', 'holiday'] as const;
 export type StationId = typeof stationIds[number];
 export type OperationalDayId = typeof operationalDayIds[number];
@@ -32,13 +34,28 @@ export type ConvertTimePropObject = {
 };
 export type ConvertTimeProps = ConvertTimePropObject | number;
 
+type TimetableJSON = {
+  id: string;
+  published: string;
+  station: string;
+  label: string;
+  activeDaysOfWeek: DaysOfWeek[];
+  isActiveOnHoliday: boolean;
+  data: string[];
+};
+
+export type DataJSON = {
+  hour: number;
+  minutes: number[];
+};
+
 export default class Timetable {
   readonly id: string;
   readonly published: Date;
   readonly station: string;
   readonly label: string;
   private readonly activeDaysOfWeek: DaysOfWeek[];
-  private readonly isActiveOnHoliday: boolean;
+  readonly isActiveOnHoliday: boolean;
   private readonly data: Duration[];
 
   constructor(
@@ -107,6 +124,73 @@ export default class Timetable {
     return false;
   }
 
+  asData(): DataJSON[] {
+    return this.data.reduce<DataJSON[]>((ret, time) => {
+      const hour = getPropFromDuration(time, 'hour') + TIME_SHIFT;
+      const minute = getPropFromDuration(time, 'minute');
+      const index = ret.findIndex((d) => d.hour === hour);
+      if (index === -1) {
+        ret.push({
+          hour,
+          minutes: [minute],
+        });
+        return ret;
+      }
+      ret[index].minutes.push(minute);
+      return ret;
+    }, []);
+  }
+
   // isInOperationalTime(currentTime: number): boolean {
   // }
+
+  /* Passing values between server and client side (with SuperJSON) */
+  /* #asJSON, .fromJSON, .isTimetable, .registerPersistentProps */
+  asJSON(): TimetableJSON {
+    return JSON.parse(JSON.stringify(this));
+  }
+
+  static fromJSON(props: TimetableJSON): Timetable {
+    return new Timetable(
+      props.id,
+      new Date(props.published),
+      props.station,
+      props.label,
+      props.activeDaysOfWeek,
+      props.isActiveOnHoliday,
+      props.data.map((d) => dayjs.duration(d))
+    );
+  }
+
+  static isTimetable(t: unknown): t is Timetable {
+    return t instanceof Timetable;
+  }
+
+  static registerPersistentProps(): void {
+    SuperJSON.registerCustom<Timetable, TimetableJSON>(
+      {
+        isApplicable: Timetable.isTimetable,
+        serialize: (v) => v.asJSON(),
+        deserialize: Timetable.fromJSON,
+      },
+      'Timetable'
+    );
+  }
+}
+
+const getPropFromDuration = (d: Duration, unit: DurationUnitType): number => {
+  const value = d.get(unit);
+  if (value === undefined) {
+    return 0;
+  } else if (typeof value === 'string') {
+    return parseInt(value, 10);
+  }
+  return value;
+};
+
+export interface WeekdayTimetable extends Timetable {
+  isActiveOnHoliday: false;
+}
+export interface HolidayTimetable extends Timetable {
+  isActiveOnHoliday: true;
 }

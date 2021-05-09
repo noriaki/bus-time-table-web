@@ -7,10 +7,18 @@ import {
 
 import timetableDataHomeWeekday from '~/data/timetable/home-weekday.json';
 import timetableDataHomeHoliday from '~/data/timetable/home-holiday.json';
+import timetableDataHigashiginzaWeekday from '~/data/timetable/higashiginza-weekday.json';
+import timetableDataHigashiginzaHoliday from '~/data/timetable/higashiginza-holiday.json';
+import timetableDataShimbashiWeekday from '~/data/timetable/shimbashi-weekday.json';
+import timetableDataShimbashiHoliday from '~/data/timetable/shimbashi-holiday.json';
 
 const timetables = [
   timetableDataHomeWeekday,
   timetableDataHomeHoliday,
+  timetableDataHigashiginzaWeekday,
+  timetableDataHigashiginzaHoliday,
+  timetableDataShimbashiWeekday,
+  timetableDataShimbashiHoliday,
 ] as TimetableJson[];
 
 export default class TimetableDriver implements TimetableDriverInterface {

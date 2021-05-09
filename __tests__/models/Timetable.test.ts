@@ -236,6 +236,35 @@ describe('Domain models / Timetable', () => {
       expect(subject).toBeNull();
     });
   });
+
+  describe('#asData', () => {
+    let timetable: Timetable;
+    beforeEach(() => {
+      timetable = new Timetable(
+        'test',
+        new Date('2021-03-01T00:00:00+09:00'),
+        'station',
+        'label',
+        [1, 2, 3, 4, 5],
+        false,
+        createFixtureData()
+      );
+    });
+
+    it('should transform to { hour: number, minutes: number[] } for Table view', () => {
+      const expected = [
+        { hour: 6, minutes: [0, 30, 50] },
+        { hour: 7, minutes: [0, 10, 20, 30, 40, 50] },
+        { hour: 8, minutes: [0, 10, 30, 45, 55] },
+        { hour: 9, minutes: [5, 40] },
+        { hour: 23, minutes: [10, 20, 50] },
+        { hour: 24, minutes: [20, 40] },
+        { hour: 25, minutes: [0] },
+      ];
+      const subject = timetable.asData();
+      expect(subject).toEqual(expected);
+    });
+  });
 });
 
 const createFixtureData = () => [
