@@ -62,12 +62,16 @@ export const useTabsStyles = makeStyles(
 );
 
 export const useTabItemStyles = makeStyles(
-  ({ palette }: Theme) => ({
+  ({ palette, breakpoints }: Theme) => ({
     root: {
       '&:hover': {
         opacity: 1,
       },
       minHeight: 'unset',
+      minWidth: 80,
+      [breakpoints.up('sm')]: {
+        minWidth: 80,
+      },
     },
     wrapper: {
       color: palette.text.primary,
