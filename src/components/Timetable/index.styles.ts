@@ -14,6 +14,10 @@ const useStyles = makeStyles(
         const p = props.isHoliday ? palette.holiday : palette.weekday;
         return {
           tableLayout: 'fixed',
+          '& caption': {
+            textAlign: 'right',
+            paddingTop: spacing(1),
+          },
         };
       },
       head: (props: Props) => {
