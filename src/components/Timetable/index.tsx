@@ -28,6 +28,11 @@ const Timetable: VFCwithProps = ({ timetable }) => {
 
   return (
     <Table padding="none" size="small" className={classes.root}>
+      <caption>
+        {timetable.station}から発車するバスの{timetable.label}の時刻表
+        <br />
+        最終更新日：{timetable.displayPublishedDate()}
+      </caption>
       <TableBody>
         {mapDataToHours(data).map((d) => (
           <TableRow key={`${d.hour}`}>
