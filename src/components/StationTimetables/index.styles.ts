@@ -8,10 +8,15 @@ type Props = {
 export const useContainerStyles = makeStyles(
   ({ spacing }: Theme) => ({
     container: {
+      marginBottom: spacing(2),
+      borderRadius: spacing(2),
+    },
+    header: {
       display: 'flex',
       justifyContent: 'space-between',
       alignItems: 'center',
       marginBottom: spacing(0.5),
+      padding: spacing(1, 1, 0),
     },
   }),
   {
