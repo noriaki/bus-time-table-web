@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState, VFC } from 'react';
+import React, { ChangeEvent, useEffect, useState, VFC } from 'react';
 
 // material-ui
 import Tabs from '@material-ui/core/Tabs';
@@ -15,9 +15,6 @@ import { pickByOperationalDay } from '~/presenters/TimetablePresenter';
 // components
 import TimetableComponent from '~/components/Timetable';
 
-// containers
-import Clock from '../../containers/ClockContainer';
-
 // styles
 import {
   useContainerStyles,
@@ -30,12 +27,8 @@ type VFCwithProps = VFC<Props>;
 
 const StationTimetables: VFCwithProps = ({ station, timetables }) => {
   const [weekdayTimetable, holidayTimetable] = pickByOperationalDay(timetables);
-  const { currentTime } = Clock.useContainer();
-  const selectedTimetable = [weekdayTimetable, holidayTimetable].find((t) =>
-    t.isInServiceDay(currentTime)
-  );
 
-  const [value, setValue] = useState(selectedTimetable?.id);
+  const [value, setValue] = useState(weekdayTimetable?.id); // default weekday
   const handleChange = (
     _: ChangeEvent<Record<string, never>>,
     newValue: string
@@ -43,6 +36,16 @@ const StationTimetables: VFCwithProps = ({ station, timetables }) => {
     setValue(newValue);
   };
 
+  useEffect(() => {
+    // change timetable by client local-time
+    const currentTime = Date.now();
+    const currentTimetableId = [weekdayTimetable, holidayTimetable].find((t) =>
+      t.isInServiceDay(currentTime)
+    )?.id;
+    setValue(currentTimetableId);
+  }, [weekdayTimetable, holidayTimetable]);
+
+  // change styles based on selected timetable
   const isHoliday = !![weekdayTimetable, holidayTimetable].find(
     ({ id }) => id === value
   )?.isActiveOnHoliday;
