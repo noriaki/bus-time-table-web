@@ -40,6 +40,7 @@ const Timetable: VFCwithProps = ({ timetable }) => {
               variant="head"
               component="th"
               align="center"
+              scope="row"
               className={classes.head}
             >
               {leftFillZero(d.hour)}
