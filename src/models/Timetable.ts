@@ -141,6 +141,10 @@ export default class Timetable {
     }, []);
   }
 
+  displayPublishedDate(): string {
+    return createDayjs(this.published).format('YYYY/MM/DD');
+  }
+
   // isInOperationalTime(currentTime: number): boolean {
   // }
 

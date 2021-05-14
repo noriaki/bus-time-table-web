@@ -3,6 +3,7 @@ import React, { ChangeEvent, useState, VFC } from 'react';
 // material-ui
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 
 // models
@@ -51,8 +52,12 @@ const StationTimetables: VFCwithProps = ({ station, timetables }) => {
   const tabItemClasses = useTabItemStyles();
 
   return (
-    <article>
-      <div className={containerClasses.container}>
+    <Paper
+      component="article"
+      elevation={0}
+      className={containerClasses.container}
+    >
+      <div className={containerClasses.header}>
         <Typography variant="h5" component="h3">
           {station}
           <Typography variant="caption">発</Typography>
@@ -83,7 +88,7 @@ const StationTimetables: VFCwithProps = ({ station, timetables }) => {
       <div hidden={value !== holidayTimetable.id}>
         <TimetableComponent timetable={holidayTimetable} />
       </div>
-    </article>
+    </Paper>
   );
 };
 
