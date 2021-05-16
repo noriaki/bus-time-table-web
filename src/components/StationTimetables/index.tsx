@@ -28,7 +28,7 @@ type VFCwithProps = VFC<Props>;
 const StationTimetables: VFCwithProps = ({ station, timetables }) => {
   const [weekdayTimetable, holidayTimetable] = pickByOperationalDay(timetables);
 
-  const [value, setValue] = useState(weekdayTimetable?.id); // default weekday
+  const [value, setValue] = useState(weekdayTimetable.id); // default weekday
   const handleChange = (
     _: ChangeEvent<Record<string, never>>,
     newValue: string
@@ -39,10 +39,12 @@ const StationTimetables: VFCwithProps = ({ station, timetables }) => {
   useEffect(() => {
     // change timetable by client local-time
     const currentTime = Date.now();
-    const currentTimetableId = [weekdayTimetable, holidayTimetable].find((t) =>
+    const currentTimetable = [weekdayTimetable, holidayTimetable].find((t) =>
       t.isInServiceDay(currentTime)
-    )?.id;
-    setValue(currentTimetableId);
+    );
+    if (currentTimetable != null) {
+      setValue(currentTimetable.id);
+    }
   }, [weekdayTimetable, holidayTimetable]);
 
   // change styles based on selected timetable
