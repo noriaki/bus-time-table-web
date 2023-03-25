@@ -29,7 +29,7 @@
     "@material-ui/icons": "4.11.2",
     "@material-ui/styles": "4.11.4",
     "babel-plugin-module-resolver": "4.1.0",
-    "clsx": "1.1.1",
+    "clsx": "1.2.1",
     "dayjs": "1.11.7",
     "next": "10.2.3",
     "next-workbox-webpack-plugin": "2.1.1",
