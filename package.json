@@ -25,9 +25,9 @@
   "license": "MIT",
   "dependencies": {
     "@holiday-jp/holiday_jp": "2.4.0",
-    "@material-ui/core": "4.11.4",
-    "@material-ui/icons": "4.11.2",
-    "@material-ui/styles": "4.11.4",
+    "@material-ui/core": "4.12.4",
+    "@material-ui/icons": "4.11.3",
+    "@material-ui/styles": "4.11.5",
     "babel-plugin-module-resolver": "4.1.0",
     "clsx": "1.2.1",
     "dayjs": "1.11.7",
